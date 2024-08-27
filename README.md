@@ -1,16 +1,15 @@
-## Hi there 👋
+# La Flamme de l'Ombre
 
-<!--
-**Laflammedelombre/Laflammedelombre** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+La Flamme de l'Ombre est un site de cartomancie et de spiritualité, créé pour offrir des services de guidance et de divination. Sur ce site, vous trouverez des informations sur mes services, mes produits, ainsi que des moyens de me contacter.
 
-Here are some ideas to get you started:
+## Visiter le Site
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Accédez à mon site ici : [www.laflammedelombre.com](https://www.laflammedelombre.com)
+
+## Contact
+
+Pour toute question ou demande, vous pouvez me contacter à [laflammedelombre@gmail.com](mailto:laflammedelombre@gmail.com).
+
+Suivez-moi sur les réseaux sociaux :
+- [Instagram](https://www.instagram.com/la_flamme_de_lombre?igsh=MWRyaHVpcDBxaDJ0bg==)
+- [TikTok](https://www.tiktok.com/@la.flamme.de.lomb?_t=8pEDOSCWNCS&_r=1)
