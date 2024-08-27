@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Flamme de l'Ombre</title>
+</head>
+<body>
+    <header>
+        <h1>La Flamme de l'Ombre</h1>
+        <p>Cartomancien, créateur d'oracle</p>
+    </header>
+    
+    <img src="images/ton-image-accueil.jpg" alt="Image de la chaumière">
+    
+    <nav>
+        <ul>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
