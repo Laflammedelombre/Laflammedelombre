@@ -12,6 +12,10 @@
             margin: 0;
             padding: 20px;
             text-align: center; /* Centrer le texte */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
         }
         h1 {
             font-size: 3em; /* Taille du titre */
@@ -20,20 +24,76 @@
         p {
             font-size: 1.2em; /* Taille du texte */
             line-height: 1.5em; /* Hauteur de ligne */
+            margin-bottom: 30px;
         }
         a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
         }
         a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
+        img {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+        }
+        nav ul {
+            list-style-type: none; /* Enlève les puces des listes */
+            padding: 0;
+            margin: 20px 0;
+        }
+        nav ul li {
+            display: inline; /* Affiche les éléments de la liste en ligne */
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
+        }
+        nav ul li a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid white;
+        }
+        footer nav ul li {
+            display: block; /* Met les liens en colonne */
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
     <h1>Mon Oracle Minimaliste</h1>
+    <img src="Images/Chaumiere.jpeg.jpg" alt="Oracle Minimaliste">
     <p>Découvrez un oracle unique en son genre, entièrement imaginé et dessiné par mes soins. Cet oracle, imprimé en France 🇫🇷, se distingue par son approche minimaliste, conçue pour encourager l'intuition plutôt que de se reposer uniquement sur les interprétations classiques des cartes.</p>
     <p>Prix : 40 EUR - <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ">Réserver votre Oracle Minimaliste</a></p>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
 </body>
 </html>
