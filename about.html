@@ -12,6 +12,10 @@
             margin: 0;
             padding: 20px;
             text-align: center; /* Centrer le texte */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
         }
         h1 {
             font-size: 3em; /* Taille du titre */
@@ -27,11 +31,59 @@
             margin: 20px auto;
             display: block;
         }
+        nav ul {
+            list-style-type: none; /* Enlève les puces des listes */
+            padding: 0;
+            margin: 20px 0;
+        }
+        nav ul li {
+            display: inline; /* Affiche les éléments de la liste en ligne */
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
+        }
+        nav ul li a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid white;
+        }
+        footer nav ul li {
+            display: block; /* Met les liens en colonne */
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
     <h1>À propos de moi</h1>
-    <img src="images/Sorcier.jpeg.jpg" alt="Sorcier avec Maine Coon">
+    <img src="Images/Sorcier.jpeg.jpg" alt="Sorcier avec Maine Coon">
     <p>Bonjour et bienvenue sur "La Flamme de l'Ombre". Je suis un cartomancien de 31 ans avec une passion profonde pour l'art ancestral de la divination et le développement spirituel. J'ai commencé mon parcours en cartomancie il y a environ deux ans, en aidant d'abord mes proches, avant de partager ma pratique avec une communauté plus large via TikTok. Mon développement en médiumnité est un travail en cours, mais pour l'instant, je me concentre principalement sur la cartomancie. J'ai également créé mon propre oracle, conçu pour encourager l'intuition plutôt que de se fier uniquement aux interprétations traditionnelles des cartes.</p>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
 </body>
 </html>
