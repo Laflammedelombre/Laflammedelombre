@@ -52,6 +52,18 @@
             margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
         }
+        .card-gallery {
+            display: flex;
+            justify-content: center; /* Centre les images */
+            gap: 10px; /* Espacement entre les images */
+            margin-bottom: 20px;
+        }
+        .card-gallery img {
+            width: 150px; /* Taille fixe pour les images des cartes */
+            height: auto;
+            border: 1px solid #888888; /* Bordure pour les images */
+            border-radius: 5px; /* Bordures arrondies */
+        }
         nav ul {
             list-style-type: none; /* Enlève les puces des listes */
             padding: 0;
@@ -69,11 +81,6 @@
         nav ul li a:hover {
             text-decoration: underline; /* Souligne les liens au survol */
         }
-        footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid white;
-        }
     </style>
 </head>
 <body>
@@ -89,6 +96,19 @@
 
     <h1>L'Oracle by J</h1>
     <img src="images/Byj.jpg" alt="Oracle by J">
+
+    <!-- Galerie des cartes -->
+    <div class="card-gallery">
+        <img src="images/Fidélité.webp" alt="Fidélité">
+        <img src="images/Secret.webp" alt="Secret">
+        <img src="images/Dépendance.webp" alt="Dépendance">
+        <img src="images/Campagne.webp" alt="Campagne">
+    </div>
+
+    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+
+    <p>Imaginé et dessiné 100% par mes soins, cet oracle est de style Art Line et est imprimé en France. Chaque exemplaire sera numéroté et personnalisé au prénom du propriétaire de l'oracle. Le prénom du/de la futur(e) propriétaire sera demandé à la commande.</p>
+
     <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
     
     <p>Livraison offerte.</p>
