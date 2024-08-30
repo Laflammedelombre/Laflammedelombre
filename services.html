@@ -35,13 +35,20 @@
             margin: 15px 0;
             font-size: 1.2em;
         }
-        a {
-            color: white; /* Couleur des liens en blanc */
+        .btn {
+            background-color: #ff6600; /* Couleur d'arrière-plan orange */
+            color: white; /* Texte blanc */
+            padding: 10px 20px; /* Espacement interne */
+            text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
+            display: inline-block; /* S'assure que le bouton est en ligne */
+            font-size: 1.2em; /* Taille du texte */
+            margin: 5px 0; /* Marge externe */
+            border-radius: 5px; /* Bordure arrondie */
+            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
         }
-        a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+        .btn:hover {
+            background-color: #cc5200; /* Couleur d'arrière-plan plus foncée au survol */
         }
         nav ul {
             list-style-type: none; /* Enlève les puces des listes */
@@ -85,10 +92,10 @@
     <h1>Services de Cartomancie</h1>
     <p>La Flamme de l’Ombre vous propose des séances de cartomancie adaptées à vos besoins et questions. Les sessions se font par téléphone ou visio, et elles sont possibles en réel pour les personnes étant proches de La Ciotat. Voici les options de consultation disponibles :</p>
     <ul>
-        <li>Séance de 15 minutes - 5 EUR - <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG">Réserver</a></li>
-        <li>Séance de 30 minutes - 10 EUR - <a href="https://www.paypal.com/ncp/payment/DEXF68XVDRW5Y">Réserver</a></li>
-        <li>Séance de 45 minutes - 15 EUR - <a href="https://www.paypal.com/ncp/payment/7UUXA4WPBBAEY">Réserver</a></li>
-        <li>Question Live TikTok - 3 EUR - <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6">Réserver</a></li>
+        <li>Séance de 15 minutes - 5 EUR - <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG" class="btn">Réserver</a></li>
+        <li>Séance de 30 minutes - 10 EUR - <a href="https://www.paypal.com/ncp/payment/DEXF68XVDRW5Y" class="btn">Réserver</a></li>
+        <li>Séance de 45 minutes - 15 EUR - <a href="https://www.paypal.com/ncp/payment/7UUXA4WPBBAEY" class="btn">Réserver</a></li>
+        <li>Question Live TikTok - 3 EUR - <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Réserver</a></li>
     </ul>
 
 </body>
