@@ -24,20 +24,31 @@
         p {
             font-size: 1.2em; /* Taille du texte */
             line-height: 1.5em; /* Hauteur de ligne */
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
-        a {
-            color: white; /* Couleur des liens en blanc */
+        .btn {
+            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
+            color: white; /* Texte blanc */
+            padding: 10px 20px; /* Espacement interne */
+            text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
+            display: inline-block; /* S'assure que le bouton est en ligne */
+            font-size: 1.2em; /* Taille du texte */
+            margin: 5px 0; /* Marge externe */
+            border-radius: 5px; /* Bordure arrondie */
+            border: 1px solid #888888; /* Bordure gris clair */
+            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
+            width: 400px; /* Largeur fixe pour les boutons */
+            box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+            white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
-        a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+        .btn:hover {
+            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
         }
         img {
-            width: 80%;
+            width: 80%; /* Ajuste la taille de l'image */
             max-width: 600px;
-            margin: 20px auto;
+            margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
         }
         nav ul {
@@ -62,10 +73,6 @@
             padding-top: 20px;
             border-top: 1px solid white;
         }
-        footer nav ul li {
-            display: block; /* Met les liens en colonne */
-            margin: 10px 0;
-        }
     </style>
 </head>
 <body>
@@ -79,10 +86,13 @@
         </ul>
     </nav>
 
-    <h1>Mon Oracle Minimaliste</h1>
-    <img src="images/Byj.jpg" alt="Oracle Minimaliste">
+    <h1>L'Oracle by J</h1>
+    <img src="Images/Chaumiere.jpeg.jpg" alt="Oracle by J">
     <p>Découvrez un oracle unique en son genre, entièrement imaginé et dessiné par mes soins. Cet oracle, imprimé en France 🇫🇷, se distingue par son approche minimaliste, conçue pour encourager l'intuition plutôt que de se reposer uniquement sur les interprétations classiques des cartes.</p>
-    <p>Prix : 40 EUR - <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ">Réserver votre Oracle Minimaliste</a></p>
+
+    <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
+
+    <p>L'Oracle by J sortira fin 2024.</p>
 
 </body>
 </html>
