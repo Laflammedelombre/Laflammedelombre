@@ -48,6 +48,24 @@
             margin: 20px auto;
             display: block;
         }
+        .btn {
+            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
+            color: white; /* Texte blanc */
+            padding: 15px 30px; /* Espacement interne */
+            text-align: center;
+            text-decoration: none; /* Enlève le soulignement */
+            display: inline-block; /* S'assure que le bouton est en ligne */
+            font-size: 1.2em; /* Taille du texte */
+            margin: 20px 0; /* Espace autour du bouton */
+            border-radius: 5px; /* Bordure arrondie */
+            border: 1px solid #888888; /* Bordure gris clair */
+            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
+            width: 400px; /* Largeur fixe pour les boutons */
+            white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
+        }
+        .btn:hover {
+            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
+        }
         nav ul {
             list-style-type: none;
             padding: 0;
@@ -61,13 +79,9 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
-            padding: 10px 15px;
-            border: 1px solid white;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
         }
         nav ul li a:hover {
-            background-color: #444;
+            text-decoration: underline;
         }
         footer {
             margin-top: 30px;
@@ -95,7 +109,11 @@
     <h1>Avis de nos Clients</h1>
 
     <!-- Image du sorcier en train d'écrire sur son ordinateur -->
-    <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
+    <img src="images/avis.imagejpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
+
+    <!-- Bouton pour laisser un commentaire -->
+    <a href="https://docs.google.com/forms/d/1gIxQxhQp0L8-xMtlwUlBmQ4ulEDLt-4m2F0lAemilSg/prefill" class="btn">Laisser un commentaire</a>
+    <p style="font-size: 0.9em; color: #888;">Note : Les commentaires peuvent mettre plusieurs heures avant d'apparaître sur le site.</p>
 
     <!-- Premier avis client -->
     <div class="avis-container">
