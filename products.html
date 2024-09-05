@@ -53,7 +53,7 @@
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 350px; /* Largeur identique pour tous les boutons */
+            width: 350px; /* Largeur identique pour tous les boutons sur PC */
             white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
         .btn-container {
@@ -75,6 +75,33 @@
         footer p {
             font-size: 0.9em;
             color: #888888; /* Texte gris clair */
+        }
+
+        /* Media Queries pour les écrans plus petits */
+        @media (max-width: 768px) {
+            .btn {
+                width: 100%; /* Les boutons prennent toute la largeur sur mobile */
+                max-width: 300px; /* Largeur maximale pour ne pas être trop grand */
+            }
+            h1 {
+                font-size: 2em; /* Réduction de la taille du titre */
+            }
+            p {
+                font-size: 1.1em; /* Réduction de la taille du texte */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 100%; /* Largeur pleine sur très petits écrans */
+                max-width: 250px; /* Largeur plus petite pour les téléphones */
+            }
+            h1 {
+                font-size: 1.8em; /* Réduction supplémentaire de la taille du titre */
+            }
+            p {
+                font-size: 1em; /* Réduction supplémentaire de la taille du texte */
+            }
         }
     </style>
 </head>
