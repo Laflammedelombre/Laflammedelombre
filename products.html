@@ -49,27 +49,23 @@
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
             font-size: 1.2em; /* Taille du texte */
-            margin: 15px auto; /* Centrage horizontal des boutons */
+            margin: 15px 0; /* Centrage horizontal des boutons */
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
             width: 350px; /* Largeur identique pour tous les boutons */
             white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
-        .btn:hover {
-            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
+        .btn-container {
+            display: flex;
+            flex-direction: column; /* Boutons les uns au-dessus des autres */
+            align-items: center; /* Centre les boutons horizontalement */
         }
         img {
             width: 80%; /* Ajuste la taille de l'image */
             max-width: 600px;
             margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
-        }
-        .btn-container {
-            display: flex;
-            flex-direction: column; /* Boutons les uns au-dessus des autres */
-            align-items: center; /* Centre les boutons horizontalement */
-            width: 100%;
         }
         footer {
             margin-top: 30px;
@@ -105,8 +101,11 @@
     <p>3. Vous serez automatiquement redirigé(e) vers le calendrier pour réserver votre créneau.</p>
     <p>4. Envoyez-moi un email à laflammedelombre@gmail.com avec le numéro de téléphone sur lequel je dois vous appeler.</p>
 
-    <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
-    
+    <div class="btn-container">
+        <!-- Bouton de consultation des créneaux -->
+        <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
+    </div>
+
     <div class="btn-container">
         <!-- Boutons de paiement qui redirigent ensuite vers la réservation -->
         <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG" class="btn">Consultation 15 minutes - 5 EUR</a>
@@ -118,22 +117,22 @@
     <p>Note : J'évite les domaines de la santé et ne fais pas de contact avec les défunts. Mes capacités se concentrent pour l'instant sur la cartomancie.</p>
 
     <h2>Autres Services</h2>
-    
-    <p><strong>Réserver uniquement si je suis actuellement en live sur TikTok.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Poser une question live TikTok - 3 EUR</a>
 
-    <p><strong>Service de questions par mail :</strong> Ce service permet de poser jusqu'à 3 questions par mail. Il est idéal pour les personnes plus timides ou qui préfèrent éviter les consultations en direct. Je m'engage à répondre dans les 48 heures maximum, avec des réponses détaillées. Si quelque chose n'est pas clair, nous pourrons échanger par mail pour clarifier. Après la réservation, envoyez-moi un mail avec les informations suivantes :
-    </p>
-    <ul>
-        <li>Noms et prénoms des personnes concernées par les questions.</li>
-        <li>Âges des personnes concernées.</li>
-        <li>Un mini contexte (très peu de détails pour laisser place à l'intuition).</li>
-        <li>Des questions précises, incluant des délais (par exemple : "Est-ce que je trouverai une relation sérieuse dans les 6 prochains mois ?").</li>
-    </ul>
-    <a href="https://www.paypal.com/ncp/payment/V9G78ASP2PK7Q" class="btn">Poser des questions par mail - 12 EUR</a>
+    <div class="btn-container">
+        <!-- Bouton pour le service TikTok -->
+        <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Poser une question live TikTok - 3 EUR</a>
+    </div>
+
+    <div class="btn-container">
+        <!-- Texte et bouton pour le service de questions par mail -->
+        <a href="https://www.paypal.com/ncp/payment/V9G78ASP2PK7Q" class="btn">Poser des questions par mail - 12 EUR</a>
+    </div>
 
     <p><strong>Envie de laisser un pourboire (tips) ?</strong> Si mes services vous ont aidé et que vous souhaitez soutenir mon travail, vous pouvez laisser un pourboire du montant de votre choix. Merci infiniment pour votre générosité !</p>
-    <a href="https://www.paypal.com/donate/?hosted_button_id=FNJF6AZ2C8CDQ" class="btn">Laisser un pourboire (Tips)</a>
+
+    <div class="btn-container">
+        <a href="https://www.paypal.com/donate/?hosted_button_id=FNJF6AZ2C8CDQ" class="btn">Laisser un pourboire (Tips)</a>
+    </div>
 
     <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
