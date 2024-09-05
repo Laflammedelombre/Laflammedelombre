@@ -36,10 +36,12 @@
             list-style-type: none; /* Enlève les puces des listes */
             padding: 0;
             margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap; /* Permet aux éléments de se répartir sur plusieurs lignes si nécessaire */
+            justify-content: center; /* Centre les liens */
         }
         nav ul li {
-            display: inline-block; /* Affiche les éléments en ligne */
-            margin: 0 10px; /* Réduit l'espacement pour mobile */
+            margin: 10px 15px; /* Espace entre les éléments */
         }
         nav ul li a {
             color: white; /* Couleur des liens en blanc */
@@ -71,7 +73,7 @@
                 width: 90%; /* Image prend moins de largeur pour éviter les débordements */
             }
             nav ul li {
-                margin: 0 5px; /* Réduction de l'espacement entre les liens sur mobile */
+                margin: 10px 5px; /* Réduction de l'espacement entre les liens sur mobile */
             }
         }
 
@@ -85,9 +87,8 @@
             img {
                 width: 100%; /* Image prend toute la largeur pour les très petits écrans */
             }
-            nav ul li {
-                display: block; /* Liens empilés verticalement sur mobile */
-                margin: 10px 0;
+            nav ul {
+                justify-content: flex-start; /* Justifie les liens à gauche sur très petits écrans */
             }
         }
     </style>
