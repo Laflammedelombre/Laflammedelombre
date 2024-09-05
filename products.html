@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produits - La Flamme de l'Ombre</title>
+    <title>Services - La Flamme de l'Ombre</title>
     <style>
         body {
             background-color: black; /* Fond noir */
@@ -12,14 +12,9 @@
             margin: 0;
             padding: 20px;
             text-align: center; /* Centrer le texte */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
         h1 {
-            font-size: 3em; /* Taille du titre */
+            font-size: 2.5em; /* Taille du titre */
             margin-bottom: 20px;
         }
         p {
@@ -27,20 +22,39 @@
             line-height: 1.5em; /* Hauteur de ligne */
             margin-bottom: 20px;
         }
+        a {
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
+        }
+        a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
+        nav ul {
+            list-style-type: none; /* Enlève les puces des listes */
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center; /* Centre les liens */
+            flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+        }
+        nav ul li {
+            margin: 10px 15px; /* Espace entre les liens */
+        }
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 10px 30px; /* Espacement interne ajusté pour que le texte reste sur une ligne */
+            padding: 10px 20px; /* Réduction de l'espacement interne */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Ajustement de la taille du texte */
-            margin: 15px 0; /* Espace autour du bouton */
+            font-size: 1.1em; /* Taille du texte ajustée */
+            margin: 10px 0; /* Réduction de l'espace autour du bouton */
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 270px; /* Largeur légèrement augmentée pour éviter que le texte ne passe sur 2 lignes */
-            max-width: 90%; /* Ajustement pour mobile */
+            width: 280px; /* Largeur fixe plus petite pour que tout tienne sur une ligne */
+            white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
@@ -51,53 +65,20 @@
             margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
         }
-        .card-gallery {
+        .btn-container {
             display: flex;
-            justify-content: center; /* Centre les images */
-            gap: 10px; /* Espacement entre les images */
-            margin-bottom: 20px;
+            flex-direction: column; /* Boutons les uns au-dessus des autres */
+            align-items: center; /* Centre les boutons */
+            gap: 15px;
         }
-        .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes */
-            height: auto;
-            border: 1px solid #888888; /* Bordure pour les images */
-            border-radius: 5px; /* Bordures arrondies */
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid white;
         }
-        nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
-            padding: 0;
-            margin: 20px 0;
-        }
-        nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
-        }
-        nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
-        }
-
-        /* Media Queries pour écrans plus petits */
-        @media (max-width: 768px) {
-            .card-gallery {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
-                gap: 10px;
-            }
-            .btn {
-                width: 250px; /* Ajuste la largeur du bouton pour les écrans plus petits */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .btn {
-                width: 300px; /* Pour les très petits écrans */
-                font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
-            }
+        footer p {
+            font-size: 0.9em;
+            color: #888888; /* Texte gris clair */
         }
     </style>
 </head>
@@ -113,24 +94,49 @@
         </ul>
     </nav>
 
-    <h1>L'Oracle by J</h1>
-    <img src="images/Byj.jpg" alt="Oracle by J">
+    <h1>Service de Cartomancie</h1>
+    <p>La Flamme de l'Ombre vous propose des séances de cartomancie pour vous guider dans divers domaines de votre vie.</p>
+    
+    <img src="images/Tirage.webp" alt="Tirage de Cartes">
+    
+    <h2>Comment réserver ma séance ?</h2>
+    <p>1. Consultez les créneaux disponibles via le bouton « Créneaux disponibles ». Si un créneau vous correspond, vous pouvez passer à l'étape suivante. <strong>Note : Réserver via ce lien seul ne validera pas votre réservation, seule la confirmation de paiement le fera.</strong></p>
+    <p>2. Choisissez la séance qui vous convient et cliquez sur le bouton associé. Payez via PayPal ou par carte.</p>
+    <p>3. Vous serez automatiquement redirigé(e) vers le calendrier pour réserver votre créneau.</p>
+    <p>4. Envoyez-moi un email à laflammedelombre@gmail.com avec le numéro de téléphone sur lequel je dois vous appeler.</p>
 
-    <!-- Galerie des cartes -->
-    <div class="card-gallery">
-        <img src="images/Fidelite.jpeg" alt="Fidélité">
-        <img src="images/Secret.jpeg" alt="Secret">
-        <img src="images/Dependance.jpeg" alt="Dépendance">
-        <img src="images/Campagne.jpeg" alt="Campagne">
+    <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
+    
+    <div class="btn-container">
+        <!-- Boutons de paiement qui redirigent ensuite vers la réservation -->
+        <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG" class="btn">Consultation 15 minutes - 5 EUR</a>
+        <a href="https://www.paypal.com/ncp/payment/DEXF68XVDRW5Y" class="btn">Consultation 30 minutes - 10 EUR</a>
+        <a href="https://www.paypal.com/ncp/payment/7UUXA4WPBBAEY" class="btn">Consultation 45 minutes - 15 EUR</a>
     </div>
 
-    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+    <p>Les sessions se font par téléphone ou visio, et sont possibles en réel pour les personnes proches de La Ciotat.</p>
+    <p>Note : J'évite les domaines de la santé et ne fais pas de contact avec les défunts. Mes capacités se concentrent pour l'instant sur la cartomancie.</p>
 
-    <p>Imaginé et dessiné 100% par mes soins, cet oracle est de style Art Line et est imprimé en France 🇫🇷. Chaque exemplaire sera numéroté et personnalisé au prénom du propriétaire de l'oracle. Le prénom du/de la futur(e) propriétaire sera demandé à la commande.</p>
-
-    <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
+    <h2>Autres Services</h2>
     
-    <p>Livraison offerte.</p>
-    <p>L'Oracle by J sortira fin 2024.</p>
+    <p><strong>Réserver uniquement si je suis actuellement en live sur TikTok.</strong></p>
+    <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Poser une question live TikTok - 3 EUR</a>
+
+    <p><strong>Service de questions par mail :</strong> Ce service permet de poser jusqu'à 3 questions par mail. Il est idéal pour les personnes plus timides ou qui préfèrent éviter les consultations en direct. Je m'engage à répondre dans les 48 heures maximum, avec des réponses détaillées. Si quelque chose n'est pas clair, nous pourrons échanger par mail pour clarifier. Après la réservation, envoyez-moi un mail avec les informations suivantes :
+    </p>
+    <ul>
+        <li>Noms et prénoms des personnes concernées par les questions.</li>
+        <li>Âges des personnes concernées.</li>
+        <li>Un mini contexte (très peu de détails pour laisser place à l'intuition).</li>
+        <li>Des questions précises, incluant des délais (par exemple : "Est-ce que je trouverai une relation sérieuse dans les 6 prochains mois ?").</li>
+    </ul>
+    <a href="https://www.paypal.com/ncp/payment/V9G78ASP2PK7Q" class="btn">Poser des questions par mail - 12 EUR</a>
+
+    <p><strong>Envie de laisser un pourboire (tips) ?</strong> Si mes services vous ont aidé et que vous souhaitez soutenir mon travail, vous pouvez laisser un pourboire du montant de votre choix. Merci infiniment pour votre générosité !</p>
+    <a href="https://www.paypal.com/donate/?hosted_button_id=FNJF6AZ2C8CDQ" class="btn">Laisser un pourboire (Tips)</a>
+
+    <footer>
+        <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>
