@@ -30,7 +30,7 @@
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 10px 20px; /* Espacement interne */
+            padding: 15px 30px; /* Espacement interne */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
@@ -39,9 +39,8 @@
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 400px; /* Largeur fixe pour les boutons */
-            box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
-            white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
+            width: 80%; /* Largeur flexible pour mobile */
+            max-width: 400px; /* Largeur maximale pour les grands écrans */
         }
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
@@ -80,6 +79,24 @@
         }
         nav ul li a:hover {
             text-decoration: underline; /* Souligne les liens au survol */
+        }
+
+        /* Media Queries pour écrans plus petits */
+        @media (max-width: 768px) {
+            .card-gallery {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
+                gap: 10px;
+            }
+            .btn {
+                width: 90%; /* Ajuste le bouton pour les écrans plus petits */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 95%; /* Pour les très petits écrans */
+            }
         }
     </style>
 </head>
