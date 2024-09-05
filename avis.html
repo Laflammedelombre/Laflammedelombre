@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avis Clients - La Flamme de l'Ombre</title>
+    <title>Contact - La Flamme de l'Ombre</title>
     <style>
         body {
             background-color: black; /* Fond noir */
@@ -11,83 +11,53 @@
             font-family: Arial, sans-serif; /* Police par défaut */
             margin: 0;
             padding: 20px;
-            text-align: center;
+            text-align: center; /* Centrer le texte */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
         }
         h1 {
             font-size: 3em; /* Taille du titre */
             margin-bottom: 20px;
         }
         p {
-            font-size: 1.2em;
-            line-height: 1.5em;
+            font-size: 1.2em; /* Taille du texte */
+            line-height: 1.5em; /* Hauteur de ligne */
             margin-bottom: 30px;
         }
-        .avis-container {
-            background-color: #222; /* Couleur légèrement plus claire pour encadrer l'avis */
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Effet de lumière douce */
-        }
-        .avis-container p {
-            font-size: 1.1em;
-            color: #f0f0f0;
-        }
-        .avis-nom {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .avis-date {
-            font-size: 0.9em;
-            color: #888;
-        }
-        .avis-stars {
-            color: gold;
-            margin-top: 10px;
-        }
-        img {
-            width: 80%;
-            max-width: 600px;
-            margin: 20px auto;
-            display: block;
-        }
-        .btn {
-            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
-            color: white; /* Texte blanc */
-            padding: 15px 30px; /* Espacement interne */
-            text-align: center;
+        a {
+            color: white; /* Couleur des liens en blanc */
             text-decoration: none; /* Enlève le soulignement */
-            display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.2em; /* Taille du texte */
-            margin: 20px 0; /* Espace autour du bouton */
-            border-radius: 5px; /* Bordure arrondie */
-            border: 1px solid #888888; /* Bordure gris clair */
-            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 400px; /* Largeur fixe pour les boutons */
-            white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
+            font-weight: bold; /* Met les liens en gras */
         }
-        .btn:hover {
-            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
+        a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
         }
         nav ul {
-            list-style-type: none;
+            list-style-type: none; /* Enlève les puces des listes */
             padding: 0;
             margin: 20px 0;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centrer les liens de navigation */
+            flex-wrap: wrap; /* Permet aux éléments de se répartir sur plusieurs lignes si nécessaire */
+            justify-content: center; /* Centre les liens */
         }
         nav ul li {
-            margin: 10px 15px;
+            margin: 10px 15px; /* Espace entre les éléments */
         }
         nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
         }
         nav ul li a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
+        img {
+            width: 80%; /* Ajuste la taille de l'image */
+            max-width: 600px;
+            margin: 20px auto; /* Centrage et espacement autour de l'image */
+            display: block;
         }
         footer {
             margin-top: 30px;
@@ -96,19 +66,22 @@
         }
         footer p {
             font-size: 0.9em;
-            color: #888;
+            color: #888888; /* Texte gris clair */
         }
 
         /* Media Queries pour écrans plus petits */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em; /* Réduction de la taille du titre pour tablettes et mobiles */
+                font-size: 2.5em; /* Ajustement du titre pour tablettes et mobiles */
             }
             p {
-                font-size: 1.1em;
+                font-size: 1em; /* Réduction de la taille du texte sur mobile */
             }
             img {
-                width: 90%; /* L'image prend 90% de l'écran pour éviter le débordement */
+                width: 90%; /* Image prend moins de largeur pour éviter les débordements */
+            }
+            nav ul {
+                justify-content: center; /* Centre les liens également sur mobile */
             }
             nav ul li {
                 margin: 10px 5px; /* Réduction de l'espacement entre les liens sur mobile */
@@ -117,19 +90,19 @@
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 2em; /* Taille réduite pour les petits écrans */
+                font-size: 2em; /* Réduction supplémentaire pour les petits écrans */
             }
             p {
-                font-size: 1em; /* Texte plus petit sur mobile */
+                font-size: 0.9em; /* Texte plus petit sur les très petits écrans */
             }
             img {
-                width: 100%; /* Image occupe la largeur complète sur mobile */
+                width: 100%; /* Image prend toute la largeur pour les très petits écrans */
             }
             nav ul {
                 justify-content: center; /* Les liens restent centrés même sur les petits écrans */
             }
             nav ul li {
-                margin: 10px 5px;
+                margin: 10px 5px; /* Espacement ajusté pour les petits écrans */
             }
         }
     </style>
@@ -146,22 +119,12 @@
         </ul>
     </nav>
 
-    <h1>Avis de nos Clients</h1>
+    <h1>Contactez-moi</h1>
+    <p>Email : <a href="mailto:laflammedelombre@gmail.com">laflammedelombre@gmail.com</a></p>
+    <p>Instagram : <a href="https://www.instagram.com/la_flamme_de_lombre?igsh=MWRyaHVpcDBxaDJ0bg==">la_flamme_de_lombre</a></p>
+    <p>TikTok : <a href="https://www.tiktok.com/@la.flamme.de.lomb?_t=8pEDOSCWNCS&_r=1">la.flamme.de.lomb</a></p>
 
-    <!-- Image du sorcier en train d'écrire sur son ordinateur -->
-    <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
-
-    <!-- Bouton pour laisser un commentaire -->
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSciyKpd_erkCv74Y9CgA493J3sy1AO-c33ZBC--j1TRm_8c0w/viewform?usp=sf_link" class="btn">Laisser un commentaire</a>
-    <p style="font-size: 0.9em; color: #888;">Note : Les commentaires peuvent mettre plusieurs heures avant d'apparaître sur le site.</p>
-
-    <!-- Premier avis client -->
-    <div class="avis-container">
-        <p class="avis-nom">Mathilde</p>
-        <p class="avis-date">31 août 2024</p>
-        <p>"J’ai trouvé que la flamme est un cartomancien très attentionné. Il ne regarde pas le temps, il n’est pas à la minute. Les services ne sont pas chers pour la prestation. Il est plein de bienveillance et de compassion. Il est également de bon conseil. Je recommande 100%."</p>
-        <div class="avis-stars">★★★★★</div> <!-- 5 étoiles -->
-    </div>
+    <img src="images/contact.jpeg" alt="Sorcier dans un fauteuil devant la cheminée">
 
     <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
