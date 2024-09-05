@@ -44,7 +44,7 @@
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 10px 20px; /* Réduction de l'espacement interne */
+            padding: 8px 15px; /* Réduction de l'espacement interne */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
@@ -53,7 +53,7 @@
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 280px; /* Largeur fixe plus petite pour que tout tienne sur une ligne */
+            width: 240px; /* Largeur réduite */
             white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
         .btn:hover {
@@ -80,6 +80,11 @@
             font-size: 0.9em;
             color: #888888; /* Texte gris clair */
         }
+        /* Alignement du bouton Créneaux disponibles */
+        .btn-single {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -105,7 +110,10 @@
     <p>3. Vous serez automatiquement redirigé(e) vers le calendrier pour réserver votre créneau.</p>
     <p>4. Envoyez-moi un email à laflammedelombre@gmail.com avec le numéro de téléphone sur lequel je dois vous appeler.</p>
 
-    <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
+    <!-- Bouton pour les créneaux disponibles, bien centré -->
+    <div class="btn-single">
+        <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
+    </div>
     
     <div class="btn-container">
         <!-- Boutons de paiement qui redirigent ensuite vers la réservation -->
