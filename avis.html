@@ -59,17 +59,17 @@
         .btn {
             background-color: #444444;
             color: white;
-            padding: 15px 30px;
+            padding: 10px 20px; /* Ajustement de l'espacement pour que le texte rentre toujours */
             text-align: center;
             text-decoration: none;
-            display: block; /* Passe le bouton en mode bloc pour qu'il occupe toute la largeur */
-            font-size: 1.2em;
+            display: inline-block;
+            font-size: 1.1em; /* Taille du texte ajustée */
             margin: 20px auto; /* Centrage du bouton */
             border-radius: 5px;
             border: 1px solid #888888;
             transition: background-color 0.3s ease;
-            width: 80%; /* Largeur flexible pour mobile */
-            max-width: 400px; /* Largeur maximale pour les grands écrans */
+            width: 250px; /* Largeur fixe pour que le texte rentre bien */
+            max-width: 90%; /* Ajustement sur mobile */
         }
         .btn:hover {
             background-color: #666666;
@@ -114,14 +114,8 @@
             img {
                 width: 90%;
             }
-            nav ul {
-                justify-content: center;
-            }
-            nav ul li {
-                margin: 10px 5px;
-            }
             .btn {
-                width: 90%; /* Ajuste le bouton pour les écrans plus petits */
+                width: 220px; /* Réduit la largeur du bouton pour mobile */
             }
         }
 
@@ -135,14 +129,8 @@
             img {
                 width: 100%;
             }
-            nav ul {
-                justify-content: center;
-            }
-            nav ul li {
-                margin: 10px 5px;
-            }
             .btn {
-                width: 95%; /* Pour les très petits écrans */
+                width: 200px; /* Pour les très petits écrans */
             }
         }
     </style>
