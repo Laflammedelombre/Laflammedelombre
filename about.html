@@ -38,7 +38,7 @@
             margin: 20px 0;
             display: flex;
             flex-wrap: wrap; /* Permet aux éléments de se répartir sur plusieurs lignes si nécessaire */
-            justify-content: center; /* Centre les liens */
+            justify-content: center; /* Centre les liens horizontalement */
         }
         nav ul li {
             margin: 10px 15px; /* Espace entre les éléments */
@@ -72,6 +72,9 @@
             img {
                 width: 90%; /* Image prend moins de largeur pour éviter les débordements */
             }
+            nav ul {
+                justify-content: center; /* Centre les liens également sur mobile */
+            }
             nav ul li {
                 margin: 10px 5px; /* Réduction de l'espacement entre les liens sur mobile */
             }
@@ -88,7 +91,10 @@
                 width: 100%; /* Image prend toute la largeur pour les très petits écrans */
             }
             nav ul {
-                justify-content: flex-start; /* Justifie les liens à gauche sur très petits écrans */
+                justify-content: center; /* Les liens restent centrés même sur les petits écrans */
+            }
+            nav ul li {
+                margin: 10px 5px; /* Espacement ajusté pour les petits écrans */
             }
         }
     </style>
