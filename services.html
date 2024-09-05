@@ -18,7 +18,7 @@
             margin-bottom: 20px;
         }
         p {
-            font-size: 1.1em; /* Taille du texte */
+            font-size: 1.2em; /* Taille du texte */
             line-height: 1.5em; /* Hauteur de ligne */
             margin-bottom: 20px;
         }
@@ -35,51 +35,42 @@
             padding: 0;
             margin: 20px 0;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            justify-content: center; /* Centre les liens */
+            flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
         }
         nav ul li {
-            margin: 10px;
-        }
-        nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
-        }
-        nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+            margin: 10px 15px; /* Espace entre les liens */
         }
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 10px 20px; /* Espacement interne réduit */
+            padding: 15px 30px; /* Espacement interne */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Ajustement de la taille du texte */
-            margin: 10px 5px; /* Espace réduit autour du bouton */
+            font-size: 1.2em; /* Taille du texte */
+            margin: 20px 0; /* Espace autour du bouton */
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 220px; /* Largeur fixe pour les boutons */
-            box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+            width: 100%; /* Largeur complète */
+            max-width: 350px; /* Largeur maximale */
             white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
-        }
-        .btn-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
         }
         img {
             width: 80%; /* Ajuste la taille de l'image */
             max-width: 600px;
             margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
+        }
+        .btn-container {
+            display: flex;
+            flex-direction: column; /* Boutons les uns au-dessus des autres */
+            align-items: center; /* Centre les boutons */
+            gap: 20px;
         }
         footer {
             margin-top: 30px;
@@ -89,26 +80,6 @@
         footer p {
             font-size: 0.9em;
             color: #888888; /* Texte gris clair */
-        }
-
-        /* Media Queries pour ajuster les tailles sur les petits écrans */
-        @media (max-width: 768px) {
-            .btn {
-                width: 200px; /* Réduit encore la largeur des boutons sur tablette */
-            }
-            h1 {
-                font-size: 2em; /* Ajuste la taille du titre pour les petits écrans */
-            }
-        }
-        @media (max-width: 480px) {
-            .btn {
-                width: 180px; /* Réduit la largeur des boutons pour les petits écrans */
-                font-size: 1em; /* Réduit la taille du texte dans les boutons */
-            }
-            nav ul {
-                flex-direction: column; /* Les liens de navigation passent en colonne */
-                align-items: center;
-            }
         }
     </style>
 </head>
@@ -138,9 +109,10 @@
     <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
     
     <div class="btn-container">
-        <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG" class="btn">15 minutes - 5 EUR</a>
-        <a href="https://www.paypal.com/ncp/payment/DEXF68XVDRW5Y" class="btn">30 minutes - 10 EUR</a>
-        <a href="https://www.paypal.com/ncp/payment/7UUXA4WPBBAEY" class="btn">45 minutes - 15 EUR</a>
+        <!-- Boutons de paiement qui redirigent ensuite vers la réservation -->
+        <a href="https://www.paypal.com/ncp/payment/HZY4ATTM7GHRG" class="btn">Consultation 15 minutes - 5 EUR</a>
+        <a href="https://www.paypal.com/ncp/payment/DEXF68XVDRW5Y" class="btn">Consultation 30 minutes - 10 EUR</a>
+        <a href="https://www.paypal.com/ncp/payment/7UUXA4WPBBAEY" class="btn">Consultation 45 minutes - 15 EUR</a>
     </div>
 
     <p>Les sessions se font par téléphone ou visio, et sont possibles en réel pour les personnes proches de La Ciotat.</p>
@@ -149,14 +121,22 @@
     <h2>Autres Services</h2>
     
     <p><strong>Réserver uniquement si je suis actuellement en live sur TikTok.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Question live TikTok - 3 EUR</a>
+    <a href="https://www.paypal.com/ncp/payment/NE7KFTBMS9ZT6" class="btn">Poser une question live TikTok - 3 EUR</a>
 
-    <p><strong>Service de questions par mail :</strong> Posez jusqu'à 3 questions par mail. Idéal pour les plus timides ou ceux qui préfèrent éviter les consultations en direct. Réponse sous 48h.</p>
-    <a href="https://www.paypal.com/ncp/payment/V9G78ASP2PK7Q" class="btn">Questions par mail - 12 EUR</a>
+    <p><strong>Service de questions par mail :</strong> Ce service permet de poser jusqu'à 3 questions par mail. Il est idéal pour les personnes plus timides ou qui préfèrent éviter les consultations en direct. Je m'engage à répondre dans les 48 heures maximum, avec des réponses détaillées. Si quelque chose n'est pas clair, nous pourrons échanger par mail pour clarifier. Après la réservation, envoyez-moi un mail avec les informations suivantes :
+    </p>
+    <ul>
+        <li>Noms et prénoms des personnes concernées par les questions.</li>
+        <li>Âges des personnes concernées.</li>
+        <li>Un mini contexte (très peu de détails pour laisser place à l'intuition).</li>
+        <li>Des questions précises, incluant des délais (par exemple : "Est-ce que je trouverai une relation sérieuse dans les 6 prochains mois ?").</li>
+    </ul>
+    <a href="https://www.paypal.com/ncp/payment/V9G78ASP2PK7Q" class="btn">Poser des questions par mail - 12 EUR</a>
 
-    <p><strong>Envie de laisser un pourboire ?</strong> Si mes services vous ont aidé et que vous souhaitez soutenir mon travail, vous pouvez laisser un pourboire du montant de votre choix. Merci infiniment pour votre générosité !</p>
-    <a href="https://www.paypal.com/donate/?hosted_button_id=FNJF6AZ2C8CDQ" class="btn">Laisser un pourboire</a>
+    <p><strong>Envie de laisser un pourboire (tips) ?</strong> Si mes services vous ont aidé et que vous souhaitez soutenir mon travail, vous pouvez laisser un pourboire du montant de votre choix. Merci infiniment pour votre générosité !</p>
+    <a href="https://www.paypal.com/donate/?hosted_button_id=FNJF6AZ2C8CDQ" class="btn">Laisser un pourboire (Tips)</a>
 
+    <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
     </footer>
 </body>
