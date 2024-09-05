@@ -41,6 +41,8 @@
         nav ul li {
             margin: 10px 15px; /* Espace entre les liens */
         }
+        
+        /* Style commun pour les boutons */
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
@@ -53,8 +55,8 @@
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 400px; /* Largeur des boutons sur PC */
-            white-space: nowrap; /* Garde tout sur une seule ligne sur PC */
+            width: 300px; /* Largeur fixe des boutons pour PC et mobile */
+            white-space: nowrap; /* Garde tout sur une seule ligne par défaut */
         }
         .btn-container {
             display: flex;
@@ -80,10 +82,9 @@
         /* Media Queries pour les écrans plus petits */
         @media (max-width: 768px) {
             .btn {
-                width: 90%; /* Boutons plus petits sur mobile */
-                max-width: 300px; /* Largeur maximale pour les boutons */
+                width: 90%; /* Boutons plus larges sur mobile */
                 padding: 10px 15px; /* Réduction de l'espacement interne */
-                white-space: normal; /* Texte sur deux lignes */
+                white-space: normal; /* Permet au texte de passer à la ligne */
                 font-size: 1.1em; /* Taille légèrement réduite */
                 line-height: 1.2em; /* Espacement entre les lignes */
             }
@@ -92,10 +93,9 @@
         @media (max-width: 480px) {
             .btn {
                 width: 100%; /* Largeur pleine sur très petits écrans */
-                max-width: 250px; /* Largeur plus petite pour les téléphones */
                 padding: 8px 12px; /* Ajustement supplémentaire pour les petits écrans */
                 white-space: normal; /* Texte sur deux lignes */
-                line-height: 1.2em; /* Hauteur de ligne pour les deux lignes de texte */
+                font-size: 1em; /* Taille encore plus réduite sur mobile */
             }
         }
     </style>
