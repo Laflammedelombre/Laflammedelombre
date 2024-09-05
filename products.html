@@ -44,16 +44,16 @@
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 8px 15px; /* Réduction de l'espacement interne */
+            padding: 15px 30px; /* Espacement interne */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Taille du texte ajustée */
-            margin: 10px 0; /* Réduction de l'espace autour du bouton */
+            font-size: 1.2em; /* Taille du texte */
+            margin: 15px auto; /* Centrage horizontal des boutons */
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 240px; /* Largeur réduite */
+            width: 350px; /* Largeur identique pour tous les boutons */
             white-space: nowrap; /* Empêche le texte de se répartir sur plusieurs lignes */
         }
         .btn:hover {
@@ -68,8 +68,8 @@
         .btn-container {
             display: flex;
             flex-direction: column; /* Boutons les uns au-dessus des autres */
-            align-items: center; /* Centre les boutons */
-            gap: 15px;
+            align-items: center; /* Centre les boutons horizontalement */
+            width: 100%;
         }
         footer {
             margin-top: 30px;
@@ -79,11 +79,6 @@
         footer p {
             font-size: 0.9em;
             color: #888888; /* Texte gris clair */
-        }
-        /* Alignement du bouton Créneaux disponibles */
-        .btn-single {
-            display: flex;
-            justify-content: center;
         }
     </style>
 </head>
@@ -110,10 +105,7 @@
     <p>3. Vous serez automatiquement redirigé(e) vers le calendrier pour réserver votre créneau.</p>
     <p>4. Envoyez-moi un email à laflammedelombre@gmail.com avec le numéro de téléphone sur lequel je dois vous appeler.</p>
 
-    <!-- Bouton pour les créneaux disponibles, bien centré -->
-    <div class="btn-single">
-        <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
-    </div>
+    <a href="https://appt.link/meet-with-la-flamme-de-lombre-H5vuXBej" class="btn">Créneaux disponibles</a>
     
     <div class="btn-container">
         <!-- Boutons de paiement qui redirigent ensuite vers la réservation -->
