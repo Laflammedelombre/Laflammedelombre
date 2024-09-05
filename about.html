@@ -18,7 +18,7 @@
             min-height: 100vh;
         }
         h1 {
-            font-size: 3em; /* Taille du titre */
+            font-size: 2.5em; /* Taille du titre ajustée pour mobile */
             margin-bottom: 20px;
         }
         p {
@@ -26,10 +26,11 @@
             line-height: 1.5em; /* Hauteur de ligne */
         }
         img {
-            width: 80%;
+            width: 100%; /* Image prend 100% de la largeur du conteneur */
             max-width: 600px;
             margin: 20px auto;
             display: block;
+            border-radius: 10px; /* Ajout de bords arrondis pour une esthétique plus douce */
         }
         nav ul {
             list-style-type: none; /* Enlève les puces des listes */
@@ -37,8 +38,8 @@
             margin: 20px 0;
         }
         nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
-            margin: 0 15px;
+            display: inline-block; /* Affiche les éléments en ligne */
+            margin: 0 10px; /* Réduit l'espacement pour mobile */
         }
         nav ul li a {
             color: white; /* Couleur des liens en blanc */
@@ -54,8 +55,40 @@
             border-top: 1px solid white;
         }
         footer nav ul li {
-            display: block; /* Met les liens en colonne */
+            display: block; /* Met les liens en colonne pour les petits écrans */
             margin: 10px 0;
+        }
+
+        /* Media Queries pour écrans plus petits */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em; /* Ajustement du titre pour tablettes et mobiles */
+            }
+            p {
+                font-size: 1em; /* Réduction de la taille du texte sur mobile */
+            }
+            img {
+                width: 90%; /* Image prend moins de largeur pour éviter les débordements */
+            }
+            nav ul li {
+                margin: 0 5px; /* Réduction de l'espacement entre les liens sur mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em; /* Réduction supplémentaire pour les petits écrans */
+            }
+            p {
+                font-size: 0.9em; /* Texte plus petit sur les très petits écrans */
+            }
+            img {
+                width: 100%; /* Image prend toute la largeur pour les très petits écrans */
+            }
+            nav ul li {
+                display: block; /* Liens empilés verticalement sur mobile */
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -75,5 +108,8 @@
     <img src="images/Sorcier.jpeg.jpg" alt="Sorcier avec Maine Coon">
     <p>Bonjour et bienvenue sur "La Flamme de l'Ombre". Je suis un cartomancien de 31 ans avec une passion profonde pour l'art ancestral de la divination et le développement spirituel. J'ai commencé mon parcours en cartomancie il y a environ deux ans, en aidant d'abord mes proches, avant de partager ma pratique avec une communauté plus large via TikTok. Mon développement en médiumnité est un travail en cours, mais pour l'instant, je me concentre principalement sur la cartomancie. J'ai également créé mon propre oracle, conçu pour encourager l'intuition plutôt que de se fier uniquement aux interprétations traditionnelles des cartes.</p>
 
+    <footer>
+        <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>
