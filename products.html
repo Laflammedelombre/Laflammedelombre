@@ -30,17 +30,17 @@
         .btn {
             background-color: #444444; /* Couleur d'arrière-plan gris foncé */
             color: white; /* Texte blanc */
-            padding: 15px 30px; /* Espacement interne */
+            padding: 10px 20px; /* Espacement interne ajusté */
             text-align: center; /* Centrer le texte */
             text-decoration: none; /* Enlève le soulignement */
             display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.2em; /* Taille du texte */
+            font-size: 1.1em; /* Ajustement de la taille du texte */
             margin: 15px 0; /* Espace autour du bouton */
             border-radius: 5px; /* Bordure arrondie */
             border: 1px solid #888888; /* Bordure gris clair */
             transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 80%; /* Largeur flexible pour mobile */
-            max-width: 400px; /* Largeur maximale pour les grands écrans */
+            width: 250px; /* Largeur fixe pour que le texte passe bien */
+            max-width: 90%; /* Ajustement pour mobile */
         }
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
@@ -89,13 +89,14 @@
                 gap: 10px;
             }
             .btn {
-                width: 90%; /* Ajuste le bouton pour les écrans plus petits */
+                width: 220px; /* Ajuste la largeur du bouton pour les écrans plus petits */
             }
         }
 
         @media (max-width: 480px) {
             .btn {
-                width: 95%; /* Pour les très petits écrans */
+                width: 200px; /* Pour les très petits écrans */
+                font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
             }
         }
     </style>
