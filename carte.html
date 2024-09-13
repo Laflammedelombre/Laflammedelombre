@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte du jour - La Flamme de l'Ombre</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .card-container {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border: 1px solid white;
+            border-radius: 10px;
+        }
+        .card-front {
+            background-color: white;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        .btn {
+            background-color: #444444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #666666;
+        }
+    </style>
+</head>
+<body>
 
+    <h1>Carte du jour</h1>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-face card-front">
+                <img src="images/Byj.jpg" alt="Dos de l'Oracle" style="width: 100%; height: 100%; border-radius: 10px;">
+            </div>
+            <div class="card-face card-back">
+                <img id="randomCard" src="images/Fidelite.jpeg" alt="Carte" style="width: 100%; height: 100%; border-radius: 10px;">
+            </div>
+        </div>
+    </div>
+
+    <button class="btn" onclick="revealCard()">Révéler la carte du jour</button>
+
+    <script>
+        const cards = ["images/Fidelite.jpeg", "images/Secret.jpeg", "images/Campagne.jpeg", "images/Dependance.jpeg"];
+        const cardElement = document.getElementById('card');
+        const randomCardElement = document.getElementById('randomCard');
+
+        function revealCard() {
+            // Choisir une carte aléatoire
+            const randomIndex = Math.floor(Math.random() * cards.length);
+            randomCardElement.src = cards[randomIndex];
+
+            // Déclencher l'animation flip
+            cardElement.classList.toggle('is-flipped');
+        }
+    </script>
+
+</body>
+</html>
