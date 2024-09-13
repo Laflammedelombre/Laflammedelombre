@@ -48,13 +48,72 @@
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
         }
+        img {
+            width: 80%; /* Ajuste la taille de l'image */
+            max-width: 600px;
+            margin: 20px auto; /* Centrage et espacement autour de l'image */
+            display: block;
+        }
+        .card-gallery {
+            display: flex;
+            justify-content: center; /* Centre les images */
+            gap: 10px; /* Espacement entre les images */
+            margin-bottom: 20px;
+        }
+        .card-gallery img {
+            width: 150px; /* Taille fixe pour les images des cartes */
+            height: auto;
+            border: 1px solid #888888; /* Bordure pour les images */
+            border-radius: 5px; /* Bordures arrondies */
+        }
+        .photo-a-venir {
+            font-size: 1em;
+            color: #888888;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none; /* Enlève les puces des listes */
+            padding: 0;
+            margin: 20px 0;
+        }
+        nav ul li {
+            display: inline; /* Affiche les éléments de la liste en ligne */
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
+        }
+        nav ul li a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
 
-        /* Style du conteneur flip */
+        /* Media Queries pour écrans plus petits */
+        @media (max-width: 768px) {
+            .card-gallery {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
+                gap: 10px;
+            }
+            .btn {
+                width: 250px; /* Ajuste la largeur du bouton pour les écrans plus petits */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                width: 230px; /* Pour les très petits écrans */
+                font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
+            }
+        }
+
+        /* Flip container */
         #flip-container {
             perspective: 1000px;
             margin: 20px auto;
         }
-
         .flipper {
             transition: transform 0.6s;
             transform-style: preserve-3d;
@@ -64,24 +123,16 @@
             margin: 0 auto; /* Centré */
             position: relative;
         }
-
         #flip-container.clicked .flipper {
             transform: rotateY(180deg); /* Applique la rotation sur le clic */
         }
-
         .front, .back {
             position: absolute;
             backface-visibility: hidden;
             width: 100%;
         }
-
         .back {
             transform: rotateY(180deg); /* L'image arrière est inversée */
-        }
-
-        /* Ajout d'un espacement pour éviter de superposer l'image et le texte */
-        img {
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -136,8 +187,8 @@
     <!-- Conteneur flip -->
     <div id="flip-container">
         <div class="flipper">
-            <img class="front" src="images/EDL.jpeg" alt="Eau de Lune">
-            <img class="back" src="images/EDL2.jpeg" alt="Eau de Lune dos">
+            <img class="front" src="images/EDL.jpeg" alt="Eau de Lune - Front">
+            <img class="back" src="images/EDL2.jpeg" alt="Eau de Lune - Back">
         </div>
     </div>
 
@@ -151,9 +202,5 @@
     <p>Disponible en fiole de 12ml.</p>
 
 </body>
-<script>
-    document.querySelector('#flip-container').addEventListener('click', function() {
-        this.querySelector('.flipper').classList.toggle('clicked');
-    });
-</script>
 </html>
+    
