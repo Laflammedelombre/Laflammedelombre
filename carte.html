@@ -13,86 +13,90 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            text-align: center;
+            height: 100vh;
+            margin: 0;
         }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        .card-container {
-            width: 200px;
-            height: 300px;
+        .carte-container {
             perspective: 1000px;
         }
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 1s;
-            transform-style: preserve-3d;
-        }
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border: 1px solid white;
+        .carte {
+            width: 200px;
+            height: 300px;
+            background-image: url('images/Byj.jpg'); /* Dos de la carte */
+            background-size: cover;
+            border: 2px solid white;
             border-radius: 10px;
+            transition: transform 0.5s ease-in-out;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
-        .card-front {
-            background-color: white;
+        .carte.revealed {
+            animation: spinAndStop 5s ease-in-out forwards;
         }
-        .card-back {
-            transform: rotateY(180deg);
+        @keyframes spinAndStop {
+            0% { transform: rotateY(0deg); }
+            80% { transform: rotateY(1440deg); } /* 4 tours rapides */
+            100% { transform: rotateY(1620deg); } /* S'arrête à une carte au hasard */
         }
-        .btn {
+        .hidden-text {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .hidden-text p {
+            font-size: 1.2em;
+        }
+        .hidden-text a {
+            display: inline-block;
             background-color: #444444;
             color: white;
             padding: 10px 20px;
-            border: none;
-            margin-top: 20px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: background-color 0.3s;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
         }
-        .btn:hover {
+        .hidden-text a:hover {
             background-color: #666666;
         }
     </style>
 </head>
 <body>
 
-    <h1>Carte du jour</h1>
-    <div class="card-container">
-        <div class="card" id="card">
-            <div class="card-face card-front">
-                <img src="images/Byj.jpg" alt="Dos de l'Oracle" style="width: 100%; height: 100%; border-radius: 10px;">
-            </div>
-            <div class="card-face card-back">
-                <img id="randomCard" src="images/Fidelite.jpeg" alt="Carte" style="width: 100%; height: 100%; border-radius: 10px;">
-            </div>
-        </div>
+    <h1>Cliquez pour révéler votre carte du jour</h1>
+    <div class="carte-container">
+        <div class="carte" id="carte"></div>
     </div>
 
-    <button class="btn" onclick="revealCard()">Révéler la carte du jour</button>
+    <div class="hidden-text" id="hidden-text">
+        <p>Pour plus de précision, <strong>prenez rendez-vous</strong> pour une consultation personnalisée.</p>
+        <a href="services.html">Voir les services proposés</a>
+    </div>
 
     <script>
-        const cards = ["images/Fidelite.jpeg", "images/Secret.jpeg", "images/Campagne.jpeg", "images/Dependance.jpeg"];
-        const cardElement = document.getElementById('card');
-        const randomCardElement = document.getElementById('randomCard');
+        const carte = document.getElementById('carte');
+        const hiddenText = document.getElementById('hidden-text');
 
-        function revealCard() {
-            // Choisir une carte aléatoire
-            const randomIndex = Math.floor(Math.random() * cards.length);
-            randomCardElement.src = cards[randomIndex];
+        // Les images de tes cartes (fidélité, secret, etc.)
+        const cartes = [
+            'images/Fidelite.jpeg',
+            'images/Secret.jpeg',
+            'images/Dependance.jpeg',
+            'images/Campagne.jpeg'
+        ];
 
-            // Déclencher l'animation flip
-            cardElement.classList.toggle('is-flipped');
-        }
+        carte.addEventListener('click', () => {
+            // Démarre l'animation de rotation
+            carte.classList.add('revealed');
+
+            // Sélectionne une carte au hasard après 4.5 secondes
+            setTimeout(() => {
+                const randomCarte = cartes[Math.floor(Math.random() * cartes.length)];
+                carte.style.backgroundImage = `url(${randomCarte})`;
+
+                // Affiche le texte après 5 secondes
+                hiddenText.style.display = 'block';
+            }, 4500);
+        });
     </script>
 
 </body>
