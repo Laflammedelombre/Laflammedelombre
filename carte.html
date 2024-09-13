@@ -9,131 +9,101 @@
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
-        .carte-container {
-            perspective: 1000px;
-            width: 200px;
-            height: 300px;
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
         }
-        .carte {
-            width: 100%;
-            height: 100%;
-            background-image: url('images/Byj.jpg'); /* Dos de la carte */
-            background-size: cover;
-            border: 2px solid white;
-            border-radius: 10px;
-            transform-style: preserve-3d;
-            transition: transform 0.6s ease-in-out;
-            backface-visibility: hidden;
-        }
-        .carte.flipping {
-            animation: spinAndStop 5s ease-in-out forwards;
-        }
-        @keyframes spinAndStop {
-            0% { transform: rotateY(0deg); }
-            80% { transform: rotateY(1440deg); background-image: url('images/Byj.jpg'); } /* 4 tours avec le dos */
-            100% { transform: rotateY(1620deg); } /* Arrêt sur la carte révélée */
-        }
-        .hidden-text {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .hidden-text p {
+        p {
             font-size: 1.2em;
         }
-        .hidden-text a {
-            display: inline-block;
-            background-color: #444444;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 10px;
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            margin: 20px auto;
         }
-        .hidden-text a:hover {
-            background-color: #666666;
+        .inner-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
         }
-        .reveal-btn {
-            background-color: #444444;
+        .clicked {
+            transform: rotateY(1800deg);
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-size: cover;
+        }
+        .front {
+            background-image: url('images/Byj.jpg');
+        }
+        .back {
+            background-image: url('images/Fidelite.jpeg'); /* Remplacez par d'autres cartes aléatoirement */
+            transform: rotateY(180deg);
+        }
+        button {
+            background-color: #444;
             color: white;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
-            margin-top: 20px;
+            font-size: 1.2em;
             cursor: pointer;
-        }
-        .reveal-btn:hover {
-            background-color: #666666;
-        }
-        .instruction {
-            font-size: 0.9em;
-            color: #f0f0f0;
             margin-top: 20px;
+        }
+        button:disabled {
+            background-color: #666;
+        }
+        #message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: white;
         }
     </style>
 </head>
 <body>
-
     <h1>La carte du jour</h1>
-    <div class="carte-container">
-        <div class="carte" id="carte"></div>
+
+    <div class="card">
+        <div class="inner-card" id="flip-card">
+            <div class="face front"></div>
+            <div class="face back"></div>
+        </div>
     </div>
 
-    <button class="reveal-btn" id="reveal-btn">Révéler la carte du jour</button>
+    <button id="reveal-btn">Révéler la carte</button>
 
-    <div class="hidden-text" id="hidden-text">
-        <p>Si cette carte résonne en vous, découvrez mes services personnalisés pour une lecture approfondie.</p>
-        <a href="services.html">Voir les services proposés</a>
-    </div>
-
-    <p class="instruction">Ne cliquez qu'une seule fois pour révéler la carte, sinon elle perdra de son sens.</p>
+    <p id="message">Si vous voulez en savoir plus, consultez nos <a href="services.html" style="color: lightblue;">services</a>.</p>
 
     <script>
-        const carte = document.getElementById('carte');
-        const hiddenText = document.getElementById('hidden-text');
-        const revealBtn = document.getElementById('reveal-btn');
-        const cartes = [
-            'images/Fidelite.jpeg',
-            'images/Secret.jpeg',
-            'images/Dependance.jpeg',
-            'images/Campagne.jpeg'
-        ];
+        document.getElementById('reveal-btn').addEventListener('click', function() {
+            var card = document.getElementById('flip-card');
+            card.classList.add('clicked');
+            this.disabled = true;
 
-        let isFlipping = false; // Empêche les multiples clics
+            // Change the back image to a random card
+            const cards = ['images/Fidelite.jpeg', 'images/Secret.jpeg', 'images/Campagne.jpeg', 'images/Dependance.jpeg'];
+            const randomCard = cards[Math.floor(Math.random() * cards.length)];
+            document.querySelector('.back').style.backgroundImage = 'url(' + randomCard + ')';
 
-        revealBtn.addEventListener('click', () => {
-            if (isFlipping) return; // Bloque les clics multiples
-            isFlipping = true;
-            
-            // Lancer l'animation de la carte
-            carte.classList.add('flipping');
-
-            // Changer les images pendant la rotation
-            let changeCount = 0;
-            const interval = setInterval(() => {
-                const randomCarte = cartes[Math.floor(Math.random() * cartes.length)];
-                carte.style.backgroundImage = `url(${randomCarte})`;
-                changeCount++;
-                if (changeCount >= 8) { // Limiter à 8 changements pour simuler la rotation
-                    clearInterval(interval);
-                }
-            }, 500); // Changer les cartes toutes les 500ms
-
-            // Afficher la carte finale et le texte après 5 secondes
-            setTimeout(() => {
-                const finalCarte = cartes[Math.floor(Math.random() * cartes.length)];
-                carte.style.backgroundImage = `url(${finalCarte})`;
-                hiddenText.style.display = 'block';
-            }, 5000);
+            setTimeout(function() {
+                document.getElementById('message').style.display = 'block';
+            }, 5000); // Durée de l'animation (5 secondes)
         });
     </script>
-
 </body>
 </html>
