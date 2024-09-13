@@ -90,31 +90,6 @@
             text-decoration: underline; /* Souligne les liens au survol */
         }
 
-        /* Effet flip pour l'image */
-        .flip-container {
-            perspective: 1000px;
-            margin-bottom: 20px;
-        }
-        .flipper {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flip-container:hover .flipper {
-            transform: rotateY(180deg);
-        }
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-        .back {
-            transform: rotateY(180deg);
-        }
-
         /* Media Queries pour écrans plus petits */
         @media (max-width: 768px) {
             .card-gallery {
@@ -133,19 +108,47 @@
                 font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
             }
         }
+
+        /* Flip effect */
+        #flip-container {
+            perspective: 1000px;
+        }
+        .flipper {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px auto;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            backface-visibility: hidden;
+        }
+        .back {
+            transform: rotateY(180deg);
+        }
+        .clicked {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="#oracle">Oracle</a></li>
-            <li><a href="#chapelets">Mini Chapelets</a></li>
-            <li><a href="#eau-de-lune">Eau de Lune</a></li>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="products.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
         </ul>
     </nav>
 
     <!-- Section 1 : Oracle by J -->
-    <h1 id="oracle">L'Oracle by J</h1>
+    <h1>L'Oracle by J</h1>
     <img src="images/Byj.jpg" alt="Oracle by J">
 
     <!-- Galerie des cartes -->
@@ -166,7 +169,7 @@
     <p>L'Oracle by J sortira fin 2024.</p>
 
     <!-- Section 2 : Mini Chapelets Protecteurs -->
-    <h2 id="chapelets">Mini Chapelets Protecteurs</h2>
+    <h2>Mini Chapelets Protecteurs</h2>
     <img src="images/Chapelet.jpeg" alt="Mini Chapelet">
 
     <p>Nos mini chapelets sont consacrés à l'eau de lune, fabriqués par mes soins. Chaque chapelet inclut un pendentif au choix parmi : Lune, Arbre de Vie, Clé, Signe astrologique et Croix chrétienne. Chaque amulette est conçue pour apporter protection et peut être utilisée en tant que talisman personnel. Il peut également être utilisé comme un chapelet "standard" pour prier.</p>
@@ -177,64 +180,41 @@
     <p>Livraison prévue courant septembre.</p>
     <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
     
-<!-- Section 3 : Eau de Lune avec Flip -->
-<h2>Eau de Lune</h2>
-<div class="flip-container" id="flip-container">
-    <div class="flipper">
-        <!-- Face avant de l'image -->
-        <div class="front">
-            <img src="images/EDL.jpeg" alt="Eau de Lune">
-        </div>
-        <!-- Face arrière de l'image -->
-        <div class="back">
-            <img src="images/EDL2.jpeg" alt="Eau de Lune dos">
+<!-- Section 3 : Eau de Lune -->
+    <h2 id="eau-de-lune">Eau de Lune</h2>
+    <div id="flip-container">
+        <div class="flipper">
+            <div class="front">
+                <img src="images/EDL.jpeg" alt="Eau de Lune" />
+            </div>
+            <div class="back">
+                <img src="images/EDL2.jpeg" alt="Eau de Lune - Dos" />
+            </div>
         </div>
     </div>
-</div>
 
-<p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
+    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
 
-<p>L'eau de lune sera fournie avec une petite pipette pour une manipulation facile. Afin que cette eau fonctionne au mieux, il est important que vous y ancriez une intention de protection sincère lors de son utilisation.</p>
+    <p>L'eau de lune sera fournie avec une petite pipette pour une manipulation facile. Afin que cette eau fonctionne au mieux, il est important que vous y ancriez une intention de protection sincère lors de son utilisation.</p>
 
-<p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-<a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
+    <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
+    <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
+    
+    <p>Disponible en fiole de 12ml.</p>
 
-<p>Disponible en fiole de 12ml.</p>
+    <nav>
+        <ul>
+            <li><a href="#oracles">Oracles</a></li>
+            <li><a href="#chapelets">Mini Chapelets</a></li>
+            <li><a href="#eau-de-lune">Eau de Lune</a></li>
+        </ul>
+    </nav>
 
-<!-- Script pour déclencher le flip au clic -->
 <script>
     document.querySelector('#flip-container').addEventListener('click', function() {
-        document.querySelector('.flipper').classList.toggle('clicked'); 
+        document.querySelector('.flipper').classList.toggle('clicked');
     });
 </script>
 
-<style>
-    .flip-container {
-        perspective: 1000px;
-        margin-bottom: 20px; /* Pour espacement avec le texte */
-    }
-    .flipper {
-        position: relative;
-        width: 300px;
-        height: 400px;
-        transition: 0.6s;
-        transform-style: preserve-3d;
-    }
-    .flipper.clicked {
-        transform: rotateY(180deg);
-    }
-    .flipper .front, .flipper .back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-    }
-    .flipper .back {
-        transform: rotateY(180deg);
-    }
-    .flip-container img {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    }
-</style>
+</body>
+</html>
