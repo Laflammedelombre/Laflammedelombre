@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte du jour - La Flamme de l'Ombre</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: white;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            margin: 20px auto;
+        }
+        .inner-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 3s ease-in-out;
+        }
+        .clicked {
+            transform: rotateY(1440deg); /* 4 tours complets */
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-size: cover;
+        }
+        .front {
+            background-image: url('images/Byj.jpg'); /* Dos de la carte */
+        }
+        .back {
+            transform: rotateY(180deg);
+        }
+        button {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:disabled {
+            background-color: #666;
+        }
+        #message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: white;
+        }
+        #cta-btn {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-decoration: none;
+            display: none; /* Le bouton apparaît seulement à la fin */
+        }
+        #cta-btn:hover {
+            background-color: #666;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>La carte du jour</h1>
 
+    <form id="user-info-form">
+        <input type="text" id="prenom" placeholder="Votre prénom" required>
+        <input type="number" id="age" placeholder="Votre âge" required>
+        <button type="submit">Tirer la carte du jour</button>
+    </form>
+
+    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
+
+    <div class="card" style="display:none;" id="card-section">
+        <div class="inner-card" id="flip-card">
+            <div class="face front"></div>
+            <div class="face back"></div>
+        </div>
+    </div>
+
+    <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
+    <a href="services.html" id="cta-btn">Voir les services proposés</a>
+
+    <script>
+        var cards = [
+            'images/Fidelite.jpeg', 
+            'images/Secret.jpeg', 
+            'images/Campagne.jpeg', 
+            'images/Dependance.jpeg'
+        ];
+
+        // Sauvegarder la date et les infos utilisateur en localStorage
+        function canDrawCardToday(prenom, age) {
+            var storedData = localStorage.getItem('userData');
+            var today = new Date().toLocaleDateString();
+
+            if (storedData) {
+                var parsedData = JSON.parse(storedData);
+                if (parsedData.prenom === prenom && parsedData.age === age && parsedData.date === today) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function saveUserData(prenom, age) {
+            var today = new Date().toLocaleDateString();
+            var userData = {
+                prenom: prenom,
+                age: age,
+                date: today
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+
+        document.getElementById('user-info-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var prenom = document.getElementById('prenom').value;
+            var age = document.getElementById('age').value;
+
+            if (!canDrawCardToday(prenom, age)) {
+                alert('Vous avez déjà tiré une carte aujourd\'hui. Revenez demain!');
+                return;
+            }
+
+            saveUserData(prenom, age);
+
+            // Passer à l'animation de la carte
+            document.getElementById('card-section').style.display = 'block';
+            var card = document.getElementById('flip-card');
+            var backFace = document.querySelector('.back');
+
+            // Choisir une carte aléatoire
+            var randomCard = cards[Math.floor(Math.random() * cards.length)];
+            backFace.style.backgroundImage = 'url(' + randomCard + ')';
+
+            // Déclencher l'animation de flip
+            card.classList.add('clicked');
+
+            // Masquer le message d'attention
+            document.getElementById('attention-msg').style.display = 'none';
+
+            setTimeout(function() {
+                // Afficher le message et le bouton après l'animation
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('cta-btn').style.display = 'inline-block';
+                
+                // Réafficher le message d'attention en bas
+                document.getElementById('attention-msg').style.display = 'block';
+                document.getElementById('attention-msg').style.fontSize = '0.8em';
+            }, 3000); // Durée de l'animation (3 secondes)
+        });
+    </script>
+</body>
+</html>
