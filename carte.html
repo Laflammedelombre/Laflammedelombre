@@ -26,17 +26,16 @@
             background-size: cover;
             border: 2px solid white;
             border-radius: 10px;
-            transition: transform 0.5s ease-in-out;
             transform-style: preserve-3d;
-            cursor: pointer;
+            transition: transform 0.5s ease-in-out;
         }
-        .carte.revealed {
+        .carte.flipping {
             animation: spinAndStop 5s ease-in-out forwards;
         }
         @keyframes spinAndStop {
             0% { transform: rotateY(0deg); }
-            80% { transform: rotateY(1440deg); } /* 4 tours rapides */
-            100% { transform: rotateY(1620deg); } /* S'arrête à une carte au hasard */
+            80% { transform: rotateY(1440deg); background-image: url('images/Byj.jpg'); } /* 4 tours rapides avec le dos */
+            100% { transform: rotateY(1620deg); } /* S'arrête sur une carte au hasard */
         }
         .hidden-text {
             display: none;
@@ -58,25 +57,45 @@
         .hidden-text a:hover {
             background-color: #666666;
         }
+        .reveal-btn {
+            background-color: #444444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .reveal-btn:hover {
+            background-color: #666666;
+        }
+        .instruction {
+            font-size: 0.9em;
+            color: #f0f0f0;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Cliquez pour révéler votre carte du jour</h1>
+    <h1>Révélez votre carte du jour</h1>
     <div class="carte-container">
         <div class="carte" id="carte"></div>
     </div>
 
+    <button class="reveal-btn" id="reveal-btn">Révéler la carte du jour</button>
+
     <div class="hidden-text" id="hidden-text">
-        <p>Pour plus de précision, <strong>prenez rendez-vous</strong> pour une consultation personnalisée.</p>
+        <p>Pour plus de précision, si cela résonne avec vous, vous pouvez consulter mes services pour une séance personnalisée.</p>
         <a href="services.html">Voir les services proposés</a>
     </div>
+
+    <p class="instruction">Note : Ne cliquez qu'une seule fois sur la carte, sinon le tirage perd de son sens.</p>
 
     <script>
         const carte = document.getElementById('carte');
         const hiddenText = document.getElementById('hidden-text');
-
-        // Les images de tes cartes (fidélité, secret, etc.)
+        const revealBtn = document.getElementById('reveal-btn');
         const cartes = [
             'images/Fidelite.jpeg',
             'images/Secret.jpeg',
@@ -84,18 +103,30 @@
             'images/Campagne.jpeg'
         ];
 
-        carte.addEventListener('click', () => {
-            // Démarre l'animation de rotation
-            carte.classList.add('revealed');
+        revealBtn.addEventListener('click', () => {
+            // Désactiver le bouton après le premier clic
+            revealBtn.disabled = true;
 
-            // Sélectionne une carte au hasard après 4.5 secondes
-            setTimeout(() => {
+            // Lancer l'animation de la carte
+            carte.classList.add('flipping');
+
+            // Changer les images pendant la rotation
+            let changeCount = 0;
+            const interval = setInterval(() => {
                 const randomCarte = cartes[Math.floor(Math.random() * cartes.length)];
                 carte.style.backgroundImage = `url(${randomCarte})`;
+                changeCount++;
+                if (changeCount >= 8) { // Limiter à 8 changements pour simuler la rotation
+                    clearInterval(interval);
+                }
+            }, 500); // Changer les cartes toutes les 500ms
 
-                // Affiche le texte après 5 secondes
+            // Afficher la carte finale et le texte après 5 secondes
+            setTimeout(() => {
+                const finalCarte = cartes[Math.floor(Math.random() * cartes.length)];
+                carte.style.backgroundImage = `url(${finalCarte})`;
                 hiddenText.style.display = 'block';
-            }, 4500);
+            }, 5000);
         });
     </script>
 
