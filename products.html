@@ -50,21 +50,40 @@
         }
         img {
             width: 80%; /* Ajuste la taille de l'image */
-            max-width: 600px; /* Taille maximale fixe pour la photo EDL */
+            max-width: 600px;
             margin: 20px auto; /* Centrage et espacement autour de l'image */
             display: block;
         }
         .card-gallery {
             display: flex;
-            justify-content: center; /* Centre les images sur PC */
+            justify-content: center; /* Centre les images */
             gap: 10px; /* Espacement entre les images */
             margin-bottom: 20px;
         }
         .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes sur PC */
+            width: 150px; /* Taille fixe pour les images des cartes */
             height: auto;
             border: 1px solid #888888; /* Bordure pour les images */
             border-radius: 5px; /* Bordures arrondies */
+        }
+        .flip-container {
+            perspective: 1000px; /* Ajout de perspective pour l'effet flip */
+        }
+        .flip-container:hover .flipper {
+            transform: rotateY(180deg); /* Rotation sur l'axe Y pour l'effet de bascule */
+        }
+        .flipper {
+            transition: 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            backface-visibility: hidden; /* Cache la face arrière lors de la rotation */
+        }
+        .back {
+            transform: rotateY(180deg); /* L'image arrière est déjà retournée */
         }
         .photo-a-venir {
             font-size: 1em;
@@ -94,7 +113,7 @@
         @media (max-width: 768px) {
             .card-gallery {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 pour mobile */
+                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
                 gap: 10px;
             }
             .btn {
@@ -155,15 +174,22 @@
     <p>Livraison prévue courant septembre.</p>
     <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
     
-    <!-- Section 3 : Eau de Lune -->
+    <!-- Section 3 : Eau de Lune avec effet flip -->
     <h2>Eau de Lune</h2>
-    <img src="images/EDL.jpeg" alt="Eau de Lune" style="max-width: 600px;">
+    <div class="flip-container">
+        <div class="flipper">
+            <div class="front">
+                <img src="images/EDL.jpeg" alt="Eau de Lune">
+            </div>
+            <div class="back">
+                <img src="images/EDL2.jpeg" alt="Eau de Lune 2"
+                                </div>
+        </div>
+    </div>
 
     <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
 
     <p>L'eau de lune sera fournie avec une petite pipette pour une manipulation facile. Afin que cette eau fonctionne au mieux, il est important que vous y ancriez une intention de protection sincère lors de son utilisation.</p>
-
-    <p><strong>
 
     <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
