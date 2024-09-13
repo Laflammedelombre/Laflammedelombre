@@ -27,8 +27,8 @@
             font-size: 1.2em;
         }
         .card {
-            width: 200px;
-            height: 300px;
+            width: 250px; /* Taille ajustée pour bien afficher la carte */
+            height: 350px; /* Taille ajustée pour bien afficher la carte */
             perspective: 1000px;
             margin: 20px auto;
         }
@@ -37,14 +37,14 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 4s ease-in-out;
+            transition: transform 3s ease-in-out;
         }
         .clicked {
-            animation: spinCard 4s ease-in-out forwards;
+            animation: spinCard 3s ease-in-out forwards;
         }
         @keyframes spinCard {
             0% { transform: rotateY(0deg); }
-            80% { transform: rotateY(1440deg); } /* Tourne la carte 4 fois */
+            80% { transform: rotateY(1080deg); } /* Tourne la carte 3 fois */
             100% { transform: rotateY(180deg); } /* La carte s'arrête et révèle le côté */
         }
         .face {
@@ -147,7 +147,7 @@
                 
                 // Réafficher le message d'attention en plus petit en bas
                 document.getElementById('attention-msg-small').style.display = 'block';
-            }, 4000); // Durée de l'animation (4 secondes)
+            }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
 </body>
