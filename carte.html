@@ -21,6 +21,7 @@
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
+            color: gold; /* Titre en couleur or */
         }
         p {
             font-size: 1.2em;
@@ -36,10 +37,10 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 1s ease-in-out;
+            transition: transform 5s ease-in-out; /* Animation plus lente */
         }
         .clicked {
-            transform: rotateY(1800deg);
+            transform: rotateY(1440deg); /* Fait tourner la carte 4 fois */
         }
         .face {
             position: absolute;
@@ -52,7 +53,7 @@
             background-image: url('images/Byj.jpg');
         }
         .back {
-            background-image: url('images/Fidelite.jpeg'); /* Remplacez par d'autres cartes aléatoirement */
+            background-image: url('images/Fidelite.jpeg'); /* Carte par défaut, remplacée aléatoirement */
             transform: rotateY(180deg);
         }
         button {
@@ -85,9 +86,9 @@
         </div>
     </div>
 
-    <button id="reveal-btn">Révéler la carte</button>
+    <button id="reveal-btn">Révéler la carte du jour</button>
 
-    <p id="message">Si vous voulez en savoir plus, consultez nos <a href="services.html" style="color: lightblue;">services</a>.</p>
+    <p id="message">Si vous souhaitez en savoir plus ou approfondir la signification de cette carte, n'hésitez pas à <a href="services.html" style="color: lightblue;">prendre rendez-vous</a> ou <a href="services.html" style="color: lightblue;">consulter nos services</a>.</p>
 
     <script>
         document.getElementById('reveal-btn').addEventListener('click', function() {
