@@ -21,7 +21,9 @@
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
-            color: gold; /* Titre en couleur or */
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00); /* Dégradé doré */
+            -webkit-background-clip: text;
+            color: transparent;
         }
         p {
             font-size: 1.2em;
@@ -74,6 +76,19 @@
             font-size: 1.2em;
             color: white;
         }
+        #cta-btn {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        #cta-btn:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +103,7 @@
 
     <button id="reveal-btn">Révéler la carte du jour</button>
 
-    <p id="message">Si vous souhaitez en savoir plus ou approfondir la signification de cette carte, n'hésitez pas à <a href="services.html" style="color: lightblue;">prendre rendez-vous</a> ou <a href="services.html" style="color: lightblue;">consulter nos services</a>.</p>
+    <p id="message">Si cette carte résonne en vous et que vous souhaitez approfondir sa signification, vous pouvez <a href="services.html" id="cta-btn">Voir les services proposés</a>.</p>
 
     <script>
         document.getElementById('reveal-btn').addEventListener('click', function() {
