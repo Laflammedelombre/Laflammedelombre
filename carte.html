@@ -37,10 +37,10 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 5s ease-in-out; /* Animation plus lente */
+            transition: transform 5s ease-in-out;
         }
         .clicked {
-            transform: rotateY(1440deg); /* Fait tourner la carte 4 fois */
+            transform: rotateY(1440deg); /* Tourne la carte 4 fois */
         }
         .face {
             position: absolute;
@@ -53,7 +53,6 @@
             background-image: url('images/Byj.jpg'); /* Dos de la carte */
         }
         .back {
-            background-image: url('images/Byj.jpg'); /* Dos de la carte */
             transform: rotateY(180deg);
         }
         button {
@@ -82,7 +81,7 @@
             font-size: 1.2em;
             margin-top: 20px;
             text-decoration: none;
-            display: inline-block;
+            display: none; /* Le bouton apparaît seulement à la fin */
         }
         #cta-btn:hover {
             background-color: #666;
@@ -92,7 +91,7 @@
 <body>
     <h1>La carte du jour</h1>
 
-    <p><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
+    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -107,13 +106,36 @@
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
 
     <script>
+        var cards = [
+            'images/Fidelite.jpeg', 
+            'images/Secret.jpeg', 
+            'images/Campagne.jpeg', 
+            'images/Dependance.jpeg'
+        ];
+
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
+            var backFace = document.querySelector('.back');
+
+            // Choisir une carte aléatoire
+            var randomCard = cards[Math.floor(Math.random() * cards.length)];
+            backFace.style.backgroundImage = 'url(' + randomCard + ')';
+
+            // Déclencher l'animation de flip
             card.classList.add('clicked');
             this.disabled = true;
 
+            // Masquer le message d'attention
+            document.getElementById('attention-msg').style.display = 'none';
+
             setTimeout(function() {
+                // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
+                document.getElementById('cta-btn').style.display = 'inline-block';
+                
+                // Réafficher le message d'attention en bas
+                document.getElementById('attention-msg').style.display = 'block';
+                document.getElementById('attention-msg').style.fontSize = '0.8em';
             }, 5000); // Durée de l'animation (5 secondes)
         });
     </script>
