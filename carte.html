@@ -37,10 +37,15 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 5s ease-in-out;
+            transition: transform 4s ease-in-out;
         }
         .clicked {
-            transform: rotateY(1440deg); /* Tourne la carte 4 fois */
+            animation: spinCard 4s ease-in-out forwards;
+        }
+        @keyframes spinCard {
+            0% { transform: rotateY(0deg); }
+            80% { transform: rotateY(1440deg); } /* Tourne la carte 4 fois */
+            100% { transform: rotateY(180deg); } /* La carte s'arrête et révèle le côté */
         }
         .face {
             position: absolute;
@@ -86,6 +91,11 @@
         #cta-btn:hover {
             background-color: #666;
         }
+        #attention-msg-small {
+            display: none;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +114,8 @@
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
+
+    <p id="attention-msg-small"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour.</p>
 
     <script>
         var cards = [
@@ -133,10 +145,9 @@
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
                 
-                // Réafficher le message d'attention en bas
-                document.getElementById('attention-msg').style.display = 'block';
-                document.getElementById('attention-msg').style.fontSize = '0.8em';
-            }, 5000); // Durée de l'animation (5 secondes)
+                // Réafficher le message d'attention en plus petit en bas
+                document.getElementById('attention-msg-small').style.display = 'block';
+            }, 4000); // Durée de l'animation (4 secondes)
         });
     </script>
 </body>
