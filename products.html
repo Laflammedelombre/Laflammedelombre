@@ -48,89 +48,40 @@
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
         }
-        img {
-            width: 80%; /* Ajuste la taille de l'image */
-            max-width: 600px;
-            margin: 20px auto; /* Centrage et espacement autour de l'image */
-            display: block;
-        }
-        .card-gallery {
-            display: flex;
-            justify-content: center; /* Centre les images */
-            gap: 10px; /* Espacement entre les images */
-            margin-bottom: 20px;
-        }
-        .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes */
-            height: auto;
-            border: 1px solid #888888; /* Bordure pour les images */
-            border-radius: 5px; /* Bordures arrondies */
-        }
-        .photo-a-venir {
-            font-size: 1em;
-            color: #888888;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
+
+        /* Style du conteneur flip */
         #flip-container {
-            perspective: 1000px; /* Perspective for the 3D effect */
-            margin-bottom: 20px; /* Adds space below the image */
-            margin-top: 20px; /* Adds space above the image */
+            perspective: 1000px;
+            margin: 20px auto;
         }
+
         .flipper {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            transition: 0.6s;
+            transition: transform 0.6s;
             transform-style: preserve-3d;
+            width: 80%; /* Ajustement pour la taille de l'image */
+            max-width: 400px; /* Taille maximale de l'image */
+            height: auto;
+            margin: 0 auto; /* Centré */
+            position: relative;
         }
-        .flipper.clicked {
-            transform: rotateY(180deg);
+
+        #flip-container.clicked .flipper {
+            transform: rotateY(180deg); /* Applique la rotation sur le clic */
         }
+
         .front, .back {
             position: absolute;
-            width: 100%;
-            height: 100%;
             backface-visibility: hidden;
+            width: 100%;
         }
+
         .back {
-            transform: rotateY(180deg);
-        }
-        nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
-            padding: 0;
-            margin: 20px 0;
-        }
-        nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
-        }
-        nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+            transform: rotateY(180deg); /* L'image arrière est inversée */
         }
 
-        /* Media Queries pour écrans plus petits */
-        @media (max-width: 768px) {
-            .card-gallery {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
-                gap: 10px;
-            }
-            .btn {
-                width: 250px; /* Ajuste la largeur du bouton pour les écrans plus petits */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .btn {
-                width: 230px; /* Pour les très petits écrans */
-                font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
-            }
+        /* Ajout d'un espacement pour éviter de superposer l'image et le texte */
+        img {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -181,14 +132,13 @@
     
     <!-- Section 3 : Eau de Lune -->
     <h2>Eau de Lune</h2>
+    
+    <!-- Conteneur flip -->
     <div id="flip-container">
         <div class="flipper">
-            <div class="front">
-                <img src="images/EDL.jpeg" alt="Eau de Lune">
-            </div>
-            <div class="back">
-                <img src="images/EDL2.jpeg" alt="Eau de Lune - Vue arrière">
-                    </div>
+            <img class="front" src="images/EDL.jpeg" alt="Eau de Lune">
+            <img class="back" src="images/EDL2.jpeg" alt="Eau de Lune dos">
+        </div>
     </div>
 
     <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
@@ -197,7 +147,7 @@
 
     <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
-
+    
     <p>Disponible en fiole de 12ml.</p>
 
 </body>
