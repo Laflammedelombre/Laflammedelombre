@@ -21,9 +21,7 @@
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00); /* Dégradé doré */
-            -webkit-background-clip: text;
-            color: transparent;
+            color: white;
         }
         p {
             font-size: 1.2em;
@@ -52,10 +50,10 @@
             background-size: cover;
         }
         .front {
-            background-image: url('images/Byj.jpg');
+            background-image: url('images/Byj.jpg'); /* Dos de la carte */
         }
         .back {
-            background-image: url('images/Fidelite.jpeg'); /* Carte par défaut, remplacée aléatoirement */
+            background-image: url('images/Byj.jpg'); /* Dos de la carte */
             transform: rotateY(180deg);
         }
         button {
@@ -94,6 +92,8 @@
 <body>
     <h1>La carte du jour</h1>
 
+    <p><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
+
     <div class="card">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
@@ -103,18 +103,14 @@
 
     <button id="reveal-btn">Révéler la carte du jour</button>
 
-    <p id="message">Si cette carte résonne en vous et que vous souhaitez approfondir sa signification, vous pouvez <a href="services.html" id="cta-btn">Voir les services proposés</a>.</p>
+    <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
+    <a href="services.html" id="cta-btn">Voir les services proposés</a>
 
     <script>
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
             card.classList.add('clicked');
             this.disabled = true;
-
-            // Change the back image to a random card
-            const cards = ['images/Fidelite.jpeg', 'images/Secret.jpeg', 'images/Campagne.jpeg', 'images/Dependance.jpeg'];
-            const randomCard = cards[Math.floor(Math.random() * cards.length)];
-            document.querySelector('.back').style.backgroundImage = 'url(' + randomCard + ')';
 
             setTimeout(function() {
                 document.getElementById('message').style.display = 'block';
