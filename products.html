@@ -6,12 +6,12 @@
     <title>Produits - La Flamme de l'Ombre</title>
     <style>
         body {
-            background-color: black; /* Fond noir */
-            color: white; /* Texte en blanc */
-            font-family: Arial, sans-serif; /* Police par défaut */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            text-align: center; /* Centrer le texte */
+            text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,52 +19,52 @@
             min-height: 100vh;
         }
         h1, h2 {
-            font-size: 3em; /* Taille du titre et des sous-titres */
+            font-size: 3em;
             margin-bottom: 20px;
         }
         h2 {
             margin-top: 40px;
         }
         p {
-            font-size: 1.2em; /* Taille du texte */
-            line-height: 1.5em; /* Hauteur de ligne */
+            font-size: 1.2em;
+            line-height: 1.5em;
             margin-bottom: 20px;
         }
         .btn {
-            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
-            color: white; /* Texte blanc */
-            padding: 10px 25px; /* Espacement interne ajusté pour que le texte reste sur une ligne */
-            text-align: center; /* Centrer le texte */
-            text-decoration: none; /* Enlève le soulignement */
-            display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Ajustement de la taille du texte */
-            margin: 15px 0; /* Espace autour du bouton */
-            border-radius: 5px; /* Bordure arrondie */
-            border: 1px solid #888888; /* Bordure gris clair */
-            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 270px; /* Largeur légèrement augmentée pour éviter que le texte ne passe sur 2 lignes */
-            max-width: 90%; /* Ajustement pour mobile */
+            background-color: #444444;
+            color: white;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #888888;
+            transition: background-color 0.3s ease;
+            width: 270px;
+            max-width: 90%;
         }
         .btn:hover {
-            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
+            background-color: #666666;
         }
         img {
-            width: 80%; /* Ajuste la taille de l'image */
+            width: 80%;
             max-width: 600px;
-            margin: 20px auto; /* Centrage et espacement autour de l'image */
+            margin: 20px auto;
             display: block;
         }
         .card-gallery {
             display: flex;
-            justify-content: center; /* Centre les images */
-            gap: 10px; /* Espacement entre les images */
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes */
+            width: 150px;
             height: auto;
-            border: 1px solid #888888; /* Bordure pour les images */
-            border-radius: 5px; /* Bordures arrondies */
+            border: 1px solid #888888;
+            border-radius: 5px;
         }
         .photo-a-venir {
             font-size: 1em;
@@ -73,66 +73,66 @@
             margin-bottom: 20px;
         }
         nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
+            list-style-type: none;
             padding: 0;
             margin: 20px 0;
         }
         nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
+            display: inline;
             margin: 0 15px;
         }
         nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
         nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+            text-decoration: underline;
         }
 
-        /* Media Queries pour écrans plus petits */
-        @media (max-width: 768px) {
-            .card-gallery {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
-                gap: 10px;
-            }
-            .btn {
-                width: 250px; /* Ajuste la largeur du bouton pour les écrans plus petits */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .btn {
-                width: 230px; /* Pour les très petits écrans */
-                font-size: 1em; /* Réduction de la taille du texte pour qu'il passe bien */
-            }
-        }
-
-        /* Flip container */
+        /* Flip effect */
         #flip-container {
+            width: 80%;
+            max-width: 600px;
             perspective: 1000px;
             margin: 20px auto;
         }
         .flipper {
+            position: relative;
+            width: 100%;
+            height: auto;
             transition: transform 0.6s;
             transform-style: preserve-3d;
-            width: 80%; /* Ajustement pour la taille de l'image */
-            max-width: 400px; /* Taille maximale de l'image */
-            height: auto;
-            margin: 0 auto; /* Centré */
-            position: relative;
         }
-        #flip-container.clicked .flipper {
-            transform: rotateY(180deg); /* Applique la rotation sur le clic */
+        .flipper:hover {
+            transform: rotateY(180deg);
         }
         .front, .back {
             position: absolute;
-            backface-visibility: hidden;
             width: 100%;
+            height: auto;
+            backface-visibility: hidden;
         }
         .back {
-            transform: rotateY(180deg); /* L'image arrière est inversée */
+            transform: rotateY(180deg);
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 768px) {
+            .card-gallery {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .btn {
+                width: 250px;
+            }
+        }
+        @media (max-width: 480px) {
+            .btn {
+                width: 230px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -152,7 +152,7 @@
     <h1>L'Oracle by J</h1>
     <img src="images/Byj.jpg" alt="Oracle by J">
 
-    <!-- Galerie des cartes -->
+    <!-- Gallery -->
     <div class="card-gallery">
         <img src="images/Fidelite.jpeg" alt="Fidélité">
         <img src="images/Secret.jpeg" alt="Secret">
@@ -180,11 +180,11 @@
 
     <p>Livraison prévue courant septembre.</p>
     <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
-    
+
     <!-- Section 3 : Eau de Lune -->
     <h2>Eau de Lune</h2>
     
-    <!-- Conteneur flip -->
+    <!-- Flip container -->
     <div id="flip-container">
         <div class="flipper">
             <img class="front" src="images/EDL.jpeg" alt="Eau de Lune - Front">
@@ -198,9 +198,8 @@
 
     <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
-    
+
     <p>Disponible en fiole de 12ml.</p>
 
 </body>
 </html>
-    
