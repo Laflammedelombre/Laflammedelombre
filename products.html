@@ -48,49 +48,43 @@
         .btn:hover {
             background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
         }
-        img {
-            width: 80%; /* Ajuste la taille de l'image */
-            max-width: 600px;
-            margin: 20px auto; /* Centrage et espacement autour de l'image */
-            display: block;
-        }
-        .card-gallery {
-            display: flex;
-            justify-content: center; /* Centre les images */
-            gap: 10px; /* Espacement entre les images */
-            margin-bottom: 20px;
-        }
-        .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes */
-            height: auto;
-            border: 1px solid #888888; /* Bordure pour les images */
-            border-radius: 5px; /* Bordures arrondies */
-        }
+
         .flip-container {
-            perspective: 1000px; /* Ajout de perspective pour l'effet flip */
+            perspective: 1000px;
+            width: 300px; /* Ajuster la taille ici */
+            margin: 30px auto; /* Ajoute une marge pour ne pas chevaucher le texte */
         }
-        .flip-container:hover .flipper {
-            transform: rotateY(180deg); /* Rotation sur l'axe Y pour l'effet de bascule */
-        }
+
         .flipper {
-            transition: 0.6s;
-            transform-style: preserve-3d;
             position: relative;
+            width: 100%;
+            height: 300px; /* Ajuster la hauteur */
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
         }
+
+        .flipper.clicked {
+            transform: rotateY(180deg);
+        }
+
         .front, .back {
             position: absolute;
             width: 100%;
-            backface-visibility: hidden; /* Cache la face arrière lors de la rotation */
+            height: 100%;
+            backface-visibility: hidden;
         }
+
+        .front {
+            background: url('images/EDL.jpeg') no-repeat center center;
+            background-size: cover;
+        }
+
         .back {
-            transform: rotateY(180deg); /* L'image arrière est déjà retournée */
+            background: url('images/EDL2.jpeg') no-repeat center center;
+            background-size: cover;
+            transform: rotateY(180deg);
         }
-        .photo-a-venir {
-            font-size: 1em;
-            color: #888888;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
+
         nav ul {
             list-style-type: none; /* Enlève les puces des listes */
             padding: 0;
@@ -111,11 +105,6 @@
 
         /* Media Queries pour écrans plus petits */
         @media (max-width: 768px) {
-            .card-gallery {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Réorganisation en grille 2x2 */
-                gap: 10px;
-            }
             .btn {
                 width: 250px; /* Ajuste la largeur du bouton pour les écrans plus petits */
             }
@@ -130,6 +119,7 @@
     </style>
 </head>
 <body>
+
     <nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
@@ -141,53 +131,16 @@
         </ul>
     </nav>
 
-    <!-- Section 1 : Oracle by J -->
-    <h1>L'Oracle by J</h1>
-    <img src="images/Byj.jpg" alt="Oracle by J">
-
-    <!-- Galerie des cartes -->
-    <div class="card-gallery">
-        <img src="images/Fidelite.jpeg" alt="Fidélité">
-        <img src="images/Secret.jpeg" alt="Secret">
-        <img src="images/Dependance.jpeg" alt="Dépendance">
-        <img src="images/Campagne.jpeg" alt="Campagne">
-    </div>
-
-    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
-
-    <p>Imaginé et dessiné 100% par mes soins, cet oracle est de style Art Line et est imprimé en France 🇫🇷. Chaque exemplaire sera numéroté et personnalisé au prénom du propriétaire de l'oracle. Le prénom du/de la futur(e) propriétaire sera demandé à la commande.</p>
-
-    <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
-
-    <p>L'Oracle by J sortira fin 2024.</p>
-
-    <!-- Section 2 : Mini Chapelets Protecteurs -->
-    <h2>Mini Chapelets Protecteurs</h2>
-    <img src="images/Chapelet.jpeg" alt="Mini Chapelet">
-
-    <p>Nos mini chapelets sont consacrés à l'eau de lune, fabriqués par mes soins. Chaque chapelet inclut un pendentif au choix parmi : Lune, Arbre de Vie, Clé, Signe astrologique et Croix chrétienne. Chaque amulette est conçue pour apporter protection et peut être utilisée en tant que talisman personnel. Il peut également être utilisé comme un chapelet "standard" pour prier.</p>
-
-    <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Pré-commander Mini Chapelet</a>
-
-    <p>Livraison prévue courant septembre.</p>
-    <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
-    
-    <!-- Section 3 : Eau de Lune avec effet flip -->
     <h2>Eau de Lune</h2>
-    <div class="flip-container">
-        <div class="flipper">
-            <div class="front">
-                <img src="images/EDL.jpeg" alt="Eau de Lune">
-            </div>
-            <div class="back">
-                <img src="images/EDL2.jpeg" alt="Eau de Lune 2"
-                                </div>
+
+    <div class="flip-container" id="flip-container">
+        <div class="flipper" id="flipper">
+            <div class="front"></div>
+            <div class="back"></div>
         </div>
     </div>
 
-    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
+    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune.</p>
 
     <p>L'eau de lune sera fournie avec une petite pipette pour une manipulation facile. Afin que cette eau fonctionne au mieux, il est important que vous y ancriez une intention de protection sincère lors de son utilisation.</p>
 
