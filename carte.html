@@ -30,6 +30,7 @@
             border-radius: 10px;
             transform-style: preserve-3d;
             transition: transform 0.6s ease-in-out;
+            backface-visibility: hidden;
         }
         .carte.flipping {
             animation: spinAndStop 5s ease-in-out forwards;
@@ -80,7 +81,7 @@
 </head>
 <body>
 
-    <h1>lllLa carte du jour</h1>
+    <h1>La carte du jour</h1>
     <div class="carte-container">
         <div class="carte" id="carte"></div>
     </div>
@@ -105,10 +106,12 @@
             'images/Campagne.jpeg'
         ];
 
-        revealBtn.addEventListener('click', () => {
-            // Désactiver le bouton après le premier clic
-            revealBtn.disabled = true;
+        let isFlipping = false; // Empêche les multiples clics
 
+        revealBtn.addEventListener('click', () => {
+            if (isFlipping) return; // Bloque les clics multiples
+            isFlipping = true;
+            
             // Lancer l'animation de la carte
             carte.classList.add('flipping');
 
