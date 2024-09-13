@@ -96,6 +96,7 @@
             max-width: 600px;
             perspective: 1000px;
             margin: 20px auto;
+            position: relative;
         }
         .flipper {
             position: relative;
@@ -104,13 +105,13 @@
             transition: transform 0.6s;
             transform-style: preserve-3d;
         }
-        .flipper:hover {
+        .flipper.clicked {
             transform: rotateY(180deg);
         }
         .front, .back {
             position: absolute;
             width: 100%;
-            height: auto;
+            height: 100%;
             backface-visibility: hidden;
         }
         .back {
@@ -200,6 +201,12 @@
     <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
 
     <p>Disponible en fiole de 12ml.</p>
+
+    <script>
+        document.querySelector('#flip-container').addEventListener('click', function() {
+            document.querySelector('.flipper').classList.toggle('clicked');
+        });
+    </script>
 
 </body>
 </html>
