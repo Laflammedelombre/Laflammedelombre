@@ -31,6 +31,7 @@
             height: 300px;
             perspective: 1000px;
             margin: 20px auto;
+            display: none; /* Masquer au début */
         }
         .inner-card {
             width: 100%;
@@ -161,7 +162,7 @@
 
             saveUserData(prenom, age);
 
-            // Passer à l'animation de la carte
+            // Rendre la carte visible
             document.getElementById('card-section').style.display = 'block';
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
