@@ -18,7 +18,7 @@
         }
         .carte-container {
             perspective: 1000px;
-            width: 200px; /* Taille ajustée */
+            width: 200px;
             height: 300px;
         }
         .carte {
@@ -29,7 +29,7 @@
             border: 2px solid white;
             border-radius: 10px;
             transform-style: preserve-3d;
-            transition: transform 1s ease-in-out;
+            transition: transform 0.6s ease-in-out;
         }
         .carte.flipping {
             animation: spinAndStop 5s ease-in-out forwards;
@@ -80,7 +80,7 @@
 </head>
 <body>
 
-    <h1>La carte du jour</h1>
+    <h1>lllLa carte du jour</h1>
     <div class="carte-container">
         <div class="carte" id="carte"></div>
     </div>
@@ -88,11 +88,11 @@
     <button class="reveal-btn" id="reveal-btn">Révéler la carte du jour</button>
 
     <div class="hidden-text" id="hidden-text">
-        <p>Pour plus de précision, si cela résonne avec vous, vous pouvez consulter mes services pour une séance personnalisée.</p>
+        <p>Si cette carte résonne en vous, découvrez mes services personnalisés pour une lecture approfondie.</p>
         <a href="services.html">Voir les services proposés</a>
     </div>
 
-    <p class="instruction">Note : Ne cliquez qu'une seule fois sur la carte, sinon le tirage perd de son sens.</p>
+    <p class="instruction">Ne cliquez qu'une seule fois pour révéler la carte, sinon elle perdra de son sens.</p>
 
     <script>
         const carte = document.getElementById('carte');
