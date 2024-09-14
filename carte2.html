@@ -119,12 +119,19 @@
             width: 100%;
             height: auto;
         }
+        .header-image {
+    width: 100%;
+    height: auto; /* Maintient les proportions originales */
+    max-height: 300px; /* Ajustez cette valeur en fonction de la taille souhaitée */
+    object-fit: cover; /* S'assure que l'image remplit l'espace sans être déformée */
+        }
+        
     </style>
 </head>
 <body>
 
     <!-- Bandeau en haut -->
-    <img src="images/carte.jpeg" alt="Bandeau mystique" class="banner">
+    <img src="images/carte.jpeg" alt="Image de la carte du jour" class="header-image">
 
     <h1>La carte du jour</h1>
 
