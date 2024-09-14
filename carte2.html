@@ -105,8 +105,6 @@
         <button type="submit">Tirer la carte du jour</button>
     </form>
 
-    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
-
     <div class="card" style="display:none;" id="card-section">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
@@ -156,7 +154,7 @@
             var age = document.getElementById('age').value;
 
             if (!canDrawCardToday(prenom, age)) {
-                alert('Vous avez déjà tiré une carte aujourd\'hui. Revenez demain!');
+                alert('Il est important de ne tirer qu\'une seule carte par jour pour que le tirage ait du sens. Revenez demain pour un nouveau tirage !');
                 return;
             }
 
@@ -174,17 +172,10 @@
             // Déclencher l'animation de flip
             card.classList.add('clicked');
 
-            // Masquer le message d'attention
-            document.getElementById('attention-msg').style.display = 'none';
-
             setTimeout(function() {
                 // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-                
-                // Réafficher le message d'attention en bas
-                document.getElementById('attention-msg').style.display = 'block';
-                document.getElementById('attention-msg').style.fontSize = '0.8em';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
