@@ -26,12 +26,6 @@
         p {
             font-size: 1.2em;
         }
-        .header-image {
-            width: 100%;
-            height: auto;
-            max-height: 300px;
-            object-fit: cover;
-        }
         .card {
             width: 300px;
             height: 450px;
@@ -50,8 +44,8 @@
         }
         @keyframes spinCard {
             0% { transform: rotateY(0deg); }
-            80% { transform: rotateY(1080deg); }
-            100% { transform: rotateY(180deg); }
+            80% { transform: rotateY(1080deg); } /* Tourne la carte 3 fois */
+            100% { transform: rotateY(180deg); } /* La carte s'arrête et révèle le côté */
         }
         .face {
             position: absolute;
@@ -63,7 +57,7 @@
             background-position: center;
         }
         .front {
-            background-image: url('images/Byj.jpg');
+            background-image: url('images/Byj.jpg'); /* Dos de la carte */
         }
         .back {
             transform: rotateY(180deg);
@@ -94,31 +88,20 @@
             font-size: 1.2em;
             margin-top: 20px;
             text-decoration: none;
-            display: none;
+            display: none; /* Le bouton apparaît seulement à la fin */
         }
         #cta-btn:hover {
             background-color: #666;
         }
-        input[type="text"], input[type="number"] {
-            padding: 10px;
-            font-size: 1.2em;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-            max-width: 300px;
-            width: 80%;
+        #attention-msg-small {
+            display: none;
+            font-size: 0.8em;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Image Bandeau -->
-    <img src="images/carte.jpeg" alt="Bandeau" class="header-image">
-
     <h1>La carte du jour</h1>
-
-    <!-- Champs Prénom et Âge -->
-    <input type="text" id="prenom" placeholder="Votre prénom">
-    <input type="number" id="age" placeholder="Votre âge" min="1">
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -127,43 +110,21 @@
         </div>
     </div>
 
-    <button id="reveal-btn">Valider et Révéler la carte du jour</button>
+    <button id="reveal-btn">Révéler la carte du jour</button>
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
 
+    <p id="attention-msg-small"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour.</p>
+
     <script>
-        var cards = [
-            'images/Fidelite.jpeg',
-            'images/Secret.jpeg',
-            'images/Campagne.jpeg',
-            'images/Dependance.jpeg'
-        ];
+        var totalCards = 77;
+        var cards = [];
+        for (var i = 1; i <= totalCards; i++) {
+            cards.push('images/cartes/' + i + '.jpeg');
+        }
 
         document.getElementById('reveal-btn').addEventListener('click', function() {
-            var prenom = document.getElementById('prenom').value;
-            var age = document.getElementById('age').value;
-
-            // Vérification de l'âge
-            if (age < 18) {
-                alert("Je refuse de faire ce genre de tirage pour des mineurs !");
-                return;
-            }
-
-            // Stockage dans les cookies pour empêcher plusieurs tirages par jour
-            var date = new Date();
-            var today = date.toDateString();
-            var lastTirage = localStorage.getItem('lastTirage');
-            var storedPrenom = localStorage.getItem('prenom');
-
-            if (lastTirage === today && storedPrenom === prenom) {
-                alert("Pour que le tirage ait du sens, il est important de tirer une seule carte par jour. Revenez demain.");
-                return;
-            }
-
-            localStorage.setItem('lastTirage', today);
-            localStorage.setItem('prenom', prenom);
-
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
 
@@ -176,9 +137,10 @@
             this.disabled = true;
 
             setTimeout(function() {
+                // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-            }, 3000);
+            }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
 </body>
