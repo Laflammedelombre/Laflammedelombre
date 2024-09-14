@@ -26,6 +26,12 @@
         p {
             font-size: 1.2em;
         }
+        .header-image {
+            width: 100%;
+            height: auto; /* Maintient les proportions originales */
+            max-height: 300px; /* Ajustez cette valeur en fonction de la taille souhaitée */
+            object-fit: cover; /* S'assure que l'image remplit l'espace sans être déformée */
+        }
         .card {
             width: 300px;
             height: 450px;
@@ -98,50 +104,13 @@
             font-size: 0.8em;
             margin-top: 10px;
         }
-
-        /* Champs pour nom et âge */
-        .input-container {
-            margin-top: 20px;
-        }
-        .input-container input {
-            font-size: 1.5em; /* Agrandir la taille du texte dans les champs */
-            padding: 10px;
-            margin: 5px;
-            width: 200px;
-            border-radius: 5px;
-            border: 1px solid #888;
-        }
-        .input-container label {
-            font-size: 1.2em;
-        }
-        /* Image bandeau */
-        .banner {
-            width: 100%;
-            height: auto;
-        }
-        .header-image {
-    width: 100%;
-    height: auto; /* Maintient les proportions originales */
-    max-height: 300px; /* Ajustez cette valeur en fonction de la taille souhaitée */
-    object-fit: cover; /* S'assure que l'image remplit l'espace sans être déformée */
-        }
-        
     </style>
 </head>
 <body>
-
-    <!-- Bandeau en haut -->
-    <img src="images/carte.jpeg" alt="Image de la carte du jour" class="header-image">
+    <!-- Image Bandeau en haut de page -->
+    <img src="images/carte.jpeg" alt="Bandeau" class="header-image">
 
     <h1>La carte du jour</h1>
-
-    <!-- Formulaire de saisie pour le prénom et l'âge -->
-    <div class="input-container">
-        <input type="text" id="prenom" placeholder="Entrez votre prénom">
-    </div>
-    <div class="input-container">
-        <input type="number" id="age" placeholder="Entrez votre âge">
-    </div>
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -150,7 +119,7 @@
         </div>
     </div>
 
-    <button id="reveal-btn">Valider et Révéler la carte du jour</button>
+    <button id="reveal-btn">Révéler la carte du jour</button>
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
@@ -166,26 +135,6 @@
         ];
 
         document.getElementById('reveal-btn').addEventListener('click', function() {
-            var prenom = document.getElementById('prenom').value;
-            var age = document.getElementById('age').value;
-
-            // Vérifier l'âge
-            if (age < 18) {
-                alert("Je refuse de faire ce genre de tirage pour les mineurs.");
-                return;
-            }
-
-            // Vérifier si un tirage a déjà été fait aujourd'hui
-            var today = new Date().toISOString().split('T')[0]; // Obtenir la date du jour
-            var lastDraw = localStorage.getItem('lastDrawDate');
-            if (lastDraw === today) {
-                alert("Pour que le tirage ait du sens, il est important de tirer une seule carte par jour. Revenez demain pour une nouvelle carte.");
-                return;
-            }
-
-            // Stocker la date du tirage
-            localStorage.setItem('lastDrawDate', today);
-
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
 
@@ -201,12 +150,11 @@
                 // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-
+                
                 // Réafficher le message d'attention en plus petit en bas
                 document.getElementById('attention-msg-small').style.display = 'block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
-
 </body>
 </html>
