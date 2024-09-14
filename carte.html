@@ -103,8 +103,6 @@
 <body>
     <h1>La carte du jour</h1>
 
-    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
-
     <div class="card">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
@@ -117,88 +115,86 @@
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
 
-    <p id="attention-msg-small"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour.</p>
-
     <script>
         var cards = [
-            { img: 'images/1.jpeg', text: "La communication est essentielle aujourd'hui. Soyez à l'écoute et exprimez-vous avec clarté." },
-            { img: 'images/10.jpeg', text: "Prenez soin de vous, même dans vos moments de faiblesse. La force viendra avec le repos." },
-            { img: 'images/11.jpeg', text: "Aujourd'hui, vous trouverez la force nécessaire pour surmonter les défis qui vous attendent." },
-            { img: 'images/12.jpeg', text: "Canalisez votre énergie pour éviter toute forme de violence, que ce soit verbale ou émotionnelle." },
-            { img: 'images/13.jpeg', text: "Votre esprit est votre atout aujourd'hui. Utilisez-le pour résoudre les problèmes avec sagesse." },
-            { img: 'images/14.jpeg', text: "Prenez soin de votre corps aujourd'hui, il est le temple de votre âme." },
-            { img: 'images/15.jpeg', text: "Comme l'eau, soyez fluide et adaptable face aux défis que vous rencontrez." },
-            { img: 'images/16.jpeg', text: "Ancrez-vous dans la terre et trouvez votre stabilité en ces temps incertains." },
-            { img: 'images/17.jpeg', text: "Laissez l'air rafraîchir vos idées et apportez de la légèreté dans vos pensées." },
-            { img: 'images/18.jpeg', text: "Comme le feu, laissez votre passion guider vos actions aujourd'hui." },
-            { img: 'images/19.jpeg', text: "Le voyage est autant intérieur qu'extérieur. Prenez le temps de vous découvrir." },
-            { img: 'images/2.jpeg', text: "Une confrontation se profile. Abordez-la avec calme et diplomatie." },
-            { img: 'images/20.jpeg', text: "La solitude vous invite à une introspection nécessaire pour votre bien-être." },
-            { img: 'images/21.jpeg', text: "Votre maison est votre sanctuaire. Prenez soin de votre espace personnel." },
-            { img: 'images/22.jpeg', text: "La journée sera sous une bonne étoile. Profitez de chaque moment." },
-            { img: 'images/23.jpeg', text: "Même dans l'adversité, souvenez-vous que la lumière revient toujours." },
-            { img: 'images/24.jpeg', text: "Attention à ne pas trop dominer les autres, l'harmonie est dans l'équilibre." },
-            { img: 'images/25.jpeg', text: "Ne vous laissez pas écraser par les autres. Reprenez votre pouvoir personnel." },
-            { img: 'images/26.jpeg', text: "Prenez conscience de vos dépendances et travaillez à les surmonter." },
-            { img: 'images/27.jpeg', text: "Libérez-vous de toute emprise. Votre liberté est précieuse." },
-            { img: 'images/28.jpeg', text: "L'évolution est en marche, ne la craignez pas, elle vous conduira vers un avenir meilleur." },
-            { img: 'images/29.jpeg', text: "L'aide viendra d'où vous l'attendez le moins, soyez prêt à la recevoir." },
-            { img: 'images/3.jpeg', text: "La réussite est à portée de main. Ne doutez pas de vous." },
-            { img: 'images/30.jpeg', text: "Les obstacles peuvent ralentir, mais ils ne doivent pas stopper votre progression." },
-            { img: 'images/31.jpeg', text: "L'alliance avec les bonnes personnes vous conduira vers la réussite." },
-            { img: 'images/32.jpeg', text: "De bonnes nouvelles arrivent, soyez attentif à ce qui se passe autour de vous." },
-            { img: 'images/33.jpeg', text: "Prenez soin de vos papiers et de vos démarches administratives." },
-            { img: 'images/34.jpeg', text: "L'équilibre cosmique est en action. Faites confiance à la loi du karma." },
-            { img: 'images/35.jpeg', text: "Remettez en question ce qui ne vous sert plus, c'est un jour propice au changement." },
-            { img: 'images/36.jpeg', text: "Votre savoir est votre force. N'arrêtez jamais d'apprendre." },
-            { img: 'images/37.jpeg', text: "Un nouveau commencement se présente à vous. Saisissez cette opportunité." },
-            { img: 'images/38.jpeg', text: "L'abondance vous entoure, ouvrez vos yeux pour la recevoir." },
-            { img: 'images/39.jpeg', text: "Le bonheur est là, à portée de main. Saisissez-le avec gratitude." },
-            { img: 'images/4.jpeg', text: "La transformation est à l'œuvre. Accueillez le changement avec confiance." },
-            { img: 'images/40.jpeg', text: "Les anges veillent sur vous. Demandez leur guidance aujourd'hui." },
-            { img: 'images/41.jpeg', text: "Affrontez vos démons intérieurs, et ne les laissez pas vous contrôler." },
-            { img: 'images/42.jpeg', text: "Le choix est entre vos mains, prenez la meilleure décision pour vous." },
-            { img: 'images/43.jpeg', text: "Le chemin est encore long, mais chaque pas vous rapproche de votre but." },
-            { img: 'images/44.jpeg', text: "Même si la distance semble grande, vous n'êtes jamais seul." },
-            { img: 'images/45.jpeg', text: "La sérénité vous attend, mais elle nécessite patience et réflexion." },
-            { img: 'images/46.jpeg', text: "Les choses avancent lentement, mais elles avancent dans la bonne direction." },
-            { img: 'images/47.jpeg', text: "Les événements se déroulent rapidement aujourd'hui, soyez prêt à réagir." },
-            { img: 'images/48.jpeg', text: "Le printemps annonce un renouveau, une période de croissance et de floraison." },
-            { img: 'images/49.jpeg', text: "L'hiver est là pour vous rappeler de ralentir et de vous ressourcer." },
-            { img: 'images/50.jpeg', text: "L'automne est une période de transformation, de lâcher prise et de renouvellement." },
-            { img: 'images/51.jpeg', text: "L'été est une période de joie et de chaleur, profitez des plaisirs simples." },
-            { img: 'images/52.jpeg', text: "L'enfant intérieur en vous mérite d'être entendu et écouté aujourd'hui." },
-            { img: 'images/53.jpeg', text: "Une femme jouera un rôle important dans votre journée, soyez attentif." },
-            { img: 'images/54.jpeg', text: "Les liens d'amitié sont précieux, prenez soin de vos relations proches." },
-            { img: 'images/55.jpeg', text: "Le doute persiste, mais la réponse viendra bientôt." },
-            { img: 'images/56.jpeg', text: "La famille est votre pilier aujourd'hui, recherchez leur soutien si nécessaire." },
-            { img: 'images/57.jpeg', text: "L'argent ne doit pas être une source de stress, gardez un équilibre sain." },
-            { img: 'images/58.jpeg', text: "Prenez soin de votre santé aujourd'hui, votre bien-être doit être prioritaire." },
-            { img: 'images/59.jpeg', text: "L'amour est présent dans votre vie, que ce soit romantique ou fraternel." },
-            { img: 'images/60.jpeg', text: "Le travail que vous accomplissez aujourd'hui portera ses fruits à long terme." },
-            { img: 'images/61.jpeg', text: "Une trahison passée ne doit pas influencer vos relations présentes, soyez ouvert." },
-            { img: 'images/62.jpeg', text: "La confiance est la clé de toutes vos relations, donnez-la avec discernement." },
-            { img: 'images/63.jpeg', text: "Vous détenez la clé de la situation, il vous suffit de la tourner." },
-            { img: 'images/64.jpeg', text: "Un appel à l'aide sera entendu aujourd'hui, ne craignez pas de demander du soutien." },
-            { img: 'images/65.jpeg', text: "Les blessures du passé peuvent être guéries, donnez-vous le temps nécessaire." },
-            { img: 'images/66.jpeg', text: "Le présent est votre seul véritable pouvoir, vivez-le pleinement." },
-            { img: 'images/67.jpeg', text: "Le futur vous réserve des surprises, restez ouvert et optimiste." },
-            { img: 'images/68.jpeg', text: "Le passé doit être laissé derrière vous pour avancer sereinement." },
-            { img: 'images/69.jpeg', text: "La réponse est clairement non, il est temps de réorienter vos efforts." },
-            { img: 'images/70.jpeg', text: "La réponse est oui, la voie est ouverte pour vous." },
-            { img: 'images/71.jpeg', text: "Un homme aura une influence importante sur votre journée." },
-            { img: 'images/72.jpeg', text: "Votre conjoint(e) ou partenaire vous apportera un soutien précieux aujourd'hui." },
-            { img: 'images/73.jpeg', text: "Votre intuition est forte aujourd'hui, faites confiance à votre propre jugement." },
-            { img: 'images/74.jpeg', text: "L'instabilité est temporaire, le calme reviendra bientôt." },
-            { img: 'images/75.jpeg', text: "Le monde virtuel a un message pour vous aujourd'hui, soyez attentif aux signes." },
-            { img: 'images/76.jpeg', text: "Le secret que vous portez pourrait bientôt être révélé, préparez-vous." },
-            { img: 'images/77.jpeg', text: "L'habitude peut être un confort ou un fardeau, à vous de choisir." }
+            { img: 'images/cartes/1.jpeg', text: "Aujourd'hui, la communication est clé. Exprimez-vous avec clarté pour éviter les malentendus." },
+            { img: 'images/cartes/2.jpeg', text: "Il pourrait y avoir des confrontations. Restez calme et cherchez une solution pacifique." },
+            { img: 'images/cartes/3.jpeg', text: "La réussite est proche. Continuez sur votre lancée et restez concentré sur vos objectifs." },
+            { img: 'images/cartes/4.jpeg', text: "Le numéro 13 apporte un changement imprévu mais nécessaire. Soyez ouvert à l'inattendu." },
+            { img: 'images/cartes/5.jpeg', text: "Des fissures apparaissent. Prenez soin des relations fragiles avant qu'il ne soit trop tard." },
+            { img: 'images/cartes/6.jpeg', text: "Attendez-vous à des événements inattendus. Soyez prêt à vous adapter aux surprises." },
+            { img: 'images/cartes/7.jpeg', text: "La fidélité joue un rôle aujourd'hui. Accordez votre confiance à ceux qui la méritent." },
+            { img: 'images/cartes/8.jpeg', text: "Le calme de la campagne vous appelle. Prenez un moment pour vous détendre et vous reconnecter à la nature." },
+            { img: 'images/cartes/9.jpeg', text: "La vie urbaine est intense. Faites attention aux signaux que vous envoie votre environnement." },
+            { img: 'images/cartes/10.jpeg', text: "La faiblesse peut être une force si vous apprenez à reconnaître vos limites et à les accepter." },
+            { img: 'images/cartes/11.jpeg', text: "Vous êtes doté d'une grande force aujourd'hui. Utilisez-la pour surmonter les obstacles." },
+            { img: 'images/cartes/12.jpeg', text: "Attention à la violence, qu'elle soit physique ou verbale. Gardez votre calme face aux provocations." },
+            { img: 'images/cartes/13.jpeg', text: "Le mental est puissant aujourd'hui. Utilisez-le pour résoudre les problèmes avec logique." },
+            { img: 'images/cartes/14.jpeg', text: "Prenez soin de votre corps aujourd'hui. Votre bien-être physique est aussi important que le mental." },
+            { img: 'images/cartes/15.jpeg', text: "L'élément Eau vous appelle à la fluidité. Suivez le courant plutôt que de résister aux événements." },
+            { img: 'images/cartes/16.jpeg', text: "L'élément Terre vous enracine. Soyez stable et ancré dans vos actions." },
+            { img: 'images/cartes/17.jpeg', text: "L'élément Air souffle sur vos idées. Soyez ouvert aux nouvelles perspectives." },
+            { img: 'images/cartes/18.jpeg', text: "L'élément Feu symbolise la passion. Laissez-vous emporter par ce qui vous inspire aujourd'hui." },
+            { img: 'images/cartes/19.jpeg', text: "Le voyage est une métaphore de votre progression. Avancez sans crainte vers l'inconnu." },
+            { img: 'images/cartes/20.jpeg', text: "La solitude est un moment pour vous reconnecter à vous-même. Ne la redoutez pas." },
+            { img: 'images/cartes/21.jpeg', text: "Le foyer est au centre de vos préoccupations. Prenez soin de ce qui compte pour vous à la maison." },
+            { img: 'images/cartes/22.jpeg', text: "Cette carte annonce une période de bonheur et de prospérité. Profitez-en au maximum." },
+            { img: 'images/cartes/23.jpeg', text: "Les énergies semblent négatives. Il est temps de purifier et de recentrer vos objectifs." },
+            { img: 'images/cartes/24.jpeg', text: "Faites attention à la domination dans vos relations. L'équilibre est essentiel." },
+            { img: 'images/cartes/25.jpeg', text: "Il est parfois nécessaire de lâcher prise, mais attention à ne pas devenir trop soumis." },
+            { img: 'images/cartes/26.jpeg', text: "Une dépendance pourrait freiner votre progression. Identifiez-la et libérez-vous-en." },
+            { img: 'images/cartes/27.jpeg', text: "Faites attention à l'emprise de quelqu'un ou de quelque chose. Il est temps de retrouver votre liberté." },
+            { img: 'images/cartes/28.jpeg', text: "Vous êtes en pleine évolution. Continuez à progresser vers vos objectifs personnels." },
+            { img: 'images/cartes/29.jpeg', text: "Aujourd'hui, une aide précieuse pourrait arriver. Ne soyez pas trop fier pour l'accepter." },
+            { img: 'images/cartes/30.jpeg', text: "Un obstacle se dresse sur votre chemin, mais il n'est pas insurmontable. Prenez du recul pour mieux le franchir." },
+            { img: 'images/cartes/31.jpeg', text: "L'alliance est favorisée aujourd'hui. Collaborez avec les autres pour atteindre vos objectifs." },
+            { img: 'images/cartes/32.jpeg', text: "De bonnes nouvelles arrivent. Restez à l'écoute de votre entourage ou de vos contacts." },
+            { img: 'images/cartes/33.jpeg', text: "Les papiers ou documents importants peuvent jouer un rôle aujourd'hui. Soyez attentif à ce que vous signez." },
+            { img: 'images/cartes/34.jpeg', text: "Le karma équilibre les énergies aujourd'hui. Ce que vous donnez vous sera rendu." },
+            { img: 'images/cartes/35.jpeg', text: "Une remise en question est nécessaire. Prenez du temps pour réfléchir à vos choix récents." },
+            { img: 'images/cartes/36.jpeg', text: "Les connaissances que vous acquérez aujourd'hui pourraient être déterminantes pour votre avenir." },
+            { img: 'images/cartes/37.jpeg', text: "C'est le début de quelque chose de nouveau. Prenez-le comme une opportunité de grandir." },
+            { img: 'images/cartes/38.jpeg', text: "L'abondance vous entoure. Soyez reconnaissant pour les bénédictions que vous recevez." },
+            { img: 'images/cartes/39.jpeg', text: "Le bonheur est à votre portée. Saisissez les moments de joie qui se présentent aujourd'hui." },
+            { img: 'images/cartes/40.jpeg', text: "Un ange veille sur vous aujourd'hui. Vous êtes protégé et guidé dans vos choix." },
+            { img: 'images/cartes/41.jpeg', text: "Attention aux tentations négatives. Ne laissez pas le diable vous entraîner sur une mauvaise voie." },
+            { img: 'images/cartes/42.jpeg', text: "Un choix s'offre à vous. Prenez le temps de bien réfléchir avant de prendre une décision." },
+            { img: 'images/cartes/43.jpeg', text: "Vous êtes à un carrefour. Choisissez la route qui correspond le plus à vos aspirations." },
+            { img: 'images/cartes/44.jpeg', text: "La distance vous sépare peut-être de quelqu'un ou quelque chose. Soyez patient, les retrouvailles arriveront." },
+            { img: 'images/cartes/45.jpeg', text: "La sérénité vous enveloppe. Prenez un moment pour vous recentrer et retrouver la paix intérieure." },
+            { img: 'images/cartes/46.jpeg', text: "La lenteur n'est pas une mauvaise chose. Prenez le temps de bien faire les choses." },
+            { img: 'images/cartes/47.jpeg', text: "Les événements s'accélèrent. Soyez prêt à agir rapidement." },
+            { img: 'images/cartes/48.jpeg', text: "Le printemps apporte renouveau et vitalité. C'est le moment de planter de nouvelles graines pour l'avenir." },
+            { img: 'images/cartes/49.jpeg', text: "L'hiver est un temps de réflexion et de repos. Prenez soin de vous pendant cette période." },
+            { img: 'images/cartes/50.jpeg', text: "L'automne symbolise la récolte. Récoltez les fruits de vos efforts passés." },
+            { img: 'images/cartes/51.jpeg', text: "L'été est un temps de chaleur et d'expansion. Profitez de l'énergie rayonnante de cette saison." },
+            { img: 'images/cartes/52.jpeg', text: "Un enfant ou une nouvelle idée entre dans votre vie. Soyez prêt à accueillir ce nouveau départ." },
+            { img: 'images/cartes/53.jpeg', text: "L'énergie féminine est prédominante aujourd'hui. Faites confiance à votre intuition." },
+            { img: 'images/cartes/54.jpeg', text: "L'amitié joue un rôle important aujourd'hui. Prenez soin de vos proches." },
+            { img: 'images/cartes/55.jpeg', text: "La réponse est incertaine. Peut-être qu'un peu plus de patience est nécessaire avant d'agir." },
+            { img: 'images/cartes/56.jpeg', text: "La famille est au cœur de vos préoccupations. Prenez du temps pour ceux que vous aimez." },
+            { img: 'images/cartes/57.jpeg', text: "L'argent entre dans vos préoccupations aujourd'hui. Prenez des décisions financières prudentes." },
+            { img: 'images/cartes/58.jpeg', text: "Prenez soin de votre santé aujourd'hui. Un corps sain est la clé d'un esprit sain." },
+            { img: 'images/cartes/59.jpeg', text: "L'amour est dans l'air. Soyez ouvert aux connexions profondes avec les autres." },
+            { img: 'images/cartes/60.jpeg', text: "Le travail est au cœur de votre journée. Donnez le meilleur de vous-même." },
+            { img: 'images/cartes/61.jpeg', text: "Faites attention à la trahison. Tout le monde n'est peut-être pas digne de confiance." },
+            { img: 'images/cartes/62.jpeg', text: "La confiance est essentielle dans vos relations aujourd'hui. Soyez honnête et transparent." },
+            { img: 'images/cartes/63.jpeg', text: "La clé pour résoudre votre situation est devant vous. Cherchez-la attentivement." },
+            { img: 'images/cartes/64.jpeg', text: "Un SOS est lancé. Il est peut-être temps d'agir pour aider quelqu'un ou demander de l'aide." },
+            { img: 'images/cartes/65.jpeg', text: "Les blessures du passé peuvent encore influencer votre présent. Prenez le temps de guérir." },
+            { img: 'images/cartes/66.jpeg', text: "Le présent est tout ce qui compte. Restez concentré sur l'ici et maintenant." },
+            { img: 'images/cartes/67.jpeg', text: "Le futur est plein de promesses. Préparez-vous à accueillir de nouvelles opportunités." },
+            { img: 'images/cartes/68.jpeg', text: "Le passé peut vous apporter des leçons précieuses aujourd'hui. Ne l'ignorez pas." },
+            { img: 'images/cartes/69.jpeg', text: "La réponse à votre question est non. Réfléchissez à d'autres options possibles." },
+            { img: 'images/cartes/70.jpeg', text: "La réponse à votre question est oui. Allez de l'avant avec confiance." },
+            { img: 'images/cartes/71.jpeg', text: "L'énergie masculine est présente aujourd'hui. Faites preuve de force et de détermination." },
+            { img: 'images/cartes/72.jpeg', text: "Votre partenaire joue un rôle important aujourd'hui. Soyez attentif à ses besoins." },
+            { img: 'images/cartes/73.jpeg', text: "Vous êtes au centre de cette situation. Faites confiance à votre instinct." },
+            { img: 'images/cartes/74.jpeg', text: "L'instabilité peut provoquer du stress. Cherchez à stabiliser vos émotions et votre environnement." },
+            { img: 'images/cartes/75.jpeg', text: "Le virtuel joue un rôle important. Faites attention à la manière dont vous interagissez en ligne." },
+            { img: 'images/cartes/76.jpeg', text: "Un secret pourrait être révélé aujourd'hui. Soyez prêt à entendre des vérités cachées." },
+            { img: 'images/cartes/77.jpeg', text: "L'habitude vous empêche peut-être d'évoluer. Il est temps de sortir de votre routine." }
         ];
-
-                        // Ajouter des cartes de 1 à 77 dans le dossier 'images/cartes'
-        for (var i = 1; i <= 77; i++) {
-            cards.push({ img: 'images/cartes/' + i + '.jpeg', text: "Texte associé à la carte " + i });
-        }
 
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
@@ -212,17 +208,11 @@
             card.classList.add('clicked');
             this.disabled = true;
 
-            // Masquer le message d'attention
-            document.getElementById('attention-msg').style.display = 'none';
-
             setTimeout(function() {
-                // Afficher le message et le texte associé à la carte après l'animation
+                // Afficher le texte associé à la carte après l'animation
                 document.getElementById('message').textContent = randomCard.text;
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-                
-                // Réafficher le message d'attention en plus petit en bas
-                document.getElementById('attention-msg-small').style.display = 'block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
