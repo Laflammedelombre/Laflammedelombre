@@ -103,6 +103,8 @@
 <body>
     <h1>La carte du jour</h1>
 
+    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
+
     <div class="card">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
@@ -193,10 +195,9 @@
             { img: 'images/77.jpeg', text: "L'habitude peut être un confort ou un fardeau, à vous de choisir." }
         ];
 
-        document.getElementById('reveal-btn').addEventListener('click', function() {
+                document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
-            var messageElement = document.getElementById('message');
 
             // Choisir une carte aléatoire
             var randomCard = cards[Math.floor(Math.random() * cards.length)];
@@ -206,13 +207,17 @@
             card.classList.add('clicked');
             this.disabled = true;
 
-            // Afficher le message associé à la carte
-            messageElement.innerText = randomCard.text;
-            messageElement.style.display = 'block';
+            // Masquer le message d'attention
+            document.getElementById('attention-msg').style.display = 'none';
 
-            // Masquer le message d'attention et afficher les options de service après 3 secondes
             setTimeout(function() {
+                // Afficher le message et le texte associé à la carte après l'animation
+                document.getElementById('message').textContent = randomCard.text;
+                document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
+                
+                // Réafficher le message d'attention en plus petit en bas
+                document.getElementById('attention-msg-small').style.display = 'block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
