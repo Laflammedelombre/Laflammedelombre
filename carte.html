@@ -103,8 +103,6 @@
 <body>
     <h1>La carte du jour</h1>
 
-    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
-
     <div class="card">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
@@ -120,12 +118,11 @@
     <p id="attention-msg-small"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour.</p>
 
     <script>
-        var cards = [
-            'images/Fidelite.jpeg', 
-            'images/Secret.jpeg', 
-            'images/Campagne.jpeg', 
-            'images/Dependance.jpeg'
-        ];
+        var totalCards = 77;
+        var cards = [];
+        for (var i = 1; i <= totalCards; i++) {
+            cards.push('images/cartes/' + i + '.jpeg');
+        }
 
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
@@ -139,16 +136,10 @@
             card.classList.add('clicked');
             this.disabled = true;
 
-            // Masquer le message d'attention
-            document.getElementById('attention-msg').style.display = 'none';
-
             setTimeout(function() {
                 // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-                
-                // Réafficher le message d'attention en plus petit en bas
-                document.getElementById('attention-msg-small').style.display = 'block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
