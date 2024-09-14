@@ -21,7 +21,6 @@
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
-            color: white;
         }
         p {
             font-size: 1.2em;
@@ -40,7 +39,7 @@
             transition: transform 3s ease-in-out;
         }
         .clicked {
-            transform: rotateY(1800deg); /* Animation plus réaliste pour plusieurs tours */
+            transform: rotateY(1440deg); /* 4 tours complets */
         }
         .face {
             position: absolute;
@@ -86,51 +85,10 @@
         #cta-btn:hover {
             background-color: #666;
         }
-
-        /* Styles pour le pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            color: black;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-            text-align: center;
-        }
-        .popup button {
-            margin-top: 20px;
-            background-color: #444;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        input[type="text"], input[type="number"] {
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            width: 200px;
-        }
     </style>
 </head>
 <body>
     <h1>La carte du jour</h1>
-
-    <!-- Champ pour entrer le prénom -->
-    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
-    
-    <!-- Champ pour entrer l'âge -->
-    <input type="number" id="age" name="age" placeholder="Votre âge">
-
-    <button id="reveal-btn">Valider et révéler la carte du jour</button>
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -139,14 +97,10 @@
         </div>
     </div>
 
+    <button id="reveal-btn">Révéler la carte du jour</button>
+
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
-
-    <!-- Pop-up pour bloquer le tirage plusieurs fois par jour -->
-    <div id="popup" class="popup">
-        <p>Vous avez déjà tiré votre carte aujourd'hui. Merci de revenir demain pour un nouveau tirage.</p>
-        <button id="close-popup">Fermer</button>
-    </div>
 
     <script>
         var cards = [
@@ -157,43 +111,22 @@
         ];
 
         document.getElementById('reveal-btn').addEventListener('click', function() {
-            var prenom = document.getElementById('prenom').value;
-            var age = document.getElementById('age').value;
+            var card = document.getElementById('flip-card');
+            var backFace = document.querySelector('.back');
 
-            if (prenom && age) {
-                // Vérifier si un tirage a déjà eu lieu aujourd'hui pour cette personne
-                var today = new Date().toDateString();
-                var lastTirage = localStorage.getItem(prenom + age);
+            // Choisir une carte aléatoire
+            var randomCard = cards[Math.floor(Math.random() * cards.length)];
+            backFace.style.backgroundImage = 'url(' + randomCard + ')';
 
-                if (lastTirage === today) {
-                    // Afficher le pop-up
-                    document.getElementById('popup').style.display = 'block';
-                } else {
-                    // Enregistrer le tirage pour aujourd'hui
-                    localStorage.setItem(prenom + age, today);
+            // Déclencher l'animation de flip
+            card.classList.add('clicked');
+            this.disabled = true;
 
-                    // Choisir une carte aléatoire
-                    var card = document.getElementById('flip-card');
-                    var backFace = document.querySelector('.back');
-                    var randomCard = cards[Math.floor(Math.random() * cards.length)];
-                    backFace.style.backgroundImage = 'url(' + randomCard + ')';
-
-                    // Déclencher l'animation de flip
-                    card.classList.add('clicked');
-                    this.disabled = true;
-
-                    setTimeout(function() {
-                        document.getElementById('message').style.display = 'block';
-                        document.getElementById('cta-btn').style.display = 'inline-block';
-                    }, 3000); // Durée de l'animation (3 secondes)
-                }
-            } else {
-                alert('Veuillez entrer votre prénom et âge.');
-            }
-        });
-
-        document.getElementById('close-popup').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
+            setTimeout(function() {
+                // Afficher le message et le bouton après l'animation
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('cta-btn').style.display = 'inline-block';
+            }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
 </body>
