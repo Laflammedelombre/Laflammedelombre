@@ -40,7 +40,7 @@
             transition: transform 3s ease-in-out;
         }
         .clicked {
-            transform: rotateY(1440deg); /* Animation sur 4 tours */
+            transform: rotateY(1440deg); /* Animation de rotation sur 4 tours */
         }
         .face {
             position: absolute;
@@ -110,20 +110,27 @@
             font-size: 1.2em;
             cursor: pointer;
         }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
     <h1>La carte du jour</h1>
 
     <!-- Champ pour entrer le prénom -->
-    <label for="prenom">Prénom :</label>
-    <input type="text" id="prenom" name="prenom">
+    <input type="text" id="prenom" name="prenom" placeholder="Votre nom">
     
     <!-- Champ pour entrer l'âge -->
-    <label for="age">Âge :</label>
-    <input type="number" id="age" name="age">
+    <input type="number" id="age" name="age" placeholder="Votre âge">
 
-    <button id="submit-btn">Valider</button>
+    <button id="reveal-btn">Valider et révéler la carte du jour</button>
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -131,8 +138,6 @@
             <div class="face back"></div>
         </div>
     </div>
-
-    <button id="reveal-btn" disabled>Révéler la carte du jour</button>
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
@@ -151,7 +156,7 @@
             'images/Dependance.jpeg'
         ];
 
-        document.getElementById('submit-btn').addEventListener('click', function() {
+        document.getElementById('reveal-btn').addEventListener('click', function() {
             var prenom = document.getElementById('prenom').value;
             var age = document.getElementById('age').value;
 
@@ -167,8 +172,20 @@
                     // Enregistrer le tirage pour aujourd'hui
                     localStorage.setItem(prenom + age, today);
 
-                    // Activer le bouton pour révéler la carte
-                    document.getElementById('reveal-btn').disabled = false;
+                    // Choisir une carte aléatoire
+                    var card = document.getElementById('flip-card');
+                    var backFace = document.querySelector('.back');
+                    var randomCard = cards[Math.floor(Math.random() * cards.length)];
+                    backFace.style.backgroundImage = 'url(' + randomCard + ')';
+
+                    // Déclencher l'animation de flip
+                    card.classList.add('clicked');
+                    this.disabled = true;
+
+                    setTimeout(function() {
+                        document.getElementById('message').style.display = 'block';
+                        document.getElementById('cta-btn').style.display = 'inline-block';
+                    }, 3000); // Durée de l'animation (3 secondes)
                 }
             } else {
                 alert('Veuillez entrer votre prénom et âge.');
@@ -177,24 +194,6 @@
 
         document.getElementById('close-popup').addEventListener('click', function() {
             document.getElementById('popup').style.display = 'none';
-        });
-
-        document.getElementById('reveal-btn').addEventListener('click', function() {
-            var card = document.getElementById('flip-card');
-            var backFace = document.querySelector('.back');
-
-            // Choisir une carte aléatoire
-            var randomCard = cards[Math.floor(Math.random() * cards.length)];
-            backFace.style.backgroundImage = 'url(' + randomCard + ')';
-
-            // Déclencher l'animation de flip
-            card.classList.add('clicked');
-            this.disabled = true;
-
-            setTimeout(function() {
-                document.getElementById('message').style.display = 'block';
-                document.getElementById('cta-btn').style.display = 'inline-block';
-            }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
 </body>
