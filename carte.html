@@ -113,6 +113,8 @@
     <button id="reveal-btn">Révéler la carte du jour</button>
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
+    <p id="consult-msg" style="display: none;">Pour approfondir, n'hésitez pas à réserver une consultation.</p>
+<a href="services.html" id="cta-btn">Voir les services proposés</a>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
 
     <script>
@@ -206,6 +208,20 @@
             // Déclencher l'animation de flip
             card.classList.add('clicked');
             this.disabled = true;
+
+            setTimeout(function() {
+    // Afficher le message et le bouton après l'animation
+    document.getElementById('message').style.display = 'block';
+    document.getElementById('cta-btn').style.display = 'inline-block';
+
+    // Afficher le nouveau message de consultation après 2 secondes
+    setTimeout(function() {
+        document.getElementById('consult-msg').style.display = 'block';
+    }, 2000); // 2 secondes de délai avant l'affichage
+    
+    // Réafficher le message d'attention en plus petit en bas
+    document.getElementById('attention-msg-small').style.display = 'block';
+}, 3000); // Durée de l'animation (3 secondes)
 
             setTimeout(function() {
                 // Afficher le texte associé à la carte après l'animation
