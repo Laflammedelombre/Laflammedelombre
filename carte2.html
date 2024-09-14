@@ -74,6 +74,14 @@
         button:disabled {
             background-color: #666;
         }
+        input {
+            font-size: 1.2em; /* Taille ajustée des champs */
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
         #message {
             display: none;
             margin-top: 20px;
@@ -103,11 +111,10 @@
 <body>
     <h1>La carte du jour</h1>
 
-    <p id="attention-msg"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour. Si vous cliquez plusieurs fois, la carte n’aura plus de signification réelle.</p>
-
-    <!-- Formulaire pour prénom et âge -->
-    <input type="text" id="prenom" placeholder="Votre prénom" required>
-    <input type="number" id="age" placeholder="Votre âge" required min="18">
+    <div>
+        <input type="text" id="prenom" placeholder="Votre prénom">
+        <input type="number" id="age" placeholder="Votre âge">
+    </div>
 
     <div class="card">
         <div class="inner-card" id="flip-card">
@@ -116,12 +123,10 @@
         </div>
     </div>
 
-    <button id="reveal-btn">Valider et Révéler la carte</button>
+    <button id="reveal-btn">Valider et révéler la carte du jour</button>
 
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
-
-    <p id="attention-msg-small"><strong>Attention :</strong> Pour préserver la précision de votre tirage, merci de ne tirer qu'une seule carte par jour.</p>
 
     <script>
         var cards = [
@@ -131,47 +136,27 @@
             'images/Dependance.jpeg'
         ];
 
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var prenom = document.getElementById('prenom').value;
             var age = document.getElementById('age').value;
-            var today = new Date().toISOString().split('T')[0];
 
-            // Vérifier si l'utilisateur a déjà tiré une carte aujourd'hui
-            var lastDraw = getCookie(prenom + "_draw");
-
+            // Vérification de l'âge minimum
             if (age < 18) {
-                alert("Vous devez avoir au moins 18 ans pour tirer une carte.");
+                alert("Pour que le tirage ait du sens, vous devez avoir au moins 18 ans.");
                 return;
             }
 
-            if (lastDraw === today) {
-                alert("Vous avez déjà tiré une carte aujourd'hui. Revenez demain !");
+            // Vérification des cookies pour un tirage par jour
+            var lastTirage = localStorage.getItem(prenom + age);
+            var today = new Date().toDateString();
+
+            if (lastTirage === today) {
+                alert("Pour que le tirage ait du sens, il est important de tirer une seule carte par jour. Revenez demain !");
                 return;
             }
 
-            // Si tout est OK, enregistrer le tirage et lancer l'animation
-            setCookie(prenom + "_draw", today, 1);
+            // Enregistrement du tirage du jour
+            localStorage.setItem(prenom + age, today);
 
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
@@ -184,16 +169,10 @@
             card.classList.add('clicked');
             this.disabled = true;
 
-            // Masquer le message d'attention
-            document.getElementById('attention-msg').style.display = 'none';
-
             setTimeout(function() {
                 // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
-                
-                // Réafficher le message d'attention en plus petit en bas
-                document.getElementById('attention-msg-small').style.display = 'block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
