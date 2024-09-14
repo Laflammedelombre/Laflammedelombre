@@ -158,7 +158,7 @@
             { img: 'images/40.jpeg', text: "Les anges veillent sur vous. Demandez leur guidance aujourd'hui." },
             { img: 'images/41.jpeg', text: "Affrontez vos démons intérieurs, et ne les laissez pas vous contrôler." },
             { img: 'images/42.jpeg', text: "Le choix est entre vos mains, prenez la meilleure décision pour vous." },
-                        { img: 'images/43.jpeg', text: "Le chemin est encore long, mais chaque pas vous rapproche de votre but." },
+            { img: 'images/43.jpeg', text: "Le chemin est encore long, mais chaque pas vous rapproche de votre but." },
             { img: 'images/44.jpeg', text: "Même si la distance semble grande, vous n'êtes jamais seul." },
             { img: 'images/45.jpeg', text: "La sérénité vous attend, mais elle nécessite patience et réflexion." },
             { img: 'images/46.jpeg', text: "Les choses avancent lentement, mais elles avancent dans la bonne direction." },
@@ -195,7 +195,12 @@
             { img: 'images/77.jpeg', text: "L'habitude peut être un confort ou un fardeau, à vous de choisir." }
         ];
 
-                document.getElementById('reveal-btn').addEventListener('click', function() {
+                        // Ajouter des cartes de 1 à 77 dans le dossier 'images/cartes'
+        for (var i = 1; i <= 77; i++) {
+            cards.push({ img: 'images/cartes/' + i + '.jpeg', text: "Texte associé à la carte " + i });
+        }
+
+        document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
 
