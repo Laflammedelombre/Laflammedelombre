@@ -31,7 +31,6 @@
             height: 300px;
             perspective: 1000px;
             margin: 20px auto;
-            display: none; /* Masquer au début */
         }
         .inner-card {
             width: 100%;
@@ -41,7 +40,7 @@
             transition: transform 3s ease-in-out;
         }
         .clicked {
-            transform: rotateY(1440deg); /* 4 tours complets */
+            transform: rotateY(1440deg); /* Animation sur 4 tours */
         }
         .face {
             position: absolute;
@@ -87,33 +86,62 @@
         #cta-btn:hover {
             background-color: #666;
         }
-        input {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1.1em;
+
+        /* Styles pour le pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+        }
+        .popup button {
+            margin-top: 20px;
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>La carte du jour</h1>
 
-    <form id="user-info-form">
-        <input type="text" id="prenom" placeholder="Votre prénom" required>
-        <input type="number" id="age" placeholder="Votre âge" required>
-        <button type="submit">Tirer la carte du jour</button>
-    </form>
+    <!-- Champ pour entrer le prénom -->
+    <label for="prenom">Prénom :</label>
+    <input type="text" id="prenom" name="prenom">
+    
+    <!-- Champ pour entrer l'âge -->
+    <label for="age">Âge :</label>
+    <input type="number" id="age" name="age">
 
-    <div class="card" style="display:none;" id="card-section">
+    <button id="submit-btn">Valider</button>
+
+    <div class="card">
         <div class="inner-card" id="flip-card">
             <div class="face front"></div>
             <div class="face back"></div>
         </div>
     </div>
 
+    <button id="reveal-btn" disabled>Révéler la carte du jour</button>
+
     <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
     <a href="services.html" id="cta-btn">Voir les services proposés</a>
+
+    <!-- Pop-up pour bloquer le tirage plusieurs fois par jour -->
+    <div id="popup" class="popup">
+        <p>Vous avez déjà tiré votre carte aujourd'hui. Merci de revenir demain pour un nouveau tirage.</p>
+        <button id="close-popup">Fermer</button>
+    </div>
 
     <script>
         var cards = [
@@ -123,45 +151,35 @@
             'images/Dependance.jpeg'
         ];
 
-        // Sauvegarder la date et les infos utilisateur en localStorage
-        function canDrawCardToday(prenom, age) {
-            var storedData = localStorage.getItem('userData');
-            var today = new Date().toLocaleDateString();
-
-            if (storedData) {
-                var parsedData = JSON.parse(storedData);
-                if (parsedData.prenom === prenom && parsedData.age === age && parsedData.date === today) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        function saveUserData(prenom, age) {
-            var today = new Date().toLocaleDateString();
-            var userData = {
-                prenom: prenom,
-                age: age,
-                date: today
-            };
-            localStorage.setItem('userData', JSON.stringify(userData));
-        }
-
-        document.getElementById('user-info-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.getElementById('submit-btn').addEventListener('click', function() {
             var prenom = document.getElementById('prenom').value;
             var age = document.getElementById('age').value;
 
-            if (!canDrawCardToday(prenom, age)) {
-                alert('Il est important de ne tirer qu\'une seule carte par jour pour que le tirage ait du sens. Revenez demain pour un nouveau tirage !');
-                return;
+            if (prenom && age) {
+                // Vérifier si un tirage a déjà eu lieu aujourd'hui pour cette personne
+                var today = new Date().toDateString();
+                var lastTirage = localStorage.getItem(prenom + age);
+
+                if (lastTirage === today) {
+                    // Afficher le pop-up
+                    document.getElementById('popup').style.display = 'block';
+                } else {
+                    // Enregistrer le tirage pour aujourd'hui
+                    localStorage.setItem(prenom + age, today);
+
+                    // Activer le bouton pour révéler la carte
+                    document.getElementById('reveal-btn').disabled = false;
+                }
+            } else {
+                alert('Veuillez entrer votre prénom et âge.');
             }
+        });
 
-            saveUserData(prenom, age);
+        document.getElementById('close-popup').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+        });
 
-            // Rendre la carte visible
-            document.getElementById('card-section').style.display = 'block';
+        document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
 
@@ -171,9 +189,9 @@
 
             // Déclencher l'animation de flip
             card.classList.add('clicked');
+            this.disabled = true;
 
             setTimeout(function() {
-                // Afficher le message et le bouton après l'animation
                 document.getElementById('message').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
             }, 3000); // Durée de l'animation (3 secondes)
