@@ -19,7 +19,7 @@
             min-height: 100vh;
         }
         h1, h2 {
-            font-size: 2.5em; /* Taille du titre et des sous-titres ajustée */
+            font-size: 2.5em; /* Taille du titre et des sous-titres */
             margin-bottom: 20px;
         }
         p {
@@ -60,21 +60,37 @@
         .product-category.visible {
             display: block; /* Afficher la catégorie sélectionnée */
         }
+        .card-gallery {
+            display: flex;
+            justify-content: center; /* Centrer les images */
+            gap: 10px; /* Espacement entre les images */
+            margin-bottom: 20px;
+        }
+        .card-gallery img {
+            width: 150px; /* Taille fixe pour les images des cartes */
+            height: auto;
+            border: 1px solid #888888; /* Bordure pour les images */
+            border-radius: 5px; /* Bordures arrondies */
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Onglets pour les catégories de produits -->
-    <div class="tabs">
-        <button class="active" onclick="showCategory('oracles')">Oracles</button>
-        <button onclick="showCategory('chapelets')">Chapelets</button>
-        <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
-    </div>
+    <!-- Section d'accueil -->
+    <div id="accueil">
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
-    <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
-    <img src="images/boutique.jpeg" alt="Boutique Magique">
-    <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
+        <!-- Onglets pour les catégories de produits -->
+        <div class="tabs">
+            <button class="active" onclick="showCategory('oracles')">Oracles</button>
+            <button onclick="showCategory('chapelets')">Chapelets</button>
+            <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
+        </div>
+
+        <img src="images/boutique.jpeg" alt="Boutique Magique">
+    </div>
 
     <!-- Produits Oracles -->
     <div class="product-category" id="oracles">
@@ -104,8 +120,6 @@
         <img src="images/chapelet.jpeg" alt="Chapelet en Améthyste">
 
         <p>Nos chapelets en améthyste sont conçus pour apporter détente et paix. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
-
-        <p>Ce chapelet n’est pas destiné à être porté comme un bracelet, mais plutôt gardé sur soi, dans une pièce, une poche ou un sac à main. Il peut également être utilisé pour prier ou pendant la méditation afin d'apporter un apaisement supplémentaire.</p>
 
         <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
         <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
@@ -143,6 +157,9 @@
     function showCategory(category) {
         var categories = document.getElementsByClassName('product-category');
         var buttons = document.getElementsByClassName('tabs')[0].getElementsByTagName('button');
+        
+        // Masquer la section d'accueil
+        document.getElementById('accueil').style.display = 'none';
 
         // Masquer toutes les catégories de produits
         for (var i = 0; i < categories.length; i++) {
