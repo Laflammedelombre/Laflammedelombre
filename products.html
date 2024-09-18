@@ -85,7 +85,7 @@
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
             <button class="active" onclick="showCategory('oracles')">Oracles</button>
-            <button onclick="showCategory('chapelets')">Chapelets</button>
+            <button onclick="showCategory('chapelets')">Mini Chapelets Magiques</button>
             <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
         </div>
 
@@ -109,24 +109,27 @@
         <p>Imaginé et dessiné 100% par mes soins, cet oracle est de style Art Line et est imprimé en France 🇫🇷. Chaque exemplaire sera numéroté et personnalisé au prénom du propriétaire de l'oracle. Le prénom du/de la futur(e) propriétaire sera demandé à la commande.</p>
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
+        <button class="btn">Pré-commander L'Oracle by J</button>
 
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
 
-    <!-- Produits Chapelets -->
+    <!-- Produits Mini Chapelets Magiques -->
     <div class="product-category" id="chapelets">
         <h2>Mini Chapelets Magiques</h2>
         <img src="images/chapelet.jpeg" alt="Chapelet en Améthyste">
 
         <p>Nos chapelets en améthyste sont conçus pour apporter détente et paix. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
 
-        <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
-        <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
-        <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
+        <!-- Disposition des photos de chapelets, correctement alignées -->
+        <div class="card-gallery">
+            <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+            <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
+            <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
+        </div>
 
         <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet</a>
+        <button class="btn">Commander Mini Chapelet Magique</button>
 
         <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
     </div>
@@ -148,7 +151,7 @@
         <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
+        <button class="btn">Pré-commander Eau de Lune</button>
 
         <p>Disponible en fiole de 12ml.</p>
     </div>
@@ -174,6 +177,9 @@
         // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
         document.getElementById(category).classList.add('visible');
         event.target.classList.add('active');
+
+        // Garder les onglets de navigation visibles
+        document.querySelector('.tabs').style.display = 'flex';
     }
 </script>
 
