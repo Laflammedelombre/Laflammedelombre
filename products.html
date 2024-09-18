@@ -83,10 +83,37 @@
             max-width: 600px;
             margin-bottom: 20px;
         }
+        nav ul {
+            list-style-type: none; /* Enlève les puces des listes */
+            padding: 0;
+            margin: 20px 0;
+        }
+        nav ul li {
+            display: inline; /* Affiche les éléments de la liste en ligne */
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white; /* Couleur des liens en blanc */
+            text-decoration: none; /* Enlève le soulignement */
+            font-weight: bold; /* Met les liens en gras */
+        }
+        nav ul li a:hover {
+            text-decoration: underline; /* Souligne les liens au survol */
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Lien de navigation vers les autres pages -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
     <!-- Section d'accueil -->
     <div id="accueil">
@@ -154,8 +181,8 @@
                     <img src="images/EDL.jpeg" alt="Eau de Lune">
                 </div>
                 <div class="back">
-                    <img src="images/EDL2.jpeg" alt="Eau de Lune - Dos">
-                </div>
+                    <img src="images/EDL2.jpeg" alt="Eau de Lune">
+                                    </div>
             </div>
         </div>
 
@@ -166,9 +193,9 @@
 
         <p>Disponible en fiole de 12ml.</p>
     </div>
-    
-    <script>
-            function showCategory(category) {
+
+<script>
+    function showCategory(category) {
         var categories = document.getElementsByClassName('product-category');
         var buttons = document.getElementsByClassName('tabs')[0].getElementsByTagName('button');
         
@@ -193,4 +220,6 @@
         document.querySelector('.tabs').style.display = 'flex';
     }
 </script>
-        
+
+</body>
+</html>
