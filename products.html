@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-        <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits - La Flamme de l'Ombre</title>
@@ -33,75 +26,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             margin-top: 40px;
         }
         p {
-            font-size: 1.2em; /* Taille du texte */
-            line-height: 1.5em; /* Hauteur de ligne */
+            font-size: 1.5em; /* Taille du texte */
             margin-bottom: 20px;
-        }
-        .btn {
-            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
-            color: white; /* Texte blanc */
-            padding: 10px 25px; /* Espacement interne ajusté pour que le texte reste sur une ligne */
-            text-align: center; /* Centrer le texte */
-            text-decoration: none; /* Enlève le soulignement */
-            display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Ajustement de la taille du texte */
-            margin: 15px 0; /* Espace autour du bouton */
-            border-radius: 5px; /* Bordure arrondie */
-            border: 1px solid #888888; /* Bordure gris clair */
-            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 270px; /* Largeur légèrement augmentée pour éviter que le texte ne passe sur 2 lignes */
-            max-width: 90%; /* Ajustement pour mobile */
-        }
-        .btn:hover {
-            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
         }
         img {
-            width: 80%; /* Ajuste la taille de l'image */
+            width: 80%;
             max-width: 600px;
-            margin: 20px auto; /* Centrage et espacement autour de l'image */
-            display: block;
-        }
-        .card-gallery {
-            display: flex;
-            justify-content: center; /* Centre les images */
-            gap: 10px; /* Espacement entre les images */
-            margin-bottom: 20px;
-        }
-        .card-gallery img {
-            width: 150px; /* Taille fixe pour les images des cartes */
             height: auto;
-            border: 1px solid #888888; /* Bordure pour les images */
-            border-radius: 5px; /* Bordures arrondies */
-        }
-        .photo-a-venir {
-            font-size: 1em;
-            color: #888888;
-            font-style: italic;
             margin-bottom: 20px;
         }
-        nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
-            padding: 0;
-            margin: 20px 0;
-        }
-        nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
-        }
-        nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
-        }
-
-        /* Onglets de navigation */
         .tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-top: 40px;
         }
         .tabs button {
             background-color: #444444;
@@ -119,33 +56,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .tabs button.active {
             background-color: #888888;
         }
-
-        /* Affichage des sections de produits */
         .product-category {
-            display: none;
+            display: none; /* Masquer les catégories de produits par défaut */
         }
         .product-category.visible {
-            display: block;
+            display: block; /* Afficher la catégorie sélectionnée */
         }
     </style>
 </head>
 
 <body>
-        <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <nav>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="avis.html">Avis</a></li>
-            <li><a href="carte.html">Carte du jour</a></li>
-        </ul>
-    </nav>
 
-    <!-- Onglets pour filtrer les produits -->
+    <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+    <img src="images/boutique.jpeg" alt="Boutique Magique">
+    <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
+
+    <!-- Onglets pour les catégories de produits -->
     <div class="tabs">
         <button class="active" onclick="showCategory('oracles')">Oracles</button>
         <button onclick="showCategory('chapelets')">Chapelets</button>
@@ -153,11 +79,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <!-- Produits Oracles -->
-    <div class="product-category visible" id="oracles">
-        <h1>L'Oracle by J</h1>
+    <div class="product-category" id="oracles">
+        <h2>L'Oracle by J</h2>
         <img src="images/Byj.jpg" alt="Oracle by J">
 
-        <!-- Galerie des cartes -->
         <div class="card-gallery">
             <img src="images/Fidelite.jpeg" alt="Fidélité">
             <img src="images/Secret.jpeg" alt="Secret">
@@ -178,25 +103,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Produits Chapelets -->
     <div class="product-category" id="chapelets">
         <h2>Mini Chapelets Magiques</h2>
-        <img src="images/chapelet.jpeg" alt="Chapelet en Améthyste" style="width:80%; max-width:600px; height:auto; border:none;">
+        <img src="images/chapelet.jpeg" alt="Chapelet en Améthyste">
 
         <p>Nos chapelets en améthyste sont conçus pour apporter détente et paix. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
 
         <p>Ce chapelet n’est pas destiné à être porté comme un bracelet, mais plutôt gardé sur soi, dans une pièce, une poche ou un sac à main. Il peut également être utilisé pour prier ou pendant la méditation afin d'apporter un apaisement supplémentaire.</p>
 
-                <p>Chaque chapelet est consacré à l'eau de lune et fabriqué à la main par mes soins.</p>
-
-        <!-- Galerie de chapelets supplémentaires (affichage vertical) -->
-        <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender" style="width:80%; max-width:600px; height:auto; border:none;">
-        <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2" style="width:80%; max-width:600px; height:auto; border:none;">
-        <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3" style="width:80%; max-width:600px; height:auto; border:none;">
+        <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+        <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
+        <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
 
         <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
         <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet</a>
 
-        <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge. Les commandes peuvent mettre entre 1 et 5 jours à être expédiées en fonction des stocks disponibles.</p>
-
-        <p>*Chapelets en obsidienne bientôt disponibles avec les mêmes options de pendentifs.*</p>
+        <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
     </div>
 
     <!-- Produits Eau de Lune -->
@@ -205,30 +125,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div id="flip-container">
             <div class="flipper">
                 <div class="front">
-                    <img src="images/EDL.jpeg" alt="Eau de Lune" />
+                    <img src="images/EDL.jpeg" alt="Eau de Lune">
                 </div>
                 <div class="back">
-                    <img src="images/EDL2.jpeg" alt="Eau de Lune - Dos" />
+                    <img src="images/EDL2.jpeg" alt="Eau de Lune - Dos">
                 </div>
             </div>
         </div>
 
         <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
 
-        <p>L'eau de lune sera fournie avec une petite pipette pour une manipulation facile. Afin que cette eau fonctionne au mieux, il est important que vous y ancriez une intention de protection sincère lors de son utilisation.</p>
-
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de lune</a>
+        <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Pré-commander Eau de Lune</a>
 
         <p>Disponible en fiole de 12ml.</p>
     </div>
 
 <script>
-    document.querySelector('#flip-container').addEventListener('click', function() {
-        document.querySelector('.flipper').classList.toggle('clicked');
-    });
-
-    // Fonction pour changer de catégorie en fonction des onglets
     function showCategory(category) {
         var categories = document.getElementsByClassName('product-category');
         var buttons = document.getElementsByClassName('tabs')[0].getElementsByTagName('button');
@@ -247,11 +160,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         document.getElementById(category).classList.add('visible');
         event.target.classList.add('active');
     }
-
-    // Afficher la première catégorie (Oracles) au chargement de la page
-    window.onload = function() {
-        showCategory('oracles');
-    };
 </script>
 
 </body>
