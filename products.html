@@ -200,7 +200,7 @@
 <script>
     function showCategory(category) {
         var categories = document.getElementsByClassName('product-category');
-        var buttons = document.getElementsByClassName('tabs')[0].getElementsByTagName('button');
+        var buttons = document.querySelectorAll('.tabs button');
         
         // Masquer la section d'accueil
         document.getElementById('accueil').style.display = 'none';
@@ -211,17 +211,22 @@
         }
 
         // Retirer la classe active de tous les boutons
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.remove('active');
-        }
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
 
         // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
         document.getElementById(category).classList.add('visible');
         event.target.classList.add('active');
 
-        // Garder les onglets de navigation visibles
+        // Garder les onglets visibles
         document.querySelector('.tabs').style.display = 'flex';
     }
+
+    // Garder les onglets visibles dès le chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.tabs').style.display = 'flex';
+    });
 </script>
 
 </body>
