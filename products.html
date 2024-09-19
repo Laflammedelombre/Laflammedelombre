@@ -6,12 +6,12 @@
     <title>Produits - La Flamme de l'Ombre</title>
     <style>
         body {
-            background-color: black; /* Fond noir */
-            color: white; /* Texte en blanc */
-            font-family: Arial, sans-serif; /* Police par défaut */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            text-align: center; /* Centrer le texte */
+            text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,24 +19,25 @@
             min-height: 100vh;
         }
         h1, h2 {
-            font-size: 2.5em; /* Taille du titre et des sous-titres */
+            font-size: 2.5em;
             margin-bottom: 20px;
         }
         p {
-            font-size: 1.5em; /* Taille du texte */
+            font-size: 1.5em;
             margin-bottom: 20px;
         }
         img {
             width: 80%;
             max-width: 600px;
             height: auto;
-            margin-bottom: 20px;
+            margin: 20px auto;
+            display: block;
         }
         .tabs {
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            margin-bottom: 20px; /* Ajouter de l'espace entre les onglets et l'image */
+            margin-bottom: 20px;
         }
         .tabs button {
             background-color: #444444;
@@ -55,58 +56,52 @@
             background-color: #888888;
         }
         .product-category {
-            display: none; /* Masquer les catégories de produits par défaut */
+            display: none;
         }
         .product-category.visible {
-            display: block; /* Afficher la catégorie sélectionnée */
-        }
-        .btn {
-            background-color: #444444; /* Couleur d'arrière-plan gris foncé */
-            color: white; /* Texte blanc */
-            padding: 10px 25px; /* Espacement interne ajusté pour que le texte reste sur une ligne */
-            text-align: center; /* Centrer le texte */
-            text-decoration: none; /* Enlève le soulignement */
-            display: inline-block; /* S'assure que le bouton est en ligne */
-            font-size: 1.1em; /* Ajustement de la taille du texte */
-            margin: 15px 0; /* Espace autour du bouton */
-            border-radius: 5px; /* Bordure arrondie */
-            border: 1px solid #888888; /* Bordure gris clair */
-            transition: background-color 0.3s ease; /* Transition douce pour l'effet hover */
-            width: 270px; /* Largeur légèrement augmentée pour éviter que le texte ne passe sur 2 lignes */
-            max-width: 90%; /* Ajustement pour mobile */
-        }
-        .btn:hover {
-            background-color: #666666; /* Couleur d'arrière-plan légèrement plus claire au survol */
-        }
-        .large-images img {
-            width: 80%; /* Taille plus grande pour les images des chapelets */
-            max-width: 600px;
-            margin: 0 auto 20px auto; /* Centrer les images horizontalement */
             display: block;
         }
+        .btn {
+            background-color: #444444;
+            color: white;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #888888;
+            transition: background-color 0.3s ease;
+            width: 270px;
+            max-width: 90%;
+        }
+        .btn:hover {
+            background-color: #666666;
+        }
         nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
+            list-style-type: none;
             padding: 0;
             margin: 20px 0;
         }
         nav ul li {
-            display: inline; /* Affiche les éléments de la liste en ligne */
+            display: inline;
             margin: 0 15px;
         }
         nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
         nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Lien de navigation vers les autres pages -->
+    <!-- Navigation vers les autres pages -->
     <nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
@@ -145,9 +140,7 @@
             <img src="images/Campagne.jpeg" alt="Campagne">
         </div>
 
-        <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
-
-        <p>Imaginé et dessiné 100% par mes soins, cet oracle est de style Art Line et est imprimé en France 🇫🇷. Chaque exemplaire sera numéroté et personnalisé au prénom du propriétaire de l'oracle. Le prénom du/de la futur(e) propriétaire sera demandé à la commande.</p>
+        <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler.</p>
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
         <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
@@ -162,12 +155,10 @@
 
         <p>Nos chapelets en améthyste sont conçus pour apporter détente et paix. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
 
-        <!-- Images plus grandes, l'une sous l'autre -->
-        <div class="large-images">
-            <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
-            <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
-            <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
-        </div>
+        <!-- Images plus grandes, centrées et l'une sous l'autre -->
+        <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+        <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
+        <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
 
         <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
         <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet</a>
@@ -218,9 +209,6 @@
         // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
         document.getElementById(category).classList.add('visible');
         event.target.classList.add('active');
-
-        // Garder les onglets visibles
-        document.querySelector('.tabs').style.display = 'flex';
     }
 
     // Garder les onglets visibles dès le chargement de la page
