@@ -153,7 +153,7 @@
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
 
-    <!-- Produits Chapelets Magiques en Améthyste -->
+    <!-- Produits Chapelets Magiques en Améthyste et Obsidienne -->
     <div class="product-category" id="chapelets">
         <h2>Chapelet Magique en Améthyste</h2>
         <img src="images/chapelet.jpeg" alt="Chapelet en Améthyste">
@@ -169,29 +169,26 @@
         <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet Améthyste</a>
 
         <p>IMPORTANT : En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
+
+        <hr> <!-- Séparateur entre Améthyste et Obsidienne -->
+
+        <h2>Chapelet Magique en Obsidienne et Tourmaline</h2>
+        <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne et Tourmaline">
+
+        <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
+
+        <!-- Images des chapelets en Obsidienne -->
+        <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne FullSizeRender">
+        <img src="images/IMG_5756.jpeg" alt="Chapelet Obsidienne A2">
+        <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
+
+        <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
+        <a href="https://www.paypal.com/ncp/payment/6TZEKHDD92X5E" class="btn">Commander Chapelet Obsidienne</a>
+
+        <p>Ces chapelets sont consacrés à l'eau de lune, fabriqués par mes soins. Ils sont parfaits pour être portés dans une pièce, une poche ou un sac à main, et peuvent également être utilisés lors de prières ou de méditations pour renforcer l'ancrage et la protection.</p>
     </div>
 
-    <!-- Séparateur entre les sections -->
-    <hr>
-
-<!-- Produits Chapelets Magiques en Obsidienne -->
-<div class="product-category" id="chapelets-obsidienne">
-    <h2>Chapelet Magique en Obsidienne et Tourmaline</h2>
-    <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne et Tourmaline">
-
-    <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage. Ils sont disponibles avec plusieurs options de pendentifs, dont : Croix chrétienne, Lune, Clé, Arbre de vie, et Signe astrologique.</p>
-
-    <!-- Images des chapelets en Obsidienne -->
-    <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne FullSizeRender">
-    <img src="images/IMG_5756.jpeg" alt="Chapelet Obsidienne A2">
-    <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
-
-    <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/6TZEKHDD92X5E" class="btn">Commander Chapelet Obsidienne</a>
-
-    <p>Ces chapelets sont consacrés à l'eau de lune, fabriqués par mes soins. Ils sont parfaits pour être portés dans une pièce, une poche ou un sac à main, et peuvent également être utilisés lors de prières ou de méditations pour renforcer l'ancrage et la protection.</p>
-</div>
-            <!-- Produits Eau de Lune -->
+      <!-- Produits Eau de Lune -->
     <div class="product-category" id="eau-de-lune">
         <h2>Eau de Lune</h2>
         <div id="flip-container">
@@ -213,34 +210,34 @@
         <p>Disponible en fiole de 12ml.</p>
     </div>
 
-<script>
-    function showCategory(category) {
-        var categories = document.getElementsByClassName('product-category');
-        var buttons = document.querySelectorAll('.tabs button');
-        
-        // Masquer la section d'accueil
-        document.getElementById('accueil').style.display = 'none';
+    <script>
+        function showCategory(category) {
+            var categories = document.getElementsByClassName('product-category');
+            var buttons = document.querySelectorAll('.tabs button');
+            
+            // Masquer la section d'accueil
+            document.getElementById('accueil').style.display = 'none';
 
-        // Masquer toutes les catégories de produits
-        for (var i = 0; i < categories.length; i++) {
-            categories[i].classList.remove('visible');
+            // Masquer toutes les catégories de produits
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].classList.remove('visible');
+            }
+
+            // Retirer la classe active de tous les boutons
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+            document.getElementById(category).classList.add('visible');
+            event.target.classList.add('active');
         }
 
-        // Retirer la classe active de tous les boutons
-        buttons.forEach(function(btn) {
-            btn.classList.remove('active');
+        // Garder les onglets visibles dès le chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.tabs').style.display = 'flex';
         });
-
-        // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-        document.getElementById(category).classList.add('visible');
-        event.target.classList.add('active');
-    }
-
-    // Garder les onglets visibles dès le chargement de la page
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('.tabs').style.display = 'flex';
-    });
-</script>
+    </script>
 
 </body>
 </html>
