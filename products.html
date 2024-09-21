@@ -131,40 +131,45 @@
             height: auto;
         }
 
-        /* Optimisation pour les téléphones */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
+/* Optimisation pour les téléphones */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Ajoute du padding pour éviter que le texte soit trop près du bord */
+        margin: 0; /* Supprime les marges pour éviter les rognages à gauche */
+    }
 
-            h1, h2 {
-                font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
-            }
+    h1, h2 {
+        font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
+        margin-left: 10px; /* Ajoute une marge pour éviter que le titre soit rogné */
+        margin-right: 10px; /* Ajoute une marge à droite pour plus d'espace */
+    }
 
-            p {
-                font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
-            }
+    p {
+        font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
+        margin-left: 10px; /* Ajoute une marge pour éviter que le texte soit rogné */
+        margin-right: 10px; /* Ajoute une marge à droite */
+    }
 
-            img {
-                width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
-                height: auto;
-            }
+    img {
+        width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
+        height: auto;
+    }
 
-            .tabs button {
-                padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
-                font-size: 1em; /* Ajuster la taille de la police des boutons */
-                margin: 5px; /* Réduire l'espace entre les boutons */
-            }
+    .tabs button {
+        padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
+        font-size: 1em; /* Ajuster la taille de la police des boutons */
+        margin: 5px; /* Réduire l'espace entre les boutons */
+    }
 
-            .btn {
-                width: 100%; /* Bouton large sur téléphone */
-                font-size: 1em; /* Ajuster la taille du texte des boutons */
-            }
+    .btn {
+        width: 100%; /* Bouton large sur téléphone */
+        font-size: 1em; /* Ajuster la taille du texte des boutons */
+    }
 
-            .card-gallery img {
-                width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
-            }
-        }
+    .card-gallery img {
+        width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
+    }
+}
     </style>
 </head>
 
