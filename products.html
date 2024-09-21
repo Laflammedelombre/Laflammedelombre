@@ -223,33 +223,30 @@
     </div>
 
     <script>
-        function showCategory(category) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            
-            // Masquer la section d'accueil
-            document.getElementById('accueil').style.display = 'none';
+    function showCategory(category) {
+        var categories = document.getElementsByClassName('product-category');
+        var buttons = document.querySelectorAll('.tabs button');
 
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].classList.remove('visible');
-            }
-
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).classList.add('visible');
-            event.target.classList.add('active');
+        // Masquer toutes les catégories de produits
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].classList.remove('visible');
         }
 
-        // Garder les onglets visibles dès le chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.tabs').style.display = 'flex';
+        // Retirer la classe active de tous les boutons
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
         });
-    </script>
+
+        // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+        document.getElementById(category).classList.add('visible');
+        event.target.classList.add('active');
+    }
+
+    // Garder les onglets visibles dès le chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.tabs').style.display = 'flex';
+    });
+</script>
 
 </body>
 </html>
