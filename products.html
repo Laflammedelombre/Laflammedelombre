@@ -222,10 +222,13 @@
         <p>Disponible en fiole de 12ml.</p>
     </div>
 
-    <script>
+<script>
     function showCategory(category) {
         var categories = document.getElementsByClassName('product-category');
         var buttons = document.querySelectorAll('.tabs button');
+
+        // Masquer l'image de la boutique magique (située dans la section accueil)
+        document.getElementById('accueil').style.display = 'none';
 
         // Masquer toutes les catégories de produits
         for (var i = 0; i < categories.length; i++) {
