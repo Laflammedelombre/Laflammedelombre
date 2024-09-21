@@ -5,40 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits - La Flamme de l'Ombre</title>
     <style>
-        /* Optimisation pour les téléphones */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    h1, h2 {
-        font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
-    }
-
-    p {
-        font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
-    }
-
-    img {
-        width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
-        height: auto;
-    }
-
-    .tabs button {
-        padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
-        font-size: 1em; /* Ajuster la taille de la police des boutons */
-        margin: 5px; /* Réduire l'espace entre les boutons */
-    }
-
-    .btn {
-        width: 100%; /* Bouton large sur téléphone */
-        font-size: 1em; /* Ajuster la taille du texte des boutons */
-    }
-
-    .card-gallery img {
-        width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
-    }
-}
         body {
             background-color: black;
             color: white;
@@ -164,6 +130,41 @@
             width: 150px; /* Taille des petites images */
             height: auto;
         }
+
+        /* Optimisation pour les téléphones */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1, h2 {
+                font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
+            }
+
+            p {
+                font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
+            }
+
+            img {
+                width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
+                height: auto;
+            }
+
+            .tabs button {
+                padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
+                font-size: 1em; /* Ajuster la taille de la police des boutons */
+                margin: 5px; /* Réduire l'espace entre les boutons */
+            }
+
+            .btn {
+                width: 100%; /* Bouton large sur téléphone */
+                font-size: 1em; /* Ajuster la taille du texte des boutons */
+            }
+
+            .card-gallery img {
+                width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
+            }
+        }
     </style>
 </head>
 
@@ -264,22 +265,22 @@
 
     </div>
 
-<!-- Produits Eau de Lune -->
-<div class="product-category" id="eau-de-lune">
-    <h2>Eau de Lune</h2>
-    <div id="flip-container">
-        <div class="front">
-            <img src="images/EDL.jpeg" alt="Eau de Lune">
+    <!-- Produits Eau de Lune -->
+    <div class="product-category" id="eau-de-lune">
+        <h2>Eau de Lune</h2>
+        <div id="flip-container">
+            <div class="front">
+                <img src="images/EDL.jpeg" alt="Eau de Lune">
+            </div>
         </div>
+
+        <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
+
+        <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
+        <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Commander Eau de Lune</a>
+
+        <p>Disponible en fiole de 12ml.</p>
     </div>
-
-    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets ou protéger des habitations en scellant les entrées (portes et fenêtres).</p>
-
-    <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Commander Eau de Lune</a>
-
-    <p>Disponible en fiole de 12ml.</p>
-</div>
 
     <script>
         function showCategory(category) {
