@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits - La Flamme de l'Ombre</title>
     <style>
+        /* Optimisation pour les téléphones */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1, h2 {
+        font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
+    }
+
+    p {
+        font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
+    }
+
+    img {
+        width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
+        height: auto;
+    }
+
+    .tabs button {
+        padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
+        font-size: 1em; /* Ajuster la taille de la police des boutons */
+        margin: 5px; /* Réduire l'espace entre les boutons */
+    }
+
+    .btn {
+        width: 100%; /* Bouton large sur téléphone */
+        font-size: 1em; /* Ajuster la taille du texte des boutons */
+    }
+
+    .card-gallery img {
+        width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
+    }
+}
         body {
             background-color: black;
             color: white;
