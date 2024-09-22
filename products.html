@@ -376,8 +376,27 @@
 </script>
     </div>
 
+     <!-- Sous-section Eau de lune -->
+    
   <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
 
+<!-- Images pour l'Eau de Lune -->
+<div id="flip-container">
+    <div class="front">
+        <img src="images/EDL.jpeg" alt="Eau de Lune">
+    </div>
+</div>
+
+<div>
+    <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
+    <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
+</div>
+
+<p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
+
+<p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation.</p>
+
+<!-- Formulaire pour la quantité d'Eau de Lune -->
 <form id="eau-de-lune-form">
     <label for="quantity-eau">Quantité :</label>
     <input type="number" id="quantity-eau" name="quantity" min="1" max="5" value="1" required>
@@ -391,6 +410,10 @@
 </form>
 
 <script>
+    document.getElementById('quantity-eau').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Eau de Lune"]').setAttribute('data-quantity', this.value);
+    });
+</script>
     document.getElementById('quantity-eau').addEventListener('input', function() {
         document.querySelector('.simpleCart_add[data-name="Eau de Lune"]').setAttribute('data-quantity', this.value);
     });
