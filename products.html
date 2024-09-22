@@ -398,19 +398,6 @@
 
         <!-- Script pour gérer l'ajout au panier et le mini-panier -->
     <script>
-        // Fonction pour ajouter un article au panier
-        function addToCart(name, price, pendentif, signeAstro, quantity = 1) {
-            var extraData = { pendentif: pendentif };
-            if (signeAstro) extraData.signeAstro = signeAstro;
-            
-            simpleCart.add({
-                name: name,
-                price: price,
-                quantity: quantity,
-                extra: extraData
-            });
-            alert(name + " a été ajouté au panier !");
-        }
 
         // Fonction pour afficher ou cacher le mini-panier
         function toggleCart() {
