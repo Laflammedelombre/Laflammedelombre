@@ -174,7 +174,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenuee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -348,18 +348,23 @@
         });
     </script>
 
-    <script>
-    // Test pour voir si SimpleCart.js est bien chargé et les boutons fonctionnent
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-        console.log("SimpleCart chargé : ", typeof simpleCart !== 'undefined');
-        
-        // Vérifions que les boutons "Ajouter au panier" fonctionnent
-        document.querySelectorAll('.simpleCart_add').forEach(function(button) {
-            button.addEventListener('click', function() {
-                console.log('Ajout au panier :', this.getAttribute('data-name'));
-            });
+        if (typeof simpleCart === 'undefined') {
+            console.error('SimpleCart.js n\'est pas chargé correctement.');
+        } else {
+            console.log('SimpleCart.js est chargé correctement.');
+        }
+    });
+</script>
+
+    <script>
+    document.querySelectorAll('.simpleCart_add').forEach(function(button) {
+        button.addEventListener('click', function() {
+            console.log('Ajout au panier :', this.getAttribute('data-name'));
         });
     });
 </script>
+    
 </body>
 </html>
