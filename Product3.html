@@ -143,21 +143,9 @@
                 width: 100px;
             }
         }
-  </style>
-<script src="simplecart.min.js"></script>
+    </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var simpleCartStatus = document.createElement('p');
-        if (typeof simpleCart !== 'undefined') {
-            simpleCartStatus.textContent = "SimpleCart.js est chargé correctement.";
-        } else {
-            simpleCartStatus.textContent = "Erreur : SimpleCart.js n'est pas chargé.";
-        }
-        document.body.appendChild(simpleCartStatus);
-    });
-</script>
-
+    <script src="simplecart.min.js"></script>
 </head>
 <body>
 
@@ -209,7 +197,7 @@
     </div>
 
     <!-- Produits Chapelets -->
-    <div class="product-category" id="chapelets">
+        <div class="product-category" id="chapelets">
         <h2>Mini Chapelets Magiques</h2>
         <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
 
@@ -259,7 +247,7 @@
 
         <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
         <a href="javascript:;" class="btn simpleCart_add" data-name="Eau de Lune" data-price="6.00" data-quantity="1" data-shipping="3" data-tax="0">Ajouter au panier</a>
-        <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation. </p>
+        <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation. </p>
     </div>
 
     <!-- Panier SimpleCart -->
@@ -272,51 +260,53 @@
     </div>
 
     <!-- Script pour gérer SimpleCart et les alertes -->
-<script>
-    // Initialisation de SimpleCart
-    simpleCart({
-        cartColumns: [
-            { attr: "name", label: "Nom" },
-            { attr: "price", label: "Prix", view: 'currency' },
-            { view: "decrement", label: "−", text: "−" },
-            { attr: "quantity", label: "Qté" },
-            { view: "increment", label: "+", text: "+" },
-            { attr: "total", label: "Total", view: 'currency' },
-            { view: "remove", text: "X", label: "Retirer" }
-        ],
-        cartStyle: "div",
-        checkout: {
-            type: "PayPal",
-            email: "laflammedelombre@gmail.com"
-        },
-        currency: "EUR"
-    });
+    <script>
+        // Initialisation de SimpleCart
+        simpleCart({
+            cartColumns: [
+                { attr: "name", label: "Nom" },
+                { attr: "price", label: "Prix", view: 'currency' },
+                { view: "decrement", label: "−", text: "−" },
+                { attr: "quantity", label: "Qté" },
+                { view: "increment", label: "+", text: "+" },
+                { attr: "total", label: "Total", view: 'currency' },
+                { view: "remove", text: "X", label: "Retirer" }
+            ],
+            cartStyle: "div",
+            checkout: {
+                type: "PayPal",
+                email: "laflammedelombre@gmail.com"
+            },
+            currency: "EUR"
+        });
 
-    // Charger SimpleCart pour initialiser les boutons
-    simpleCart.load();  // <-- Ajoute cette ligne ici
+        // Charger SimpleCart pour initialiser les boutons
+        simpleCart.load();
 
-    // Afficher une alerte lorsque l'article est ajouté au panier
-    simpleCart.bind('afterAdd', function(item) {
-        var alertBox = document.createElement('div');
-        alertBox.style.position = 'fixed';
-        alertBox.style.top = '50px';
-        alertBox.style.right = '20px';
-        alertBox.style.backgroundColor = '#666666';
-        alertBox.style.color = 'white';
-        alertBox.style.padding = '15px';
-        alertBox.style.borderRadius = '5px';
-        alertBox.style.zIndex = '1001';
-        alertBox.textContent = item.get('name') + " ajouté au panier!";
-        
-        document.body.appendChild(alertBox);
+        // Afficher une alerte lorsque l'article est ajouté au panier
+        simpleCart.bind('afterAdd', function(item) {
+            var alertBox = document.createElement('div');
+            alertBox.style.position = 'fixed';
+            alertBox.style.top = '50px';
+            alertBox.style.right = '20px';
+            alertBox.style.backgroundColor = '#666666';
+            alertBox.style.color = 'white';
+            alertBox.style.padding = '15px';
+            alertBox.style.borderRadius = '5px';
+            alertBox.style.zIndex = '1001';
+            alertBox.textContent = item.get('name') + " ajouté au panier!";
+            
+            document.body.appendChild(alertBox);
 
-        // Enlever l'alerte après 3 secondes
-        setTimeout(function() {
-            alertBox.remove();
-        }, 3000);
-    });
-</script>
+            // Enlever l'alerte après 3 secondes
+            setTimeout(function() {
+                alertBox.remove();
+            }, 3000);
+        });
+    </script>
 
+    <!-- Script pour gérer les catégories -->
+    <script>
         // Fonction pour afficher la bonne catégorie
         function showCategory(category) {
             var categories = document.getElementsByClassName('product-category');
