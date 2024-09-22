@@ -174,7 +174,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenuee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -377,11 +377,13 @@
     });
 </script>
 
-    <script>
-    // Vérifie si les boutons "Ajouter au panier" fonctionnent correctement
-    document.querySelectorAll('.simpleCart_add').forEach(function(button) {
-        button.addEventListener('click', function() {
-            alert('Ajout au panier : ' + this.getAttribute('data-name'));
+<script>
+    // Vérification des événements de clic sur les boutons "Ajouter au panier"
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.simpleCart_add').forEach(function(button) {
+            button.onclick = function() {
+                alert('Bouton cliqué : ' + this.getAttribute('data-name'));
+            };
         });
     });
 </script>
