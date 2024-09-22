@@ -18,17 +18,14 @@
             align-items: center;
             min-height: 100vh;
         }
-
         h1, h2 {
             font-size: 2.5em;
             margin-bottom: 20px;
         }
-
         p {
             font-size: 1.5em;
             margin-bottom: 20px;
         }
-
         img {
             width: 80%;
             max-width: 600px;
@@ -36,14 +33,12 @@
             margin: 20px auto;
             display: block;
         }
-
         .tabs {
             display: flex;
             justify-content: center;
             margin-top: 20px;
             margin-bottom: 20px;
         }
-
         .tabs button {
             background-color: #444444;
             color: white;
@@ -54,23 +49,18 @@
             transition: background-color 0.3s;
             font-size: 1.2em;
         }
-
         .tabs button:hover {
             background-color: #666666;
         }
-
         .tabs button.active {
             background-color: #888888;
         }
-
         .product-category {
             display: none;
         }
-
         .product-category.visible {
             display: block;
         }
-
         .btn {
             background-color: #444444;
             color: white;
@@ -86,94 +76,76 @@
             width: 270px;
             max-width: 90%;
         }
-
         .btn:hover {
             background-color: #666666;
         }
-
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 20px 0;
         }
-
         nav ul li {
             display: inline;
             margin: 0 15px;
         }
-
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: bold;
         }
-
         nav ul li a:hover {
             text-decoration: underline;
         }
-
         hr {
             border: 1px solid white;
             width: 80%;
             margin: 40px auto;
         }
-
-        /* Style pour la galerie d'images plus petites dans Oracles */
         .card-gallery {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
-
         .card-gallery img {
             margin: 10px;
-            width: 150px; /* Taille des petites images */
+            width: 150px;
             height: auto;
         }
-
-/* Optimisation pour les téléphones */
-@media (max-width: 768px) {
-    body {
-        padding: 10px; /* Ajoute du padding pour éviter que le texte soit trop près du bord */
-        margin: 0; /* Supprime les marges pour éviter les rognages à gauche */
-    }
-
-    h1, h2 {
-        font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
-        margin-left: 10px; /* Ajoute une marge pour éviter que le titre soit rogné */
-        margin-right: 10px; /* Ajoute une marge à droite pour plus d'espace */
-    }
-
-    p {
-        font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
-        margin-left: 10px; /* Ajoute une marge pour éviter que le texte soit rogné */
-        margin-right: 10px; /* Ajoute une marge à droite */
-    }
-
-    img {
-        width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
-        height: auto;
-    }
-
-    .tabs button {
-        padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
-        font-size: 1em; /* Ajuster la taille de la police des boutons */
-        margin: 5px; /* Réduire l'espace entre les boutons */
-    }
-
-    .btn {
-        width: 100%; /* Bouton large sur téléphone */
-        font-size: 1em; /* Ajuster la taille du texte des boutons */
-    }
-
-    .card-gallery img {
-        width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
-    }
-}
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                margin: 0;
+            }
+            h1, h2 {
+                font-size: 1.8em;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            p {
+                font-size: 1.2em;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            img {
+                width: 100%;
+                height: auto;
+            }
+            .tabs button {
+                padding: 8px 12px;
+                font-size: 1em;
+                margin: 5px;
+            }
+            .btn {
+                width: 100%;
+                font-size: 1em;
+            }
+            .card-gallery img {
+                width: 100px;
+            }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplecart/3.0.6/simplecart.min.js"></script>
 </head>
-
 <body>
 
     <!-- Lien de navigation vers les autres pages -->
@@ -220,81 +192,115 @@
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
         <a href="javascript:;" class="btn simpleCart_add" data-name="L'Oracle by J" data-price="40.00" data-quantity="1" data-shipping="0" data-tax="0">Ajouter au panier</a>
-
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
 
-    <!-- Catégorie Mini Chapelets Magiques -->
+    <!-- Produits Chapelets -->
     <div class="product-category" id="chapelets">
         <h2>Mini Chapelets Magiques</h2>
         <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
 
-        <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
+        <p>Découvrez notre collection de mini chapelets magiques...</p>
+        <hr>
 
-        <p><strong>IMPORTANT :</strong> En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
-
-        <hr> <!-- Séparateur entre la section globale et les sous-sections -->
-
-        <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
             <h3>Chapelets Magiques en Améthyste</h3>
-            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
-
-            <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
             <div class="chapelet-images">
                 <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
                 <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
                 <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
             </div>
-
             <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet Améthyste</a>
+            <a href="javascript:;" class="btn simpleCart_add" data-name="Chapelet Améthyste" data-price="15.00" data-quantity="1" data-shipping="3" data-tax="0">Ajouter au panier</a>
         </div>
 
-        <hr> <!-- Séparateur entre les deux sous-catégories -->
+        <hr>
 
-        <!-- Sous-section Chapelets en Obsidienne et Tourmaline -->
         <div class="sub-category">
-            <h3>Chapelets Magiques en Obsidienne et Tourmaline</h3>
-            <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage à leur porteur. Chaque chapelet est accompagné d'un pendentif au choix.</p>
-
-            <!-- Images des chapelets en Obsidienne, 3 photos distinctes -->
+            <h3>Chapelets Magiques en Obsidienne</h3>
             <div class="chapelet-images">
                 <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne FullSizeRender">
                 <img src="images/IMG_5756.jpeg" alt="Chapelet Obsidienne A2">
                 <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
             </div>
-
             <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/6TZEKHDD92X5E" class="btn">Commander Chapelet Obsidienne</a>
-        </div>
-
-    </div>
-
-   <!-- Produits Eau de Lune -->
-<div class="product-category" id="eau-de-lune">
-    <h2>Eau de Lune</h2>
-    <div id="flip-container">
-        <div class="front">
-            <img src="images/EDL.jpeg" alt="Eau de Lune">
+            <a href="javascript:;" class="btn simpleCart_add" data-name="Chapelet Obsidienne" data-price="15.00" data-quantity="1" data-shipping="3" data-tax="0">Ajouter au panier</a>
         </div>
     </div>
 
-    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
+    <!-- Produits Eau de Lune -->
+    <div class="product-category" id="eau-de-lune">
+        <h2>Eau de Lune</h2>
+                <div id="flip-container">
+            <div class="front">
+                <img src="images/EDL.jpeg" alt="Eau de Lune">
+            </div>
+        </div>
 
-    <!-- Ajout des images EDL5.jpeg et EDL4.jpeg ici -->
-    <div>
-        <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
-        <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
+        <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
+
+        <div>
+            <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
+            <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
+        </div>
+
+        <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
+        <a href="javascript:;" class="btn simpleCart_add" data-name="Eau de Lune" data-price="6.00" data-quantity="1" data-shipping="3" data-tax="0">Ajouter au panier</a>
+        <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation. </p>
     </div>
 
-    <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Commander Eau de Lune</a>
+    <!-- Panier SimpleCart -->
+    <div id="panier" style="position:fixed; top:20px; right:20px; background-color:#444444; padding:20px; border-radius:8px; z-index:1000; max-width:300px;">
+        <h2 style="color:white;">Votre Panier</h2>
+        <div class="simpleCart_items" style="color:white;"></div>
+        <p>Total: <span class="simpleCart_total" style="color:white;"></span></p>
+        <p>Articles: <span class="simpleCart_quantity" style="color:white;"></span></p>
+        <a href="javascript:;" class="simpleCart_checkout btn" style="background-color:#888888;">Valider la commande</a>
+    </div>
 
-    <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation. </p>
-</div>
-
+    <!-- Script pour gérer SimpleCart et les alertes -->
     <script>
+        // Initialisation de SimpleCart
+        simpleCart({
+            cartColumns: [
+                { attr: "name", label: "Nom" },
+                { attr: "price", label: "Prix", view: 'currency' },
+                { view: "decrement", label: "−", text: "−" },
+                { attr: "quantity", label: "Qté" },
+                { view: "increment", label: "+", text: "+" },
+                { attr: "total", label: "Total", view: 'currency' },
+                { view: "remove", text: "X", label: "Retirer" }
+            ],
+            cartStyle: "div",
+            checkout: {
+                type: "PayPal",
+                email: "laflammedelombre@gmail.com"
+            },
+            currency: "EUR"
+        });
+
+        // Afficher une alerte lorsque l'article est ajouté au panier
+        simpleCart.bind('afterAdd', function(item) {
+            var alertBox = document.createElement('div');
+            alertBox.style.position = 'fixed';
+            alertBox.style.top = '50px';
+            alertBox.style.right = '20px';
+            alertBox.style.backgroundColor = '#666666';
+            alertBox.style.color = 'white';
+            alertBox.style.padding = '15px';
+            alertBox.style.borderRadius = '5px';
+            alertBox.style.zIndex = '1001';
+            alertBox.textContent = item.get('name') + " ajouté au panier!";
+            
+            document.body.appendChild(alertBox);
+
+            // Enlever l'alerte après 3 secondes
+            setTimeout(function() {
+                alertBox.remove();
+            }, 3000);
+        });
+
+        // Fonction pour afficher la bonne catégorie
         function showCategory(category) {
             var categories = document.getElementsByClassName('product-category');
             var buttons = document.querySelectorAll('.tabs button');
@@ -324,58 +330,5 @@
         });
     </script>
 
-    <!-- Panier SimpleCart -->
-<div id="panier" style="position:fixed; top:20px; right:20px; background-color:#444444; padding:20px; border-radius:8px; z-index:1000; max-width:300px;">
-    <h2 style="color:white;">Votre Panier</h2>
-    <div class="simpleCart_items" style="color:white;"></div>
-    <p>Total: <span class="simpleCart_total" style="color:white;"></span></p>
-    <p>Articles: <span class="simpleCart_quantity" style="color:white;"></span></p>
-    <a href="javascript:;" class="simpleCart_checkout btn" style="background-color:#888888;">Valider la commande</a>
-</div>
-
-    <script>
-    // Fonction pour afficher une alerte personnalisée
-    simpleCart.bind('afterAdd', function(item) {
-        var alertBox = document.createElement('div');
-        alertBox.style.position = 'fixed';
-        alertBox.style.top = '50px';
-        alertBox.style.right = '20px';
-        alertBox.style.backgroundColor = '#666666';
-        alertBox.style.color = 'white';
-        alertBox.style.padding = '15px';
-        alertBox.style.borderRadius = '5px';
-        alertBox.style.zIndex = '1001';
-        alertBox.textContent = item.get('name') + " ajouté au panier!";
-        
-        document.body.appendChild(alertBox);
-
-        // Enlever l'alerte après 3 secondes
-        setTimeout(function() {
-            alertBox.remove();
-        }, 3000);
-    });
-</script>
-
-    <script>
-    // Initialisation de SimpleCart
-    simpleCart({
-        cartColumns: [
-            { attr: "name", label: "Nom" },
-            { attr: "price", label: "Prix", view: 'currency' },
-            { view: "decrement", label: "−", text: "−" },
-            { attr: "quantity", label: "Qté" },
-            { view: "increment", label: "+", text: "+" },
-            { attr: "total", label: "Total", view: 'currency' },
-            { view: "remove", text: "X", label: "Retirer" }
-        ],
-        cartStyle: "div",
-        checkout: {
-            type: "PayPal",
-            email: "laflammedelombre@gmail.com"
-        },
-        currency: "EUR"
-    });
-</script>
-    
 </body>
 </html>
