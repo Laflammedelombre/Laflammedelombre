@@ -171,6 +171,7 @@
     }
 }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplecart/3.0.6/simplecart.min.js"></script>
 </head>
 
 <body>
@@ -218,7 +219,13 @@
         <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
+        
+        <!-- Bouton Ajouter au panier avec une option pour demander le prénom -->
+        <form onsubmit="simpleCart.add({ name: 'L\'Oracle by J', price: 40, quantity: 1, max: 5, extra: { prenom: this.prenom.value } }); return false;">
+            <label for="prenom">Prénom du futur propriétaire :</label>
+            <input type="text" id="prenom" name="prenom" required>
+            <button type="submit" class="btn">Ajouter au panier</button>
+        </form>
 
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
@@ -230,11 +237,7 @@
 
         <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
 
-        <p><strong>IMPORTANT :</strong> En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
-
-        <hr> <!-- Séparateur entre la section globale et les sous-sections -->
-
-        <!-- Sous-section Chapelets en Améthyste -->
+                <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
             <h3>Chapelets Magiques en Améthyste</h3>
             <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
@@ -246,11 +249,40 @@
                 <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
             </div>
 
-            <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet Améthyste</a>
+            <p><strong>Prix : 15 euros + 3 euros de frais de livraison (par tranche de 3).</strong></p>
+            
+            <!-- Formulaire pour ajouter au panier avec options pour pendentif et signe astro -->
+            <form onsubmit="simpleCart.add({ 
+                    name: 'Chapelet Améthyste', 
+                    price: 15, 
+                    quantity: this.quantity.value, 
+                    max: 15, 
+                    extra: { 
+                        pendentif: this.pendentif.value, 
+                        signeAstro: this.signeAstro.value 
+                    } 
+                }); return false;">
+                <label for="pendentif">Choix du pendentif :</label>
+                <select id="pendentif" name="pendentif" required>
+                    <option value="Lune">Lune</option>
+                    <option value="Arbre de vie">Arbre de vie</option>
+                    <option value="Clés">Clés</option>
+                    <option value="Croix chrétienne">Croix chrétienne</option>
+                    <option value="Signe astrologique">Signe astrologique</option>
+                </select>
+                
+                <!-- Si signe astrologique est sélectionné, montrer le champ signeAstro -->
+                <label for="signeAstro">Signe astrologique (si sélectionné) :</label>
+                <input type="text" id="signeAstro" name="signeAstro" placeholder="Ex: Bélier">
+                
+                <label for="quantity">Quantité :</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="15" value="1" required>
+
+                <button type="submit" class="btn">Ajouter au panier</button>
+            </form>
         </div>
 
-        <hr> <!-- Séparateur entre les deux sous-catégories -->
+        <hr>
 
         <!-- Sous-section Chapelets en Obsidienne et Tourmaline -->
         <div class="sub-category">
@@ -264,34 +296,61 @@
                 <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
             </div>
 
-            <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/6TZEKHDD92X5E" class="btn">Commander Chapelet Obsidienne</a>
-        </div>
+            <p><strong>Prix : 15 euros + 3 euros de frais de livraison (par tranche de 3).</strong></p>
+            
+            <!-- Formulaire pour ajouter au panier avec options pour pendentif et signe astro -->
+            <form onsubmit="simpleCart.add({ 
+                    name: 'Chapelet Obsidienne', 
+                    price: 15, 
+                    quantity: this.quantity.value, 
+                    max: 15, 
+                    extra: { 
+                        pendentif: this.pendentif.value, 
+                        signeAstro: this.signeAstro.value 
+                    } 
+                }); return false;">
+                <label for="pendentif">Choix du pendentif :</label>
+                <select id="pendentif" name="pendentif" required>
+                    <option value="Lune">Lune</option>
+                    <option value="Arbre de vie">Arbre de vie</option>
+                    <option value="Clés">Clés</option>
+                    <option value="Croix chrétienne">Croix chrétienne</option>
+                    <option value="Signe astrologique">Signe astrologique</option>
+                </select>
+                
+                <!-- Si signe astrologique est sélectionné, montrer le champ signeAstro -->
+                <label for="signeAstro">Signe astrologique (si sélectionné) :</label>
+                <input type="text" id="signeAstro" name="signeAstro" placeholder="Ex: Bélier">
+                
+                <label for="quantity">Quantité :</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="15" value="1" required>
 
-    </div>
+                <button type="submit" class="btn">Ajouter au panier</button>
+            </form>
+        </div>
 
    <!-- Produits Eau de Lune -->
-<div class="product-category" id="eau-de-lune">
-    <h2>Eau de Lune</h2>
-    <div id="flip-container">
-        <div class="front">
-            <img src="images/EDL.jpeg" alt="Eau de Lune">
-        </div>
-    </div>
+   <div class="product-category" id="eau-de-lune">
+       <h2>Eau de Lune</h2>
+       <div id="flip-container">
+           <div class="front">
+               <img src="images/EDL.jpeg" alt="Eau de Lune">
+           </div>
+       </div>
 
-    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
+       <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
 
-    <!-- Ajout des images EDL5.jpeg et EDL4.jpeg ici -->
-    <div>
-        <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
-        <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
-    </div>
+       <!-- Ajout des images EDL5.jpeg et EDL4.jpeg ici -->
+       <div>
+           <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
+           <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
+       </div>
 
-    <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Commander Eau de Lune</a>
+       <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
+       <button class="btn simpleCart_add" data-name="Eau de Lune" data-price="6" data-quantity="1" data-max="5">Ajouter au panier</button>
 
-    <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation. </p>
-</div>
+       <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation.</p>
+   </div>
 
     <script>
         function showCategory(category) {
@@ -318,8 +377,41 @@
         }
 
         // Garder les onglets visibles dès le chargement de la page
+        document.addEventListener
+
+                // Garder les onglets visibles dès le chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.tabs').style.display = 'flex';
+        });
+
+        // Gérer l'affichage conditionnel du champ "Signe astrologique"
+        document.getElementById("pendentif").addEventListener("change", function() {
+            var signeContainer = document.getElementById("signe-container");
+            if (this.value === "Signe astrologique") {
+                signeContainer.style.display = "block";
+            } else {
+                signeContainer.style.display = "none";
+            }
+        });
+
+        // Calcul dynamique des frais de livraison
+        simpleCart({
+            checkout: {
+                type: "PayPal",
+                email: "laflammedelombre@gmail.com"
+            },
+            shippingCustom: function() {
+                var oraclePresent = simpleCart.items().some(item => item.name === "L'Oracle by J");
+                var chapeletCount = simpleCart.quantityFor("Chapelet Améthyste") + simpleCart.quantityFor("Chapelet Obsidienne");
+
+                if (oraclePresent) {
+                    return 0; // Livraison gratuite si Oracle est présent
+                } else if (chapeletCount > 0) {
+                    return Math.ceil(chapeletCount / 3) * 3; // 3 euros par tranche de 3 chapelets
+                } else {
+                    return 3; // Livraison standard pour autres produits (comme l'Eau de Lune)
+                }
+            }
         });
     </script>
 
