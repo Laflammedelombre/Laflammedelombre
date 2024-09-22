@@ -174,7 +174,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -204,6 +204,7 @@
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
         <a href="javascript:;" class="btn simpleCart_add" data-name="L'Oracle by J" data-price="40.00" data-quantity="1" data-shipping="0" data-tax="0">Ajouter au panier</a>
+        <button id="testButton">Test Ajouter au panier</button>
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
 
@@ -387,6 +388,13 @@
         });
     });
 </script>
-    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var testButton = document.getElementById('testButton');
+        testButton.onclick = function() {
+            alert('Le bouton test a été cliqué !');
+        };
+    });
+</script>
 </body>
 </html>
