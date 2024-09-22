@@ -145,6 +145,19 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplecart/3.0.6/simplecart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplecart/3.0.6/simplecart.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var simpleCartStatus = document.createElement('p');
+        if (typeof simpleCart !== 'undefined') {
+            simpleCartStatus.textContent = "SimpleCart.js est chargé correctement.";
+        } else {
+            simpleCartStatus.textContent = "Erreur : SimpleCart.js n'est pas chargé.";
+        }
+        document.body.appendChild(simpleCartStatus);
+    });
+</script>
 </head>
 <body>
 
