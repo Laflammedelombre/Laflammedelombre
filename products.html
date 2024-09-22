@@ -225,9 +225,9 @@
 
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
-            <button class="active" onclick="showCategory('oracles')">Oracles</button>
-            <button onclick="showCategory('chapelets')">Chapelet Magique</button>
-            <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
+            <button class="active" onclick="showCategory('oracles', event)">Oracles</button>
+            <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
+            <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
         </div>
 
         <img src="images/boutique.jpeg" alt="Boutique Magique">
@@ -260,6 +260,12 @@
         data-quantity="1" 
         data-extra-prenom="">Ajouter au panier</button>
 </form>
+
+<script>
+    document.getElementById('prenom').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="L\'Oracle by J"]').setAttribute('data-extra-prenom', this.value);
+    });
+</script>
 
 <script>
     document.getElementById('prenom').addEventListener('input', function() {
@@ -329,6 +335,20 @@
         document.querySelector('.simpleCart_add[data-name="Chapelet Améthyste"]').setAttribute('data-quantity', this.value);
     });
 </script>
+
+<script>
+    document.getElementById('pendentif-amethyste').addEventListener('change', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Améthyste"]').setAttribute('data-extra-pendentif', this.value);
+    });
+
+    document.getElementById('signeAstro-amethyste').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Améthyste"]').setAttribute('data-extra-signeAstro', this.value);
+    });
+
+    document.getElementById('quantity-amethyste').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Améthyste"]').setAttribute('data-quantity', this.value);
+    });
+</script>
         </div>
 
         <hr>
@@ -360,6 +380,20 @@
         Ajouter au panier
     </button>
 </form>
+
+<script>
+    document.getElementById('pendentif-obsidienne').addEventListener('change', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Obsidienne"]').setAttribute('data-extra-pendentif', this.value);
+    });
+
+    document.getElementById('signeAstro-obsidienne').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Obsidienne"]').setAttribute('data-extra-signeAstro', this.value);
+    });
+
+    document.getElementById('quantity-obsidienne').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Chapelet Obsidienne"]').setAttribute('data-quantity', this.value);
+    });
+</script>
 
 <script>
     document.getElementById('pendentif-obsidienne').addEventListener('change', function() {
@@ -414,6 +448,12 @@
         document.querySelector('.simpleCart_add[data-name="Eau de Lune"]').setAttribute('data-quantity', this.value);
     });
 </script>
+
+<script>
+    document.getElementById('quantity-eau').addEventListener('input', function() {
+        document.querySelector('.simpleCart_add[data-name="Eau de Lune"]').setAttribute('data-quantity', this.value);
+    });
+</script>
     document.getElementById('quantity-eau').addEventListener('input', function() {
         document.querySelector('.simpleCart_add[data-name="Eau de Lune"]').setAttribute('data-quantity', this.value);
     });
@@ -433,27 +473,27 @@
         }
 
         // Fonction pour afficher les catégories de produits
-        function showCategory(category) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var boutiqueImage = document.querySelector('#accueil img'); // Cible l'image spécifique
+function showCategory(category, event) {
+    var categories = document.getElementsByClassName('product-category');
+    var buttons = document.querySelectorAll('.tabs button');
+    var boutiqueImage = document.querySelector('#accueil img'); // Cible l'image spécifique
 
-            boutiqueImage.style.display = 'none'; // Masquer l'image de la boutique magique
+    boutiqueImage.style.display = 'none'; // Masquer l'image de la boutique magique
 
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].classList.remove('visible');
-            }
+    // Masquer toutes les catégories de produits
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].classList.remove('visible');
+    }
 
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
+    // Retirer la classe active de tous les boutons
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
 
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).classList.add('visible');
-            event.target.classList.add('active');
-        }
+    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+    document.getElementById(category).classList.add('visible');
+    event.target.classList.add('active');
+}
 
         // Garder les onglets visibles dès le chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
