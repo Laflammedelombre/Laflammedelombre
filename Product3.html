@@ -146,6 +146,17 @@
     </style>
 
     <script src="simplecart.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof simpleCart === 'undefined') {
+            console.error('SimpleCart.js n\'est pas chargé correctement.');
+        } else {
+            console.log('SimpleCart.js est bien chargé.');
+        }
+    });
+</script>
+    
+    
 </head>
 <body>
 
