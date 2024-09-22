@@ -174,7 +174,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenuee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -365,6 +365,16 @@
         });
     });
 </script>
-    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof simpleCart === 'undefined') {
+            // Si SimpleCart n'est pas chargé correctement, on affiche une alerte à l'écran
+            document.body.innerHTML += '<p style="color: red;">Erreur : SimpleCart.js n\'est pas chargé correctement.</p>';
+        } else {
+            // Si SimpleCart est bien chargé, on affiche un message à l'écran
+            document.body.innerHTML += '<p style="color: green;">SimpleCart.js est chargé correctement.</p>';
+        }
+    });
+</script>
 </body>
 </html>
