@@ -355,6 +355,27 @@
         }, 3000);
     });
 </script>
+
+    <script>
+    // Initialisation de SimpleCart
+    simpleCart({
+        cartColumns: [
+            { attr: "name", label: "Nom" },
+            { attr: "price", label: "Prix", view: 'currency' },
+            { view: "decrement", label: "−", text: "−" },
+            { attr: "quantity", label: "Qté" },
+            { view: "increment", label: "+", text: "+" },
+            { attr: "total", label: "Total", view: 'currency' },
+            { view: "remove", text: "X", label: "Retirer" }
+        ],
+        cartStyle: "div",
+        checkout: {
+            type: "PayPal",
+            email: "laflammedelombre@gmail.com"
+        },
+        currency: "EUR"
+    });
+</script>
     
 </body>
 </html>
