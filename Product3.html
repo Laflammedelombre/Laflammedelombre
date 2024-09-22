@@ -174,7 +174,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -379,51 +379,20 @@
 </script>
 
 <script>
-    // Vérification des événements de clic sur les boutons "Ajouter au panier"
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.simpleCart_add').forEach(function(button) {
-            button.onclick = function() {
-                alert('Bouton cliqué : ' + this.getAttribute('data-name'));
-            };
-        });
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var testButton = document.getElementById('testButton');
-        testButton.onclick = function() {
-            alert('Le bouton test a été cliqué !');
-        };
-    });
-</script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.simpleCart_add').forEach(function(button) {
-            button.onclick = function() {
-                alert('Ajout au panier : ' + this.getAttribute('data-name'));
-            };
-        });
-    });
-</script>
-    <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.simpleCart_add').forEach(function(button) {
             button.onclick = function() {
                 var name = this.getAttribute('data-name');
                 var price = this.getAttribute('data-price');
                 
-                // Ajouter au panier via SimpleCart
-                simpleCart.add({
-                    name: name,
-                    price: price,
-                    quantity: 1
-                });
-
-                // Afficher un pop-up pour indiquer l'ajout au panier
-                alert(name + " a été ajouté au panier !");
+                // Afficher un pop-up pour indiquer quel produit aurait dû être ajouté au panier
+                alert(name + " devrait être ajouté au panier à " + price + " euros.");
             };
         });
     });
 </script>
+
+
+ 
 </body>
 </html>
