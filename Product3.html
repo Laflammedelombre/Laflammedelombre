@@ -324,5 +324,37 @@
         });
     </script>
 
+    <!-- Panier SimpleCart -->
+<div id="panier" style="position:fixed; top:20px; right:20px; background-color:#444444; padding:20px; border-radius:8px; z-index:1000; max-width:300px;">
+    <h2 style="color:white;">Votre Panier</h2>
+    <div class="simpleCart_items" style="color:white;"></div>
+    <p>Total: <span class="simpleCart_total" style="color:white;"></span></p>
+    <p>Articles: <span class="simpleCart_quantity" style="color:white;"></span></p>
+    <a href="javascript:;" class="simpleCart_checkout btn" style="background-color:#888888;">Valider la commande</a>
+</div>
+
+    <script>
+    // Fonction pour afficher une alerte personnalisée
+    simpleCart.bind('afterAdd', function(item) {
+        var alertBox = document.createElement('div');
+        alertBox.style.position = 'fixed';
+        alertBox.style.top = '50px';
+        alertBox.style.right = '20px';
+        alertBox.style.backgroundColor = '#666666';
+        alertBox.style.color = 'white';
+        alertBox.style.padding = '15px';
+        alertBox.style.borderRadius = '5px';
+        alertBox.style.zIndex = '1001';
+        alertBox.textContent = item.get('name') + " ajouté au panier!";
+        
+        document.body.appendChild(alertBox);
+
+        // Enlever l'alerte après 3 secondes
+        setTimeout(function() {
+            alertBox.remove();
+        }, 3000);
+    });
+</script>
+    
 </body>
 </html>
