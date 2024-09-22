@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits - La Flamme de l'Ombre</title>
     <style>
+
+        /* Style pour le bouton panier */
+div#mini-cart {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+div a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour les éléments du mini-panier */
+#mini-cart {
+    width: 250px;
+}
+
+#mini-cart h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#mini-cart button {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+        
         body {
             background-color: black;
             color: white;
@@ -174,6 +200,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplecart/3.0.6/simplecart.min.js"></script>
 </head>
 
+    
 <body>
 
     <!-- Lien de navigation vers les autres pages -->
@@ -188,10 +215,30 @@
         </ul>
     </nav>
 
-    <!-- Bouton Panier toujours visible -->
-<div style="position:fixed; top:20px; right:20px; background-color:#444; padding:10px; border-radius:5px; color:white;">
-    <a href="javascript:;" class="simpleCart_checkout">Voir Panier (<span class="simpleCart_quantity"></span>)</a>
+<!-- Bouton Panier toujours visible -->
+<div style="position:fixed; top:20px; right:20px; background-color:#444; padding:10px; border-radius:5px; color:white; z-index: 1000;">
+    <a href="javascript:void(0);" onclick="toggleCart()" style="color:white; text-decoration:none;">🛒 Voir Panier (<span class="simpleCart_quantity"></span>)</a>
 </div>
+
+<!-- Mini Panier (invisible au départ) -->
+<div id="mini-cart" style="position:fixed; top:60px; right:20px; background-color:white; color:black; padding:20px; border-radius:5px; display:none; z-index: 1000;">
+    <h3>Mon Panier</h3>
+    <div class="simpleCart_items"></div>
+    <p>Total : <span class="simpleCart_total"></span>€</p>
+    <button class="simpleCart_checkout" style="background-color:#444; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer;">Payer avec PayPal</button>
+</div>
+
+    <script>
+    // Fonction pour afficher ou cacher le mini-panier
+    function toggleCart() {
+        var miniCart = document.getElementById("mini-cart");
+        if (miniCart.style.display === "none" || miniCart.style.display === "") {
+            miniCart.style.display = "block"; // Afficher le panier
+        } else {
+            miniCart.style.display = "none"; // Cacher le panier
+        }
+    }
+</script>
 
     <!-- Section d'accueil -->
     <div id="accueil">
