@@ -222,7 +222,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -363,6 +363,16 @@
 
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Masquer toutes les catégories au démarrage
+    var categories = document.getElementsByClassName('product-category');
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
+
+    // Afficher uniquement l'image et le texte d'accueil au démarrage
+    document.getElementById('accueil').style.display = 'block';
+});
         var cart = [];
         var totalAmount = 0;
 
@@ -434,17 +444,27 @@
     <script>
         // Fonction pour afficher la catégorie sélectionnée
         function showCategory(category, event) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var boutiqueImage = document.querySelector('#accueil img');
+    var categories = document.getElementsByClassName('product-category');
+    var buttons = document.querySelectorAll('.tabs button');
+    var accueil = document.getElementById('accueil');
 
-            // Masquer l'image de la boutique magique uniquement
-            boutiqueImage.style.display = 'none';
+    // Masquer l'image et le texte d'accueil
+    accueil.style.display = 'none';
 
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
+    // Masquer toutes les catégories de produits
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
+
+    // Retirer la classe active de tous les boutons
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+    document.getElementById(category).style.display = 'block';
+    event.target.classList.add('active');
+}
 
                         // Retirer la classe active de tous les boutons
             buttons.forEach(function(btn) {
