@@ -222,7 +222,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -381,9 +381,19 @@
         }
 
         function addToCart(name, price, isChapelet) {
-            cart.push({ name: name, price: price, isChapelet: isChapelet });
-            updateCart();
-        }
+    var itemInCart = cart.find(item => item.name === name);
+
+    if (itemInCart) {
+        // Si l'article est déjà dans le panier, on augmente sa quantité
+        itemInCart.quantity += 1;
+    } else {
+        // Sinon, on ajoute un nouvel article avec une quantité de 1
+        cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
+    }
+
+    updateCart();  // Mettre à jour le panier après l'ajout
+}
+    
 
 function updateCart() {
     var cartItems = document.getElementById('cart-items');
@@ -394,17 +404,23 @@ function updateCart() {
     var hasOracle = false;
 
     // Afficher les articles dans le panier et calculer le total
-    cart.forEach(function(item) {
-        total += item.price;
+    cart.forEach(function(item, index) {
+        total += item.price * item.quantity;
         if (item.isChapelet) {
-            chapeletCount++;
+            chapeletCount += item.quantity;
         }
         if (item.name === 'Oracle') {
             hasOracle = true;
         }
 
-        var itemElement = document.createElement('p');
-        itemElement.textContent = item.name + ' - ' + item.price + ' €';
+        // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
+        var itemElement = document.createElement('div');
+        itemElement.innerHTML = `
+            <p>${item.name} - ${item.price} € x ${item.quantity}</p>
+            <button onclick="changeQuantity(${index}, -1)">-</button>
+            <button onclick="changeQuantity(${index}, 1)">+</button>
+            <button onclick="removeItem(${index})">Supprimer</button>
+        `;
         cartItems.appendChild(itemElement);
     });
 
@@ -415,12 +431,28 @@ function updateCart() {
     }
 
     total += shipping;  // Ajouter les frais de port au total
-    document.getElementById('cart-total').textContent = 'Total : ' + total.toFixed(2) + ' €';
+    var shippingText = hasOracle ? 'Frais de port offerts' : `Frais de port : ${shipping} €`;
+    document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingText})`;
 
     totalAmount = total;  // Mettre à jour le total global
 
     renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
 }
+
+        function changeQuantity(index, change) {
+    if (cart[index].quantity + change > 0) {
+        cart[index].quantity += change;  // Augmenter ou diminuer la quantité
+    } else {
+        removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
+    }
+    updateCart();  // Recalculer le panier
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);  // Supprimer l'article du panier
+    updateCart();  // Recalculer le panier
+}
+        
         
     </script>
 
