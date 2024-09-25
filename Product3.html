@@ -67,10 +67,6 @@
             display: none;
         }
 
-        .product-category.visible {
-            display: block;
-        }
-
         .btn {
             background-color: #444444;
             color: white;
@@ -118,7 +114,6 @@
             margin: 40px auto;
         }
 
-        /* Style pour la galerie d'images plus petites dans Oracles */
         .card-gallery {
             display: flex;
             justify-content: center;
@@ -241,7 +236,7 @@
     </div>
 
     <!-- Produits Oracles -->
-    <div class="product-category visible" id="oracles">
+    <div class="product-category" id="oracles">
         <h2>L'Oracle by J</h2>
         <img src="images/Byj.jpg" alt="Oracle by J">
 
@@ -273,8 +268,8 @@
 
         <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
-            <h3>Chapelets Magiques en Améthyste</h3>
-                        <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+                        <h3>Chapelets Magiques en Améthyste</h3>
+            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
             <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
             <div class="chapelet-images">
@@ -434,6 +429,37 @@
                 }
             }).render('#paypal-button-container');
         }
+    </script>
+
+    <script>
+        // Fonction pour afficher la catégorie sélectionnée
+        function showCategory(category, event) {
+            var categories = document.getElementsByClassName('product-category');
+            var buttons = document.querySelectorAll('.tabs button');
+            var boutiqueImage = document.querySelector('#accueil img');
+
+            // Masquer l'image de la boutique magique uniquement
+            boutiqueImage.style.display = 'none';
+
+            // Masquer toutes les catégories de produits
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].style.display = 'none';
+            }
+
+                        // Retirer la classe active de tous les boutons
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+            document.getElementById(category).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        // Afficher la première catégorie au démarrage (par exemple, Oracles)
+        document.addEventListener('DOMContentLoaded', function() {
+            showCategory('oracles', { target: document.querySelector('.tabs button') });
+        });
     </script>
 
 </body>
