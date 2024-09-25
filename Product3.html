@@ -222,7 +222,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -445,31 +445,29 @@
     <script>
         // Fonction pour afficher la catégorie sélectionnée
         function showCategory(category, event) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var accueil = document.getElementById('accueil');
+    var categories = document.getElementsByClassName('product-category');
+    var buttons = document.querySelectorAll('.tabs button');
+    var accueilText = document.querySelector('#accueil h1, #accueil p');
+    var boutiqueImage = document.querySelector('#accueil img');
 
-            // Masquer l'image et le texte d'accueil
-            accueil.style.display = 'none';
+    // Masquer uniquement l'image et le texte d'accueil
+    accueilText.style.display = 'none';
+    boutiqueImage.style.display = 'none';
 
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
-                        // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
+    // Masquer toutes les catégories de produits
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
 
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
+    // Retirer la classe active de tous les boutons
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
 
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).style.display = 'block';
-            event.target.classList.add('active');
-        }
+    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+    document.getElementById(category).style.display = 'block';
+    event.target.classList.add('active');
+}
     </script>
 
 </body>
