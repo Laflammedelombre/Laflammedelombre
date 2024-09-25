@@ -222,7 +222,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -385,42 +385,7 @@
             updateCart();
         }
 
-        function updateCart() {
-            var cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-
-            var total = 0;
-            var chapeletCount = 0;
-            var hasOracle = false;
-
-            cart.forEach(function(item) {
-                total += item.price;
-                if (item.isChapelet) {
-                    chapeletCount++;
-                }
-                if (item.name === 'Oracle') {
-                    hasOracle = true;
-                }
-
-                var itemElement = document.createElement('p');
-                itemElement.textContent = item.name + ' - ' + item.price + ' €';
-                cartItems.appendChild(itemElement);
-            });
-
-            var shipping = 0;
-            if (!hasOracle && chapeletCount > 0) {
-                shipping = Math.ceil(chapeletCount / 3) * 3;
-            }
-
-            total += shipping;
-            document.getElementById('cart-total').textContent = 'Total : ' + total.toFixed(2) + ' €';
-
-            totalAmount = total;
-
-            renderPayPalButton();
-        }
-
-        function updateCart() {
+function updateCart() {
     var cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';  // Vider le contenu précédent
 
@@ -456,6 +421,7 @@
 
     renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
 }
+        
     </script>
 
     <script>
@@ -484,7 +450,31 @@
     document.getElementById(category).style.display = 'block';
     event.target.classList.add('active');
 }
+
+    function renderPayPalButton() {
+    // Supprimer les boutons PayPal précédents s'il y en a
+    document.getElementById('paypal-button-container').innerHTML = '';
+
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2)  // Le total du panier
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction réussie par ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button-container');  // Un seul bouton PayPal
+}
     </script>
 
+    <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
+    
 </body>
 </html>
