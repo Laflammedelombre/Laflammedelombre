@@ -227,7 +227,7 @@
 
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
-            <button class="active" onclick="showCategory('oracles', event)">Oracles</button>
+            <button onclick="showCategory('oracles', event)">Oracles</button>
             <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
             <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
         </div>
@@ -268,12 +268,12 @@
 
         <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
-                        <h3>Chapelets Magiques en Améthyste</h3>
+            <h3>Chapelets Magiques en Améthyste</h3>
             <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
             <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
             <div class="chapelet-images">
-                <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+                                <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
                 <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
                 <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
             </div>
@@ -364,15 +364,16 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    // Masquer toutes les catégories au démarrage
-    var categories = document.getElementsByClassName('product-category');
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
-    }
+            // Masquer toutes les catégories au démarrage
+            var categories = document.getElementsByClassName('product-category');
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].style.display = 'none';
+            }
 
-    // Afficher uniquement l'image et le texte d'accueil au démarrage
-    document.getElementById('accueil').style.display = 'block';
-});
+            // Afficher uniquement l'image et le texte d'accueil au démarrage
+            document.getElementById('accueil').style.display = 'block';
+        });
+
         var cart = [];
         var totalAmount = 0;
 
@@ -444,29 +445,23 @@
     <script>
         // Fonction pour afficher la catégorie sélectionnée
         function showCategory(category, event) {
-    var categories = document.getElementsByClassName('product-category');
-    var buttons = document.querySelectorAll('.tabs button');
-    var accueil = document.getElementById('accueil');
+            var categories = document.getElementsByClassName('product-category');
+            var buttons = document.querySelectorAll('.tabs button');
+            var accueil = document.getElementById('accueil');
 
-    // Masquer l'image et le texte d'accueil
-    accueil.style.display = 'none';
+            // Masquer l'image et le texte d'accueil
+            accueil.style.display = 'none';
 
-    // Masquer toutes les catégories de produits
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
-    }
+            // Masquer toutes les catégories de produits
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].style.display = 'none';
+            }
+                        // Masquer toutes les catégories de produits
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].style.display = 'none';
+            }
 
-    // Retirer la classe active de tous les boutons
-    buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-    });
-
-    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-    document.getElementById(category).style.display = 'block';
-    event.target.classList.add('active');
-}
-
-                        // Retirer la classe active de tous les boutons
+            // Retirer la classe active de tous les boutons
             buttons.forEach(function(btn) {
                 btn.classList.remove('active');
             });
@@ -475,11 +470,6 @@
             document.getElementById(category).style.display = 'block';
             event.target.classList.add('active');
         }
-
-        // Afficher la première catégorie au démarrage (par exemple, Oracles)
-        document.addEventListener('DOMContentLoaded', function() {
-            showCategory('oracles', { target: document.querySelector('.tabs button') });
-        });
     </script>
 
 </body>
