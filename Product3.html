@@ -127,7 +127,7 @@
 
         .card-gallery img {
             margin: 10px;
-            width: 150px; /* Taille des petites images */
+            width: 150px;
             height: auto;
         }
 
@@ -232,33 +232,33 @@
 
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
-            <button class="active" onclick="showCategory('oracles')">Oracles</button>
-            <button onclick="showCategory('chapelets')">Chapelet Magique</button>
-            <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
+            <button class="active" onclick="showCategory('oracles', event)">Oracles</button>
+            <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
+            <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
         </div>
 
         <img src="images/boutique.jpeg" alt="Boutique Magique">
     </div>
 
-<!-- Produits Oracles -->
-<div class="product-category" id="oracles">
-    <h2>L'Oracle by J</h2>
-    <img src="images/Byj.jpg" alt="Oracle by J">
+    <!-- Produits Oracles -->
+    <div class="product-category visible" id="oracles">
+        <h2>L'Oracle by J</h2>
+        <img src="images/Byj.jpg" alt="Oracle by J">
 
-    <!-- Galerie des 4 images plus petites -->
-    <div class="card-gallery">
-        <img src="images/Fidelite.jpeg" alt="Fidélité">
-        <img src="images/Secret.jpeg" alt="Secret">
-        <img src="images/Dependance.jpeg" alt="Dépendance">
-        <img src="images/Campagne.jpeg" alt="Campagne">
+        <!-- Galerie des 4 images plus petites -->
+        <div class="card-gallery">
+            <img src="images/Fidelite.jpeg" alt="Fidélité">
+            <img src="images/Secret.jpeg" alt="Secret">
+            <img src="images/Dependance.jpeg" alt="Dépendance">
+            <img src="images/Campagne.jpeg" alt="Campagne">
+        </div>
+
+        <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+
+        <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
+        <button class="btn" onclick="addToCart('Oracle', 40, false)">Ajouter au panier</button>
+        <p>L'Oracle by J sortira fin 2024.</p>
     </div>
-
-    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
-
-    <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-    <button class="btn" onclick="addToCart('Oracle', 40, false)">Ajouter au panier</button>
-    <p>L'Oracle by J sortira fin 2024.</p>
-</div>
 
     <!-- Catégorie Mini Chapelets Magiques -->
     <div class="product-category" id="chapelets">
