@@ -268,11 +268,11 @@
         <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
             <h3>Chapelets Magiques en Améthyste</h3>
-            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet             est accompagné d'un pendentif au choix.</p>
 
             <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
             <div class="chapelet-images">
-                                <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+                <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
                 <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
                 <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
             </div>
@@ -361,8 +361,12 @@
     </div>
 
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Charger le panier depuis localStorage
+            loadCartFromLocalStorage();
+
             // Masquer toutes les catégories au démarrage
             var categories = document.getElementsByClassName('product-category');
             for (var i = 0; i < categories.length; i++) {
@@ -381,172 +385,115 @@
             cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
         }
 
-function addToCart(name, price, isChapelet) {
-    var itemInCart = cart.find(item => item.name === name);
+        function addToCart(name, price, isChapelet) {
+            var itemInCart = cart.find(item => item.name === name);
 
-    if (itemInCart) {
-        // Si l'article est déjà dans le panier, on augmente sa quantité
-        itemInCart.quantity += 1;
-    } else {
-        // Sinon, on ajoute un nouvel article avec une quantité de 1
-        cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
-    }
+            if (itemInCart) {
+                // Si l'article est déjà dans le panier, on augmente sa quantité
+                itemInCart.quantity += 1;
+            } else {
+                // Sinon, on ajoute un nouvel article avec une quantité de 1
+                cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
+            }
 
-    updateCart();  // Mettre à jour le panier après l'ajout
-    saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-}
-    
-
-function updateCart() {
-    var cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = '';  // Vider le contenu précédent
-
-    var total = 0;
-    var chapeletCount = 0;
-    var eauDeLuneCount = 0;
-    var shipping = 0;
-    var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
-
-    // Afficher les articles dans le panier et calculer le total
-    cart.forEach(function(item, index) {
-        total += item.price * item.quantity;
-        if (item.isChapelet) {
-            chapeletCount += item.quantity;
+            updateCart();  // Mettre à jour le panier après l'ajout
+            saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
         }
-        if (item.name === 'Eau de Lune') {
-            eauDeLuneCount += item.quantity;
+        
+        function updateCart() {
+            var cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';  // Vider le contenu précédent
+
+            var total = 0;
+            var shipping = 0;
+            var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
+
+            // Afficher les articles dans le panier et calculer le total
+            cart.forEach(function(item, index) {
+                total += item.price * item.quantity;
+
+                // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
+                var itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    <p>${item.name} - ${item.price} € x ${item.quantity}</p>
+                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                    <button onclick="changeQuantity(${index}, 1)">+</button>
+                    <button onclick="removeItem(${index})">Supprimer</button>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+
+            // Calcul des frais de port
+            if (total < freeShippingThreshold) {
+                shipping += 3;  // Frais de base pour le premier article
+                shipping += (cart.length - 1) * 1;  // 1 euro pour chaque article supplémentaire
+            }
+
+            total += shipping;  // Ajouter les frais de port au total        // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
+        var remainingForFreeShipping = freeShippingThreshold - total;
+        var shippingMessage = total >= freeShippingThreshold ? 
+            "Frais de port offerts" : 
+            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+
+        // Mettre à jour l'affichage du total et du message des frais de port
+        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
+
+        totalAmount = total;  // Mettre à jour le total global
+
+        renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
+
+        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+    }
+
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function loadCartFromLocalStorage() {
+        var storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
+            updateCart();  // Mettre à jour l'affichage du panier
         }
-
-        // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
-        var itemElement = document.createElement('div');
-        itemElement.innerHTML = `
-            <p>${item.name} - ${item.price} € x ${item.quantity}</p>
-            <button onclick="changeQuantity(${index}, -1)">-</button>
-            <button onclick="changeQuantity(${index}, 1)">+</button>
-            <button onclick="removeItem(${index})">Supprimer</button>
-        `;
-        cartItems.appendChild(itemElement);
-    });
-
-    // Calcul des frais de port
-    if (total < freeShippingThreshold) {
-        shipping += 3;  // Frais de base pour chapelets et eau de lune
-        shipping += Math.floor(chapeletCount / 3) * 1;  // 1 euro de plus par tranche de 3 chapelets
-        shipping += Math.floor(eauDeLuneCount / 2) * 1;  // 1 euro de plus par tranche de 2 eaux de lune
     }
 
-    total += shipping;  // Ajouter les frais de port au total
-
-    // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
-    var remainingForFreeShipping = freeShippingThreshold - total;
-    var shippingMessage = total >= freeShippingThreshold ? 
-        "Frais de port offerts" : 
-        `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
-
-    // Mettre à jour l'affichage du total et du message des frais de port
-    document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
-
-    totalAmount = total;  // Mettre à jour le total global
-
-    renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
-
-    saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-}
-
-        function saveCartToLocalStorage() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-        function loadCartFromLocalStorage() {
-    var storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-        cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
-        updateCart();  // Mettre à jour l'affichage du panier
-    }
-}
-
-        function changeQuantity(index, change) {
-    if (cart[index].quantity + change > 0) {
-        cart[index].quantity += change;  // Augmenter ou diminuer la quantité
-    } else {
-        removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
-    }
-    updateCart();  // Recalculer le panier
-}
-
-function removeItem(index) {
-    cart.splice(index, 1);  // Supprimer l'article du panier
-    updateCart();  // Recalculer le panier
-}
-        
-        
-    </script>
-
-    <script>
-        // Fonction pour afficher la catégorie sélectionnée
-        function showCategory(category, event) {
-    var categories = document.getElementsByClassName('product-category');
-    var buttons = document.querySelectorAll('.tabs button');
-    var accueilText = document.querySelector('#accueil h1, #accueil p');
-    var boutiqueImage = document.querySelector('#accueil img');
-
-    // Masquer uniquement l'image et le texte d'accueil
-    accueilText.style.display = 'none';
-    boutiqueImage.style.display = 'none';
-
-    // Masquer toutes les catégories de produits
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
+    function changeQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;  // Augmenter ou diminuer la quantité
+        } else {
+            removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
+        }
+        updateCart();  // Recalculer le panier
     }
 
-    // Retirer la classe active de tous les boutons
-    buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-    });
-
-    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-    document.getElementById(category).style.display = 'block';
-    event.target.classList.add('active');
-}
+    function removeItem(index) {
+        cart.splice(index, 1);  // Supprimer l'article du panier
+        updateCart();  // Recalculer le panier
+    }
 
     function renderPayPalButton() {
-    // Supprimer les boutons PayPal précédents s'il y en a
-    document.getElementById('paypal-button-container').innerHTML = '';
+        // Supprimer les boutons PayPal précédents s'il y en a
+        document.getElementById('paypal-button-container').innerHTML = '';
 
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: totalAmount.toFixed(2)  // Le total du panier
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Transaction réussie par ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container');  // Un seul bouton PayPal
-}
-    </script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-    // Charger le panier depuis localStorage
-    loadCartFromLocalStorage();
-
-    // Masquer toutes les catégories au démarrage
-    var categories = document.getElementsByClassName('product-category');
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toFixed(2)  // Le total du panier
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction réussie par ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');  // Un seul bouton PayPal
     }
+</script>
 
-    // Afficher uniquement l'image et le texte d'accueil au démarrage
-    document.getElementById('accueil').style.display = 'block';
-});
-    
-    <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
-    
+<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
