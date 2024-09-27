@@ -257,12 +257,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
 
 <!-- Icône du panier -->
-<i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer; position: fixed; top: 20px; right: 20px;"></i>
-<div id="cart-details" style="position: fixed; top: 80px; right: 20px; background-color: #222; padding: 20px; border-radius: 10px; display: none; max-width: 300px; text-align: left;">
-    <h3>Panier</h3>
-    <div id="cart-items"></div>
-    <p id="cart-total">Total : 0 €</p>
-    <div id="paypal-button-container"></div>
+<div id="cart-wrapper" style="position: fixed; top: 20px; right: 20px;">
+    <i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer;"></i>
+    <div id="cart-details" style="position: fixed; top: 80px; right: 20px; background-color: #222; padding: 20px; border-radius: 10px; display: none; max-width: 300px; text-align: left;">
+        <h3>Panier</h3>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total : 0 €</p>
+        <div id="paypal-button-container"></div>
+    </div>
 </div>
 
 <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
@@ -348,25 +350,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     // Rendre le bouton PayPal
-    function renderPayPalButton() {
-        document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: totalAmount.toFixed(2)
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Transaction réussie par ' + details.payer.name.given_name);
-                });
-            }
-        }).render('#paypal-button-container');
-    }
+function renderPayPalButton() {
+    document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',  // Utiliser une mise en page verticale pour que le bouton s'affiche bien
+            color: 'blue',       // Couleur du bouton
+            shape: 'rect',       // Forme rectangulaire du bouton
+            label: 'pay'         // Texte du bouton
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2)
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction réussie par ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button-container');
+}
 
     // Charger le panier dès que la page est prête
     document.addEventListener('DOMContentLoaded', function() {
