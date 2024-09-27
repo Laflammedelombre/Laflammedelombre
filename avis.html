@@ -272,25 +272,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     // Rendre le bouton PayPal
-    function renderPayPalButton() {
-        document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: totalAmount.toFixed(2)
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Transaction réussie par ' + details.payer.name.given_name);
-                });
-            }
-        }).render('#paypal-button-container');
-    }
+function renderPayPalButton() {
+    document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',  // Utiliser une mise en page verticale pour s'adapter au conteneur
+            color: 'blue',       // Couleur du bouton
+            shape: 'rect',       // Forme rectangulaire du bouton
+            label: 'pay'         // Texte du bouton
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalAmount.toFixed(2)  // Le total actuel du panier
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction réussie par ' + details.payer.name.given_name);
+            });
+        }
+    }).render('#paypal-button-container');
+}
 
     // Charger le panier dès que la page est prête
     document.addEventListener('DOMContentLoaded', function() {
