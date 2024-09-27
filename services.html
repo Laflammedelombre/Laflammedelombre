@@ -149,9 +149,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
     </footer>
+
     <!-- Icône du panier -->
-<i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer;"></i>
-<div id="cart-details">
+<i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer; position: fixed; top: 20px; right: 20px;"></i>
+<div id="cart-details" style="position: fixed; top: 80px; right: 20px; background-color: #222; padding: 20px; border-radius: 10px; display: none; max-width: 300px; text-align: left;">
     <h3>Panier</h3>
     <div id="cart-items"></div>
     <p id="cart-total">Total : 0 €</p>
@@ -266,5 +267,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         loadCartFromLocalStorage();
     });
 </script>
+    
 </body>
 </html>
