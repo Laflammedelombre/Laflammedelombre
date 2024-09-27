@@ -223,7 +223,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -381,7 +381,7 @@
             cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
         }
 
-        function addToCart(name, price, isChapelet) {
+function addToCart(name, price, isChapelet) {
     var itemInCart = cart.find(item => item.name === name);
 
     if (itemInCart) {
@@ -393,6 +393,7 @@
     }
 
     updateCart();  // Mettre à jour le panier après l'ajout
+    saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
 }
     
 
@@ -427,7 +428,7 @@ function updateCart() {
         cartItems.appendChild(itemElement);
     });
 
-    // Calcul des frais de port en fonction des chapelets et eau de lune
+    // Calcul des frais de port
     if (total < freeShippingThreshold) {
         shipping += 3;  // Frais de base pour chapelets et eau de lune
         shipping += Math.floor(chapeletCount / 3) * 1;  // 1 euro de plus par tranche de 3 chapelets
@@ -448,6 +449,20 @@ function updateCart() {
     totalAmount = total;  // Mettre à jour le total global
 
     renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
+
+    saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+}
+
+        function saveCartToLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+        function loadCartFromLocalStorage() {
+    var storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
+        updateCart();  // Mettre à jour l'affichage du panier
+    }
 }
 
         function changeQuantity(index, change) {
@@ -517,6 +532,20 @@ function removeItem(index) {
 }
     </script>
 
+    document.addEventListener('DOMContentLoaded', function() {
+    // Charger le panier depuis localStorage
+    loadCartFromLocalStorage();
+
+    // Masquer toutes les catégories au démarrage
+    var categories = document.getElementsByClassName('product-category');
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
+
+    // Afficher uniquement l'image et le texte d'accueil au démarrage
+    document.getElementById('accueil').style.display = 'block';
+});
+    
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
     
 </body>
