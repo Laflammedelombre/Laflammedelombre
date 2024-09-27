@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produits - La Flamme de l'Ombre</title>
@@ -67,10 +68,6 @@
             display: none;
         }
 
-        .product-category.visible {
-            display: block;
-        }
-
         .btn {
             background-color: #444444;
             color: white;
@@ -118,7 +115,6 @@
             margin: 40px auto;
         }
 
-        /* Style pour la galerie d'images plus petites dans Oracles */
         .card-gallery {
             display: flex;
             justify-content: center;
@@ -127,49 +123,108 @@
 
         .card-gallery img {
             margin: 10px;
-            width: 150px; /* Taille des petites images */
+            width: 150px;
             height: auto;
         }
 
-/* Optimisation pour les téléphones */
-@media (max-width: 768px) {
-    body {
-        padding: 10px; /* Ajoute du padding pour éviter que le texte soit trop près du bord */
-        margin: 0; /* Supprime les marges pour éviter les rognages à gauche */
-    }
+        /* Panier */
+        #cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            cursor: pointer;
+        }
 
-    h1, h2 {
-        font-size: 1.8em; /* Réduire légèrement la taille des titres sur petits écrans */
-        margin-left: 10px; /* Ajoute une marge pour éviter que le titre soit rogné */
-        margin-right: 10px; /* Ajoute une marge à droite pour plus d'espace */
-    }
+        #cart-details {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 300px;
+            text-align: left;
+        }
 
-    p {
-        font-size: 1.2em; /* Réduire la taille des paragraphes pour les petits écrans */
-        margin-left: 10px; /* Ajoute une marge pour éviter que le texte soit rogné */
-        margin-right: 10px; /* Ajoute une marge à droite */
-    }
+        #cart-details p {
+            font-size: 1.2em;
+        }
 
-    img {
-        width: 100%; /* Assure que les images prennent toute la largeur disponible sur mobile */
+        #paypal-button-container {
+            margin-top: 20px;
+        }
+
+        /* Optimisation pour les téléphones */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                margin: 0;
+            }
+
+            h1, h2 {
+                font-size: 1.8em;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            p {
+                font-size: 1.2em;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            .tabs button {
+                padding: 8px 12px;
+                font-size: 1em;
+                margin: 5px;
+            }
+
+            .btn {
+                width: 100%;
+                font-size: 1em;
+            }
+
+            .card-gallery img {
+                width: 100px;
+            }
+        }
+
+        #paypal-button-container {
+    max-height: none; /* Assure que le conteneur s'ajuste au contenu */
+    overflow-y: auto; /* Permet de scroller si le formulaire est long */
+    width: 100%; /* S'assure que le bouton prend toute la largeur disponible */
+    height: auto; /* Permet au conteneur d'avoir une hauteur dynamique */
+    max-width: 500px; /* Limite la largeur pour des tailles raisonnables */
+    margin-bottom: 20px; /* Ajoute un espace en bas pour éviter que le formulaire soit coupé */
+}
+
+        body {
+    overflow-y: auto; /* Assure que l'utilisateur peut scroller la page entière */
+}
+
+#cart-details {
+    max-height: 80vh; /* Limite la hauteur du panier pour que PayPal reste visible */
+    overflow-y: auto; /* Permet de scroller à l'intérieur du panier si nécessaire */
+}
+
+        @media (max-width: 768px) {
+    #paypal-button-container {
+        width: 100%; /* Prend toute la largeur disponible sur petit écran */
         height: auto;
     }
 
-    .tabs button {
-        padding: 8px 12px; /* Réduire la taille des boutons pour les petits écrans */
-        font-size: 1em; /* Ajuster la taille de la police des boutons */
-        margin: 5px; /* Réduire l'espace entre les boutons */
-    }
-
-    .btn {
-        width: 100%; /* Bouton large sur téléphone */
-        font-size: 1em; /* Ajuster la taille du texte des boutons */
-    }
-
-    .card-gallery img {
-        width: 100px; /* Réduire la taille des petites images dans la galerie sur mobile */
+    #cart-details {
+        max-height: 60vh; /* Limite la hauteur du panier pour mobile */
     }
 }
+        
     </style>
 </head>
 
@@ -187,16 +242,25 @@
         </ul>
     </nav>
 
+    <!-- Icône du panier -->
+    <i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer;"></i>
+    <div id="cart-details">
+        <h3>Panier</h3>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total : 0 €</p>
+        <div id="paypal-button-container"></div>
+    </div>
+
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
-            <button class="active" onclick="showCategory('oracles')">Oracles</button>
-            <button onclick="showCategory('chapelets')">Chapelet Magique</button>
-            <button onclick="showCategory('eau-de-lune')">Eau de Lune</button>
+            <button onclick="showCategory('oracles', event)">Oracles</button>
+            <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
+            <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
         </div>
 
         <img src="images/boutique.jpeg" alt="Boutique Magique">
@@ -218,8 +282,7 @@
         <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
         <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-        <a href="https://www.paypal.com/ncp/payment/ZLFNQQYFSH9HJ" class="btn">Pré-commander L'Oracle by J</a>
-
+        <button class="btn" onclick="addToCart('Oracle', 40, false)">Ajouter au panier</button>
         <p>L'Oracle by J sortira fin 2024.</p>
     </div>
 
@@ -230,14 +293,12 @@
 
         <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
 
-        <p><strong>IMPORTANT :</strong> En cas de commande de plusieurs chapelets, veuillez me contacter par mail pour n'avoir qu'une seule fois les frais de port à votre charge.</p>
-
-        <hr> <!-- Séparateur entre la section globale et les sous-sections -->
+        <hr>
 
         <!-- Sous-section Chapelets en Améthyste -->
         <div class="sub-category">
             <h3>Chapelets Magiques en Améthyste</h3>
-            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet             est accompagné d'un pendentif au choix.</p>
 
             <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
             <div class="chapelet-images">
@@ -247,10 +308,10 @@
             </div>
 
             <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/9PPDAZQ7PAGCQ" class="btn">Commander Chapelet Améthyste</a>
+            <button class="btn" onclick="addToCart('Chapelet Améthyste', 15, true)">Ajouter au panier</button>
         </div>
 
-        <hr> <!-- Séparateur entre les deux sous-catégories -->
+        <hr>
 
         <!-- Sous-section Chapelets en Obsidienne et Tourmaline -->
         <div class="sub-category">
@@ -265,110 +326,228 @@
             </div>
 
             <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-            <a href="https://www.paypal.com/ncp/payment/6TZEKHDD92X5E" class="btn">Commander Chapelet Obsidienne</a>
+            <button class="btn" onclick="addToCart('Chapelet Obsidienne', 15, true)">Ajouter au panier</button>
         </div>
 
-        <hr> <!-- Séparateur entre les sous-sections -->
+        <hr>
 
-<!-- Sous-section Chapelets Magiques Duo -->
-<div class="sub-category">
-    <h3>Chapelets Magiques Duo</h3>
-    <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+        <!-- Sous-section Chapelets Magiques Duo -->
+        <div class="sub-category">
+            <h3>Chapelets Magiques Duo</h3>
+            <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
-    <p>Ces chapelets sont consacrés à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Ils apportent une énergie spirituelle unique, parfaite pour vos rituels de protection et de paix.</p>
+            <div class="chapelet-images">
+                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="display: flex; justify-content: center;">
+                        <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
+                        <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
+                    </div>
+                    <button class="btn" onclick="addToCart('Chapelet Duo 1', 15, true)">Ajouter au panier</button>
+                </div>
 
-    <!-- Images des chapelets Duo, 2 photos par modèle côte à côte avec les boutons en dessous -->
-    <div class="chapelet-images">
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <div style="display: flex; justify-content: center;">
-                <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
-                <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
+                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="display: flex; justify-content: center;">
+                        <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
+                        <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
+                    </div>
+                    <button class="btn" onclick="addToCart('Chapelet Duo 2', 15, true)">Ajouter au panier</button>
+                </div>
+
+                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="display: flex; justify-content: center;">
+                        <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
+                        <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
+                    </div>
+                    <button class="btn" onclick="addToCart('Chapelet Duo 3', 15, true)">Ajouter au panier</button>
+                </div>
+
+                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                    <div style="display: flex; justify-content: center;">
+                        <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
+                        <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
+                    </div>
+                    <button class="btn" onclick="addToCart('Chapelet Duo 4', 15, true)">Ajouter au panier</button>
+                </div>
             </div>
-            <a href="https://www.paypal.com/ncp/payment/9S8YAWW5GYLHG" class="btn">Commander Modèle 1</a>
-        </div>
 
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <div style="display: flex; justify-content: center;">
-                <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
-                <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/99CXF8R9PCG38" class="btn">Commander Modèle 2</a>
+            <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
         </div>
-
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <div style="display: flex; justify-content: center;">
-                <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
-                <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/WD7GJ7LMR8FJ8" class="btn">Commander Modèle 3</a>
-        </div>
-
-        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-            <div style="display: flex; justify-content: center;">
-                <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
-                <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
-            </div>
-            <a href="https://www.paypal.com/ncp/payment/5XGFK67ZGSANE" class="btn">Commander Modèle 4</a>
-        </div>
-    </div>
-
-    <p><strong>Prix : 15 euros + 3 euros de frais de livraison.</strong></p>
-</div>
         
     </div>
 
-   <!-- Produits Eau de Lune -->
-<div class="product-category" id="eau-de-lune">
-    <h2>Eau de Lune</h2>
-    <div id="flip-container">
-        <div class="front">
-            <img src="images/EDL.jpeg" alt="Eau de Lune">
+    <!-- Produits Eau de Lune -->
+    <div class="product-category" id="eau-de-lune">
+        <h2>Eau de Lune</h2>
+        <div id="flip-container">
+            <div class="front">
+                <img src="images/EDL.jpeg" alt="Eau de Lune">
+            </div>
         </div>
+
+        <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
+        <button class="btn" onclick="addToCart('Eau de Lune', 6, false)">Ajouter au panier</button>
+
+        <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation.</p>
     </div>
 
-    <p>Notre eau de lune est fabriquée à partir de l'eau de mer de la Méditerranée et d'un rituel de création d'eau de lune. Elle est fabriquée exclusivement lors des soirs de pleine lune afin de capter toute la puissance et l'énergie de la lune. Cette eau est interdite à la consommation et n'est pas faite pour être appliquée directement sur la peau. Elle est destinée à consacrer des objets, protéger des habitations en scellant les entrées (portes et fenêtres) ou encore à appuyer vos manifestations à l'univers.</p>
-
-    <!-- Ajout des images EDL5.jpeg et EDL4.jpeg ici -->
-    <div>
-        <img src="images/EDL5.jpeg" alt="Eau de Lune EDL5">
-        <img src="images/EDL4.jpeg" alt="Eau de Lune EDL4">
-    </div>
-
-    <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
-    <a href="https://www.paypal.com/ncp/payment/U4Q3A95WX5H7A" class="btn">Commander Eau de Lune</a>
-
-    <p>Disponible en fiole de 12ml. Livré avec une pipette pour facilité la panipulation. </p>
-</div>
+    <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 
     <script>
-        function showCategory(category) {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Charger le panier depuis localStorage
+            loadCartFromLocalStorage();
+
+            // Masquer toutes les catégories au démarrage
             var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var boutiqueImage = document.querySelector('#accueil img'); // Cible l'image spécifique
-
-            // Masquer l'image de la boutique magique uniquement
-            boutiqueImage.style.display = 'none';
-
-            // Masquer toutes les catégories de produits
             for (var i = 0; i < categories.length; i++) {
-                categories[i].classList.remove('visible');
+                categories[i].style.display = 'none';
             }
 
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
+            // Afficher uniquement l'image et le texte d'accueil au démarrage
+            document.getElementById('accueil').style.display = 'block';
+        });
 
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).classList.add('visible');
-            event.target.classList.add('active');
+        var cart = [];
+        var totalAmount = 0;
+
+        function toggleCart() {
+            var cartDetails = document.getElementById('cart-details');
+            cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Garder les onglets visibles dès le chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.tabs').style.display = 'flex';
-        });
-    </script>
+        function addToCart(name, price, isChapelet) {
+            var itemInCart = cart.find(item => item.name === name);
 
+            if (itemInCart) {
+                // Si l'article est déjà dans le panier, on augmente sa quantité
+                itemInCart.quantity += 1;
+            } else {
+                // Sinon, on ajoute un nouvel article avec une quantité de 1
+                cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
+            }
+
+            updateCart();  // Mettre à jour le panier après l'ajout
+            saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+        }
+        
+        function updateCart() {
+            var cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';  // Vider le contenu précédent
+
+            var total = 0;
+            var shipping = 0;
+            var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
+
+            // Afficher les articles dans le panier et calculer le total
+            cart.forEach(function(item, index) {
+                total += item.price * item.quantity;
+
+                // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
+                var itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    <p>${item.name} - ${item.price} € x ${item.quantity}</p>
+                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                    <button onclick="changeQuantity(${index}, 1)">+</button>
+                    <button onclick="removeItem(${index})">Supprimer</button>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+
+            // Calcul des frais de port
+            if (total < freeShippingThreshold) {
+                shipping += 3;  // Frais de base pour le premier article
+                shipping += (cart.length - 1) * 1;  // 1 euro pour chaque article supplémentaire
+            }
+
+            total += shipping;  // Ajouter les frais de port au total        // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
+        var remainingForFreeShipping = freeShippingThreshold - total;
+        var shippingMessage = total >= freeShippingThreshold ? 
+            "Frais de port offerts" : 
+            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+
+        // Mettre à jour l'affichage du total et du message des frais de port
+        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
+
+        totalAmount = total;  // Mettre à jour le total global
+
+        renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
+
+        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+    }
+
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function showCategory(category, event) {
+    var categories = document.getElementsByClassName('product-category');
+    var buttons = document.querySelectorAll('.tabs button');
+    var accueilText = document.querySelector('#accueil h1, #accueil p');
+    var boutiqueImage = document.querySelector('#accueil img');
+
+    // Masquer uniquement l'image et le texte d'accueil
+    accueilText.style.display = 'none';
+    boutiqueImage.style.display = 'none';
+
+    // Masquer toutes les catégories de produits
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
+
+    // Retirer la classe active de tous les boutons
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+    document.getElementById(category).style.display = 'block';
+    event.target.classList.add('active');
+}
+
+    function loadCartFromLocalStorage() {
+        var storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
+            updateCart();  // Mettre à jour l'affichage du panier
+        }
+    }
+
+    function changeQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;  // Augmenter ou diminuer la quantité
+        } else {
+            removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
+        }
+        updateCart();  // Recalculer le panier
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);  // Supprimer l'article du panier
+        updateCart();  // Recalculer le panier
+    }
+
+    function renderPayPalButton() {
+        // Supprimer les boutons PayPal précédents s'il y en a
+        document.getElementById('paypal-button-container').innerHTML = '';
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toFixed(2)  // Le total du panier
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction réussie par ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');  // Un seul bouton PayPal
+    }
+</script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
