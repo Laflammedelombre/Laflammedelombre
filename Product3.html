@@ -195,6 +195,36 @@
                 width: 100px;
             }
         }
+
+        #paypal-button-container {
+    max-height: none; /* Assure que le conteneur s'ajuste au contenu */
+    overflow-y: auto; /* Permet de scroller si le formulaire est long */
+    width: 100%; /* S'assure que le bouton prend toute la largeur disponible */
+    height: auto; /* Permet au conteneur d'avoir une hauteur dynamique */
+    max-width: 500px; /* Limite la largeur pour des tailles raisonnables */
+    margin-bottom: 20px; /* Ajoute un espace en bas pour éviter que le formulaire soit coupé */
+}
+
+        body {
+    overflow-y: auto; /* Assure que l'utilisateur peut scroller la page entière */
+}
+
+#cart-details {
+    max-height: 80vh; /* Limite la hauteur du panier pour que PayPal reste visible */
+    overflow-y: auto; /* Permet de scroller à l'intérieur du panier si nécessaire */
+}
+
+        @media (max-width: 768px) {
+    #paypal-button-container {
+        width: 100%; /* Prend toute la largeur disponible sur petit écran */
+        height: auto;
+    }
+
+    #cart-details {
+        max-height: 60vh; /* Limite la hauteur du panier pour mobile */
+    }
+}
+        
     </style>
 </head>
 
@@ -223,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
