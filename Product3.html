@@ -223,7 +223,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -402,7 +402,9 @@ function updateCart() {
 
     var total = 0;
     var chapeletCount = 0;
-    var hasOracle = false;
+    var eauDeLuneCount = 0;
+    var shipping = 0;
+    var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
 
     // Afficher les articles dans le panier et calculer le total
     cart.forEach(function(item, index) {
@@ -410,8 +412,8 @@ function updateCart() {
         if (item.isChapelet) {
             chapeletCount += item.quantity;
         }
-        if (item.name === 'Oracle') {
-            hasOracle = true;
+        if (item.name === 'Eau de Lune') {
+            eauDeLuneCount += item.quantity;
         }
 
         // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
@@ -425,15 +427,23 @@ function updateCart() {
         cartItems.appendChild(itemElement);
     });
 
-    // Calcul des frais de port en fonction des chapelets et de l'Oracle
-    var shipping = 0;
-    if (!hasOracle && chapeletCount > 0) {
-        shipping = Math.ceil(chapeletCount / 3) * 3;  // Frais de port en fonction des chapelets
+    // Calcul des frais de port en fonction des chapelets et eau de lune
+    if (total < freeShippingThreshold) {
+        shipping += 3;  // Frais de base pour chapelets et eau de lune
+        shipping += Math.floor(chapeletCount / 3) * 1;  // 1 euro de plus par tranche de 3 chapelets
+        shipping += Math.floor(eauDeLuneCount / 2) * 1;  // 1 euro de plus par tranche de 2 eaux de lune
     }
 
     total += shipping;  // Ajouter les frais de port au total
-    var shippingText = hasOracle ? 'Frais de port offerts' : `Frais de port : ${shipping} €`;
-    document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingText})`;
+
+    // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
+    var remainingForFreeShipping = freeShippingThreshold - total;
+    var shippingMessage = total >= freeShippingThreshold ? 
+        "Frais de port offerts" : 
+        `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+
+    // Mettre à jour l'affichage du total et du message des frais de port
+    document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
 
     totalAmount = total;  // Mettre à jour le total global
 
