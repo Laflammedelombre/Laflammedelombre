@@ -253,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -548,6 +548,37 @@
     }
 </script>
 
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionner le bouton "Ajouter au panier" pour l'oracle
+    const oracleButton = document.querySelector('.add-to-cart-button-oracle'); // Assurez-vous que la classe correspond à votre bouton
+
+    if (oracleButton) {
+        oracleButton.addEventListener('click', function(e) {
+            e.preventDefault(); // Empêcher le comportement par défaut du bouton
+            
+            // Demande le prénom
+            let prenom = prompt("Entrez votre prénom :");
+            
+            if (prenom) {
+                // Ajoute le produit au panier avec le prénom
+                addToCart("Oracle by J - " + prenom); // Modifié ici
+               
+                // Mettre à jour l'affichage du panier si nécessaire
+                updateCartDisplay();
+            } else {
+                alert("Vous devez entrer un prénom pour ajouter ce produit au panier.");
+            }
+        });
+    }
+});
+
+// Fonction pour ajouter au panier
+function addToCart(productName) {
+    // Logique pour ajouter l'article au panier avec le nom dynamique
+    console.log("Ajouté au panier : " + productName);
+    // Ici tu dois appeler la fonction qui ajoute réellement le produit​⬤
+    
 <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
