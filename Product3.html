@@ -253,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -266,7 +266,7 @@
         <img src="images/boutique.jpeg" alt="Boutique Magique">
     </div>
 
-   <!-- Produits Oracles -->
+ <!-- Produits Oracles -->
 <div class="product-category" id="oracles">
     <h2>L'Oracle by J</h2>
     <img src="images/Byj.jpg" alt="Oracle by J">
@@ -279,7 +279,7 @@
         <img src="images/Campagne.jpeg" alt="Campagne">
     </div>
 
-    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversé car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
     <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
     <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
@@ -302,6 +302,11 @@
 <script>
     var oracleName = '';
 
+    // Forcer la fermeture du modal au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('oracle-name-modal').style.display = 'none';
+    });
+
     function showOracleNameModal() {
         document.getElementById('oracle-name-modal').style.display = 'flex';
     }
@@ -322,6 +327,7 @@
         closeOracleNameModal();
     }
 </script>
+
 
 
 <!-- Section pour les Mini Chapelets Magiques -->
