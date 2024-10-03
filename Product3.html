@@ -381,13 +381,16 @@
         <div id="flip-container">
             <div class="front">
                 <img src="images/EDL.jpeg" alt="Eau de Lune">
+                <img src="images/EDL5.jpeg" alt="Eau de Lune5">
+                <img src="images/EDL4.jpeg" alt="Eau de Lune4">
             </div>
         </div>
 
         <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
         <button class="btn" onclick="addToCart('Eau de Lune', 6, false)">Ajouter au panier</button>
 
-        <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation.</p>
+        <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation.
+        Cette eau de lune créée à partir de l'eau de mer de la Méditérranée a pour but de vous accompagner dans vos rituels, de protéger votre habitation ou encore de consacrer des objets.</p>
     </div>
 
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
@@ -547,86 +550,6 @@
         }).render('#paypal-button-container');  // Un seul bouton PayPal
     }
 </script>
-
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionner le bouton "Ajouter au panier" pour l'oracle
-    const oracleButton = document.querySelector('.add-to-cart-button-oracle'); // Assurez-vous que la classe correspond à votre bouton
-
-    if (oracleButton) {
-        oracleButton.addEventListener('click', function(e) {
-            e.preventDefault(); // Empêcher le comportement par défaut du bouton
-            
-            // Demande le prénom
-            let prenom = prompt("Entrez votre prénom :");
-            
-            if (prenom) {
-                // Ajoute le produit au panier avec le prénom
-                addToCart("Oracle by J - " + prenom); // Modifié ici
-               
-                // Mettre à jour l'affichage du panier si nécessaire
-                updateCartDisplay();
-            } else {
-                alert("Vous devez entrer un prénom pour ajouter ce produit au panier.");
-            }
-        });
-    }
-});
-
-// Fonction pour ajouter au panier
-function addToCart(productName) {
-    // Logique pour ajouter l'article au panier avec le nom dynamique
-    console.log("Ajouté au panier : " + productName);
-    // Ici tu dois appeler la fonction qui ajoute réellement le produit​⬤
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionner le bouton "Ajouter au panier" pour l'oracle
-    const oracleButton = document.querySelector('.add-to-cart-button-oracle'); // Changez cette classe selon votre bouton
-
-    if (oracleButton) {
-        oracleButton.addEventListener('click', function(e) {
-            e.preventDefault(); // Empêcher le comportement par défaut du bouton
-            
-            // Demande le prénom
-            let prenom = prompt("Entrez votre prénom :");
-            
-            if (prenom) {
-                // Appelle la fonction pour ajouter le produit au panier
-                addToCart("Oracle by J - " + prenom); // Modifié ici
-            } else {
-                alert("Vous devez entrer un prénom pour ajouter ce produit au panier.");
-            }
-        });
-    }
-});
-
-// Fonction pour ajouter au panier
-function addToCart(productName) {
-    // Logique pour ajouter l'article au panier avec le nom dynamique
-    console.log("Ajouté au panier : " + productName);
-    
-    // Voici où vous ajoutez réellement l'article au panier
-    // Cela dépend de la structure de votre système de panier
-    // Exemple d'ajout fictif:
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ name: productName, quantity: 1 });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Mettre à jour l'affichage du panier si nécessaire
-    updateCartDisplay();
-}
-
-// Fonction pour mettre à jour l'affichage du panier
-function updateCartDisplay() {
-    // Logique pour rafraîchir l'affichage du panier
-    console.log("Le panier a été mis à jour.");
-    // Vous pourriez avoir besoin de rafraîchir l'interface utilisateur
-    // avec le nombre total d'articles ou autres informations pertinentes
-}
-</script>    
-
 
 <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
