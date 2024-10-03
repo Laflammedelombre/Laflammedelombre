@@ -253,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -266,25 +266,63 @@
         <img src="images/boutique.jpeg" alt="Boutique Magique">
     </div>
 
-    <!-- Produits Oracles -->
-    <div class="product-category" id="oracles">
-        <h2>L'Oracle by J</h2>
-        <img src="images/Byj.jpg" alt="Oracle by J">
+   <!-- Produits Oracles -->
+<div class="product-category" id="oracles">
+    <h2>L'Oracle by J</h2>
+    <img src="images/Byj.jpg" alt="Oracle by J">
 
-        <!-- Galerie des 4 images plus petites -->
-        <div class="card-gallery">
-            <img src="images/Fidelite.jpeg" alt="Fidélité">
-            <img src="images/Secret.jpeg" alt="Secret">
-            <img src="images/Dependance.jpeg" alt="Dépendance">
-            <img src="images/Campagne.jpeg" alt="Campagne">
-        </div>
-
-        <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
-
-        <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-        <button class="btn" onclick="addToCart('Oracle', 40, false)">Ajouter au panier</button>
-        <p>L'Oracle by J sortira fin 2024.</p>
+    <!-- Galerie des 4 images plus petites -->
+    <div class="card-gallery">
+        <img src="images/Fidelite.jpeg" alt="Fidélité">
+        <img src="images/Secret.jpeg" alt="Secret">
+        <img src="images/Dependance.jpeg" alt="Dépendance">
+        <img src="images/Campagne.jpeg" alt="Campagne">
     </div>
+
+    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+
+    <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
+    <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
+    <p>L'Oracle by J sortira fin 2024.</p>
+</div>
+
+<!-- Fenêtre modale pour entrer le prénom du propriétaire de l'Oracle -->
+<div id="oracle-name-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
+    <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
+        <h3>Entrez le prénom du futur propriétaire</h3>
+        <label for="owner-name">Prénom :</label>
+        <input type="text" id="owner-name" style="width: 100%; padding: 10px; margin-bottom: 20px;" placeholder="Entrez le prénom">
+
+        <button class="btn" onclick="confirmOracleName()">Confirmer</button>
+        <button class="btn" onclick="closeOracleNameModal()" style="margin-top: 10px;">Annuler</button>
+    </div>
+</div>
+
+<!-- Script pour gérer le prénom de l'Oracle -->
+<script>
+    var oracleName = '';
+
+    function showOracleNameModal() {
+        document.getElementById('oracle-name-modal').style.display = 'flex';
+    }
+
+    function closeOracleNameModal() {
+        document.getElementById('oracle-name-modal').style.display = 'none';
+    }
+
+    function confirmOracleName() {
+        oracleName = document.getElementById('owner-name').value.trim();
+        if (oracleName === '') {
+            alert('Veuillez entrer un prénom.');
+            return;
+        }
+
+        // Ajouter l'Oracle avec le prénom dans le panier
+        addToCart('Oracle by J (Propriétaire : ' + oracleName + ')', 40, false);
+        closeOracleNameModal();
+    }
+</script>
+
 
 <!-- Section pour les Mini Chapelets Magiques -->
 <div class="product-category" id="chapelets">
