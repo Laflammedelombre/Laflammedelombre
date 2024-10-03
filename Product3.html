@@ -253,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -266,7 +266,7 @@
         <img src="images/boutique.jpeg" alt="Boutique Magique">
     </div>
 
- <!-- Produits Oracles -->
+<!-- Produits Oracles -->
 <div class="product-category" id="oracles">
     <h2>L'Oracle by J</h2>
     <img src="images/Byj.jpg" alt="Oracle by J">
@@ -279,7 +279,7 @@
         <img src="images/Campagne.jpeg" alt="Campagne">
     </div>
 
-    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversé car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
+    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
     <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
     <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
@@ -288,13 +288,18 @@
 
 <!-- Fenêtre modale pour entrer le prénom du propriétaire de l'Oracle -->
 <div id="oracle-name-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
-    <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
-        <h3>Entrez le prénom du futur propriétaire</h3>
-        <label for="owner-name">Prénom :</label>
-        <input type="text" id="owner-name" style="width: 100%; padding: 10px; margin-bottom: 20px;" placeholder="Entrez le prénom">
+    <div style="background-color: #222; color: white; padding: 30px; border-radius: 15px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);">
+        <h3 style="margin-bottom: 20px;">Entrez le prénom du futur propriétaire</h3>
+        
+        <label for="owner-name" style="display: block; margin-bottom: 10px; font-size: 1.2em;">Prénom :</label>
+        <input type="text" id="owner-name" style="width: 100%; padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #888; margin-bottom: 20px;" placeholder="Entrez le prénom">
 
-        <button class="btn" onclick="confirmOracleName()">Confirmer</button>
-        <button class="btn" onclick="closeOracleNameModal()" style="margin-top: 10px;">Annuler</button>
+        <button class="btn" onclick="confirmOracleName()" style="width: 100%; padding: 10px 20px; background-color: #444; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s;">
+            Confirmer
+        </button>
+        <button class="btn" onclick="closeOracleNameModal()" style="width: 100%; padding: 10px 20px; background-color: #666; border: none; border-radius: 5px; font-size: 1.2em; margin-top: 10px; cursor: pointer; transition: background-color 0.3s;">
+            Annuler
+        </button>
     </div>
 </div>
 
@@ -327,7 +332,6 @@
         closeOracleNameModal();
     }
 </script>
-
 
 
 <!-- Section pour les Mini Chapelets Magiques -->
