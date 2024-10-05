@@ -253,7 +253,7 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
         <!-- Onglets pour les catégories de produits -->
@@ -639,19 +639,25 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Charger le panier depuis localStorage
-            loadCartFromLocalStorage();
+       <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Masquer toutes les catégories de produits au démarrage
+        var categories = document.getElementsByClassName('product-category');
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'none';
+        }
 
-            // Masquer toutes les catégories au démarrage
-            var categories = document.getElementsByClassName('product-category');
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
+        // S'assurer que l'image et le texte d'accueil soient visibles
+        document.getElementById('accueil').style.display = 'block';
 
-            // Afficher uniquement l'image et le texte d'accueil au démarrage
-            document.getElementById('accueil').style.display = 'block';
-        });
+        // S'assurer que seul l'accueil est affiché (boutique image et texte)
+        var accueilText = document.querySelector('#accueil h1, #accueil p');
+        var boutiqueImage = document.querySelector('#accueil img');
+        
+        accueilText.style.display = 'block';
+        boutiqueImage.style.display = 'block';
+    });
+</script>
 
         var cart = [];
         var totalAmount = 0;
