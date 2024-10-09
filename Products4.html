@@ -255,17 +255,17 @@
 
     <!-- Section d'accueil -->
     <div id="accueil">
-        <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
+        <h1>Bienvenueee dans la boutique magique de La Flamme de l'Ombre</h1>
         <p>Sélectionnez une catégorie pour découvrir nos produits mystiques.</p>
 
-        <!-- Onglets pour les catégories de produits -->
-        <div class="tabs">
-            <button onclick="showCategory('oracles', event)">Oracles</button>
-            <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
-            <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
-        </div>
-
         <img src="images/boutique.jpeg" alt="Boutique Magique">
+    </div>
+
+    <!-- Onglets pour les catégories de produits -->
+    <div class="tabs">
+        <button onclick="showCategory('oracles', event)">Oracles</button>
+        <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
+        <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
     </div>
 
 <!-- Produits Oracles -->
@@ -292,22 +292,19 @@
 <div class="product-category" id="chapelets">
     <h2>Mini Chapelets Magiques</h2>
 
-    <!-- Affichage initial d'une image et texte général -->
     <div id="chapelets-intro">
         <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
         <p>Découvrez notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
     </div>
 
-    <!-- Sous-onglets pour les propriétés des chapelets -->
     <div class="tabs">
         <button onclick="showSubCategory('amethyste', event)">Détente et Paix</button>
         <button onclick="showSubCategory('obsidienne', event)">Protection et Ancrage</button>
         <button onclick="showSubCategory('duo', event)">Duo (Combiné)</button>
         <button onclick="showSubCategory('confiance', event)">Confiance en Soi</button>
-        <button onclick="showSubCategory('sur-mesure', event)">Bijou sur Mesure</button> <!-- Nouveau sous-onglet ici -->
+        <button onclick="showSubCategory('sur-mesure', event)">Bijou sur Mesure</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets Détente et Paix (Améthyste) -->
     <div class="sub-category-content" id="amethyste" style="display: none;">
         <h3>Chapelets Magiques pour Détente et Paix</h3>
         <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
@@ -322,7 +319,6 @@
         <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets Protection et Ancrage (Obsidienne et Tourmaline) -->
     <div class="sub-category-content" id="obsidienne" style="display: none;">
         <h3>Chapelets Magiques pour Protection et Ancrage</h3>
         <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage à leur porteur. Chaque chapelet est accompagné d'un pendentif au choix.</p>
@@ -337,7 +333,6 @@
         <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets Duo (Combiné) -->
     <div class="sub-category-content" id="duo" style="display: none;">
         <h3>Chapelets Magiques Duo (Combiné)</h3>
         <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
@@ -366,12 +361,19 @@
                 </div>
                 <button class="btn" onclick="showPendentifOptions('Chapelet Duo 3', 12)">Ajouter au panier Duo 3</button>
             </div>
+
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 4', 12)">Ajouter au panier Duo 4</button>
+            </div>
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     </div>
 
-    <!-- Sous-catégorie Chapelets pour Confiance en Soi -->
     <div class="sub-category-content" id="confiance" style="display: none;">
         <h3>Chapelets Magiques pour Confiance en Soi</h3>
         <p>Ce chapelet est conçu pour vous insuffler une profonde confiance en vous, renforcer votre estime personnelle et attirer des énergies positives. Composé de la pierre du soleil, de la pietersite et de la pyrite, il vous aidera à surmonter vos doutes et à avancer avec détermination et clarté.</p>
@@ -379,21 +381,18 @@
         <div class="chapelet-images">
             <img src="images/confiance1.jpeg" alt="Chapelet Confiance 1">
             <img src="images/confiance2.jpeg" alt="Chapelet Confiance 2">
-            <img src="images/confiance3.jpeg" alt="Chapelet Confiance 3">
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
         <button class="btn" onclick="showPendentifOptions('Chapelet Confiance', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Bijou sur Mesure -->
     <div class="sub-category-content" id="sur-mesure" style="display: none;">
         <h3>Bijou sur Mesure</h3>
-        <p>Je propose de créer des bijoux sur mesure selon vos besoins spécifiques en lithothérapie. Chaque bijou est fabriqué avec soin après une consultation de mon grimoire afin de sélectionner les pierres les plus adaptées à vos besoins spirituels et énergétiques. En fonction de vos souhaits, je confectionne des créations uniques pour vous accompagner dans votre cheminement personnel.</p>
-        
+        <p>Je propose de créer des bijoux sur mesure selon vos besoins spécifiques en lithothérapie. Chaque bijou est fabriqué avec soin après une consultation de mon grimoire afin de sélectionner les pierres les plus adaptées à vos besoins spirituels et énergétiques.</p>
+
         <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
 
-        <!-- Formulaire pour les options de personnalisation -->
         <div>
             <label for="format-select">Choisissez le format :</label>
             <select id="format-select" onchange="handleFormatChange()">
@@ -406,27 +405,21 @@
             <label for="pendentif-select">Choisissez un pendentif :</label>
             <select id="pendentif-select" onchange="handlePendentifChange()">
                 <option value="sans-pendentif">Sans pendentif (uniquement pour bracelet)</option>
-                <option value="pendentif-standard">Pendentif standard (étoile, lune, soleil, ankh)</option>
-                <option value="pendentif-croix">Croix</option>
-                <option value="pendentif-arbre">Arbre de vie</option>
-                <option value="pendentif-plume">Plume</option>
+                <option value="pendentif-standard">Pendentif standard</option>
                 <option value="autre">Autre (spécifiez)</option>
             </select>
         </div>
 
-        <!-- Champ texte libre pour le pendentif si "autre" est sélectionné -->
         <div id="custom-pendentif-field" style="display: none;">
             <label for="custom-pendentif">Spécifiez le pendentif souhaité :</label>
             <input type="text" id="custom-pendentif" placeholder="Décrivez le pendentif souhaité">
         </div>
 
-        <!-- Champ texte libre pour le besoin en lithothérapie -->
         <div>
             <label for="besoin-lithotherapie">Décrivez vos besoins en lithothérapie :</label>
-            <textarea id="besoin-lithotherapie" rows="4" placeholder="Exemple : J'ai besoin de pierres pour favoriser la méditation ou attirer l'abondance."></textarea>
+            <textarea id="besoin-lithotherapie" rows="4"></textarea>
         </div>
 
-        <!-- Bouton pour ajouter au panier -->
         <button class="btn" onclick="addToCartSurMesure()">Ajouter au panier</button>
     </div>
 </div>
@@ -449,223 +442,53 @@
     Cette eau de lune créée à partir de l'eau de mer de la Méditérranée a pour but de vous accompagner dans vos rituels, de protéger votre habitation ou encore de consacrer des objets.</p>
 </div>
 
-<!-- Script JS pour la gestion des options et interactions -->
 <script>
-    // Fonction pour gérer le changement de format (Mini Chapelet ou Bracelet)
-    function handleFormatChange() {
-        var formatSelect = document.getElementById("format-select");
-        var pendentifSelect = document.getElementById("pendentif-select");
-        var customPendentifField = document.getElementById("custom-pendentif-field");
+    function showCategory(category, event) {
+        var categories = document.getElementsByClassName('product-category');
+        var accueil = document.getElementById('accueil');
+        var buttons = document.querySelectorAll('.tabs button');
 
-        // Réinitialiser le menu des pendentifs si "Bracelet" est sélectionné
-        if (formatSelect.value === "bracelet") {
-            pendentifSelect.options[0].style.display = "block"; // "Sans pendentif" devient disponible
-        } else {
-            pendentifSelect.options[0].style.display = "none"; // "Sans pendentif" est caché pour les Chapelets
+        // Masquer toutes les catégories de produits
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'none';
         }
 
-        // Masquer le champ texte personnalisé si "autre" n'est pas sélectionné
-        customPendentifField.style.display = "none";
+        // Masquer la section d'accueil
+        accueil.style.display = 'none';
+
+        // Afficher la catégorie sélectionnée
+        document.getElementById(category).style.display = 'block';
+
+        // Enlever la classe active de tous les boutons
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Ajouter la classe active au bouton sélectionné
+        event.target.classList.add('active');
     }
 
-    // Fonction pour gérer le changement du pendentif
-    function handlePendentifChange() {
-        var pendentifSelect = document.getElementById("pendentif-select");
-        var customPendentifField = document.getElementById("custom-pendentif-field");
-
-        // Afficher le champ texte libre si "Autre" est sélectionné
-        if (pendentifSelect.value === "autre") {
-            customPendentifField.style.display = "block";
-
-            // Afficher une pop-up d'information
-            alert("La disponibilité du pendentif doit être confirmée. Nous vous contacterons pour valider.");
-        } else {
-            customPendentifField.style.display = "none";
-        }
-    }
-
-    // Fonction pour ajouter au panier avec toutes les options
-    function addToCartSurMesure() {
-        var format = document.getElementById("format-select").value;
-        var pendentif = document.getElementById("pendentif-select").value;
-        var customPendentif = document.getElementById("custom-pendentif").value;
-        var besoinLithotherapie = document.getElementById("besoin-lithotherapie").value;
-
-        // Si le pendentif est "Autre" et aucun texte n'est entré, on demande une description
-        if (pendentif === "autre" && !customPendentif) {
-            alert("Veuillez décrire le pendentif souhaité.");
-            return;
-        }
-
-        // Ajouter le produit au panier avec les informations choisies
-        var productName = "Bijou sur Mesure (" + format + ")";
-        if (pendentif === "autre") {
-            productName += " avec pendentif personnalisé: " + customPendentif;
-        } else if (pendentif !== "sans-pendentif") {
-            productName += " avec " + pendentif;
-        }
-
-        addToCart(productName, 22, false);  // Ajouter au panier avec prix fixe
-    }
-
-    // Fonction pour afficher les sous-catégories et masquer l'intro
-    function showSubCategory(category, event) {
-        // Masquer l'intro au clic sur un sous-onglet
-        document.getElementById('chapelets-intro').style.display = 'none';
+    function showSubCategory(subCategory, event) {
+        var subCategories = document.getElementsByClassName('sub-category-content');
 
         // Masquer toutes les sous-catégories
-        var subCategories = document.getElementsByClassName('sub-category-content');
         for (var i = 0; i < subCategories.length; i++) {
             subCategories[i].style.display = 'none';
         }
 
         // Afficher la sous-catégorie sélectionnée
-        document.getElementById(category).style.display = 'block';
+        document.getElementById(subCategory).style.display = 'block';
 
-        // Retirer la classe active de tous les boutons et ajouter la classe active au bouton sélectionné
+        // Enlever la classe active de tous les boutons de sous-catégorie
         var buttons = document.querySelectorAll('.tabs button');
         buttons.forEach(function(btn) {
             btn.classList.remove('active');
         });
+
+        // Ajouter la classe active au bouton sélectionné
         event.target.classList.add('active');
-    }
-
-    // Fonction pour afficher la catégorie principale
-function showCategory(category, event) {
-    var categories = document.getElementsByClassName('product-category');
-    var buttons = document.querySelectorAll('.tabs button');
-    var accueil = document.getElementById('accueil'); // Sélectionner la section d'accueil
-
-    // Masquer toutes les catégories
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
-    }
-
-    // Masquer la section d'accueil
-    accueil.style.display = 'none';
-
-    // Afficher la catégorie sélectionnée
-    document.getElementById(category).style.display = 'block';
-
-    // Retirer la classe active de tous les boutons
-    buttons.forEach(function(btn) {
-        btn.classList.remove('active');
-    });
-
-    // Ajouter la classe active au bouton sélectionné
-    event.target.classList.add('active');
-}
-    function addToCart(name, price, isChapelet) {
-        var itemInCart = cart.find(item => item.name === name);
-
-        if (itemInCart) {
-            // Si l'article est déjà dans le panier, on augmente sa quantité
-            itemInCart.quantity += 1;
-        } else {
-            // Sinon, on ajoute un nouvel article avec une quantité de 1
-            cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
-        }
-
-        updateCart();  // Mettre à jour le panier après l'ajout
-        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-    }
-
-    function updateCart() {
-        var cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = '';  // Vider le contenu précédent
-
-        var total = 0;
-        var shipping = 0;
-        var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
-
-        // Afficher les articles dans le panier et calculer le total
-        cart.forEach(function(item, index) {
-            total += item.price * item.quantity;
-
-            // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
-            var itemElement = document.createElement('div');
-            itemElement.innerHTML = `
-                <p>${item.name} - ${item.price} € x ${item.quantity}</p>
-                <button onclick="changeQuantity(${index}, -1)">-</button>
-                <button onclick="changeQuantity(${index}, 1)">+</button>
-                <button onclick="removeItem(${index})">Supprimer</button>
-            `;
-            cartItems.appendChild(itemElement);
-        });
-
-        // Calcul des frais de port
-        if (total < freeShippingThreshold) {
-            shipping += 3;  // Frais de base pour le premier article
-            shipping += (cart.length - 1) * 1;  // 1 euro pour chaque article supplémentaire
-        }
-
-        total += shipping;  // Ajouter les frais de port au total
-
-        // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
-        var remainingForFreeShipping = freeShippingThreshold - total;
-        var shippingMessage = total >= freeShippingThreshold ? 
-            "Frais de port offerts" : 
-            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
-
-        // Mettre à jour l'affichage du total et du message des frais de port
-        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
-
-        totalAmount = total;  // Mettre à jour le total global
-
-        renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
-
-        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-    }
-
-    function saveCartToLocalStorage() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    function loadCartFromLocalStorage() {
-        var storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-            cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
-            updateCart();  // Mettre à jour l'affichage du panier
-        }
-    }
-
-    function changeQuantity(index, change) {
-        if (cart[index].quantity + change > 0) {
-            cart[index].quantity += change;  // Augmenter ou diminuer la quantité
-        } else {
-            removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
-        }
-        updateCart();  // Recalculer le panier
-    }
-
-    function removeItem(index) {
-        cart.splice(index, 1);  // Supprimer l'article du panier
-        updateCart();  // Recalculer le panier
-    }
-
-    function renderPayPalButton() {
-        // Supprimer les boutons PayPal précédents s'il y en a
-        document.getElementById('paypal-button-container').innerHTML = '';
-
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: totalAmount.toFixed(2)  // Le total du panier
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Transaction réussie par ' + details.payer.name.given_name);
-                });
-            }
-        }).render('#paypal-button-container');  // Un seul bouton PayPal
     }
 </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
