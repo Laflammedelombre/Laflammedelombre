@@ -252,7 +252,7 @@
     <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
     <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-    <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
+    <button class="btn" onclick="addToCart('L\'Oracle by J', 40, true)">Ajouter au panier</button>
     <p>L'Oracle by J sortira fin 2024.</p>
 </div>
 
@@ -286,7 +286,7 @@
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
+        <button class="btn" onclick="addToCart('Chapelet Améthyste', 15, true)">Ajouter au panier</button>
     </div>
 
     <!-- Sous-catégorie Chapelets Protection et Ancrage (Obsidienne et Tourmaline) -->
@@ -301,7 +301,7 @@
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
+        <button class="btn" onclick="addToCart('Chapelet Obsidienne', 15, true)">Ajouter au panier</button>
     </div>
 
     <!-- Sous-catégorie Chapelets Duo (Combiné) -->
@@ -315,7 +315,7 @@
                     <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
                     <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
                 </div>
-                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 1', 12)">Ajouter au panier Duo 1</button>
+                <button class="btn" onclick="addToCart('Chapelet Duo 1', 15, true)">Ajouter au panier Duo 1</button>
             </div>
 
             <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -323,7 +323,7 @@
                     <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
                     <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
                 </div>
-                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 2', 12)">Ajouter au panier Duo 2</button>
+                <button class="btn" onclick="addToCart('Chapelet Duo 2', 15, true)">Ajouter au panier Duo 2</button>
             </div>
 
             <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -331,7 +331,7 @@
                     <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
                     <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
                 </div>
-                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 3', 12)">Ajouter au panier Duo 3</button>
+                <button class="btn" onclick="addToCart('Chapelet Duo 3', 15, true)">Ajouter au panier Duo 3</button>
             </div>
 
             <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -339,7 +339,7 @@
                     <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
                     <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
                 </div>
-                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 4', 12)">Ajouter au panier Duo 4</button>
+                <button class="btn" onclick="addToCart('Chapelet Duo 4', 15, true)">Ajouter au panier Duo 4</button>
             </div>
         </div>
 
@@ -358,7 +358,7 @@
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        <button class="btn" onclick="showPendentifOptions('Chapelet Confiance', 12)">Ajouter au panier</button>
+        <button class="btn" onclick="addToCart('Chapelet Confiance', 15, true)">Ajouter au panier</button>
     </div>
 </div>
 
@@ -407,9 +407,9 @@
 <script>
     // Fonction pour gérer le changement de format (Mini Chapelet ou Bracelet)
     function handleFormatChange() {
-        var formatSelect = document.getElementById("format-select");
-        var pendentifSelect = document.getElementById("pendentif-select");
-        var customPendentifField = document.getElementById("custom-pendentif-field");
+        const formatSelect = document.getElementById("format-select");
+        const pendentifSelect = document.getElementById("pendentif-select");
+        const customPendentifField = document.getElementById("custom-pendentif-field");
 
         // Réinitialiser le menu des pendentifs si "Bracelet" est sélectionné
         if (formatSelect.value === "bracelet") {
@@ -424,14 +424,12 @@
 
     // Fonction pour gérer le changement du pendentif
     function handlePendentifChange() {
-        var pendentifSelect = document.getElementById("pendentif-select");
-        var customPendentifField = document.getElementById("custom-pendentif-field");
+        const pendentifSelect = document.getElementById("pendentif-select");
+        const customPendentifField = document.getElementById("custom-pendentif-field");
 
         // Afficher le champ texte libre si "Autre" est sélectionné
         if (pendentifSelect.value === "autre") {
             customPendentifField.style.display = "block";
-
-            // Afficher une pop-up d'information
             alert("La disponibilité du pendentif doit être confirmée. Nous vous contacterons pour valider.");
         } else {
             customPendentifField.style.display = "none";
@@ -440,10 +438,9 @@
 
     // Fonction pour ajouter au panier avec toutes les options
     function addToCartSurMesure() {
-        var format = document.getElementById("format-select").value;
-        var pendentif = document.getElementById("pendentif-select").value;
-        var customPendentif = document.getElementById("custom-pendentif").value;
-        var besoinLithotherapie = document.getElementById("besoin-lithotherapie").value;
+        const format = document.getElementById("format-select").value;
+        const pendentif = document.getElementById("pendentif-select").value;
+        const customPendentif = document.getElementById("custom-pendentif").value;
 
         // Si le pendentif est "Autre" et aucun texte n'est entré, on demande une description
         if (pendentif === "autre" && !customPendentif) {
@@ -452,7 +449,7 @@
         }
 
         // Ajouter le produit au panier avec les informations choisies
-        var productName = "Bijou sur Mesure (" + format + ")";
+        let productName = "Bijou sur Mesure (" + format + ")";
         if (pendentif === "autre") {
             productName += " avec pendentif personnalisé: " + customPendentif;
         } else if (pendentif !== "sans-pendentif") {
@@ -461,18 +458,15 @@
 
         addToCart(productName, 22, false);  // Ajouter au panier avec prix fixe
     }
-</script>
 
-
-<script>
     // Fonction pour afficher les sous-catégories et masquer l'intro
     function showSubCategory(category, event) {
         // Masquer l'intro au clic sur un sous-onglet
         document.getElementById('chapelets-intro').style.display = 'none';
 
         // Masquer toutes les sous-catégories
-        var subCategories = document.getElementsByClassName('sub-category-content');
-        for (var i = 0; i < subCategories.length; i++) {
+        const subCategories = document.getElementsByClassName('sub-category-content');
+        for (let i = 0; i < subCategories.length; i++) {
             subCategories[i].style.display = 'none';
         }
 
@@ -480,7 +474,7 @@
         document.getElementById(category).style.display = 'block';
 
         // Retirer la classe active de tous les boutons et ajouter la classe active au bouton sélectionné
-        var buttons = document.querySelectorAll('.tabs button');
+        const buttons = document.querySelectorAll('.tabs button');
         buttons.forEach(function(btn) {
             btn.classList.remove('active');
         });
@@ -490,191 +484,191 @@
     // Fonction pour afficher la catégorie "Chapelets" par défaut au chargement
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chapelets-intro').style.display = 'block';
-        var subCategories = document.getElementsByClassName('sub-category-content');
-        for (var i = 0; i < subCategories.length; i++) {
+        const subCategories = document.getElementsByClassName('sub-category-content');
+        for (let i = 0; i < subCategories.length; i++) {
             subCategories[i].style.display = 'none';
         }
     });
-</script>
 
-    <!-- Produits Eau de Lune -->
-    <div class="product-category" id="eau-de-lune">
-        <h2>Eau de Lune</h2>
-        <div id="flip-container">
-            <div class="front">
-                <img src="images/EDL.jpeg" alt="Eau de Lune">
-                <img src="images/EDL5.jpeg" alt="Eau de Lune5">
-                <img src="images/EDL4.jpeg" alt="Eau de Lune4">
+    // Produits Eau de Lune
+    const eauDeLune = `
+        <div class="product-category" id="eau-de-lune">
+            <h2>Eau de Lune</h2>
+            <div id="flip-container">
+                <div class="front">
+                    <img src="images/EDL.jpeg" alt="Eau de Lune">
+                    <img src="images/EDL5.jpeg" alt="Eau de Lune5">
+                    <img src="images/EDL4.jpeg" alt="Eau de Lune4">
+                </div>
             </div>
+
+            <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
+            <button class="btn" onclick="addToCart('Eau de Lune', 9, false)">Ajouter au panier</button>
+
+            <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation. Cette eau de lune créée à partir de l'eau de mer de la Méditérranée a pour but de vous accompagner dans vos rituels, de protéger votre habitation ou encore de consacrer des objets.</p>
         </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', eauDeLune);
 
-        <p><strong>Prix : 6 euros + 3 euros de frais de livraison.</strong></p>
-        <button class="btn" onclick="addToCart('Eau de Lune', 6, false)">Ajouter au panier</button>
+    // Script pour la gestion des catégories
+    document.addEventListener('DOMContentLoaded', function() {
+        // Charger le panier depuis localStorage
+        loadCartFromLocalStorage();
 
-        <p>Disponible en fiole de 12ml. Livré avec une pipette pour faciliter la manipulation.
-        Cette eau de lune créée à partir de l'eau de mer de la Méditérranée a pour but de vous accompagner dans vos rituels, de protéger votre habitation ou encore de consacrer des objets.</p>
-    </div>
+        // Masquer toutes les catégories au démarrage
+        const categories = document.getElementsByClassName('product-category');
+        for (let i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'none';
+        }
 
-    <!-- Script pour la gestion des catégories -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Charger le panier depuis localStorage
-            loadCartFromLocalStorage();
+        // Afficher uniquement l'image et le texte d'accueil au démarrage
+        document.getElementById('accueil').style.display = 'block';
+    });
 
-            // Masquer toutes les catégories au démarrage
-            var categories = document.getElementsByClassName('product-category');
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
+    const cart = [];
+    let totalAmount = 0;
 
-            // Afficher uniquement l'image et le texte d'accueil au démarrage
-            document.getElementById('accueil').style.display = 'block';
+    function toggleCart() {
+        const cartDetails = document.getElementById('cart-details');
+        cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addToCart(name, price, isChapelet) {
+        const itemInCart = cart.find(item => item.name === name);
+
+        if (itemInCart) {
+            // Si l'article est déjà dans le panier, on augmente sa quantité
+            itemInCart.quantity += 1;
+        } else {
+            // Sinon, on ajoute un nouvel article avec une quantité de 1
+            cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
+        }
+
+        updateCart();  // Mettre à jour le panier après l'ajout
+        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';  // Vider le contenu précédent
+
+        let total = 0;
+        let shipping = 0;
+        const freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
+
+        // Afficher les articles dans le panier et calculer le total
+        cart.forEach(function(item, index) {
+            total += item.price * item.quantity;
+
+            // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
+            const itemElement = document.createElement('div');
+            itemElement.innerHTML = `
+                <p>${item.name} - ${item.price} € x ${item.quantity}</p>
+                <button onclick="changeQuantity(${index}, -1)">-</button>
+                <button onclick="changeQuantity(${index}, 1)">+</button>
+                <button onclick="removeItem(${index})">Supprimer</button>
+            `;
+            cartItems.appendChild(itemElement);
         });
 
-        var cart = [];
-        var totalAmount = 0;
-
-        function toggleCart() {
-            var cartDetails = document.getElementById('cart-details');
-            cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
+        // Calcul des frais de port
+        if (total < freeShippingThreshold) {
+            shipping += 3;  // Frais de base pour le premier article
+            shipping += (cart.length - 1) * 1;  // 1 euro pour chaque article supplémentaire
         }
 
-        function addToCart(name, price, isChapelet) {
-            var itemInCart = cart.find(item => item.name === name);
+        total += shipping;  // Ajouter les frais de port au total
 
-            if (itemInCart) {
-                // Si l'article est déjà dans le panier, on augmente sa quantité
-                itemInCart.quantity += 1;
-            } else {
-                // Sinon, on ajoute un nouvel article avec une quantité de 1
-                cart.push({ name: name, price: price, isChapelet: isChapelet, quantity: 1 });
+        // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
+        const remainingForFreeShipping = freeShippingThreshold - total;
+        const shippingMessage = total >= freeShippingThreshold ? 
+            "Frais de port offerts" : 
+            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+
+        // Mettre à jour l'affichage du total et du message des frais de port
+        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
+
+        totalAmount = total;  // Mettre à jour le total global
+
+        renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
+
+        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+    }
+
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function showCategory(category, event) {
+        const categories = document.getElementsByClassName('product-category');
+        const buttons = document.querySelectorAll('.tabs button');
+        const accueilText = document.querySelector('#accueil h1, #accueil p');
+        const boutiqueImage = document.querySelector('#accueil img');
+
+        // Masquer uniquement l'image et le texte d'accueil
+        accueilText.style.display = 'none';
+        boutiqueImage.style.display = 'none';
+
+        // Masquer toutes les catégories de produits
+        for (let i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'none';
+        }
+
+        // Retirer la classe active de tous les boutons
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+        document.getElementById(category).style.display = 'block';
+        event.target.classList.add('active');
+    }
+
+    function loadCartFromLocalStorage() {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            cart.push(...JSON.parse(storedCart));  // Charger le panier depuis localStorage
+            updateCart();  // Mettre à jour l'affichage du panier
+        }
+    }
+
+    function changeQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;  // Augmenter ou diminuer la quantité
+        } else {
+            removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
+        }
+        updateCart();  // Recalculer le panier
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);  // Supprimer l'article du panier
+        updateCart();  // Recalculer le panier
+    }
+
+    function renderPayPalButton() {
+        // Supprimer les boutons PayPal précédents s'il y en a
+        document.getElementById('paypal-button-container').innerHTML = '';
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toFixed(2)  // Le total du panier
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction réussie par ' + details.payer.name.given_name);
+                });
             }
+        }).render('#paypal-button-container');  // Un seul bouton PayPal
+    }
+</script>
 
-            updateCart();  // Mettre à jour le panier après l'ajout
-            saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-        }
-
-        function updateCart() {
-            var cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';  // Vider le contenu précédent
-
-            var total = 0;
-            var shipping = 0;
-            var freeShippingThreshold = 35; // Seuil pour avoir les frais de port offerts
-
-            // Afficher les articles dans le panier et calculer le total
-            cart.forEach(function(item, index) {
-                total += item.price * item.quantity;
-
-                // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
-                var itemElement = document.createElement('div');
-                itemElement.innerHTML = `
-                    <p>${item.name} - ${item.price} € x ${item.quantity}</p>
-                    <button onclick="changeQuantity(${index}, -1)">-</button>
-                    <button onclick="changeQuantity(${index}, 1)">+</button>
-                    <button onclick="removeItem(${index})">Supprimer</button>
-                `;
-                cartItems.appendChild(itemElement);
-            });
-
-            // Calcul des frais de port
-            if (total < freeShippingThreshold) {
-                shipping += 3;  // Frais de base pour le premier article
-                shipping += (cart.length - 1) * 1;  // 1 euro pour chaque article supplémentaire
-            }
-
-            total += shipping;  // Ajouter les frais de port au total
-
-            // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
-            var remainingForFreeShipping = freeShippingThreshold - total;
-            var shippingMessage = total >= freeShippingThreshold ? 
-                "Frais de port offerts" : 
-                `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
-
-            // Mettre à jour l'affichage du total et du message des frais de port
-            document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
-
-            totalAmount = total;  // Mettre à jour le total global
-
-            renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
-
-            saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
-        }
-
-        function saveCartToLocalStorage() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        function showCategory(category, event) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var accueilText = document.querySelector('#accueil h1, #accueil p');
-            var boutiqueImage = document.querySelector('#accueil img');
-
-            // Masquer uniquement l'image et le texte d'accueil
-            accueilText.style.display = 'none';
-            boutiqueImage.style.display = 'none';
-
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
-
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).style.display = 'block';
-            event.target.classList.add('active');
-        }
-
-        function loadCartFromLocalStorage() {
-            var storedCart = localStorage.getItem('cart');
-            if (storedCart) {
-                cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
-                updateCart();  // Mettre à jour l'affichage du panier
-            }
-        }
-
-        function changeQuantity(index, change) {
-            if (cart[index].quantity + change > 0) {
-                cart[index].quantity += change;  // Augmenter ou diminuer la quantité
-            } else {
-                removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
-            }
-            updateCart();  // Recalculer le panier
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);  // Supprimer l'article du panier
-            updateCart();  // Recalculer le panier
-        }
-
-        function renderPayPalButton() {
-            // Supprimer les boutons PayPal précédents s'il y en a
-            document.getElementById('paypal-button-container').innerHTML = '';
-
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: totalAmount.toFixed(2)  // Le total du panier
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Transaction réussie par ' + details.payer.name.given_name);
-                    });
-                }
-            }).render('#paypal-button-container');  // Un seul bouton PayPal
-        }
-    </script>
-
-    <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
