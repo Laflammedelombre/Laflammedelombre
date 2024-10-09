@@ -259,9 +259,19 @@
 <!-- Produits Mini Chapelets Magiques avec Sous-Onglets -->
 <div class="product-category" id="chapelets">
     <h2>Mini Chapelets Magiques</h2>
-    <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
 
-    <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
+    <!-- Affichage initial d'une image et texte général -->
+    <div id="chapelets-intro">
+        <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
+        <p>Découvrez notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
+    </div>
+
+    <!-- Onglets principaux pour changer de catégorie -->
+    <div class="tabs">
+        <button onclick="showCategory('oracles', event)">Oracles</button>
+        <button class="active" onclick="showCategory('chapelets', event)">Chapelets</button>
+        <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
+    </div>
 
     <!-- Sous-onglets pour les propriétés des chapelets -->
     <div class="tabs">
@@ -271,7 +281,7 @@
     </div>
 
     <!-- Sous-catégorie Chapelets en Améthyste -->
-    <div class="sub-category-content" id="amethyste">
+    <div class="sub-category-content" id="amethyste" style="display: none;">
         <h3>Chapelets Magiques en Améthyste</h3>
         <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
@@ -300,7 +310,7 @@
         <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets Duo -->
+    <!-- Sous-catégorie Chapelets Duo avec tous les modèles -->
     <div class="sub-category-content" id="duo" style="display: none;">
         <h3>Chapelets Magiques Duo</h3>
         <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
@@ -311,9 +321,32 @@
                     <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
                     <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
                 </div>
-                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 1', 12)">Ajouter au panier duo 1</button>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 1', 12)">Ajouter au panier Duo 1</button>
             </div>
-            <!-- Ajout d'autres duo si nécessaire -->
+
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 2', 12)">Ajouter au panier Duo 2</button>
+            </div>
+
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 3', 12)">Ajouter au panier Duo 3</button>
+            </div>
+
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 4', 12)">Ajouter au panier Duo 4</button>
+            </div>
         </div>
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
@@ -321,7 +354,11 @@
 </div>
 
 <script>
+    // Fonction pour afficher les sous-catégories et masquer l'intro
     function showSubCategory(category, event) {
+        // Masquer l'intro au clic sur un sous-onglet
+        document.getElementById('chapelets-intro').style.display = 'none';
+
         // Masquer toutes les sous-catégories
         var subCategories = document.getElementsByClassName('sub-category-content');
         for (var i = 0; i < subCategories.length; i++) {
@@ -339,9 +376,13 @@
         event.target.classList.add('active');
     }
 
-    // Par défaut, afficher la première sous-catégorie au chargement de la page
+    // Fonction pour afficher la catégorie "Chapelets" par défaut au chargement
     document.addEventListener('DOMContentLoaded', function() {
-        showSubCategory('amethyste', event);
+        document.getElementById('chapelets-intro').style.display = 'block';
+        var subCategories = document.getElementsByClassName('sub-category-content');
+        for (var i = 0; i < subCategories.length; i++) {
+            subCategories[i].style.display = 'none';
+        }
     });
 </script>
 
