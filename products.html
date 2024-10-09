@@ -266,23 +266,17 @@
         <p>Découvrez notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
     </div>
 
-    <!-- Onglets principaux pour changer de catégorie -->
-    <div class="tabs">
-        <button onclick="showCategory('oracles', event)">Oracles</button>
-        <button class="active" onclick="showCategory('chapelets', event)">Chapelets</button>
-        <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
-    </div>
-
     <!-- Sous-onglets pour les propriétés des chapelets -->
     <div class="tabs">
-        <button onclick="showSubCategory('amethyste', event)">Améthyste</button>
-        <button onclick="showSubCategory('obsidienne', event)">Obsidienne et Tourmaline</button>
-        <button onclick="showSubCategory('duo', event)">Duo</button>
+        <button onclick="showSubCategory('amethyste', event)">Détente et Paix</button>
+        <button onclick="showSubCategory('obsidienne', event)">Protection et Ancrage</button>
+        <button onclick="showSubCategory('duo', event)">Duo (Combiné)</button>
+        <button onclick="showSubCategory('confiance', event)">Confiance en Soi</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets en Améthyste -->
+    <!-- Sous-catégorie Chapelets Détente et Paix (Améthyste) -->
     <div class="sub-category-content" id="amethyste" style="display: none;">
-        <h3>Chapelets Magiques en Améthyste</h3>
+        <h3>Chapelets Magiques pour Détente et Paix</h3>
         <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
         <div class="chapelet-images">
@@ -295,9 +289,9 @@
         <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets en Obsidienne et Tourmaline -->
+    <!-- Sous-catégorie Chapelets Protection et Ancrage (Obsidienne et Tourmaline) -->
     <div class="sub-category-content" id="obsidienne" style="display: none;">
-        <h3>Chapelets Magiques en Obsidienne et Tourmaline</h3>
+        <h3>Chapelets Magiques pour Protection et Ancrage</h3>
         <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage à leur porteur. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
         <div class="chapelet-images">
@@ -310,9 +304,9 @@
         <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Sous-catégorie Chapelets Duo avec tous les modèles -->
+    <!-- Sous-catégorie Chapelets Duo (Combiné) -->
     <div class="sub-category-content" id="duo" style="display: none;">
-        <h3>Chapelets Magiques Duo</h3>
+        <h3>Chapelets Magiques Duo (Combiné)</h3>
         <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
         <div class="chapelet-images">
@@ -351,6 +345,21 @@
 
         <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     </div>
+
+    <!-- Sous-catégorie Chapelets pour Confiance en Soi -->
+    <div class="sub-category-content" id="confiance" style="display: none;">
+        <h3>Chapelets Magiques pour Confiance en Soi</h3>
+        <p>Ce chapelet est conçu pour vous insuffler une profonde confiance en vous, renforcer votre estime personnelle et attirer des énergies positives. Composé de la pierre du soleil, de la pietersite et de la pyrite, il vous aidera à surmonter vos doutes et à avancer avec détermination et clarté.</p>
+
+        <div class="chapelet-images">
+            <img src="images/confiance1.jpeg" alt="Chapelet Confiance 1">
+            <img src="images/confiance2.jpeg" alt="Chapelet Confiance 2">
+            <img src="images/confiance3.jpeg" alt="Chapelet Confiance 3">
+        </div>
+
+        <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
+        <button class="btn" onclick="showPendentifOptions('Chapelet Confiance', 12)">Ajouter au panier</button>
+    </div>
 </div>
 
 <script>
@@ -385,7 +394,6 @@
         }
     });
 </script>
-
 
     <!-- Produits Eau de Lune -->
     <div class="product-category" id="eau-de-lune">
