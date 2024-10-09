@@ -362,6 +362,108 @@
     </div>
 </div>
 
+<!-- Sous-catégorie Bijou sur Mesure -->
+<div class="sub-category-content" id="sur-mesure" style="display: none;">
+    <h3>Bijou sur Mesure</h3>
+    <p>Je propose de créer des bijoux sur mesure selon vos besoins spécifiques en lithothérapie. Chaque bijou est fabriqué avec soin après une consultation de mon grimoire afin de sélectionner les pierres les plus adaptées à vos besoins spirituels et énergétiques. En fonction de vos souhaits, je confectionne des créations uniques pour vous accompagner dans votre cheminement personnel.</p>
+    
+    <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
+
+    <!-- Formulaire pour les options de personnalisation -->
+    <div>
+        <label for="format-select">Choisissez le format :</label>
+        <select id="format-select" onchange="handleFormatChange()">
+            <option value="mini-chapelet">Mini Chapelet</option>
+            <option value="bracelet">Bracelet</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="pendentif-select">Choisissez un pendentif :</label>
+        <select id="pendentif-select" onchange="handlePendentifChange()">
+            <option value="sans-pendentif">Sans pendentif (uniquement pour bracelet)</option>
+            <option value="pendentif-standard">Pendentif standard</option>
+            <option value="autre">Autre (spécifiez)</option>
+        </select>
+    </div>
+
+    <!-- Champ texte libre pour le pendentif si "autre" est sélectionné -->
+    <div id="custom-pendentif-field" style="display: none;">
+        <label for="custom-pendentif">Spécifiez le pendentif souhaité :</label>
+        <input type="text" id="custom-pendentif" placeholder="Décrivez le pendentif souhaité">
+    </div>
+
+    <!-- Champ texte libre pour le besoin en lithothérapie -->
+    <div>
+        <label for="besoin-lithotherapie">Décrivez vos besoins en lithothérapie :</label>
+        <textarea id="besoin-lithotherapie" rows="4" placeholder="Exemple : J'ai besoin de pierres pour la confiance en soi ou la protection."></textarea>
+    </div>
+
+    <!-- Bouton pour ajouter au panier -->
+    <button class="btn" onclick="addToCartSurMesure()">Ajouter au panier</button>
+</div>
+
+<!-- Script JS pour la gestion des options et interactions -->
+<script>
+    // Fonction pour gérer le changement de format (Mini Chapelet ou Bracelet)
+    function handleFormatChange() {
+        var formatSelect = document.getElementById("format-select");
+        var pendentifSelect = document.getElementById("pendentif-select");
+        var customPendentifField = document.getElementById("custom-pendentif-field");
+
+        // Réinitialiser le menu des pendentifs si "Bracelet" est sélectionné
+        if (formatSelect.value === "bracelet") {
+            pendentifSelect.options[0].style.display = "block"; // "Sans pendentif" devient disponible
+        } else {
+            pendentifSelect.options[0].style.display = "none"; // "Sans pendentif" est caché pour les Chapelets
+        }
+
+        // Masquer le champ texte personnalisé si "autre" n'est pas sélectionné
+        customPendentifField.style.display = "none";
+    }
+
+    // Fonction pour gérer le changement du pendentif
+    function handlePendentifChange() {
+        var pendentifSelect = document.getElementById("pendentif-select");
+        var customPendentifField = document.getElementById("custom-pendentif-field");
+
+        // Afficher le champ texte libre si "Autre" est sélectionné
+        if (pendentifSelect.value === "autre") {
+            customPendentifField.style.display = "block";
+
+            // Afficher une pop-up d'information
+            alert("La disponibilité du pendentif doit être confirmée. Nous vous contacterons pour valider.");
+        } else {
+            customPendentifField.style.display = "none";
+        }
+    }
+
+    // Fonction pour ajouter au panier avec toutes les options
+    function addToCartSurMesure() {
+        var format = document.getElementById("format-select").value;
+        var pendentif = document.getElementById("pendentif-select").value;
+        var customPendentif = document.getElementById("custom-pendentif").value;
+        var besoinLithotherapie = document.getElementById("besoin-lithotherapie").value;
+
+        // Si le pendentif est "Autre" et aucun texte n'est entré, on demande une description
+        if (pendentif === "autre" && !customPendentif) {
+            alert("Veuillez décrire le pendentif souhaité.");
+            return;
+        }
+
+        // Ajouter le produit au panier avec les informations choisies
+        var productName = "Bijou sur Mesure (" + format + ")";
+        if (pendentif === "autre") {
+            productName += " avec pendentif personnalisé: " + customPendentif;
+        } else if (pendentif !== "sans-pendentif") {
+            productName += " avec " + pendentif;
+        }
+
+        addToCart(productName, 22, false);  // Ajouter au panier avec prix fixe
+    }
+</script>
+
+
 <script>
     // Fonction pour afficher les sous-catégories et masquer l'intro
     function showSubCategory(category, event) {
