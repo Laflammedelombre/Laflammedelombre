@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-y: auto;
         }
 
         h1, h2 {
@@ -41,8 +42,7 @@
         .tabs {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
         .tabs button {
@@ -127,7 +127,6 @@
             height: auto;
         }
 
-        /* Panier */
         #cart-icon {
             position: fixed;
             top: 20px;
@@ -146,6 +145,8 @@
             display: none;
             max-width: 300px;
             text-align: left;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         #cart-details p {
@@ -154,30 +155,25 @@
 
         #paypal-button-container {
             margin-top: 20px;
+            max-width: 500px;
+            width: 100%;
         }
 
-        /* Optimisation pour les téléphones */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
-                margin: 0;
             }
 
             h1, h2 {
                 font-size: 1.8em;
-                margin-left: 10px;
-                margin-right: 10px;
             }
 
             p {
                 font-size: 1.2em;
-                margin-left: 10px;
-                margin-right: 10px;
             }
 
             img {
                 width: 100%;
-                height: auto;
             }
 
             .tabs button {
@@ -194,37 +190,11 @@
             .card-gallery img {
                 width: 100px;
             }
+
+            #cart-details {
+                max-height: 60vh;
+            }
         }
-
-        #paypal-button-container {
-    max-height: none; /* Assure que le conteneur s'ajuste au contenu */
-    overflow-y: auto; /* Permet de scroller si le formulaire est long */
-    width: 100%; /* S'assure que le bouton prend toute la largeur disponible */
-    height: auto; /* Permet au conteneur d'avoir une hauteur dynamique */
-    max-width: 500px; /* Limite la largeur pour des tailles raisonnables */
-    margin-bottom: 20px; /* Ajoute un espace en bas pour éviter que le formulaire soit coupé */
-}
-
-        body {
-    overflow-y: auto; /* Assure que l'utilisateur peut scroller la page entière */
-}
-
-#cart-details {
-    max-height: 80vh; /* Limite la hauteur du panier pour que PayPal reste visible */
-    overflow-y: auto; /* Permet de scroller à l'intérieur du panier si nécessaire */
-}
-
-        @media (max-width: 768px) {
-    #paypal-button-container {
-        width: 100%; /* Prend toute la largeur disponible sur petit écran */
-        height: auto;
-    }
-
-    #cart-details {
-        max-height: 60vh; /* Limite la hauteur du panier pour mobile */
-    }
-}
-        
     </style>
 </head>
 
