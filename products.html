@@ -591,12 +591,12 @@
 
                 // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
                 var itemElement = document.createElement('div');
-                itemElement.innerHTML = 
+                itemElement.innerHTML = `
                     <p>${item.name} - ${item.price} € x ${item.quantity}</p>
                     <button onclick="changeQuantity(${index}, -1)">-</button>
                     <button onclick="changeQuantity(${index}, 1)">+</button>
                     <button onclick="removeItem(${index})">Supprimer</button>
-                ;
+                `;
                 cartItems.appendChild(itemElement);
             });
 
@@ -610,10 +610,10 @@
         var remainingForFreeShipping = freeShippingThreshold - total;
         var shippingMessage = total >= freeShippingThreshold ? 
             "Frais de port offerts" : 
-            Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte);
+            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
 
         // Mettre à jour l'affichage du total et du message des frais de port
-        document.getElementById('cart-total').textContent = Total : ${total.toFixed(2)} € (${shippingMessage});
+        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
 
         totalAmount = total;  // Mettre à jour le total global
 
