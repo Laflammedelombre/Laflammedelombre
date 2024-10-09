@@ -530,14 +530,27 @@
         event.target.classList.add('active');
     }
 
-    // Fonction pour afficher la catégorie "Chapelets" par défaut au chargement
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('chapelets-intro').style.display = 'block';
-        var subCategories = document.getElementsByClassName('sub-category-content');
-        for (var i = 0; i < subCategories.length; i++) {
-            subCategories[i].style.display = 'none';
+    // Fonction pour afficher la catégorie principale
+    function showCategory(category, event) {
+        var categories = document.getElementsByClassName('product-category');
+        var buttons = document.querySelectorAll('.tabs button');
+
+        // Masquer toutes les catégories
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].style.display = 'none';
         }
-    });
+
+        // Afficher la catégorie sélectionnée
+        document.getElementById(category).style.display = 'block';
+
+        // Retirer la classe active de tous les boutons
+        buttons.forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+
+        // Ajouter la classe active au bouton sélectionné
+        event.target.classList.add('active');
+    }
 
     function addToCart(name, price, isChapelet) {
         var itemInCart = cart.find(item => item.name === name);
