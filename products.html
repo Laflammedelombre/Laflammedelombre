@@ -267,13 +267,12 @@
     </div>
 
     <!-- Sous-onglets pour les propriétés des chapelets -->
-<div class="tabs">
-    <button onclick="showSubCategory('amethyste', event)">Détente et Paix</button>
-    <button onclick="showSubCategory('obsidienne', event)">Protection et Ancrage</button>
-    <button onclick="showSubCategory('duo', event)">Duo (Combiné)</button>
-    <button onclick="showSubCategory('confiance', event)">Confiance en Soi</button>
-    <button onclick="showSubCategory('sur-mesure', event)">Bijou sur Mesure</button> <!-- Nouveau bouton ajouté -->
-</div>
+    <div class="tabs">
+        <button onclick="showSubCategory('amethyste', event)">Détente et Paix</button>
+        <button onclick="showSubCategory('obsidienne', event)">Protection et Ancrage</button>
+        <button onclick="showSubCategory('duo', event)">Duo (Combiné)</button>
+        <button onclick="showSubCategory('confiance', event)">Confiance en Soi</button>
+    </div>
 
     <!-- Sous-catégorie Chapelets Détente et Paix (Améthyste) -->
     <div class="sub-category-content" id="amethyste" style="display: none;">
@@ -363,19 +362,6 @@
     </div>
 </div>
 
-    <!-- Sous-onglet Mini Chapelets sur mesure -->
-<div class="sub-category-content" id="sur-mesure" style="display: none;">
-    <h3>Mini Chapelet ou Bracelet sur Mesure</h3>
-    <p>Ce service vous permet de commander un bijou sur mesure, que ce soit un bracelet ou un mini chapelet. Il suffit de me préciser vos besoins en lithothérapie, et je consulterai mon grimoire pour sélectionner les pierres appropriées afin de créer le bijou idéal. Le délai de fabrication est un peu plus long, car il inclut le temps de recherche des pierres et leur achat si nécessaire.</p>
-
-    <div class="chapelet-images">
-        <img src="images/perso1.png" alt="Bijou sur mesure">
-    </div>
-
-    <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
-    <button class="btn" onclick="addToCart('Bijou sur mesure', 22, false)">Ajouter au panier</button>
-</div>
-    
 <script>
     // Fonction pour afficher les sous-catégories et masquer l'intro
     function showSubCategory(category, event) {
@@ -480,12 +466,12 @@
 
                 // Créer un élément pour chaque article dans le panier avec les options de quantité et suppression
                 var itemElement = document.createElement('div');
-                itemElement.innerHTML = `
+                itemElement.innerHTML = 
                     <p>${item.name} - ${item.price} € x ${item.quantity}</p>
                     <button onclick="changeQuantity(${index}, -1)">-</button>
                     <button onclick="changeQuantity(${index}, 1)">+</button>
                     <button onclick="removeItem(${index})">Supprimer</button>
-                `;
+                ;
                 cartItems.appendChild(itemElement);
             });
 
@@ -501,10 +487,10 @@
             var remainingForFreeShipping = freeShippingThreshold - total;
             var shippingMessage = total >= freeShippingThreshold ? 
                 "Frais de port offerts" : 
-                `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+                Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte);
 
             // Mettre à jour l'affichage du total et du message des frais de port
-            document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
+            document.getElementById('cart-total').textContent = Total : ${total.toFixed(2)} € (${shippingMessage});
 
             totalAmount = total;  // Mettre à jour le total global
 
