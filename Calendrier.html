@@ -68,17 +68,16 @@
             border-radius: 10px;
             position: relative;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            height: 120px; /* Fixe la hauteur pour éviter le chevauchement */
+            transition: transform 0.3s;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2em;
+            color: #f0f0f0;
         }
 
         .day:hover {
-            background-color: #444;
             transform: scale(1.05);
         }
 
@@ -101,15 +100,14 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
-        .gift h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #ffcc00;
+        .result {
+            font-size: 1.5em;
+            margin: 10px 0;
         }
 
         .reveal-button {
-            background-color: #ffcc00;
-            color: #222;
+            background-color: #444;
+            color: #f0f0f0;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -120,7 +118,17 @@
         }
 
         .reveal-button:hover {
-            background-color: #e6b800;
+            background-color: #666;
+        }
+
+        /* Animation d'ouverture */
+        @keyframes openDoor {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .door {
+            animation: openDoor 0.5s forwards;
         }
 
         /* Responsive design */
@@ -159,7 +167,7 @@
     <p>Découvrez chaque jour un nouveau cadeau à gagner ! Cliquez sur un jour pour révéler le cadeau.</p>
 
     <div class="calendar">
-        <!-- Boucle pour générer les jours du calendrier -->
+        <!-- Boucle pour générer les jours du calendrier dans un ordre aléatoire -->
         <script>
             const gifts = [
                 "Cadeau 1: Un Oracle divinatoire",
@@ -188,21 +196,41 @@
                 "Cadeau 24: Un Oracle exclusif"
             ];
 
-            for (let i = 1; i <= 24; i++) {
+            const days = Array.from({length: 24}, (_, i) => i + 1);
+            days.sort(() => Math.random() - 0.5); // Mélange les jours
+
+            days.forEach(day => {
                 document.write(`
-                    <div class="day" onclick="revealGift(${i - 1}, this)">
-                        ${i}
-                        <div class="gift" id="gift-${i - 1}">
-                            <h3>${gifts[i - 1]}</h3>
-                            <button class="reveal-button" onclick="revealGift(${i - 1}, this.parentElement.parentElement)">Révéler</button>
+                    <div class="day" onclick="revealGift(${day - 1}, this)">
+                        ${day}
+                        <div class="gift" id="gift-${day - 1}">
+                            <div class="result" id="result-${day - 1}"></div>
+                            <button class="reveal-button" onclick="openDoor(${day - 1}, this.parentElement.parentElement)">Ouvrir</button>
                         </div>
                     </div>
                 `);
-            }
+            });
 
             function revealGift(index, element) {
                 const giftElement = document.getElementById(`gift-${index}`);
                 giftElement.style.display = 'flex'; // Afficher le cadeau
+            }
+
+            function openDoor(index, element) {
+                const resultElement = document.getElementById(`result-${index}`);
+                const gift = gifts[index];
+
+                // Simule le résultat (gagné ou perdu)
+                const isWon = Math.random() < 0.5; // 50% de chance de gagner
+
+                if (isWon) {
+                    resultElement.innerHTML = `Gagné !<br>${gift}`;
+                } else {
+                    resultElement.innerHTML = `Perdu ! Réessayez.`;
+                }
+
+                // Ajouter animation de porte
+                element.parentElement.classList.add('door');
             }
         </script>
     </div>
