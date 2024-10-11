@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier de l'Avent - La Flamme de l'Ombre</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
 
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .day {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .day:hover {
+            background-color: #666;
+        }
+
+        .gift {
+            display: none; /* Masquer par défaut */
+            background-color: #222;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .reveal-button {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reveal-button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Lien de navigation vers les autres pages -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
+            <li><a href="carte.html">Carte du jour</a></li>
+            <li><a href="calendrier.html">Calendrier de l'Avent</a></li> <!-- Nouveau lien -->
+        </ul>
+    </nav>
+
+    <h1>Calendrier de l'Avent</h1>
+    <p>Découvrez chaque jour un nouveau cadeau à gagner ! Cliquez sur un jour pour révéler le cadeau.</p>
+
+    <div class="calendar">
+        <!-- Boucle pour générer les jours du calendrier -->
+        <script>
+            const gifts = [
+                "Cadeau 1: Un Oracle divinatoire",
+                "Cadeau 2: Un chapelet magique en améthyste",
+                "Cadeau 3: Une eau de lune",
+                "Cadeau 4: Un pendentif",
+                "Cadeau 5: Un bon de réduction de 10€",
+                "Cadeau 6: Un bracelet de protection",
+                "Cadeau 7: Une lecture de tarot",
+                "Cadeau 8: Un chapelet magique en obsidienne",
+                "Cadeau 9: Une consultation spirituelle",
+                "Cadeau 10: Un e-book sur la magie",
+                "Cadeau 11: Un set de bougies",
+                "Cadeau 12: Une amulette de chance",
+                "Cadeau 13: Un sachet de sel magique",
+                "Cadeau 14: Une pierre de protection",
+                "Cadeau 15: Un tarot oraculaire",
+                "Cadeau 16: Une lecture d'astrologie",
+                "Cadeau 17: Un pendentif en cristal",
+                "Cadeau 18: Une consultation gratuite",
+                "Cadeau 19: Une eau de lune en format voyage",
+                "Cadeau 20: Un bracelet en pierre naturelle",
+                "Cadeau 21: Un livret sur les rituels de pleine lune",
+                "Cadeau 22: Un chapelet personnalisé",
+                "Cadeau 23: Une bougie parfumée",
+                "Cadeau 24: Un Oracle exclusif"
+            ];
+
+            for (let i = 1; i <= 24; i++) {
+                document.write(`
+                    <div class="day" onclick="revealGift(${i - 1}, this)">
+                        <span>${i}</span>
+                        <div class="gift" id="gift-${i - 1}">${gifts[i - 1]}</div>
+                    </div>
+                `);
+            }
+
+            function revealGift(index, element) {
+                const giftElement = document.getElementById(`gift-${index}`);
+                giftElement.style.display = 'flex'; // Afficher le cadeau
+            }
+        </script>
+    </div>
+
+</body>
+</html>
