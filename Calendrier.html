@@ -68,13 +68,13 @@
             border-radius: 10px;
             position: relative;
             cursor: pointer;
-            transition: transform 0.3s;
             height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2em;
             color: #f0f0f0;
+            overflow: hidden;
         }
 
         .day:hover {
@@ -101,8 +101,9 @@
         }
 
         .result {
-            font-size: 1.5em;
+            font-size: 1em; /* Ajuste la taille du texte */
             margin: 10px 0;
+            text-align: center; /* Centrer le texte */
         }
 
         .reveal-button {
@@ -113,7 +114,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-size: 1em;
+            font-size: 0.9em; /* Taille ajustée */
             margin-top: 10px;
         }
 
@@ -123,8 +124,8 @@
 
         /* Animation d'ouverture */
         @keyframes openDoor {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            0% { transform: scaleX(1); }
+            100% { transform: scaleX(0); }
         }
 
         .door {
@@ -143,6 +144,10 @@
 
             p {
                 font-size: 1em;
+            }
+
+            .day {
+                font-size: 1.5em; /* Taille du texte pour mobile */
             }
         }
     </style>
@@ -167,7 +172,6 @@
     <p>Découvrez chaque jour un nouveau cadeau à gagner ! Cliquez sur un jour pour révéler le cadeau.</p>
 
     <div class="calendar">
-        <!-- Boucle pour générer les jours du calendrier dans un ordre aléatoire -->
         <script>
             const gifts = [
                 "Cadeau 1: Un Oracle divinatoire",
