@@ -7,8 +7,8 @@
     <title>Calendrier de l'Avent - La Flamme de l'Ombre</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
@@ -18,35 +18,45 @@
         h1 {
             font-size: 2.5em;
             margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 1px 1px 5px #000;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #ccc;
         }
 
         .calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            margin: 0 auto;
+            gap: 15px;
             max-width: 800px;
+            margin: 0 auto;
         }
 
         .day {
-            background-color: #444;
+            background-color: #333;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             position: relative;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         .day:hover {
-            background-color: #666;
+            background-color: #444;
+            transform: scale(1.05);
         }
 
         .gift {
             display: none; /* Masquer par défaut */
             background-color: #222;
             color: white;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
             position: absolute;
             top: 0;
             left: 0;
@@ -55,20 +65,46 @@
             align-items: center;
             justify-content: center;
             display: flex;
+            flex-direction: column;
+            opacity: 0.9;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .gift h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #ffcc00;
         }
 
         .reveal-button {
-            background-color: #444;
-            color: white;
+            background-color: #ffcc00;
+            color: #222;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 1em;
+            margin-top: 10px;
         }
 
         .reveal-button:hover {
-            background-color: #666;
+            background-color: #e6b800;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .calendar {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -125,7 +161,10 @@
                 document.write(`
                     <div class="day" onclick="revealGift(${i - 1}, this)">
                         <span>${i}</span>
-                        <div class="gift" id="gift-${i - 1}">${gifts[i - 1]}</div>
+                        <div class="gift" id="gift-${i - 1}">
+                            <h3>${gifts[i - 1]}</h3>
+                            <button class="reveal-button" onclick="revealGift(${i - 1}, this.parentElement.parentElement)">Révéler</button>
+                        </div>
                     </div>
                 `);
             }
