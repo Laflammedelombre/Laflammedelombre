@@ -437,6 +437,73 @@
     </div>
 </div>
 
+<!-- Sous-section Bijoux Lithothérapie -->
+<div class="sub-category">
+    <h3>Bijoux 100% Sur Mesure en Lithothérapie</h3>
+    <p>Ce bijou est spécialement conçu selon vos besoins, alliant esthétique et bienfaits des pierres. Chaque création est unique et fabriquée avec soin pour vous accompagner dans votre bien-être.</p>
+
+    <!-- Images des bijoux en lithothérapie -->
+    <div class="chapelet-images">
+        <img src="images/bijou1.jpeg" alt="Bijou Lithothérapie 1">
+        <img src="images/bijou2.jpeg" alt="Bijou Lithothérapie 2">
+        <img src="images/bijou3.jpeg" alt="Bijou Lithothérapie 3">
+    </div>
+
+    <p><strong>Prix : 30 euros + 5 euros de frais de livraison.</strong></p>
+    
+    <!-- Menu déroulant pour le choix de pendentif -->
+    <label for="pendentif-select">Choisissez un pendentif :</label>
+    <select id="pendentif-select" onchange="toggleAstroOptions()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+        <option value="lune">Lune</option>
+        <option value="arbre-de-vie">Arbre de vie</option>
+        <option value="croix-chretienne">Croix chrétienne</option>
+        <option value="clef">Clef</option>
+        <option value="signe-astro">Signe astro</option>
+        <option value="autre">Autre</option>
+    </select>
+
+    <!-- Champ de texte libre pour indiquer le pendentif souhaité si "Autre" est sélectionné -->
+    <div id="autre-options" style="display: none;">
+        <label for="autre-pendentif" style="display: block; margin-bottom: 10px;">Veuillez indiquer le pendentif souhaité :</label>
+        <input type="text" id="autre-pendentif" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #888;" placeholder="Indiquez le pendentif souhaité">
+    </div>
+
+    <!-- Champ de texte libre pour les besoins spécifiques -->
+    <label for="besoins" style="display: block; margin-top: 20px;">Indiquez vos besoins spécifiques :</label>
+    <textarea id="besoins" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #888;" placeholder="Décrivez vos besoins ici..."></textarea>
+
+    <p style="margin-top: 20px; font-weight: bold;">Note : Les délais de fabrication peuvent être un peu plus longs pour ce modèle, car je dois faire des recherches dans mes grimoires pour trouver les pierres adéquates. Ensuite, je procèderai à la fabrication des pierres pour votre bijou.</p>
+
+    <button class="btn" onclick="addCustomJewelryToCart()">Ajouter au panier</button>
+</div>
+
+<hr> <!-- Séparateur ajouté ici -->
+
+<script>
+    // Fonction pour gérer l'affichage de l'option "autre"
+    document.getElementById('pendentif-select').addEventListener('change', function() {
+        const autreOptions = document.getElementById('autre-options');
+        autreOptions.style.display = this.value === 'autre' ? 'block' : 'none';
+    });
+
+    // Fonction pour ajouter le bijou sur mesure au panier
+    function addCustomJewelryToCart() {
+        const pendentif = document.getElementById('pendentif-select').value;
+        const autrePendentif = pendentif === 'autre' ? document.getElementById('autre-pendentif').value.trim() : '';
+        const besoins = document.getElementById('besoins').value.trim();
+
+        let description = `Bijou Lithothérapie (Pendentif : ${pendentif}`;
+        if (autrePendentif) {
+            description += ` - Autre : ${autrePendentif}`;
+        }
+        if (besoins) {
+            description += `; Besoins : ${besoins}`;
+        }
+        description += ')';
+
+        addToCart(description, 30, false);
+    }
+</script>
 
     
 <!-- Fenêtre modale pour les options de pendentifs -->
