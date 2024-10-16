@@ -443,13 +443,14 @@
     <p>Ce bijou est spécialement conçu selon vos besoins, alliant esthétique et bienfaits des pierres. Chaque création est unique et fabriquée avec soin pour vous accompagner dans votre bien-être.</p>
 
     <!-- Images des bijoux en lithothérapie -->
-    <div class="chapelet-images">
-        <img src="images/bijou1.jpeg" alt="Bijou Lithothérapie 1">
-        <img src="images/bijou2.jpeg" alt="Bijou Lithothérapie 2">
-        <img src="images/bijou3.jpeg" alt="Bijou Lithothérapie 3">
+    <div class="chapelet-images" style="display: flex; justify-content: center; margin-bottom: 20px;">
+        <img src="images/bijou1.jpeg" alt="Bijou Lithothérapie 1" style="margin: 10px; width: 150px; height: auto;">
+        <img src="images/bijou2.jpeg" alt="Bijou Lithothérapie 2" style="margin: 10px; width: 150px; height: auto;">
+        <img src="images/bijou3.jpeg" alt="Bijou Lithothérapie 3" style="margin: 10px; width: 150px; height: auto;">
+        <img src="images/perso1.png" alt="Bijou Personnalisé" style="margin: 10px; width: 150px; height: auto;"> <!-- Nouvelle image ajoutée -->
     </div>
 
-    <p><strong>Prix : 30 euros + 5 euros de frais de livraison.</strong></p>
+    <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
     
     <!-- Menu déroulant pour le choix de pendentif -->
     <label for="pendentif-select">Choisissez un pendentif :</label>
@@ -501,9 +502,10 @@
         }
         description += ')';
 
-        addToCart(description, 30, false);
+        addToCart(description, 22, false); // Mise à jour du prix à 22 euros
     }
 </script>
+
 
     
 <!-- Fenêtre modale pour les options de pendentifs -->
