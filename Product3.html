@@ -527,15 +527,25 @@
             } else {
                 document.getElementById('astro-options').style.display = 'none';
             }
+
+            // Afficher le champ "Autre" uniquement pour le bijou personnalisé
+            if (pendentif === 'autre') {
+                document.getElementById('autre-options').style.display = 'block';
+            } else {
+                document.getElementById('autre-options').style.display = 'none';
+            }
         }
 
         function confirmPendentif() {
             var pendentif = document.getElementById('pendentif-select').value;
             var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
+            var autre = pendentif === 'autre' ? document.getElementById('autre-pendentif').value : null;
 
             var description = pendentif;
             if (astro) {
                 description += ' - ' + astro;
+            } else if (autre) {
+                description = 'Autre: ' + autre;
             }
 
             addToCart(selectedProduct + ' (' + description + ')', selectedPrice, true);
