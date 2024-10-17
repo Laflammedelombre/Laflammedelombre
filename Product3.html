@@ -549,6 +549,15 @@
             addToCart(selectedProduct + ' (' + description + ')', selectedPrice, true);
             closeModal();
         }
+
+        function addCustomJewelryToCart() {
+            var pendentif = document.getElementById('pendentif-select').value;
+            var modele = document.getElementById('modele-select').value;
+            var besoins = document.getElementById('besoins').value;
+
+            var jewelryDescription = `${modele} avec pendentif: ${pendentif}. Besoins: ${besoins}`;
+            addToCart(jewelryDescription, 22, true); // Ajout de l'article au panier
+        }
     </script>
 
     <!-- Produits Eau de Lune -->
