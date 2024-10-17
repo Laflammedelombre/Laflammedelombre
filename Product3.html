@@ -338,7 +338,7 @@
         <h2>Bijoux Magiques</h2>
         <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
 
-        <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
+        <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. <strong>Le mini chapelet peut être créé en modèle bracelet ou pendentif.</strong></p>
 
         <hr>
 
@@ -354,7 +354,6 @@
             </div>
 
             <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-            <p><strong>Modèle disponible en bracelet ou pendentif.</strong></p>
             <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
         </div>
 
@@ -372,7 +371,6 @@
             </div>
 
             <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-            <p><strong>Modèle disponible en bracelet ou pendentif.</strong></p>
             <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
         </div>
 
@@ -415,7 +413,6 @@
             </div>
 
             <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-            <p><strong>Modèle disponible en bracelet ou pendentif.</strong></p>
         </div>
 
         <hr> <!-- Séparateur ajouté ici -->
@@ -430,7 +427,7 @@
                 <img src="images/bijou1.jpeg" alt="Bijou Lithothérapie 1" style="margin: 10px; width: 150px; height: auto;">
                 <img src="images/bijou2.jpeg" alt="Bijou Lithothérapie 2" style="margin: 10px; width: 150px; height: auto;">
                 <img src="images/bijou3.jpeg" alt="Bijou Lithothérapie 3" style="margin: 10px; width: 150px; height: auto;">
-                <img src="images/perso1.png" alt="Bijou Personnalisé" style="margin: 10px; width: 150px; height: auto;"> <!-- Nouvelle image ajoutée -->
+                <img src="images/perso1.png" alt="Bijou Personnalisé" style="margin: 10px; width: 250px; height: auto;"> <!-- Image agrandie -->
             </div>
 
             <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
@@ -438,6 +435,7 @@
             <!-- Menu déroulant pour le choix de pendentif -->
             <label for="pendentif-select">Choisissez un pendentif :</label>
             <select id="pendentif-select" onchange="toggleAstroOptions()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+                <option value="" disabled selected>Sélectionnez un pendentif</option> <!-- Option par défaut désactivée -->
                 <option value="lune">Lune</option>
                 <option value="arbre-de-vie">Arbre de vie</option>
                 <option value="croix-chretienne">Croix chrétienne</option>
