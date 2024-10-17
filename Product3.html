@@ -441,7 +441,6 @@
                 <option value="croix-chretienne">Croix chrétienne</option>
                 <option value="clef">Clef</option>
                 <option value="signe-astro">Signe astro</option>
-                <option value="autre">Autre</option>
             </select>
 
             <!-- Champ de texte libre pour indiquer le pendentif souhaité si "Autre" est sélectionné -->
@@ -449,6 +448,13 @@
                 <label for="autre-pendentif" style="display: block; margin-bottom: 10px;">Veuillez indiquer le pendentif souhaité :</label>
                 <input type="text" id="autre-pendentif" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #888;" placeholder="Indiquez le pendentif souhaité">
             </div>
+
+            <!-- Champ pour choisir entre bracelet et mini chapelet -->
+            <label for="modele-select">Choisissez un modèle :</label>
+            <select id="modele-select" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+                <option value="mini-chapelet">Mini Chapelet</option>
+                <option value="bracelet">Bracelet</option>
+            </select>
 
             <!-- Champ de texte libre pour les besoins spécifiques -->
             <label for="besoins" style="display: block; margin-top: 20px;">Indiquez vos besoins spécifiques :</label>
@@ -466,14 +472,13 @@
     <div id="chapelet-options-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
         <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
             <h3>Choisissez un pendentif</h3>
-            <label for="pendentif-select">Pendentif :</label>
+            <label for="pendentif-select-modal">Pendentif :</label>
             <select id="pendentif-select-modal" onchange="toggleAstroOptionsModal()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
                 <option value="lune">Lune</option>
                 <option value="arbre-de-vie">Arbre de vie</option>
                 <option value="croix-chretienne">Croix chrétienne</option>
                 <option value="clef">Clef</option>
                 <option value="signe-astro">Signe astro</option>
-                <option value="autre">Autre</option>
             </select>
 
             <!-- Choix des signes astro (masqué par défaut) -->
@@ -527,13 +532,6 @@
             } else {
                 document.getElementById('astro-options').style.display = 'none';
             }
-
-            // Afficher le champ "Autre" uniquement pour le bijou personnalisé
-            if (pendentif === 'autre') {
-                document.getElementById('autre-options').style.display = 'block';
-            } else {
-                document.getElementById('autre-options').style.display = 'none';
-            }
         }
 
         function toggleAstroOptionsModal() {
@@ -548,13 +546,10 @@
         function confirmPendentif() {
             var pendentif = document.getElementById('pendentif-select-modal').value;
             var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
-            var autre = pendentif === 'autre' ? document.getElementById('autre-pendentif').value : null;
 
             var description = pendentif;
             if (astro) {
                 description += ' - ' + astro;
-            } else if (autre) {
-                description = 'Autre: ' + autre;
             }
 
             addToCart(selectedProduct + ' (' + description + ')', selectedPrice, true);
