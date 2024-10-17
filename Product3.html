@@ -494,6 +494,12 @@
                 </select>
             </div>
 
+            <label for="modele-select-modal">Choisissez un modèle :</label>
+            <select id="modele-select-modal" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+                <option value="mini-chapelet">Mini Chapelet</option>
+                <option value="bracelet">Bracelet</option>
+            </select>
+
             <button class="btn" onclick="confirmPendentif()" style="margin-top: 20px;">Confirmer</button>
             <button class="btn" onclick="closeModal()" style="margin-top: 10px;">Annuler</button>
         </div>
@@ -540,13 +546,14 @@
         function confirmPendentif() {
             var pendentif = document.getElementById('pendentif-select-modal').value;
             var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
+            var modele = document.getElementById('modele-select-modal').value;
 
-            var description = pendentif;
+            var description = `${selectedProduct} (${modele}) avec pendentif: ${pendentif}`;
             if (astro) {
                 description += ' - ' + astro;
             }
 
-            addToCart(selectedProduct + ' (' + description + ')', selectedPrice, true);
+            addToCart(description, selectedPrice, true);
             closeModal();
         }
 
