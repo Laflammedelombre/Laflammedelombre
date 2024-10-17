@@ -467,7 +467,7 @@
         <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
             <h3>Choisissez un pendentif</h3>
             <label for="pendentif-select">Pendentif :</label>
-            <select id="pendentif-select" onchange="toggleAstroOptions()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+            <select id="pendentif-select-modal" onchange="toggleAstroOptionsModal()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
                 <option value="lune">Lune</option>
                 <option value="arbre-de-vie">Arbre de vie</option>
                 <option value="croix-chretienne">Croix chrétienne</option>
@@ -536,8 +536,17 @@
             }
         }
 
+        function toggleAstroOptionsModal() {
+            var pendentif = document.getElementById('pendentif-select-modal').value;
+            if (pendentif === 'signe-astro') {
+                document.getElementById('astro-options').style.display = 'block';
+            } else {
+                document.getElementById('astro-options').style.display = 'none';
+            }
+        }
+
         function confirmPendentif() {
-            var pendentif = document.getElementById('pendentif-select').value;
+            var pendentif = document.getElementById('pendentif-select-modal').value;
             var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
             var autre = pendentif === 'autre' ? document.getElementById('autre-pendentif').value : null;
 
