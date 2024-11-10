@@ -197,33 +197,33 @@
         }
 
         #paypal-button-container {
-            max-height: none; /* Assure que le conteneur s'ajuste au contenu */
-            overflow-y: auto; /* Permet de scroller si le formulaire est long */
-            width: 100%; /* S'assure que le bouton prend toute la largeur disponible */
-            height: auto; /* Permet au conteneur d'avoir une hauteur dynamique */
-            max-width: 500px; /* Limite la largeur pour des tailles raisonnables */
-            margin-bottom: 20px; /* Ajoute un espace en bas pour éviter que le formulaire soit coupé */
-        }
+    max-height: none; /* Assure que le conteneur s'ajuste au contenu */
+    overflow-y: auto; /* Permet de scroller si le formulaire est long */
+    width: 100%; /* S'assure que le bouton prend toute la largeur disponible */
+    height: auto; /* Permet au conteneur d'avoir une hauteur dynamique */
+    max-width: 500px; /* Limite la largeur pour des tailles raisonnables */
+    margin-bottom: 20px; /* Ajoute un espace en bas pour éviter que le formulaire soit coupé */
+}
 
         body {
-            overflow-y: auto; /* Assure que l'utilisateur peut scroller la page entière */
-        }
+    overflow-y: auto; /* Assure que l'utilisateur peut scroller la page entière */
+}
 
-        #cart-details {
-            max-height: 80vh; /* Limite la hauteur du panier pour que PayPal reste visible */
-            overflow-y: auto; /* Permet de scroller à l'intérieur du panier si nécessaire */
-        }
+#cart-details {
+    max-height: 80vh; /* Limite la hauteur du panier pour que PayPal reste visible */
+    overflow-y: auto; /* Permet de scroller à l'intérieur du panier si nécessaire */
+}
 
         @media (max-width: 768px) {
-            #paypal-button-container {
-                width: 100%; /* Prend toute la largeur disponible sur petit écran */
-                height: auto;
-            }
+    #paypal-button-container {
+        width: 100%; /* Prend toute la largeur disponible sur petit écran */
+        height: auto;
+    }
 
-            #cart-details {
-                max-height: 60vh; /* Limite la hauteur du panier pour mobile */
-            }
-        }
+    #cart-details {
+        max-height: 60vh; /* Limite la hauteur du panier pour mobile */
+    }
+}
         
     </style>
 </head>
@@ -259,313 +259,266 @@
         <!-- Onglets pour les catégories de produits -->
         <div class="tabs">
             <button onclick="showCategory('oracles', event)">Oracles</button>
-            <button onclick="showCategory('chapelets', event)">Bijoux Magiques</button>
+            <button onclick="showCategory('chapelets', event)">Chapelet Magique</button>
             <button onclick="showCategory('eau-de-lune', event)">Eau de Lune</button>
         </div>
 
         <img src="images/boutique.jpeg" alt="Boutique Magique">
     </div>
 
-    <!-- Produits Oracles -->
-    <div class="product-category" id="oracles">
-        <h2>L'Oracle by J</h2>
-        <img src="images/Byj.jpg" alt="Oracle by J">
+<!-- Produits Oracles -->
+<div class="product-category" id="oracles">
+    <h2>L'Oracle by J</h2>
+    <img src="images/Byj.jpg" alt="Oracle by J">
 
-        <!-- Galerie des 4 images plus petites -->
-        <div class="card-gallery">
-            <img src="images/Fidelite.jpeg" alt="Fidélité">
-            <img src="images/Secret.jpeg" alt="Secret">
-            <img src="images/Dependance.jpeg" alt="Dépendance">
-            <img src="images/Campagne.jpeg" alt="Campagne">
-        </div>
-
-        <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
-
-        <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
-        <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
-        <p>L'Oracle by J sortira fin 2024.</p>
+    <!-- Galerie des 4 images plus petites -->
+    <div class="card-gallery">
+        <img src="images/Fidelite.jpeg" alt="Fidélité">
+        <img src="images/Secret.jpeg" alt="Secret">
+        <img src="images/Dependance.jpeg" alt="Dépendance">
+        <img src="images/Campagne.jpeg" alt="Campagne">
     </div>
 
-    <!-- Fenêtre modale pour entrer le prénom du propriétaire de l'Oracle -->
-    <div id="oracle-name-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
-        <div style="background-color: #222; color: white; padding: 30px; border-radius: 15px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);">
-            <h3 style="margin-bottom: 20px;">Entrez le prénom du futur propriétaire</h3>
-            
-            <label for="owner-name" style="display: block; margin-bottom: 10px; font-size: 1.2em;">Prénom :</label>
-            <input type="text" id="owner-name" style="width: 100%; padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #888; margin-bottom: 20px;" placeholder="Entrez le prénom">
+    <p>L'Oracle by J est un oracle divinatoire et de guidance qui comporte 85 cartes, plus une carte contact et une carte de remerciement. Cet oracle a été créé de façon un peu controversée car, contrairement aux autres oracles où l'analyse de l'image est importante, je l'ai voulu minimaliste pour pousser notre intuition à nous parler. C'est un oracle qu'on utilise pour développer son intuition.</p>
 
-            <button class="btn" onclick="confirmOracleName()" style="width: 100%; padding: 10px 20px; background-color: #444; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s;">
-                Confirmer
-            </button>
-            <button class="btn" onclick="closeOracleNameModal()" style="width: 100%; padding: 10px 20px; background-color: #666; border: none; border-radius: 5px; font-size: 1.2em; margin-top: 10px; cursor: pointer; transition: background-color 0.3s;">
-                Annuler
-            </button>
+    <p><strong>Prix : 40 euros - Livraison offerte.</strong></p>
+    <button class="btn" onclick="showOracleNameModal()">Ajouter au panier</button>
+    <p>L'Oracle by J sortira fin 2024.</p>
+</div>
+
+<!-- Fenêtre modale pour entrer le prénom du propriétaire de l'Oracle -->
+<div id="oracle-name-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
+    <div style="background-color: #222; color: white; padding: 30px; border-radius: 15px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);">
+        <h3 style="margin-bottom: 20px;">Entrez le prénom du futur propriétaire</h3>
+        
+        <label for="owner-name" style="display: block; margin-bottom: 10px; font-size: 1.2em;">Prénom :</label>
+        <input type="text" id="owner-name" style="width: 100%; padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #888; margin-bottom: 20px;" placeholder="Entrez le prénom">
+
+        <button class="btn" onclick="confirmOracleName()" style="width: 100%; padding: 10px 20px; background-color: #444; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s;">
+            Confirmer
+        </button>
+        <button class="btn" onclick="closeOracleNameModal()" style="width: 100%; padding: 10px 20px; background-color: #666; border: none; border-radius: 5px; font-size: 1.2em; margin-top: 10px; cursor: pointer; transition: background-color 0.3s;">
+            Annuler
+        </button>
+    </div>
+</div>
+
+<!-- Script pour gérer le prénom de l'Oracle -->
+<script>
+    var oracleName = '';
+
+    // Forcer la fermeture du modal au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('oracle-name-modal').style.display = 'none';
+    });
+
+    function showOracleNameModal() {
+        document.getElementById('oracle-name-modal').style.display = 'flex';
+    }
+
+    function closeOracleNameModal() {
+        document.getElementById('oracle-name-modal').style.display = 'none';
+    }
+
+    function confirmOracleName() {
+        oracleName = document.getElementById('owner-name').value.trim();
+        if (oracleName === '') {
+            alert('Veuillez entrer un prénom.');
+            return;
+        }
+
+        // Ajouter l'Oracle avec le prénom dans le panier
+        addToCart('Oracle by J (Propriétaire : ' + oracleName + ')', 40, false);
+        closeOracleNameModal();
+    }
+</script>
+
+
+<!-- Produits Mini Chapelets Magiques -->
+<div class="product-category" id="chapelets">
+    <h2>Mini Chapelets Magiques</h2>
+    <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
+
+    <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. Nos mini chapelets sont disponibles avec différents pendentifs au choix, selon vos préférences spirituelles.</p>
+
+    <hr>
+
+    <!-- Sous-section Chapelets en Améthyste -->
+    <div class="sub-category">
+        <h3>Chapelets Magiques en Améthyste</h3>
+        <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+
+        <!-- Images des chapelets en Améthyste, 3 photos distinctes -->
+        <div class="chapelet-images">
+            <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
+            <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
+            <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
         </div>
+
+        <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
+        <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Script pour gérer le prénom de l'Oracle -->
-    <script>
-        var oracleName = '';
+    <hr>
 
-        // Forcer la fermeture du modal au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('oracle-name-modal').style.display = 'none';
-        });
+    <!-- Sous-section Chapelets en Obsidienne et Tourmaline -->
+    <div class="sub-category">
+        <h3>Chapelets Magiques en Obsidienne et Tourmaline</h3>
+        <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage à leur porteur. Chaque chapelet est accompagné d'un pendentif au choix.</p>
 
-        function showOracleNameModal() {
-            document.getElementById('oracle-name-modal').style.display = 'flex';
-        }
-
-        function closeOracleNameModal() {
-            document.getElementById('oracle-name-modal').style.display = 'none';
-        }
-
-        function confirmOracleName() {
-            oracleName = document.getElementById('owner-name').value.trim();
-            if (oracleName === '') {
-                alert('Veuillez entrer un prénom.');
-                return;
-            }
-
-            // Ajouter l'Oracle avec le prénom dans le panier
-            addToCart('Oracle by J (Propriétaire : ' + oracleName + ')', 40, false);
-            closeOracleNameModal();
-        }
-    </script>
-
-    <!-- Produits Mini Chapelets Magiques -->
-    <div class="product-category" id="chapelets">
-        <h2>Bijoux Magiques</h2>
-        <img src="images/chapelet.jpeg" alt="Mini Chapelet Magique">
-
-        <p>Découvrez ci-dessous notre collection de mini chapelets magiques, créés avec soin pour apporter protection, paix et ancrage. Chaque chapelet est consacré à l'eau de lune, fabriquée par mes soins lors des soirs de pleine lune, avant expédition. <strong>Le mini chapelet peut être créé en modèle mini chapelet ou bracelet avec pendentif.</strong></p>
-
-        <hr>
-
-        <!-- Sous-section Chapelets en Améthyste -->
-        <div class="sub-category">
-            <h3>Chapelets Magiques en Améthyste</h3>
-            <p>Nos chapelets en améthyste sont spécialement conçus pour apporter détente et paix à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
-
-            <div class="chapelet-images">
-                <img src="images/FullSizeRender.jpeg" alt="Chapelet Améthyste FullSizeRender">
-                <img src="images/chapeletA2.jpeg" alt="Chapelet Améthyste A2">
-                <img src="images/IMG_5726.jpeg" alt="Chapelet Améthyste A3">
-            </div>
-
-            <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-            <button class="btn" onclick="showPendentifOptions('Chapelet Améthyste', 12)">Ajouter au panier</button>
+        <!-- Images des chapelets en Obsidienne, 3 photos distinctes -->
+        <div class="chapelet-images">
+            <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne FullSizeRender">
+            <img src="images/IMG_5756.jpeg" alt="Chapelet Obsidienne A2">
+            <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
         </div>
 
-        <hr>
-
-        <!-- Sous-section Chapelets en Obsidienne et Tourmaline -->
-        <div class="sub-category">
-            <h3>Chapelets Magiques en Obsidienne et Tourmaline</h3>
-            <p>Nos chapelets en obsidienne et tourmaline sont conçus pour apporter protection et ancrage à leur porteur. Chaque chapelet est accompagné d'un pendentif au choix.</p>
-
-            <div class="chapelet-images">
-                <img src="images/IMG_5759.jpeg" alt="Chapelet Obsidienne FullSizeRender">
-                <img src="images/IMG_5756.jpeg" alt="Chapelet Obsidienne A2">
-                <img src="images/IMG_5755.jpeg" alt="Chapelet Obsidienne A3">
-            </div>
-
-            <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-            <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
-        </div>
-
-        <hr>
-
-        <!-- Sous-section Chapelets Duo -->
-        <div class="sub-category">
-            <h3>Chapelets Magiques Duo</h3>
-            <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
-
-            <div class="chapelet-images">
-                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                    <div style="display: flex; justify-content: center;">
-                        <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
-                        <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
-                    </div>
-                    <button class="btn" onclick="showPendentifOptions('Chapelet Duo 1', 12)">Ajouter au panier duo 1</button>
-                </div>
-                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                    <div style="display: flex; justify-content: center;">
-                        <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
-                        <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
-                    </div>
-                    <button class="btn" onclick="showPendentifOptions('Chapelet Duo 2', 12)">Ajouter au panier duo 2</button>
-                </div>
-                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                    <div style="display: flex; justify-content: center;">
-                        <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
-                        <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
-                    </div>
-                    <button class="btn" onclick="showPendentifOptions('Chapelet Duo 3', 12)">Ajouter au panier duo 3</button>
-                </div>
-                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                    <div style="display: flex; justify-content: center;">
-                        <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
-                        <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
-                    </div>
-                    <button class="btn" onclick="showPendentifOptions('Chapelet Duo 4', 12)">Ajouter au panier duo 4</button>
-                </div>
-            </div>
-
-            <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
-        </div>
-
-        <hr> <!-- Séparateur ajouté ici -->
-
-        <!-- Sous-section Bijoux Lithothérapie -->
-        <div class="sub-category" id="bijoux-lithotherapie">
-            <h3>Bijoux 100% Sur Mesure en Lithothérapie</h3>
-            <p>Ce bijou est spécialement conçu selon vos besoins, alliant esthétique et bienfaits des pierres. Chaque création est unique et fabriquée avec soin pour vous accompagner dans votre bien-être.</p>
-
-            <!-- Images des bijoux en lithothérapie -->
-            <div class="chapelet-images" style="display: flex; justify-content: center; margin-bottom: 20px;">
-                <img src="images/bijou1.jpeg" alt="Bijou Lithothérapie 1" style="margin: 10px; width: 150px; height: auto;">
-                <img src="images/bijou2.jpeg" alt="Bijou Lithothérapie 2" style="margin: 10px; width: 150px; height: auto;">
-                <img src="images/bijou3.jpeg" alt="Bijou Lithothérapie 3" style="margin: 10px; width: 150px; height: auto;">
-                <img src="images/perso1.png" alt="Bijou Personnalisé" style="margin: 10px; width: 250px; height: auto;"> <!-- Image agrandie -->
-            </div>
-
-            <p><strong>Prix : 22 euros + 3 euros de frais de livraison.</strong></p>
-            
-            <!-- Menu déroulant pour le choix de pendentif -->
-            <label for="pendentif-select">Choisissez un pendentif :</label>
-            <select id="pendentif-select" onchange="toggleAstroOptions()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
-                <option value="" disabled selected>Sélectionnez un pendentif</option> <!-- Option par défaut désactivée -->
-                <option value="lune">Lune</option>
-                <option value="arbre-de-vie">Arbre de vie</option>
-                <option value="croix-chretienne">Croix chrétienne</option>
-                <option value="clef">Clef</option>
-                <option value="signe-astro">Signe astro</option>
-            </select>
-
-            <!-- Champ pour choisir entre bracelet et mini chapelet -->
-            <label for="modele-select">Choisissez un modèle :</label>
-            <select id="modele-select" style="margin-bottom: 20px; width: 100%; padding: 10px;">
-                <option value="mini-chapelet">Mini Chapelet</option>
-                <option value="bracelet">Bracelet</option>
-            </select>
-
-            <!-- Champ de texte libre pour les besoins spécifiques -->
-            <label for="besoins" style="display: block; margin-top: 20px;">Indiquez vos besoins spécifiques :</label>
-            <textarea id="besoins" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #888;" placeholder="Décrivez vos besoins ici..."></textarea>
-
-            <p style="margin-top: 20px; font-weight: bold;">Note : Les délais de fabrication peuvent être un peu plus longs pour ce modèle, car je dois faire des recherches dans mes grimoires pour trouver les pierres adéquates. Ensuite, je procèderai à la fabrication des pierres pour votre bijou.</p>
-
-            <button class="btn" onclick="addCustomJewelryToCart()">Ajouter au panier</button>
-        </div>
-
-        <hr> <!-- Séparateur ajouté ici -->
+        <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
+        <button class="btn" onclick="showPendentifOptions('Chapelet Obsidienne', 12)">Ajouter au panier</button>
     </div>
 
-    <!-- Fenêtre modale pour les options de pendentifs -->
-    <div id="chapelet-options-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
-        <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
-            <h3>Choisissez un pendentif</h3>
-            <label for="pendentif-select-modal">Pendentif :</label>
-            <select id="pendentif-select-modal" onchange="toggleAstroOptionsModal()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
-                <option value="lune">Lune</option>
-                <option value="arbre-de-vie">Arbre de vie</option>
-                <option value="croix-chretienne">Croix chrétienne</option>
-                <option value="clef">Clef</option>
-                <option value="signe-astro">Signe astro</option>
-            </select>
+    <hr>
 
-            <!-- Choix des signes astro (masqué par défaut) -->
-            <div id="astro-options" style="display: none;">
-                <label for="astro-select">Signe astrologique :</label>
-                <select id="astro-select" style="width: 100%; padding: 10px;">
-                    <option value="belier">Bélier</option>
-                    <option value="taureau">Taureau</option>
-                    <option value="gemeaux">Gémeaux</option>
-                    <option value="cancer">Cancer</option>
-                    <option value="lion">Lion</option>
-                    <option value="vierge">Vierge</option>
-                    <option value="balance">Balance</option>
-                    <option value="scorpion">Scorpion</option>
-                    <option value="sagittaire">Sagittaire</option>
-                    <option value="capricorne">Capricorne</option>
-                    <option value="verseau">Verseau</option>
-                    <option value="poissons">Poissons</option>
-                </select>
+    <!-- Sous-section Chapelets Duo -->
+    <div class="sub-category">
+        <h3>Chapelets Magiques Duo</h3>
+        <p>Nos chapelets Duo combinent les propriétés des pierres d'améthyste, de tourmaline et d'obsidienne pour offrir à la fois détente, paix, protection et ancrage à ceux qui les utilisent. Chaque chapelet est accompagné d'un pendentif au choix.</p>
+
+        <div class="chapelet-images">
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo1.jpeg" alt="Chapelet Duo 1" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo1.1.jpeg" alt="Chapelet Duo 1.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 1', 12)">Ajouter au panier duo 1</button>
             </div>
-
-            <label for="modele-select-modal">Choisissez un modèle :</label>
-            <select id="modele-select-modal" style="margin-bottom: 20px; width: 100%; padding: 10px;">
-                <option value="mini-chapelet">Mini Chapelet</option>
-                <option value="bracelet">Bracelet</option>
-            </select>
-
-            <button class="btn" onclick="confirmPendentif()" style="margin-top: 20px;">Confirmer</button>
-            <button class="btn" onclick="closeModal()" style="margin-top: 10px;">Annuler</button>
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo2.jpeg" alt="Chapelet Duo 2" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo2.2.jpeg" alt="Chapelet Duo 2.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 2', 12)">Ajouter au panier duo 2</button>
+            </div>
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo3.jpeg" alt="Chapelet Duo 3" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo3.3.jpeg" alt="Chapelet Duo 3.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 3', 12)">Ajouter au panier duo 3</button>
+            </div>
+            <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <div style="display: flex; justify-content: center;">
+                    <img src="images/Duo4.jpeg" alt="Chapelet Duo 4" style="width: 45%; margin-right: 10px;">
+                    <img src="images/Duo4.4.jpeg" alt="Chapelet Duo 4.1" style="width: 45%;">
+                </div>
+                <button class="btn" onclick="showPendentifOptions('Chapelet Duo 4', 12)">Ajouter au panier duo 4</button>
+            </div>
         </div>
+
+        <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
     </div>
 
-    <!-- Script pour gérer les options -->
-    <script>
-        var selectedProduct = '';
-        var selectedPrice = 0;
+    <hr> <!-- Séparateur ajouté ici -->
 
-        // Forcer la fermeture du modal au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('chapelet-options-modal').style.display = 'none';
-        });
+    <!-- Sous-section Chapelets pour la Confiance en Soi -->
+    <div class="sub-category">
+        <h3>Chapelets Magiques pour la Confiance en Soi</h3>
+        <p>Ce chapelet est conçu pour vous insuffler une profonde confiance en vous, renforcer votre estime personnelle et attirer des énergies positives. Composé de la pierre du soleil, de la pietersite et de la pyrite, il vous aidera à surmonter vos doutes et à avancer avec détermination et clarté. Entièrement personnalisable avec un pendentif au choix, il devient un allié unique et puissant sur le chemin de votre épanouissement.</p>
 
-        function showPendentifOptions(product, price) {
-            selectedProduct = product;
-            selectedPrice = price;
-            document.getElementById('chapelet-options-modal').style.display = 'flex';
+        <!-- Images des chapelets pour la Confiance en Soi, 3 photos distinctes -->
+        <div class="chapelet-images">
+            <img src="images/confiance1.jpeg" alt="Chapelet Confiance 1">
+            <img src="images/confiance2.jpeg" alt="Chapelet Confiance 2">
+            <img src="images/confiance3.jpeg" alt="Chapelet Confiance 3">
+        </div>
+
+        <p><strong>Prix : 12 euros + 3 euros de frais de livraison.</strong></p>
+        <button class="btn" onclick="showPendentifOptions('Chapelet Confiance', 12)">Ajouter au panier</button>
+    </div>
+</div>
+
+
+    
+<!-- Fenêtre modale pour les options de pendentifs -->
+<div id="chapelet-options-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
+    <div style="background-color: #222; color: white; padding: 20px; border-radius: 10px; text-align: center; width: 90%; max-width: 400px;">
+        <h3>Choisissez un pendentif</h3>
+        <label for="pendentif-select">Pendentif :</label>
+        <select id="pendentif-select" onchange="toggleAstroOptions()" style="margin-bottom: 20px; width: 100%; padding: 10px;">
+            <option value="lune">Lune</option>
+            <option value="arbre-de-vie">Arbre de vie</option>
+            <option value="croix-chretienne">Croix chrétienne</option>
+            <option value="clef">Clef</option>
+            <option value="signe-astro">Signe astro</option>
+        </select>
+
+        <!-- Choix des signes astro (masqué par défaut) -->
+        <div id="astro-options" style="display: none;">
+            <label for="astro-select">Signe astrologique :</label>
+            <select id="astro-select" style="width: 100%; padding: 10px;">
+                <option value="belier">Bélier</option>
+                <option value="taureau">Taureau</option>
+                <option value="gemeaux">Gémeaux</option>
+                <option value="cancer">Cancer</option>
+                <option value="lion">Lion</option>
+                <option value="vierge">Vierge</option>
+                <option value="balance">Balance</option>
+                <option value="scorpion">Scorpion</option>
+                <option value="sagittaire">Sagittaire</option>
+                <option value="capricorne">Capricorne</option>
+                <option value="verseau">Verseau</option>
+                <option value="poissons">Poissons</option>
+            </select>
+        </div>
+
+        <button class="btn" onclick="confirmPendentif()" style="margin-top: 20px;">Confirmer</button>
+        <button class="btn" onclick="closeModal()" style="margin-top: 10px;">Annuler</button>
+    </div>
+</div>
+
+<!-- Script pour gérer les options -->
+<script>
+    var selectedProduct = '';
+    var selectedPrice = 0;
+
+    // Forcer la fermeture du modal au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('chapelet-options-modal').style.display = 'none';
+    });
+
+    function showPendentifOptions(product, price) {
+        selectedProduct = product;
+        selectedPrice = price;
+        document.getElementById('chapelet-options-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('chapelet-options-modal').style.display = 'none';
+    }
+
+    function toggleAstroOptions() {
+        var pendentif = document.getElementById('pendentif-select').value;
+        if (pendentif === 'signe-astro') {
+            document.getElementById('astro-options').style.display = 'block';
+        } else {
+            document.getElementById('astro-options').style.display = 'none';
+        }
+    }
+
+    function confirmPendentif() {
+        var pendentif = document.getElementById('pendentif-select').value;
+        var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
+
+        var description = pendentif;
+        if (astro) {
+            description += ' - ' + astro;
         }
 
-        function closeModal() {
-            document.getElementById('chapelet-options-modal').style.display = 'none';
-        }
+        addToCart(selectedProduct + ' (' + description + ')', selectedPrice, true);
+        closeModal();
+    }
+</script>
 
-        function toggleAstroOptions() {
-            var pendentif = document.getElementById('pendentif-select').value;
-            if (pendentif === 'signe-astro') {
-                document.getElementById('astro-options').style.display = 'block';
-            } else {
-                document.getElementById('astro-options').style.display = 'none';
-            }
-        }
-
-        function toggleAstroOptionsModal() {
-            var pendentif = document.getElementById('pendentif-select-modal').value;
-            if (pendentif === 'signe-astro') {
-                document.getElementById('astro-options').style.display = 'block';
-            } else {
-                document.getElementById('astro-options').style.display = 'none';
-            }
-        }
-
-        function confirmPendentif() {
-            var pendentif = document.getElementById('pendentif-select-modal').value;
-            var astro = pendentif === 'signe-astro' ? document.getElementById('astro-select').value : null;
-            var modele = document.getElementById('modele-select-modal').value;
-
-            var description = `${selectedProduct} (${modele}) avec pendentif: ${pendentif}`;
-            if (astro) {
-                description += ' - ' + astro;
-            }
-
-            addToCart(description, selectedPrice, true);
-            closeModal();
-        }
-
-        function addCustomJewelryToCart() {
-            var pendentif = document.getElementById('pendentif-select').value;
-            var modele = document.getElementById('modele-select').value;
-            var besoins = document.getElementById('besoins').value;
-
-            var jewelryDescription = `${modele} avec pendentif: ${pendentif}. Besoins: ${besoins}`;
-            addToCart(jewelryDescription, 22, true); // Ajout de l'article au panier
-        }
-    </script>
 
     <!-- Produits Eau de Lune -->
     <div class="product-category" id="eau-de-lune">
@@ -655,95 +608,94 @@
             }
 
             total += shipping;  // Ajouter les frais de port au total        // Afficher un message indiquant combien il reste à dépenser pour obtenir les frais de port offerts
-            var remainingForFreeShipping = freeShippingThreshold - total;
-            var shippingMessage = total >= freeShippingThreshold ? 
-                "Frais de port offerts" : 
-                `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
+        var remainingForFreeShipping = freeShippingThreshold - total;
+        var shippingMessage = total >= freeShippingThreshold ? 
+            "Frais de port offerts" : 
+            `Frais de port : ${shipping} € (plus que ${remainingForFreeShipping.toFixed(2)} € pour la livraison offerte)`;
 
-            // Mettre à jour l'affichage du total et du message des frais de port
-            document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
+        // Mettre à jour l'affichage du total et du message des frais de port
+        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
 
-            totalAmount = total;  // Mettre à jour le total global
+        totalAmount = total;  // Mettre à jour le total global
 
-            renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
+        renderPayPalButton();  // Mettre à jour le bouton PayPal avec le nouveau total
 
-            saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+        saveCartToLocalStorage(); // Sauvegarder le panier dans localStorage
+    }
+
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function showCategory(category, event) {
+    var categories = document.getElementsByClassName('product-category');
+    var buttons = document.querySelectorAll('.tabs button');
+    var accueilText = document.querySelector('#accueil h1, #accueil p');
+    var boutiqueImage = document.querySelector('#accueil img');
+
+    // Masquer uniquement l'image et le texte d'accueil
+    accueilText.style.display = 'none';
+    boutiqueImage.style.display = 'none';
+
+    // Masquer toutes les catégories de produits
+    for (var i = 0; i < categories.length; i++) {
+        categories[i].style.display = 'none';
+    }
+
+    // Retirer la classe active de tous les boutons
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
+    document.getElementById(category).style.display = 'block';
+    event.target.classList.add('active');
+}
+
+    function loadCartFromLocalStorage() {
+        var storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
+            updateCart();  // Mettre à jour l'affichage du panier
         }
+    }
 
-        function saveCartToLocalStorage() {
-            localStorage.setItem('cart', JSON.stringify(cart));
+    function changeQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;  // Augmenter ou diminuer la quantité
+        } else {
+            removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
         }
-        
-        function showCategory(category, event) {
-            var categories = document.getElementsByClassName('product-category');
-            var buttons = document.querySelectorAll('.tabs button');
-            var accueilText = document.querySelector('#accueil h1, #accueil p');
-            var boutiqueImage = document.querySelector('#accueil img');
+        updateCart();  // Recalculer le panier
+    }
 
-            // Masquer uniquement l'image et le texte d'accueil
-            accueilText.style.display = 'none';
-            boutiqueImage.style.display = 'none';
+    function removeItem(index) {
+        cart.splice(index, 1);  // Supprimer l'article du panier
+        updateCart();  // Recalculer le panier
+    }
 
-            // Masquer toutes les catégories de produits
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
+    function renderPayPalButton() {
+        // Supprimer les boutons PayPal précédents s'il y en a
+        document.getElementById('paypal-button-container').innerHTML = '';
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toFixed(2)  // Le total du panier
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction réussie par ' + details.payer.name.given_name);
+                });
             }
+        }).render('#paypal-button-container');  // Un seul bouton PayPal
+    }
+</script>
 
-            // Retirer la classe active de tous les boutons
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-
-            // Afficher la catégorie sélectionnée et ajouter la classe active au bouton correspondant
-            document.getElementById(category).style.display = 'block';
-            event.target.classList.add('active');
-        }
-
-        function loadCartFromLocalStorage() {
-            var storedCart = localStorage.getItem('cart');
-            if (storedCart) {
-                cart = JSON.parse(storedCart);  // Charger le panier depuis localStorage
-                updateCart();  // Mettre à jour l'affichage du panier
-            }
-        }
-
-        function changeQuantity(index, change) {
-            if (cart[index].quantity + change > 0) {
-                cart[index].quantity += change;  // Augmenter ou diminuer la quantité
-            } else {
-                removeItem(index);  // Si la quantité tombe à 0, supprimer l'article
-            }
-            updateCart();  // Recalculer le panier
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);  // Supprimer l'article du panier
-            updateCart();  // Recalculer le panier
-        }
-
-        function renderPayPalButton() {
-            // Supprimer les boutons PayPal précédents s'il y en a
-            document.getElementById('paypal-button-container').innerHTML = '';
-
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: totalAmount.toFixed(2)  // Le total du panier
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Transaction réussie par ' + details.payer.name.given_name);
-                    });
-                }
-            }).render('#paypal-button-container');  // Un seul bouton PayPal
-        }
-    </script>
-
-    <script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
 </body>
 </html>
