@@ -56,10 +56,47 @@
         .btn:hover {
             background-color: #666666;
         }
+
+        /* Navigation en haut de la page */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 
 <body>
+
+    <!-- Menu de navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
+            <li><a href="carte.html">Carte du jour</a></li>
+        </ul>
+    </nav>
+
     <!-- Titre et description -->
     <h1>Bienvenue dans la boutique magique de La Flamme de l'Ombre</h1>
     <p>Découvrez notre collection d'articles mystiques et ésotériques. En cliquant ci-dessous, vous serez redirigé vers ma boutique en ligne SumUp, un site sécurisé que je gère personnellement pour une expérience d'achat en toute confiance.</p>
@@ -69,5 +106,6 @@
 
     <!-- Bouton de redirection vers SumUp -->
     <a href="https://laflammedelombre.sumupstore.com" class="btn" target="_blank">Visiter ma boutique en ligne SumUp</a>
+
 </body>
 </html>
