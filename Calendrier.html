@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent Ésotérique</title>
+<title>Calendrier de l'Avent Ésotérique - Jeu</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -42,15 +42,10 @@
         transition: all 0.3s ease;
     }
 
-    .day:hover {
+    .day.disabled {
         background-color: #444;
-        transform: scale(1.05);
-    }
-
-    .day.opened {
-        background-color: #7c4dff;
-        color: #fff;
-        cursor: default;
+        color: #888;
+        cursor: not-allowed;
     }
 
     .day-number {
@@ -76,44 +71,68 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const days = document.querySelectorAll(".day");
+        const currentDate = new Date();
+        const currentDay = currentDate.getDate();
+
         days.forEach(day => {
+            const dayNumber = day.getAttribute("data-day");
+
+            // Vérification si le jour a déjà été joué dans le stockage local
+            if (localStorage.getItem(`day-${dayNumber}-played`) === "true") {
+                day.classList.add("disabled");
+            }
+
             day.addEventListener("click", function() {
-                if (!day.classList.contains("opened")) {
-                    day.classList.add("opened");
+                if (day.classList.contains("disabled")) return;
+
+                // Tirage aléatoire pour déterminer le gagnant (un seul gagnant par jour)
+                const winner = Math.random() < 0.1; // 10% de chance de gagner
+                let message;
+
+                if (winner) {
+                    message = "Félicitations ! Vous avez gagné pour le jour " + dayNumber + "!";
+                    // Enregistrer le gagnant dans le stockage local pour ce jour
+                    localStorage.setItem(`day-${currentDay}-winner`, "true");
+                } else {
+                    message = "Désolé, vous n'avez pas gagné aujourd'hui.";
                 }
+
+                alert(message);
+                day.classList.add("disabled");
+                localStorage.setItem(`day-${dayNumber}-played`, "true"); // Marquer comme joué
             });
         });
     });
 </script>
 </head>
 <body>
-    <h1>Calendrier de l'Avent Ésotérique</h1>
+    <h1>Calendrier de l'Avent Ésotérique - Jeu</h1>
     <div class="calendar">
-        <!-- Days of the advent calendar -->
-        <div class="day"><div class="day-number">1</div><div class="day-content">Message mystique pour la première journée</div></div>
-        <div class="day"><div class="day-number">2</div><div class="day-content">Un conseil de tirage de cartes</div></div>
-        <div class="day"><div class="day-number">3</div><div class="day-content">Pierre de la chance : Améthyste</div></div>
-        <div class="day"><div class="day-number">4</div><div class="day-content">Rituel de purification</div></div>
-        <div class="day"><div class="day-number">5</div><div class="day-content">Message lunaire pour le jour</div></div>
-        <div class="day"><div class="day-number">6</div><div class="day-content">Bijou en pierre de lune</div></div>
-        <div class="day"><div class="day-number">7</div><div class="day-content">Conseil d’auto-soin spirituel</div></div>
-        <div class="day"><div class="day-number">8</div><div class="day-content">Offre spéciale sur les accessoires ésotériques</div></div>
-        <div class="day"><div class="day-number">9</div><div class="day-content">Lecture de tarot : 3 cartes</div></div>
-        <div class="day"><div class="day-number">10</div><div class="day-content">Recette d’eau de lune</div></div>
-        <div class="day"><div class="day-number">11</div><div class="day-content">Pierre de la chance : Quartz Rose</div></div>
-        <div class="day"><div class="day-number">12</div><div class="day-content">Message inspirant pour le mois</div></div>
-        <div class="day"><div class="day-number">13</div><div class="day-content">Conseil de méditation guidée</div></div>
-        <div class="day"><div class="day-number">14</div><div class="day-content">Bijou en labradorite</div></div>
-        <div class="day"><div class="day-number">15</div><div class="day-content">Tirage d’une carte spéciale</div></div>
-        <div class="day"><div class="day-number">16</div><div class="day-content">Rituel pour attirer la paix intérieure</div></div>
-        <div class="day"><div class="day-number">17</div><div class="day-content">Pierre de la journée : Citrine</div></div>
-        <div class="day"><div class="day-number">18</div><div class="day-content">Lecture intuitive</div></div>
-        <div class="day"><div class="day-number">19</div><div class="day-content">Mantra de protection</div></div>
-        <div class="day"><div class="day-number">20</div><div class="day-content">Conseil d’ancrage</div></div>
-        <div class="day"><div class="day-number">21</div><div class="day-content">Offre spéciale sur l’eau de lune</div></div>
-        <div class="day"><div class="day-number">22</div><div class="day-content">Pierre de la chance : Obsidienne</div></div>
-        <div class="day"><div class="day-number">23</div><div class="day-content">Conseil de nettoyage énergétique</div></div>
-        <div class="day"><div class="day-number">24</div><div class="day-content">Réflexion pour le solstice d’hiver</div></div>
+        <!-- Calendrier avec les jours -->
+        <div class="day" data-day="1"><div class="day-number">1</div><div class="day-content">Découverte mystique 1</div></div>
+        <div class="day" data-day="2"><div class="day-number">2</div><div class="day-content">Découverte mystique 2</div></div>
+        <div class="day" data-day="3"><div class="day-number">3</div><div class="day-content">Découverte mystique 3</div></div>
+        <div class="day" data-day="4"><div class="day-number">4</div><div class="day-content">Découverte mystique 4</div></div>
+        <div class="day" data-day="5"><div class="day-number">5</div><div class="day-content">Découverte mystique 5</div></div>
+        <div class="day" data-day="6"><div class="day-number">6</div><div class="day-content">Découverte mystique 6</div></div>
+        <div class="day" data-day="7"><div class="day-number">7</div><div class="day-content">Découverte mystique 7</div></div>
+        <div class="day" data-day="8"><div class="day-number">8</div><div class="day-content">Découverte mystique 8</div></div>
+        <div class="day" data-day="9"><div class="day-number">9</div><div class="day-content">Découverte mystique 9</div></div>
+        <div class="day" data-day="10"><div class="day-number">10</div><div class="day-content">Découverte mystique 10</div></div>
+        <div class="day" data-day="11"><div class="day-number">11</div><div class="day-content">Découverte mystique 11</div></div>
+        <div class="day" data-day="12"><div class="day-number">12</div><div class="day-content">Découverte mystique 12</div></div>
+        <div class="day" data-day="13"><div class="day-number">13</div><div class="day-content">Découverte mystique 13</div></div>
+        <div class="day" data-day="14"><div class="day-number">14</div><div class="day-content">Découverte mystique 14</div></div>
+        <div class="day" data-day="15"><div class="day-number">15</div><div class="day-content">Découverte mystique 15</div></div>
+        <div class="day" data-day="16"><div class="day-number">16</div><div class="day-content">Découverte mystique 16</div></div>
+        <div class="day" data-day="17"><div class="day-number">17</div><div class="day-content">Découverte mystique 17</div></div>
+        <div class="day" data-day="18"><div class="day-number">18</div><div class="day-content">Découverte mystique 18</div></div>
+        <div class="day" data-day="19"><div class="day-number">19</div><div class="day-content">Découverte mystique 19</div></div>
+        <div class="day" data-day="20"><div class="day-number">20</div><div class="day-content">Découverte mystique 20</div></div>
+        <div class="day" data-day="21"><div class="day-number">21</div><div class="day-content">Découverte mystique 21</div></div>
+        <div class="day" data-day="22"><div class="day-number">22</div><div class="day-content">Découverte mystique 22</div></div>
+        <div class="day" data-day="23"><div class="day-number">23</div><div class="day-content">Découverte mystique 23</div></div>
+        <div class="day" data-day="24"><div class="day-number">24</div><div class="day-content">Découverte mystique 24</div></div>
     </div>
 </body>
 </html>
