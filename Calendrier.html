@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent Ésotérique - Test de Roulette</title>
+<title>Calendrier de l'Avent Ésotérique - Roue de la Fortune</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -52,28 +52,6 @@
         margin-bottom: 10px;
     }
 
-    .roulette {
-        display: none;
-        margin-top: 20px;
-        padding: 20px;
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        border: 5px solid #e0e0e0;
-        color: #000;
-        background-color: #fff;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: spin 3s ease-out;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(1080deg); } /* Rotation de 3 tours */
-    }
-
     .day-content {
         font-size: 1.5em;
         color: #b3e5fc;
@@ -95,61 +73,131 @@
     .day.loser {
         background-color: #f44336;
     }
+
+    /* Style de la roulette */
+    .wheel-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 8px solid #fff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .wheel {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform: rotate(0deg);
+        transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .wheel .segment {
+        width: 50%;
+        height: 50%;
+        background-color: #eee;
+        position: absolute;
+        transform-origin: 100% 100%;
+        text-align: center;
+        font-size: 1em;
+        font-weight: bold;
+        padding-top: 20px;
+        color: #222;
+    }
+
+    .wheel .segment:nth-child(odd) { background-color: #f8b400; }
+    .wheel .segment:nth-child(even) { background-color: #f85a3e; }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #333;
+        padding: 20px;
+        color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const days = document.querySelectorAll(".day");
-
-        // Lots possibles (modifiez ici pour les lots)
         const lots = ["Bijou en pierre de lune", "Carte de tarot personnalisée", "Eau de lune", "Pierre de quartz rose", "Lecture de tarot gratuite"];
+        const segments = 360 / lots.length;
+        const popup = document.createElement("div");
+        popup.className = "popup";
+        document.body.appendChild(popup);
+
+        // Créer la roue avec les segments de lots
+        const wheelContainer = document.createElement("div");
+        wheelContainer.className = "wheel-container";
+        const wheel = document.createElement("div");
+        wheel.className = "wheel";
+        wheelContainer.appendChild(wheel);
+        document.body.appendChild(wheelContainer);
+
+        lots.forEach((lot, index) => {
+            const segment = document.createElement("div");
+            segment.className = "segment";
+            segment.style.transform = `rotate(${index * segments}deg) skewY(-${90 - segments}deg)`;
+            segment.textContent = lot;
+            wheel.appendChild(segment);
+        });
 
         days.forEach(day => {
-            const dayNumber = day.getAttribute("data-day");
-
             day.addEventListener("click", function() {
-                // Tirage aléatoire pour déterminer le gagnant (50% de chance pour le test)
                 const winner = Math.random() < 0.5;
                 let message;
 
-                // Nettoyage des classes "winner" et "loser"
                 day.classList.remove("winner", "loser");
 
                 if (winner) {
                     message = "Gagné ! Cliquez pour voir votre lot !";
                     day.classList.add("winner");
-                    showRoulette(day); // Afficher la roulette
+                    showWheel(); // Afficher la roulette
                 } else {
                     message = "Perdu ! Retentez votre chance !";
                     day.classList.add("loser");
                 }
 
-                // Mise à jour de l'affichage de la case
                 day.querySelector(".day-content").textContent = message;
                 day.classList.add("opened");
             });
         });
 
-        // Fonction pour afficher la roulette et sélectionner un lot aléatoire
-        function showRoulette(dayElement) {
-            const roulette = document.createElement("div");
-            roulette.classList.add("roulette");
-            roulette.textContent = "Roulette en cours...";
-            document.body.appendChild(roulette);
+        function showWheel() {
+            wheelContainer.style.display = "block";
+            const randomAngle = Math.floor(Math.random() * 360) + 720; // Angle aléatoire + plusieurs tours
+            wheel.style.transform = `rotate(${randomAngle}deg)`;
 
-            // Animation de la roulette avec un délai de 3 secondes pour le résultat
             setTimeout(() => {
-                const randomLot = lots[Math.floor(Math.random() * lots.length)];
-                roulette.textContent = `Vous avez gagné : ${randomLot}!`;
-                roulette.style.animation = "none"; // Arrêter l'animation après le tirage
-            }, 3000);
+                wheelContainer.style.display = "none";
+                const winningSegment = Math.floor((randomAngle % 360) / segments);
+                const winningLot = lots[winningSegment];
+                showPopup(`Vous avez gagné : ${winningLot}!`);
+            }, 5000);
+        }
+
+        function showPopup(message) {
+            popup.textContent = message;
+            popup.style.display = "block";
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 4000);
         }
     });
 </script>
 </head>
 <body>
-    <h1>Calendrier de l'Avent Ésotérique - Test de Roulette</h1>
+    <h1>Calendrier de l'Avent Ésotérique - Roue de la Fortune</h1>
     <div class="calendar">
-        <!-- Calendrier avec les jours -->
         <div class="day" data-day="1"><div class="day-number">1</div><div class="day-content">Découverte mystique 1</div></div>
         <div class="day" data-day="2"><div class="day-number">2</div><div class="day-content">Découverte mystique 2</div></div>
         <div class="day" data-day="3"><div class="day-number">3</div><div class="day-content">Découverte mystique 3</div></div>
