@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendrier de l'Avent Ésotérique - Jeu</title>
+<title>Calendrier de l'Avent Ésotérique - Jeu avec Roulette</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -54,6 +54,28 @@
         margin-bottom: 10px;
     }
 
+    .roulette {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        border: 5px solid #e0e0e0;
+        color: #000;
+        background-color: #fff;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: spin 3s ease-out;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(1080deg); } /* Rotation de 3 tours */
+    }
+
     .day-content {
         display: none;
         font-size: 0.9em;
@@ -74,6 +96,9 @@
         const currentDate = new Date();
         const currentDay = currentDate.getDate();
 
+        // Lots possibles (modifiez ici pour les lots)
+        const lots = ["Bijou en pierre de lune", "Carte de tarot personnalisée", "Eau de lune", "Pierre de quartz rose", "Lecture de tarot gratuite"];
+
         days.forEach(day => {
             const dayNumber = day.getAttribute("data-day");
 
@@ -85,14 +110,14 @@
             day.addEventListener("click", function() {
                 if (day.classList.contains("disabled")) return;
 
-                // Tirage aléatoire pour déterminer le gagnant (un seul gagnant par jour)
-                const winner = Math.random() < 0.1; // 10% de chance de gagner
+                // Tirage aléatoire pour déterminer le gagnant (10% de chance de gagner)
+                const winner = Math.random() < 0.1;
                 let message;
 
                 if (winner) {
                     message = "Félicitations ! Vous avez gagné pour le jour " + dayNumber + "!";
-                    // Enregistrer le gagnant dans le stockage local pour ce jour
-                    localStorage.setItem(`day-${currentDay}-winner`, "true");
+                    showRoulette(day); // Afficher la roulette
+                    localStorage.setItem(`day-${currentDay}-winner`, "true"); // Marquer le gagnant du jour
                 } else {
                     message = "Désolé, vous n'avez pas gagné aujourd'hui.";
                 }
@@ -102,11 +127,26 @@
                 localStorage.setItem(`day-${dayNumber}-played`, "true"); // Marquer comme joué
             });
         });
+
+        // Fonction pour afficher la roulette et sélectionner un lot aléatoire
+        function showRoulette(dayElement) {
+            const roulette = document.createElement("div");
+            roulette.classList.add("roulette");
+            roulette.textContent = "Roulette en cours...";
+            document.body.appendChild(roulette);
+
+            // Animation de la roulette avec un délai de 3 secondes pour le résultat
+            setTimeout(() => {
+                const randomLot = lots[Math.floor(Math.random() * lots.length)];
+                roulette.textContent = `Vous avez gagné : ${randomLot}!`;
+                roulette.style.animation = "none"; // Arrêter l'animation après le tirage
+            }, 3000);
+        }
     });
 </script>
 </head>
 <body>
-    <h1>Calendrier de l'Avent Ésotérique - Jeu</h1>
+    <h1>Calendrier de l'Avent Ésotérique - Jeu avec Roulette</h1>
     <div class="calendar">
         <!-- Calendrier avec les jours -->
         <div class="day" data-day="1"><div class="day-number">1</div><div class="day-content">Découverte mystique 1</div></div>
