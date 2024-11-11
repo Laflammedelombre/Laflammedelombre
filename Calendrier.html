@@ -1,243 +1,119 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendrier de l'Avent - La Flamme de l'Ombre</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        nav {
-            margin-bottom: 30px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier de l'Avent Ésotérique</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
+    h1 {
+        font-size: 2em;
+        margin: 20px 0;
+        color: #e0e0e0;
+        font-family: 'Courier New', Courier, monospace;
+        text-shadow: 2px 2px 4px #444;
+    }
 
-        nav ul li {
-            margin: 0 15px;
-        }
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        nav ul li a {
-            color: #f0f0f0;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 10px;
-            transition: background-color 0.3s;
-        }
+    .day {
+        background-color: #222;
+        border-radius: 10px;
+        color: #ddd;
+        padding: 15px;
+        font-size: 1.2em;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-        nav ul li a:hover {
-            background-color: #444;
-            border-radius: 5px;
-        }
+    .day:hover {
+        background-color: #444;
+        transform: scale(1.05);
+    }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #ffcc00;
-        }
+    .day.opened {
+        background-color: #7c4dff;
+        color: #fff;
+        cursor: default;
+    }
 
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
+    .day-number {
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
 
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    .day-content {
+        display: none;
+        font-size: 0.9em;
+        color: #b3e5fc;
+    }
 
-        .day {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            cursor: pointer;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            color: #f0f0f0;
-            overflow: hidden;
-        }
+    .day.opened .day-content {
+        display: block;
+    }
 
-        .day:hover {
-            transform: scale(1.05);
-        }
-
-        .gift {
-            display: none; /* Masquer par défaut */
-            background-color: #222;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            opacity: 0.9;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        .result {
-            font-size: 1em; /* Ajuste la taille du texte */
-            margin: 10px 0;
-            text-align: center; /* Centrer le texte */
-        }
-
-        .reveal-button {
-            background-color: #444;
-            color: #f0f0f0;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 0.9em; /* Taille ajustée */
-            margin-top: 10px;
-        }
-
-        .reveal-button:hover {
-            background-color: #666;
-        }
-
-        /* Animation d'ouverture */
-        @keyframes openDoor {
-            0% { transform: scaleX(1); }
-            100% { transform: scaleX(0); }
-        }
-
-        .door {
-            animation: openDoor 0.5s forwards;
-        }
-
-        /* Responsive design */
-        @media (max-width: 600px) {
-            .calendar {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            p {
-                font-size: 1em;
-            }
-
-            .day {
-                font-size: 1.5em; /* Taille du texte pour mobile */
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Lien de navigation vers les autres pages -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="avis.html">Avis</a></li>
-            <li><a href="carte.html">Carte du jour</a></li>
-            <li><a href="calendrier.html">Calendrier de l'Avent</a></li>
-        </ul>
-    </nav>
-
-    <h1>Calendrier de l'Avent</h1>
-    <p>Découvrez chaque jour un nouveau cadeau à gagner ! Cliquez sur un jour pour révéler le cadeau.</p>
-
-    <div class="calendar">
-        <script>
-            const gifts = [
-                "Cadeau 1: Un Oracle divinatoire",
-                "Cadeau 2: Un chapelet magique en améthyste",
-                "Cadeau 3: Une eau de lune",
-                "Cadeau 4: Un pendentif",
-                "Cadeau 5: Un bon de réduction de 10€",
-                "Cadeau 6: Un bracelet de protection",
-                "Cadeau 7: Une lecture de tarot",
-                "Cadeau 8: Un chapelet magique en obsidienne",
-                "Cadeau 9: Une consultation spirituelle",
-                "Cadeau 10: Un e-book sur la magie",
-                "Cadeau 11: Un set de bougies",
-                "Cadeau 12: Une amulette de chance",
-                "Cadeau 13: Un sachet de sel magique",
-                "Cadeau 14: Une pierre de protection",
-                "Cadeau 15: Un tarot oraculaire",
-                "Cadeau 16: Une lecture d'astrologie",
-                "Cadeau 17: Un pendentif en cristal",
-                "Cadeau 18: Une consultation gratuite",
-                "Cadeau 19: Une eau de lune en format voyage",
-                "Cadeau 20: Un bracelet en pierre naturelle",
-                "Cadeau 21: Un livret sur les rituels de pleine lune",
-                "Cadeau 22: Un chapelet personnalisé",
-                "Cadeau 23: Une bougie parfumée",
-                "Cadeau 24: Un Oracle exclusif"
-            ];
-
-            const days = Array.from({length: 24}, (_, i) => i + 1);
-            days.sort(() => Math.random() - 0.5); // Mélange les jours
-
-            days.forEach(day => {
-                document.write(`
-                    <div class="day" onclick="revealGift(${day - 1}, this)">
-                        ${day}
-                        <div class="gift" id="gift-${day - 1}">
-                            <div class="result" id="result-${day - 1}"></div>
-                            <button class="reveal-button" onclick="openDoor(${day - 1}, this.parentElement.parentElement)">Ouvrir</button>
-                        </div>
-                    </div>
-                `);
-            });
-
-            function revealGift(index, element) {
-                const giftElement = document.getElementById(`gift-${index}`);
-                giftElement.style.display = 'flex'; // Afficher le cadeau
-            }
-
-            function openDoor(index, element) {
-                const resultElement = document.getElementById(`result-${index}`);
-                const gift = gifts[index];
-
-                // Simule le résultat (gagné ou perdu)
-                const isWon = Math.random() < 0.5; // 50% de chance de gagner
-
-                if (isWon) {
-                    resultElement.innerHTML = `Gagné !<br>${gift}`;
-                } else {
-                    resultElement.innerHTML = `Perdu ! Réessayez.`;
+    .day.opened .day-number {
+        display: none;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const days = document.querySelectorAll(".day");
+        days.forEach(day => {
+            day.addEventListener("click", function() {
+                if (!day.classList.contains("opened")) {
+                    day.classList.add("opened");
                 }
-
-                // Ajouter animation de porte
-                element.parentElement.classList.add('door');
-            }
-        </script>
+            });
+        });
+    });
+</script>
+</head>
+<body>
+    <h1>Calendrier de l'Avent Ésotérique</h1>
+    <div class="calendar">
+        <!-- Days of the advent calendar -->
+        <div class="day"><div class="day-number">1</div><div class="day-content">Message mystique pour la première journée</div></div>
+        <div class="day"><div class="day-number">2</div><div class="day-content">Un conseil de tirage de cartes</div></div>
+        <div class="day"><div class="day-number">3</div><div class="day-content">Pierre de la chance : Améthyste</div></div>
+        <div class="day"><div class="day-number">4</div><div class="day-content">Rituel de purification</div></div>
+        <div class="day"><div class="day-number">5</div><div class="day-content">Message lunaire pour le jour</div></div>
+        <div class="day"><div class="day-number">6</div><div class="day-content">Bijou en pierre de lune</div></div>
+        <div class="day"><div class="day-number">7</div><div class="day-content">Conseil d’auto-soin spirituel</div></div>
+        <div class="day"><div class="day-number">8</div><div class="day-content">Offre spéciale sur les accessoires ésotériques</div></div>
+        <div class="day"><div class="day-number">9</div><div class="day-content">Lecture de tarot : 3 cartes</div></div>
+        <div class="day"><div class="day-number">10</div><div class="day-content">Recette d’eau de lune</div></div>
+        <div class="day"><div class="day-number">11</div><div class="day-content">Pierre de la chance : Quartz Rose</div></div>
+        <div class="day"><div class="day-number">12</div><div class="day-content">Message inspirant pour le mois</div></div>
+        <div class="day"><div class="day-number">13</div><div class="day-content">Conseil de méditation guidée</div></div>
+        <div class="day"><div class="day-number">14</div><div class="day-content">Bijou en labradorite</div></div>
+        <div class="day"><div class="day-number">15</div><div class="day-content">Tirage d’une carte spéciale</div></div>
+        <div class="day"><div class="day-number">16</div><div class="day-content">Rituel pour attirer la paix intérieure</div></div>
+        <div class="day"><div class="day-number">17</div><div class="day-content">Pierre de la journée : Citrine</div></div>
+        <div class="day"><div class="day-number">18</div><div class="day-content">Lecture intuitive</div></div>
+        <div class="day"><div class="day-number">19</div><div class="day-content">Mantra de protection</div></div>
+        <div class="day"><div class="day-number">20</div><div class="day-content">Conseil d’ancrage</div></div>
+        <div class="day"><div class="day-number">21</div><div class="day-content">Offre spéciale sur l’eau de lune</div></div>
+        <div class="day"><div class="day-number">22</div><div class="day-content">Pierre de la chance : Obsidienne</div></div>
+        <div class="day"><div class="day-number">23</div><div class="day-content">Conseil de nettoyage énergétique</div></div>
+        <div class="day"><div class="day-number">24</div><div class="day-content">Réflexion pour le solstice d’hiver</div></div>
     </div>
-
 </body>
 </html>
