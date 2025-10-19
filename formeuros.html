@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Flamme de l'Ombre - Question Payante</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header { padding: 20px; }
+        h1 { font-size: 3em; margin: 0.2em 0; }
+        p { font-size: 1.5em; margin-top: 10px; }
+        nav ul {
+            list-style-type: none; padding: 0; margin: 20px 0;
+            display: flex; flex-wrap: wrap; justify-content: center;
+        }
+        nav ul li { margin: 10px 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        nav ul li a:hover { text-decoration: underline; }
+
+        .form-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .form-container h2 { text-align: center; color: #fff; }
+        .info-box {
+            background: #222;
+            border-left: 4px solid #ff4500;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1em;
+        }
+        .form-container label { display: block; margin-top: 10px; font-weight: bold; }
+        .form-container input, .form-container textarea, .form-container select {
+            width: 100%; padding: 10px; margin-top: 5px;
+            border-radius: 6px; border: 1px solid #555;
+            background: #222; color: #fff; box-sizing: border-box;
+        }
+        .form-container button {
+            margin-top: 15px; padding: 12px 18px;
+            border: none; border-radius: 6px;
+            background: #ff4500; color: white; cursor: pointer;
+        }
+        .form-container button:hover { background: #e03e00; }
+        .message { margin-top: 12px; padding: 10px; border-radius: 6px; }
+        .success { background: #e6fff0; border: 1px solid #7ad6a7; color: #055b33; }
+        .error { background: #fff0f0; border: 1px solid #f1a0a0; color: #7a1b1b; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; } p { font-size: 1.2em; }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: 2em; } p { font-size: 1em; }
+            nav ul li { margin: 10px 5px; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>La Flamme de l'Ombre</h1>
+    <p>Cartomancien, créateur</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="products.html">Produits</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="avis.html">Avis</a></li>
+        <li><a href="carte.html">Carte du jour</a></li>
+    </ul>
+</nav>
+
+<div class="form-container">
+    <h2>Pose ta question payante</h2>
+    <div class="info-box">
+        Chaque question payante est à <strong>5 €</strong>.<br>
+        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
+    </div>
+
+    <form id="questionFormPayante" action="https://formspree.io/f/movkbvlr" method="POST">
+        <input type="hidden" name="type_question" value="Question payante">
+
+        <label>Nom *</label>
+        <input type="text" name="nom" required>
+        <label>Prénom *</label>
+        <input type="text" name="prenom" required>
+        <label>Âge *</label>
+        <input type="number" name="age" min="1" required>
+        <label>Email *</label>
+        <input type="email" name="email" placeholder="exemple@domaine.com" required>
+        <label>Nom personne tierce</label>
+        <input type="text" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
+        <label>Prénom personne tierce</label>
+        <input type="text" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
+        <label>Âge personne tierce</label>
+        <input type="number" name="age_tiers" min="1" placeholder="Uniquement si question concerne une autre personne">
+        <label>Question précise *</label>
+        <textarea name="question" required></textarea>
+        <label>Temporalité *</label>
+        <select name="temporalite" required>
+            <option value="">-- Choisissez --</option>
+            <option value="3 mois">Dans les 3 mois</option>
+            <option value="1 an">Dans l'année</option>
+            <option value="année en cours">Dans l’année en cours</option>
+            <option value="2 ans">Dans les 2 ans</option>
+            <option value="3 ans">Dans les 3 ans</option>
+            <option value="non concerné">Non concerné par la temporalité</option>
+        </select>
+
+        <!-- Bouton PayPal -->
+        <div id="paypal-button-container" style="margin-top:20px;"></div>
+        <div id="status"></div>
+    </form>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script> <!-- remplacer sb par ton client-id réel -->
+<script>
+const form = document.getElementById('questionFormPayante');
+const statusDiv = document.getElementById('status');
+
+paypal.Buttons({
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{ amount: { value: '5.00' } }]
+        });
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            // paiement confirmé, envoi formulaire
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusDiv.innerHTML = '<div class="message success">✅ Question payante envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
+                    form.reset();
+                } else {
+                    statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+                }
+            })
+            .catch(() => {
+                statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+            });
+        });
+    }
+}).render('#paypal-button-container');
+</script>
+</body>
+</html>
