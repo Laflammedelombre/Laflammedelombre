@@ -31,7 +31,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         nav ul li { margin: 10px 15px; }
         nav ul li a { color: white; text-decoration: none; font-weight: bold; }
         nav ul li a:hover { text-decoration: underline; }
-        img { width: 80%; max-width: 600px; margin: 20px auto; display: block; }
 
         /* Formulaire */
         .form-container {
@@ -84,12 +83,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         @media (max-width: 768px) {
             h1 { font-size: 2.5em; }
             p { font-size: 1.2em; }
-            img { width: 90%; }
         }
         @media (max-width: 480px) {
             h1 { font-size: 2em; }
             p { font-size: 1em; }
-            img { width: 100%; }
             nav ul li { margin: 10px 5px; }
         }
     </style>
@@ -102,8 +99,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1>La Flamme de l'Ombre</h1>
     <p>Cartomancien, créateur</p>
 </header>
-
-<img src="images/Table.jpeg.jpg" alt="Image de la chaumière">
 
 <nav>
     <ul>
@@ -120,22 +115,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="form-container">
     <h2>Pose ta question</h2>
     <div class="info-box">
-        Les <strong>3 premières questions sont gratuites</strong> 🎁. Ensuite, chaque question est à <strong>5 €</strong>.
+        Les <strong>3 premières questions sont gratuites</strong> 🎁. Ensuite, chaque question est à <strong>5 €</strong>.<br>
+        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
     </div>
     <form id="questionForm" action="https://formspree.io/f/movkbvlr" method="POST">
         <label>Nom *</label>
         <input type="text" name="nom" required>
+
         <label>Prénom *</label>
         <input type="text" name="prenom" required>
+
         <label>Âge *</label>
         <input type="number" name="age" min="1" required>
 
+        <label>Adresse email *</label>
+        <input type="email" name="email" placeholder="exemple@domaine.com" required>
+
         <label>Nom personne tierce</label>
-        <input type="text" name="nom_tiers">
+        <input type="text" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
+
         <label>Prénom personne tierce</label>
-        <input type="text" name="prenom_tiers">
+        <input type="text" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
+
         <label>Âge personne tierce</label>
-        <input type="number" name="age_tiers" min="1">
+        <input type="number" name="age_tiers" min="1" placeholder="Uniquement si question concerne une autre personne">
 
         <label>Question précise *</label>
         <textarea name="question" required></textarea>
@@ -167,11 +170,14 @@ form.addEventListener('submit', function(event) {
 
     fetch(actionUrl, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
     })
     .then(response => {
         if (response.ok) {
-            statusDiv.innerHTML = '<div class="message success">✅ Votre question a été envoyée avec succès !</div>';
+            statusDiv.innerHTML = '<div class="message success">✅ Question envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
             form.reset();
         } else {
             statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
