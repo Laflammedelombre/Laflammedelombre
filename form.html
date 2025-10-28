@@ -2,77 +2,131 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Exemple de Bouton Tips</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture de Cartes - Soutien</title>
+
     <style>
+        /* CSS GENERAL & MESSAGE DE SENSIBILISATION (SIMULÉ) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .main-content {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Message de Sensibilisation (Usage Responsable) */
+        .disclaimer-message {
+            background-color: #fffbe6; /* Couleur jaune très pâle */
+            border-left: 5px solid #ffcc00;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+            color: #666;
+            border-radius: 4px;
+        }
+
+        .disclaimer-message strong {
+            color: #444;
+        }
+
+        /* ------------------------------------------- */
+        /* CSS DU BOUTON DE TIPS (Subtil et Discret) */
+        /* ------------------------------------------- */
+
         /* Section de soutien générale */
         .support-section {
             text-align: center; /* Centre le texte et le bouton */
-            margin-top: 30px; /* Espace au-dessus de la section */
-            padding: 15px;
+            margin-top: 50px; /* Espace au-dessus de la section */
+            padding: 20px;
             background-color: #f9f9f9; /* Un fond très léger pour délimiter discrètement */
             border-top: 1px solid #eee; /* Petite ligne discrète au-dessus */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police douce */
             color: #666; /* Couleur de texte douce */
-            font-size: 0.9em; /* Texte légèrement plus petit que le corps principal */
+            font-size: 0.85em; /* Texte petit, très discret */
+            border-radius: 0 0 8px 8px; /* Arrondi les coins inférieurs de la section */
+            margin: -30px -30px 0 -30px; /* Colle la section au bas du .main-content */
         }
 
         /* Texte d'explication du soutien */
         .support-text {
-            margin-bottom: 15px; /* Espace entre le texte et le bouton */
-            line-height: 1.5;
+            margin-bottom: 12px; /* Espace entre le texte et le bouton */
+            line-height: 1.4;
         }
 
         /* Astérisque pour la discrétion */
         .asterisk {
             vertical-align: super; /* Met l'astérisque légèrement en exposant */
-            font-size: 0.7em; /* Rendre l'astérisque très petit */
+            font-size: 0.7em; 
             margin-right: 2px;
         }
 
         /* Mettre en valeur le mot 'Tips' */
         .highlight {
             font-weight: bold;
-            color: #444; /* Un peu plus sombre */
+            color: #444; 
         }
 
         /* Style du bouton PayPal */
         .paypal-button {
-            display: inline-block; /* Pour que les marges/padding fonctionnent bien */
-            padding: 10px 20px;
+            display: inline-block; 
+            padding: 8px 18px; /* Rendre le bouton légèrement plus petit */
             background-color: #0070ba; /* Bleu PayPal classique */
-            color: white; /* Texte blanc */
-            text-decoration: none; /* Enlève le soulignement par défaut des liens */
-            border-radius: 20px; /* Bords arrondis pour un look doux */
+            color: white; 
+            text-decoration: none; 
+            border-radius: 20px; 
             font-weight: bold;
-            font-size: 1em;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation douce au survol */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère pour donner du relief */
-            border: none; /* Pas de bordure par défaut */
-            cursor: pointer; /* Indique que c'est cliquable */
+            font-size: 0.9em; /* Police de bouton discrète */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            border: none;
+            cursor: pointer;
         }
 
         .paypal-button:hover {
-            background-color: #005ea6; /* Bleu plus foncé au survol */
-            transform: translateY(-1px); /* Effet léger de "pop" */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Ombre un peu plus prononcée */
+            background-color: #005ea6; 
+            transform: translateY(-1px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
         }
 
         .paypal-button:active {
-            background-color: #004d8c; /* Bleu encore plus foncé au clic */
-            transform: translateY(0); /* Retour à la position normale */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère */
+            background-color: #004d8c; 
+            transform: translateY(0); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
         }
     </style>
 </head>
 <body>
 
-    <div class="support-section">
-        <p class="support-text">
-            <span class="asterisk">*</span> Ce service vous est utile ? Si vous le souhaitez et le pouvez, vous pouvez me soutenir par un petit <span class="highlight">Tips</span> (montant libre, aucun minimum requis) via le bouton ci-dessous. Merci infiniment !
-        </p>
-        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">
-            Faire un Tips
-        </a>
+    <div class="main-content">
+        <h2>🔮 Votre Lecture de Cartes</h2>
+        
+        <p>Ceci est la réponse à votre première question...</p>
+        <p>Ceci est la réponse à votre deuxième question...</p>
+        <div class="disclaimer-message">
+            **✨ Conseil de lecture :** Ces consultations vous sont offertes. Cependant, il est essentiel de se rappeler que la **précision des cartes** et la **clarté du message** peuvent s'estomper si l'on en abuse. Pour que chaque lecture garde tout son sens et sa puissance, nous vous encourageons à l'utiliser avec intention et non par habitude.
+        </div>
+        
+        <p>Ceci est la réponse à votre dernière question posée.</p>
+
+        <div class="support-section">
+            <p class="support-text">
+                <span class="asterisk">*</span> Ce service vous est utile ? Si vous le souhaitez et le pouvez, vous pouvez me soutenir par un petit <span class="highlight">Tips</span> (montant libre, aucun minimum requis) via le bouton ci-dessous. Merci infiniment !
+            </p>
+            <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">
+                Faire un Tips
+            </a>
+        </div>
+        
     </div>
-    </body>
+
+</body>
 </html>
