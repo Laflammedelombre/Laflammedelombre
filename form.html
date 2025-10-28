@@ -316,7 +316,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const SENDING_DELAY = 500; // 0.5 seconde pour l'animation 'Envoi en cours...'
 
     /**
-     * Calcule l'âge à partir d'une date de naissance (Corrigé).
+     * Calcule l'âge à partir d'une date de naissance (Corrigé pour la précision).
      */
     function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
         const dateInput = document.getElementById(dateInputId);
@@ -331,18 +331,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return;
         }
 
-        const birthDate = new Date(birthDateValue);
         const today = new Date();
+        const birthDate = new Date(birthDateValue);
         
-        // Calcul précis de l'âge
+        // Correction de la méthode de calcul de l'âge
         let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
+        const m = today.getMonth() - birthDate.getMonth();
 
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        // Ajuste si l'anniversaire n'est pas encore passé cette année/mois
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
         
-        // Sécurité pour les âges négatifs (date dans le futur)
         if (age < 0) {
             age = 0;
         }
@@ -367,7 +367,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         let firstErrorField = null;
 
         requiredFields.forEach(field => {
-            // Pour les inputs de type date, on vérifie aussi qu'une date valide est sélectionnée
             const isDateValid = field.type === 'date' ? field.value && !isNaN(new Date(field.value)) : true;
 
             if (!field.value.trim() || !isDateValid) {
@@ -406,8 +405,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return; 
         }
         
-        // 1. Afficher l'état "Envoi en cours" avec le sablier (Fa-hourglass-start)
-        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours...</div>';
+        // 1. Afficher l'état "Envoi en cours"
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours... Veuillez patienter.</div>';
         
         const formData = new FormData(form);
         const actionUrl = form.action;
@@ -423,9 +424,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             })
             .then(response => {
                 if (response.ok) {
-                    // Pop-up de succès
-                    alert('Demande envoyée ! La Flamme reviendra vers vous au plus vite par email.');
-                    
                     // Message de succès stylisé
                     statusDiv.innerHTML = '<div class="status-message success">✅ Demande envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
                     
@@ -438,19 +436,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     document.getElementById('age_tiers').value = '';
 
                 } else {
-                    // Pop-up d'erreur
-                    alert("❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
-                    
-                    // Message d'erreur stylisé
-                    statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+                    // Message d'erreur stylisé (vérifie si Formspree renvoie des erreurs spécifiques)
+                    response.json().then(data => {
+                        const errorMessage = data.error || "Une erreur est survenue lors de l'envoi (serveur Formspree).";
+                        statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
+                    }).catch(() => {
+                        statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue (Réponse serveur inconnue). Veuillez réessayer.</div>';
+                    });
                 }
             })
-            .catch(() => {
-                // Pop-up d'erreur de connexion
-                alert("❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.");
-                
-                // Message d'erreur stylisé
-                statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+            .catch(error => {
+                // Erreur de connexion (réseau)
+                console.error('Network Error:', error);
+                statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
+            })
+            .finally(() => {
+                // Rétablit le bouton quelle que soit l'issue (réussi ou échoué)
+                submitButton.disabled = false;
             });
         }, SENDING_DELAY); // Délai d'attente pour l'animation
     });
