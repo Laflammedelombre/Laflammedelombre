@@ -89,11 +89,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             margin-top: 15px; 
             font-weight: bold;
         }
+        /* Styles pour tous les champs d'entrée */
         .form-container input, .form-container textarea, .form-container select {
             width: 100%; padding: 10px; margin-top: 5px;
             border-radius: 6px; border: 1px solid #555;
             background: #222; color: #fff; box-sizing: border-box;
+            transition: border 0.3s ease;
         }
+        /* Style pour champ en erreur (validé par JS) */
+        .form-container .input-error {
+            border: 1px solid #ff6666 !important; /* Bordure rouge */
+        }
+        /* Style spécifique pour le conteneur de date de naissance pour alignement */
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .date-input-group input[type="date"] {
+            flex-grow: 1;
+            width: auto; /* Annule le width: 100% ci-dessus */
+        }
+        .age-display {
+            font-weight: normal;
+            font-size: 0.9em;
+            color: #aaa;
+            white-space: nowrap;
+        }
+
+
         .form-container button[type="submit"] { 
             margin-top: 25px;
             padding: 12px 18px;
@@ -105,14 +129,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             transition: background 0.3s;
         }
         .form-container button[type="submit"]:hover { background: #0056b3; }
-        .message {
+        
+        /* Messages de validation (Affichés via JS) */
+        .status-message {
             margin-top: 12px;
             padding: 10px;
             border-radius: 6px;
             text-align: center;
+            font-weight: bold;
         }
-        .success { background: #3c5244; border: 1px solid #7ad6a7; color: #d4edda; }
-        .error { background: #5c3434; border: 1px solid #f1a0a0; color: #f8d7da; }
+        .success { 
+            background: #3c5244; 
+            border: 1px solid #7ad6a7; 
+            color: #d4edda; 
+        }
+        .error { 
+            background: #5c3434; 
+            border: 1px solid #f1a0a0; 
+            color: #f8d7da; 
+        }
 
         /* Styles du bouton de Tips (Soutien) - Discret */
         .support-section {
@@ -173,6 +208,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             h1 { font-size: 2em; }
             p { font-size: 1em; }
             nav ul li { margin: 10px 5px; }
+            .date-input-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .age-display {
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
@@ -208,32 +250,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     
     <form id="questionForm" action="https://formspree.io/f/movkbvlr" method="POST">
-        <label>Nom *</label>
-        <input type="text" name="nom" required>
+        
+        <label for="nom">Nom *</label>
+        <input type="text" id="nom" name="nom" required>
 
-        <label>Prénom *</label>
-        <input type="text" name="prenom" required>
+        <label for="prenom">Prénom *</label>
+        <input type="text" id="prenom" name="prenom" required>
 
-        <label>Âge *</label>
-        <input type="number" name="age" min="1" required>
+        <label for="date_naissance">Date de naissance *</label>
+        <div class="date-input-group">
+            <input type="date" id="date_naissance" name="date_naissance" required onchange="calculateAge('date_naissance', 'age_display', 'age_hidden')">
+            <span id="age_display" class="age-display">Âge : --</span>
+        </div>
+        <input type="hidden" id="age_hidden" name="age_client">
+        
+        <label for="email">Adresse email *</label>
+        <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
 
-        <label>Adresse email *</label>
-        <input type="email" name="email" placeholder="exemple@domaine.com" required>
+        <label for="nom_tiers">Nom personne tierce</label>
+        <input type="text" id="nom_tiers" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
 
-        <label>Nom personne tierce</label>
-        <input type="text" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
+        <label for="prenom_tiers">Prénom personne tierce</label>
+        <input type="text" id="prenom_tiers" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
 
-        <label>Prénom personne tierce</label>
-        <input type="text" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
+        <label for="date_naissance_tiers">Date de naissance personne tierce</label>
+        <div class="date-input-group">
+            <input type="date" id="date_naissance_tiers" name="date_naissance_tiers" onchange="calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_hidden_tiers')">
+            <span id="age_display_tiers" class="age-display">Âge : --</span>
+        </div>
+        <input type="hidden" id="age_hidden_tiers" name="age_tiers">
 
-        <label>Âge personne tierce</label>
-        <input type="number" name="age_tiers" min="1" placeholder="Uniquement si question concerne une autre personne">
 
-        <label>Question précise *</label>
-        <textarea name="question" required></textarea>
+        <label for="question">Question précise *</label>
+        <textarea id="question" name="question" required></textarea>
 
-        <label>Temporalité *</label>
-        <select name="temporalite" required>
+        <label for="temporalite">Temporalité *</label>
+        <select id="temporalite" name="temporalite" required>
             <option value="">-- Choisissez --</option>
             <option value="3 mois">Dans les 3 mois</option>
             <option value="1 an">Dans l'année</option>
@@ -259,33 +311,132 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-const form = document.getElementById('questionForm');
-const statusDiv = document.getElementById('status');
+    const form = document.getElementById('questionForm');
+    const statusDiv = document.getElementById('status');
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const actionUrl = form.action;
+    /**
+     * Calcule l'âge à partir d'une date de naissance.
+     * @param {string} dateInputId - L'ID de l'input type="date" (e.g., 'date_naissance').
+     * @param {string} ageDisplayId - L'ID de l'élément <span> où afficher l'âge (e.g., 'age_display').
+     * @param {string} ageHiddenId - L'ID du champ input hidden où stocker l'âge (e.g., 'age_hidden').
+     */
+    function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
+        const dateInput = document.getElementById(dateInputId);
+        const ageDisplay = document.getElementById(ageDisplayId);
+        const ageHidden = document.getElementById(ageHiddenId);
+        
+        const birthDate = new Date(dateInput.value);
+        
+        if (isNaN(birthDate) || dateInput.value === "") {
+            ageDisplay.textContent = 'Âge : --';
+            ageHidden.value = '';
+            return;
+        }
 
-    fetch(actionUrl, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+
+        // Ajuster si l'anniversaire n'est pas encore passé cette année
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
         }
-    })
-    .then(response => {
-        if (response.ok) {
-            statusDiv.innerHTML = '<div class="message success">✅ Question envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
-            form.reset();
-        } else {
-            statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+
+        ageDisplay.textContent = `Âge : ${age} ans`;
+        ageHidden.value = age; // Stocke l'âge dans le champ masqué pour l'envoi par email
+    }
+
+    /**
+     * Valide les champs requis du formulaire.
+     * @returns {boolean} - Vrai si tous les champs requis sont remplis, Faux sinon.
+     */
+    function validateForm() {
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('[required]');
+
+        // Réinitialiser les styles d'erreur
+        requiredFields.forEach(field => {
+            field.classList.remove('input-error');
+        });
+        statusDiv.innerHTML = '';
+
+        let firstErrorField = null;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('input-error');
+                isValid = false;
+                if (!firstErrorField) {
+                    firstErrorField = field;
+                }
+            }
+        });
+
+        if (!isValid) {
+            statusDiv.innerHTML = '<div class="status-message error">❌ Vérifiez les champs obligatoires (marqués en rouge).</div>';
+            
+            // Focus sur le premier champ en erreur
+            if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstErrorField.focus();
+            }
         }
-    })
-    .catch(() => {
-        statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+
+        return isValid;
+    }
+
+    // Attacher la fonction de calcul de l'âge au chargement de la page et aux changements
+    document.addEventListener('DOMContentLoaded', () => {
+        calculateAge('date_naissance', 'age_display', 'age_hidden');
+        calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_hidden_tiers');
     });
-});
+
+
+    // Gestion de la soumission du formulaire
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche l'envoi par défaut
+
+        if (!validateForm()) {
+            return; // Arrête la soumission si la validation échoue
+        }
+        
+        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours...</div>';
+        
+        const formData = new FormData(form);
+        const actionUrl = form.action;
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Affichage du pop-up de succès et du message stylisé
+                alert('Demande envoyée ! La Flamme reviendra vers vous dès que possible par email.');
+                statusDiv.innerHTML = '<div class="status-message success">✅ Demande envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
+                form.reset();
+                
+                // Réinitialiser l'affichage de l'âge après le reset du formulaire
+                document.getElementById('age_display').textContent = 'Âge : --';
+                document.getElementById('age_display_tiers').textContent = 'Âge : --';
+                document.getElementById('age_hidden').value = '';
+                document.getElementById('age_hidden_tiers').value = '';
+
+            } else {
+                // Affichage du pop-up d'erreur et du message stylisé
+                alert("❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+                statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+            }
+        })
+        .catch(() => {
+            // Affichage du pop-up d'erreur et du message stylisé
+            alert("❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.");
+            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+        });
+    });
 </script>
 
 </body>
