@@ -148,6 +148,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border: 1px solid #f1a0a0; 
             color: #f8d7da; 
         }
+        /* Style simple pour l'attente, SANS sablier */
+        .sending {
+            background: #2a3e5c;
+            border: 1px solid #5c7fbf;
+            color: #c9e6ff;
+        }
 
         /* Styles du bouton de Tips (Soutien) - Discret */
         .support-section {
@@ -314,6 +320,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
+    const SUCCESS_MESSAGE = '✅ Votre demande a été envoyée. La Flamme de l\'Ombre procédera au tirage et vous recontactera par email dans les plus brefs délais.';
 
     /**
      * Calcule l'âge à partir d'une date de naissance (Corrigé pour la précision).
@@ -406,9 +413,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         
-        // **********************************************
-        // PAS DE MESSAGE "ENVOI EN COURS" - PAS DE SABLIER
-        // **********************************************
+        // AFFICHAGE DU MESSAGE DE SUCCÈS IMMÉDIAT
+        statusDiv.innerHTML = `<div class="status-message success">${SUCCESS_MESSAGE}</div>`;
         
         const formData = new FormData(form);
         const actionUrl = form.action;
@@ -422,9 +428,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         })
         .then(response => {
             if (response.ok) {
-                // Succès : Affiche le message de confirmation
-                statusDiv.innerHTML = '<div class="status-message success">✅ Votre demande a été envoyée. La Flamme vous recontactera par email dans les plus brefs délais.</div>';
-                
+                // Succès : Le message est déjà affiché, on vide juste le formulaire
                 form.reset();
                 
                 // Réinitialiser l'affichage de l'âge après le reset
@@ -434,7 +438,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 document.getElementById('age_tiers').value = '';
 
             } else {
-                // Erreur : Tente de récupérer le message d'erreur de Formspree
+                // Échec : On remplace le message de succès par l'erreur.
                 response.json().then(data => {
                     const errorMessage = data.error || "Une erreur est survenue lors de l'envoi (serveur Formspree).";
                     statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
@@ -444,12 +448,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         })
         .catch(error => {
-            // Erreur de connexion (réseau)
+            // Échec réseau : On remplace le message de succès par l'erreur.
             console.error('Network Error:', error);
             statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
         })
         .finally(() => {
-            // Rétablit le bouton
+            // Rétablit le bouton, quel que soit le résultat
             submitButton.disabled = false;
         });
     });
