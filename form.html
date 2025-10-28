@@ -406,8 +406,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         
-        // Affiche immédiatement l'état de soumission
-        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours...</div>';
+        // **********************************************
+        // PAS DE MESSAGE "ENVOI EN COURS" - PAS DE SABLIER
+        // **********************************************
         
         const formData = new FormData(form);
         const actionUrl = form.action;
@@ -421,7 +422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         })
         .then(response => {
             if (response.ok) {
-                // Succès immédiat : Affiche le message de confirmation
+                // Succès : Affiche le message de confirmation
                 statusDiv.innerHTML = '<div class="status-message success">✅ Votre demande a été envoyée. La Flamme vous recontactera par email dans les plus brefs délais.</div>';
                 
                 form.reset();
@@ -448,7 +449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
         })
         .finally(() => {
-            // Rétablit le bouton quelle que soit l'issue (réussi ou échoué)
+            // Rétablit le bouton
             submitButton.disabled = false;
         });
     });
