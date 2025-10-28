@@ -1,193 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre</title>
+    <title>Exemple de Bouton Tips</title>
     <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+        /* Section de soutien générale */
+        .support-section {
+            text-align: center; /* Centre le texte et le bouton */
+            margin-top: 30px; /* Espace au-dessus de la section */
+            padding: 15px;
+            background-color: #f9f9f9; /* Un fond très léger pour délimiter discrètement */
+            border-top: 1px solid #eee; /* Petite ligne discrète au-dessus */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police douce */
+            color: #666; /* Couleur de texte douce */
+            font-size: 0.9em; /* Texte légèrement plus petit que le corps principal */
         }
-        header { padding: 20px; }
-        h1 { font-size: 3em; margin: 0.2em 0; }
-        p { font-size: 1.5em; margin-top: 10px; }
-        nav ul {
-            list-style-type: none; padding: 0; margin: 20px 0;
-            display: flex; flex-wrap: wrap; justify-content: center;
-        }
-        nav ul li { margin: 10px 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
-        nav ul li a:hover { text-decoration: underline; }
 
-        /* Formulaire */
-        .form-container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #111;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: left;
+        /* Texte d'explication du soutien */
+        .support-text {
+            margin-bottom: 15px; /* Espace entre le texte et le bouton */
+            line-height: 1.5;
         }
-        .form-container h2 {
-            text-align: center;
-            color: #fff;
+
+        /* Astérisque pour la discrétion */
+        .asterisk {
+            vertical-align: super; /* Met l'astérisque légèrement en exposant */
+            font-size: 0.7em; /* Rendre l'astérisque très petit */
+            margin-right: 2px;
         }
-        .info-box {
-            background: #222;
-            border-left: 4px solid #007bff;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 1em;
-        }
-        .form-container label {
-            display: block;
-            margin-top: 10px;
+
+        /* Mettre en valeur le mot 'Tips' */
+        .highlight {
             font-weight: bold;
+            color: #444; /* Un peu plus sombre */
         }
-        .form-container input, .form-container textarea, .form-container select {
-            width: 100%; padding: 10px; margin-top: 5px;
-            border-radius: 6px; border: 1px solid #555;
-            background: #222; color: #fff; box-sizing: border-box;
-        }
-        .form-container button {
-            margin-top: 15px;
-            padding: 12px 18px;
-            border: none; border-radius: 6px;
-            background: #007bff; color: white; cursor: pointer;
-        }
-        .form-container button:hover { background: #0056b3; }
-        .message {
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 6px;
-        }
-        .success { background: #e6fff0; border: 1px solid #7ad6a7; color: #055b33; }
-        .error { background: #fff0f0; border: 1px solid #f1a0a0; color: #7a1b1b; }
 
-        /* Media queries */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            p { font-size: 1.2em; }
+        /* Style du bouton PayPal */
+        .paypal-button {
+            display: inline-block; /* Pour que les marges/padding fonctionnent bien */
+            padding: 10px 20px;
+            background-color: #0070ba; /* Bleu PayPal classique */
+            color: white; /* Texte blanc */
+            text-decoration: none; /* Enlève le soulignement par défaut des liens */
+            border-radius: 20px; /* Bords arrondis pour un look doux */
+            font-weight: bold;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation douce au survol */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère pour donner du relief */
+            border: none; /* Pas de bordure par défaut */
+            cursor: pointer; /* Indique que c'est cliquable */
         }
-        @media (max-width: 480px) {
-            h1 { font-size: 2em; }
-            p { font-size: 1em; }
-            nav ul li { margin: 10px 5px; }
+
+        .paypal-button:hover {
+            background-color: #005ea6; /* Bleu plus foncé au survol */
+            transform: translateY(-1px); /* Effet léger de "pop" */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Ombre un peu plus prononcée */
+        }
+
+        .paypal-button:active {
+            background-color: #004d8c; /* Bleu encore plus foncé au clic */
+            transform: translateY(0); /* Retour à la position normale */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère */
         }
     </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header>
-    <h1>La Flamme de l'Ombre</h1>
-    <p>Cartomancien, créateur</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="products.html">Produits</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="avis.html">Avis</a></li>
-        <li><a href="carte.html">Carte du jour</a></li>
-    </ul>
-</nav>
-
-<!-- Formulaire -->
-<div class="form-container">
-    <h2>Pose ta question</h2>
-    <div class="info-box">
-        Les <strong>3 premières questions sont gratuites</strong> 🎁. Ensuite, chaque question est à <strong>5 €</strong>.<br>
-        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
+    <div class="support-section">
+        <p class="support-text">
+            <span class="asterisk">*</span> Ce service vous est utile ? Si vous le souhaitez et le pouvez, vous pouvez me soutenir par un petit <span class="highlight">Tips</span> (montant libre, aucun minimum requis) via le bouton ci-dessous. Merci infiniment !
+        </p>
+        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">
+            Faire un Tips
+        </a>
     </div>
-    <form id="questionForm" action="https://formspree.io/f/movkbvlr" method="POST">
-        <label>Nom *</label>
-        <input type="text" name="nom" required>
-
-        <label>Prénom *</label>
-        <input type="text" name="prenom" required>
-
-        <label>Âge *</label>
-        <input type="number" name="age" min="1" required>
-
-        <label>Adresse email *</label>
-        <input type="email" name="email" placeholder="exemple@domaine.com" required>
-
-        <label>Nom personne tierce</label>
-        <input type="text" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
-
-        <label>Prénom personne tierce</label>
-        <input type="text" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
-
-        <label>Âge personne tierce</label>
-        <input type="number" name="age_tiers" min="1" placeholder="Uniquement si question concerne une autre personne">
-
-        <label>Question précise *</label>
-        <textarea name="question" required></textarea>
-
-        <label>Temporalité *</label>
-        <select name="temporalite" required>
-            <option value="">-- Choisissez --</option>
-            <option value="3 mois">Dans les 3 mois</option>
-            <option value="1 an">Dans l'année</option>
-            <option value="année en cours">Dans l’année en cours</option>
-            <option value="2 ans">Dans les 2 ans</option>
-            <option value="3 ans">Dans les 3 ans</option>
-            <option value="non concerné">Non concerné par la temporalité</option>
-        </select>
-
-        <button type="submit">Envoyer la question</button>
-    </form>
-    <div id="status"></div>
-</div>
-
-<script>
-const form = document.getElementById('questionForm');
-const statusDiv = document.getElementById('status');
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const actionUrl = form.action;
-
-    fetch(actionUrl, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            statusDiv.innerHTML = '<div class="message success">✅ Question envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
-            form.reset();
-        } else {
-            statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
-        }
-    })
-    .catch(() => {
-        statusDiv.innerHTML = '<div class="message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
-    });
-});
-</script>
-
-</body>
+    </body>
 </html>
