@@ -35,11 +35,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         /* Image */
         .page-image {
-            width: 80%; /* Ajuste la taille de l'image */
+            width: 80%; 
             max-width: 600px;
-            margin: 20px auto 40px auto; /* Marge supérieure et inférieure */
+            margin: 20px auto 40px auto; 
             display: block;
-            border-radius: 8px; /* Ajout d'un léger arrondi pour l'esthétique */
+            border-radius: 8px; 
         }
 
         /* Formulaire */
@@ -108,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .date-input-group input[type="date"] {
             flex-grow: 1;
-            width: auto; /* Annule le width: 100% ci-dessus */
+            width: auto; 
         }
         .age-display {
             font-weight: normal;
@@ -259,10 +259,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <label for="date_naissance">Date de naissance *</label>
         <div class="date-input-group">
-            <input type="date" id="date_naissance" name="date_naissance" required onchange="calculateAge('date_naissance', 'age_display', 'age_hidden')">
+            <input type="date" id="date_naissance" name="date_naissance" required onchange="calculateAge('date_naissance', 'age_display', 'age_client')">
             <span id="age_display" class="age-display">Âge : --</span>
         </div>
-        <input type="hidden" id="age_hidden" name="age_client">
+        <input type="hidden" id="age_client" name="age_client">
         
         <label for="email">Adresse email *</label>
         <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
@@ -275,10 +275,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <label for="date_naissance_tiers">Date de naissance personne tierce</label>
         <div class="date-input-group">
-            <input type="date" id="date_naissance_tiers" name="date_naissance_tiers" onchange="calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_hidden_tiers')">
+            <input type="date" id="date_naissance_tiers" name="date_naissance_tiers" onchange="calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers')">
             <span id="age_display_tiers" class="age-display">Âge : --</span>
         </div>
-        <input type="hidden" id="age_hidden_tiers" name="age_tiers">
+        <input type="hidden" id="age_tiers" name="age_tiers">
 
 
         <label for="question">Question précise *</label>
@@ -313,33 +313,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
+    const SENDING_DELAY = 500; // 0.5 seconde pour l'animation 'Envoi en cours...'
 
     /**
-     * Calcule l'âge à partir d'une date de naissance.
-     * @param {string} dateInputId - L'ID de l'input type="date" (e.g., 'date_naissance').
-     * @param {string} ageDisplayId - L'ID de l'élément <span> où afficher l'âge (e.g., 'age_display').
-     * @param {string} ageHiddenId - L'ID du champ input hidden où stocker l'âge (e.g., 'age_hidden').
+     * Calcule l'âge à partir d'une date de naissance (Corrigé).
      */
     function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
         const dateInput = document.getElementById(dateInputId);
         const ageDisplay = document.getElementById(ageDisplayId);
         const ageHidden = document.getElementById(ageHiddenId);
         
-        const birthDate = new Date(dateInput.value);
+        const birthDateValue = dateInput.value;
         
-        if (isNaN(birthDate) || dateInput.value === "") {
+        if (!birthDateValue) {
             ageDisplay.textContent = 'Âge : --';
             ageHidden.value = '';
             return;
         }
 
+        const birthDate = new Date(birthDateValue);
         const today = new Date();
+        
+        // Calcul précis de l'âge
         let age = today.getFullYear() - birthDate.getFullYear();
         const monthDifference = today.getMonth() - birthDate.getMonth();
 
-        // Ajuster si l'anniversaire n'est pas encore passé cette année
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
             age--;
+        }
+        
+        // Sécurité pour les âges négatifs (date dans le futur)
+        if (age < 0) {
+            age = 0;
         }
 
         ageDisplay.textContent = `Âge : ${age} ans`;
@@ -348,12 +353,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /**
      * Valide les champs requis du formulaire.
-     * @returns {boolean} - Vrai si tous les champs requis sont remplis, Faux sinon.
      */
     function validateForm() {
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
-
+        
         // Réinitialiser les styles d'erreur
         requiredFields.forEach(field => {
             field.classList.remove('input-error');
@@ -363,7 +367,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         let firstErrorField = null;
 
         requiredFields.forEach(field => {
-            if (!field.value.trim()) {
+            // Pour les inputs de type date, on vérifie aussi qu'une date valide est sélectionnée
+            const isDateValid = field.type === 'date' ? field.value && !isNaN(new Date(field.value)) : true;
+
+            if (!field.value.trim() || !isDateValid) {
                 field.classList.add('input-error');
                 isValid = false;
                 if (!firstErrorField) {
@@ -375,7 +382,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (!isValid) {
             statusDiv.innerHTML = '<div class="status-message error">❌ Vérifiez les champs obligatoires (marqués en rouge).</div>';
             
-            // Focus sur le premier champ en erreur
             if (firstErrorField) {
                 firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 firstErrorField.focus();
@@ -387,55 +393,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     // Attacher la fonction de calcul de l'âge au chargement de la page et aux changements
     document.addEventListener('DOMContentLoaded', () => {
-        calculateAge('date_naissance', 'age_display', 'age_hidden');
-        calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_hidden_tiers');
+        calculateAge('date_naissance', 'age_display', 'age_client');
+        calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
     });
 
 
     // Gestion de la soumission du formulaire
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche l'envoi par défaut
+        event.preventDefault(); 
 
         if (!validateForm()) {
-            return; // Arrête la soumission si la validation échoue
+            return; 
         }
         
+        // 1. Afficher l'état "Envoi en cours" avec le sablier (Fa-hourglass-start)
         statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours...</div>';
         
         const formData = new FormData(form);
         const actionUrl = form.action;
 
-        fetch(actionUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Affichage du pop-up de succès et du message stylisé
-                alert('Demande envoyée ! La Flamme reviendra vers vous dès que possible par email.');
-                statusDiv.innerHTML = '<div class="status-message success">✅ Demande envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
-                form.reset();
-                
-                // Réinitialiser l'affichage de l'âge après le reset du formulaire
-                document.getElementById('age_display').textContent = 'Âge : --';
-                document.getElementById('age_display_tiers').textContent = 'Âge : --';
-                document.getElementById('age_hidden').value = '';
-                document.getElementById('age_hidden_tiers').value = '';
+        // 2. Début du Fetch APRES un court délai pour l'animation
+        setTimeout(() => {
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Pop-up de succès
+                    alert('Demande envoyée ! La Flamme reviendra vers vous au plus vite par email.');
+                    
+                    // Message de succès stylisé
+                    statusDiv.innerHTML = '<div class="status-message success">✅ Demande envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
+                    
+                    form.reset();
+                    
+                    // Réinitialiser l'affichage de l'âge après le reset
+                    document.getElementById('age_display').textContent = 'Âge : --';
+                    document.getElementById('age_display_tiers').textContent = 'Âge : --';
+                    document.getElementById('age_client').value = '';
+                    document.getElementById('age_tiers').value = '';
 
-            } else {
-                // Affichage du pop-up d'erreur et du message stylisé
-                alert("❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+                } else {
+                    // Pop-up d'erreur
+                    alert("❌ Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+                    
+                    // Message d'erreur stylisé
+                    statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
+                }
+            })
+            .catch(() => {
+                // Pop-up d'erreur de connexion
+                alert("❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.");
+                
+                // Message d'erreur stylisé
                 statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
-            }
-        })
-        .catch(() => {
-            // Affichage du pop-up d'erreur et du message stylisé
-            alert("❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.");
-            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue. Veuillez réessayer.</div>';
-        });
+            });
+        }, SENDING_DELAY); // Délai d'attente pour l'animation
     });
 </script>
 
