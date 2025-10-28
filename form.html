@@ -36,14 +36,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             max-width: 700px;
             margin: 40px auto;
             background: #111;
-            padding: 20px 30px; /* Ajout d'un peu de padding horizontal */
+            padding: 20px 30px; 
             border-radius: 10px;
             text-align: left;
         }
         .form-container h2 {
             text-align: center;
             color: #fff;
-            margin-bottom: 25px; /* Espace après le titre */
+            margin-bottom: 25px; 
+        }
+        
+        /* Message d'info standard (pour la personne tierce) */
+        .info-box {
+            background: #222;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1em;
+            text-align: center; /* Centré pour la mise en page */
         }
         
         /* Styles pour le nouveau message de sensibilisation */
@@ -63,7 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         .form-container label {
             display: block;
-            margin-top: 15px; /* Augmenté pour la clarté */
+            margin-top: 15px; 
             font-weight: bold;
         }
         .form-container input, .form-container textarea, .form-container select {
@@ -71,7 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border-radius: 6px; border: 1px solid #555;
             background: #222; color: #fff; box-sizing: border-box;
         }
-        .form-container button[type="submit"] { /* Spécifié pour le bouton d'envoi */
+        .form-container button[type="submit"] { 
             margin-top: 25px;
             padding: 12px 18px;
             border: none; border-radius: 6px;
@@ -93,12 +105,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             text-align: center;
             margin-top: 40px;
             padding: 15px;
-            background-color: #151515; /* Fond très sombre */
-            border-top: 1px solid #333; /* Ligne de séparation discrète */
-            color: #aaa; /* Texte gris clair */
-            font-size: 0.85em; /* Texte très petit */
-            border-radius: 0 0 10px 10px; /* Arrondi seulement en bas */
-            margin: 40px -30px -30px -30px; /* Coller au bas du form-container */
+            background-color: #151515; 
+            border-top: 1px solid #333; 
+            color: #aaa; 
+            font-size: 0.85em; 
+            border-radius: 0 0 10px 10px; 
+            margin: 40px -30px -30px -30px; 
         }
 
         .support-text {
@@ -114,20 +126,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         .highlight {
             font-weight: bold;
-            color: white; /* Plus visible sur fond sombre */
+            color: white; 
         }
 
         .paypal-button {
             display: inline-block;
             padding: 8px 18px;
-            background-color: #0070ba; /* Bleu PayPal */
+            background-color: #0070ba; 
             color: white;
             text-decoration: none;
             border-radius: 20px;
             font-weight: bold;
             font-size: 0.9em;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Ombre discrète */
+            box-shadow: 0 0 5px rgba(0,0,0,0.5); 
             border: none;
             cursor: pointer;
         }
@@ -162,7 +174,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav>
     <ul>
         <li><a href="about.html">À propos</a></li>
-        <li><a href="services.html">Services</a></li>
         <li><a href="products.html">Produits</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="avis.html">Avis</a></li>
@@ -175,6 +186,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <div class="disclaimer-message">
         **✨ Conseil de lecture :** Ces consultations vous sont offertes. Cependant, il est essentiel de se rappeler que la **précision des cartes** et la **clarté du message** peuvent s'estomper si l'on en abuse. Pour que chaque lecture garde tout son sens et sa puissance, nous vous encourageons à l'utiliser avec intention et non par habitude.
+    </div>
+    
+    <div class="info-box">
+        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
     </div>
     
     <form id="questionForm" action="https://formspree.io/f/movkbvlr" method="POST">
