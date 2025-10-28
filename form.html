@@ -229,6 +229,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav>
     <ul>
+        <li><a href="index.html">Accueil</a></li>
         <li><a href="about.html">À propos</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="avis.html">Avis</a></li>
@@ -313,7 +314,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
-    const SENDING_DELAY = 500; // 0.5 seconde pour l'animation 'Envoi en cours...'
 
     /**
      * Calcule l'âge à partir d'une date de naissance (Corrigé pour la précision).
@@ -334,7 +334,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const today = new Date();
         const birthDate = new Date(birthDateValue);
         
-        // Correction de la méthode de calcul de l'âge
+        // Calcul précis de l'âge
         let age = today.getFullYear() - birthDate.getFullYear();
         const m = today.getMonth() - birthDate.getMonth();
 
@@ -358,7 +358,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
         
-        // Réinitialiser les styles d'erreur
         requiredFields.forEach(field => {
             field.classList.remove('input-error');
         });
@@ -390,7 +389,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return isValid;
     }
 
-    // Attacher la fonction de calcul de l'âge au chargement de la page et aux changements
     document.addEventListener('DOMContentLoaded', () => {
         calculateAge('date_naissance', 'age_display', 'age_client');
         calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
@@ -405,56 +403,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return; 
         }
         
-        // 1. Afficher l'état "Envoi en cours"
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
-        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours... Veuillez patienter.</div>';
+        
+        // Affiche immédiatement l'état de soumission
+        statusDiv.innerHTML = '<div class="status-message">⏳ Envoi en cours...</div>';
         
         const formData = new FormData(form);
         const actionUrl = form.action;
 
-        // 2. Début du Fetch APRES un court délai pour l'animation
-        setTimeout(() => {
-            fetch(actionUrl, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Message de succès stylisé
-                    statusDiv.innerHTML = '<div class="status-message success">✅ Demande envoyée ! La Flamme reviendra vers vous par email le plus vite possible.</div>';
-                    
-                    form.reset();
-                    
-                    // Réinitialiser l'affichage de l'âge après le reset
-                    document.getElementById('age_display').textContent = 'Âge : --';
-                    document.getElementById('age_display_tiers').textContent = 'Âge : --';
-                    document.getElementById('age_client').value = '';
-                    document.getElementById('age_tiers').value = '';
+        fetch(actionUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Succès immédiat : Affiche le message de confirmation
+                statusDiv.innerHTML = '<div class="status-message success">✅ Votre demande a été envoyée. La Flamme vous recontactera par email dans les plus brefs délais.</div>';
+                
+                form.reset();
+                
+                // Réinitialiser l'affichage de l'âge après le reset
+                document.getElementById('age_display').textContent = 'Âge : --';
+                document.getElementById('age_display_tiers').textContent = 'Âge : --';
+                document.getElementById('age_client').value = '';
+                document.getElementById('age_tiers').value = '';
 
-                } else {
-                    // Message d'erreur stylisé (vérifie si Formspree renvoie des erreurs spécifiques)
-                    response.json().then(data => {
-                        const errorMessage = data.error || "Une erreur est survenue lors de l'envoi (serveur Formspree).";
-                        statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
-                    }).catch(() => {
-                        statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue (Réponse serveur inconnue). Veuillez réessayer.</div>';
-                    });
-                }
-            })
-            .catch(error => {
-                // Erreur de connexion (réseau)
-                console.error('Network Error:', error);
-                statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
-            })
-            .finally(() => {
-                // Rétablit le bouton quelle que soit l'issue (réussi ou échoué)
-                submitButton.disabled = false;
-            });
-        }, SENDING_DELAY); // Délai d'attente pour l'animation
+            } else {
+                // Erreur : Tente de récupérer le message d'erreur de Formspree
+                response.json().then(data => {
+                    const errorMessage = data.error || "Une erreur est survenue lors de l'envoi (serveur Formspree).";
+                    statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
+                }).catch(() => {
+                    statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue (Réponse serveur inconnue). Veuillez réessayer.</div>';
+                });
+            }
+        })
+        .catch(error => {
+            // Erreur de connexion (réseau)
+            console.error('Network Error:', error);
+            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
+        })
+        .finally(() => {
+            // Rétablit le bouton quelle que soit l'issue (réussi ou échoué)
+            submitButton.disabled = false;
+        });
     });
 </script>
 
