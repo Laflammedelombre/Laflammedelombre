@@ -1,163 +1,244 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi des Demandes Gratuites - La Flamme de l'Ombre</title>
+    <title>Suivi de Demande - La Flamme de l'Ombre</title>
     <style>
-        /* Styles CSS inchangés */
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 0 15px; background-color: #f4f4f4; }
-        h1, h2 { color: #8B0000; text-align: center; }
-        #search-section { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        #search-form { display: flex; gap: 10px; align-items: center; }
-        #search-id { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; text-transform: uppercase; }
-        #search-button { background-color: #8B0000; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; }
-        #search-button:hover { background-color: #A52A2A; }
-        #status-result { margin-top: 15px; padding: 15px; border-radius: 4px; display: none; }
-        .result-found { background-color: #e6e6fa; border: 1px solid #b3a5d8; }
-        .result-not-found { background-color: #f8d7da; border: 1px solid #f5c6cb; }
-        #queue-section { margin-top: 30px; }
-        #queue-list { background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
-        #queue-list li { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        #queue-list li:last-child { border-bottom: none; }
-        .id-label { font-weight: bold; color: #333; }
-        .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; color: white; }
-        .en-attente { background-color: #FFA500; }
-        .en-cours { background-color: #007bff; }
-        .traite { background-color: #28a745; }
+        /* Styles Globaux (Correspondant à index.html) */
+        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 20px; }
+        h1 { font-size: 3em; margin: 0.2em 0; }
+        p { font-size: 1.5em; margin-top: 10px; }
+        
+        /* Navigation */
+        nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333;}
+        nav ul li { margin: 10px 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        nav ul li a:hover { text-decoration: underline; }
+        
+        /* STYLE DU BOUTON DE SUIVI ACTIF (pour indiquer que nous sommes sur cette page) */
+        .nav-button-active a {
+            background-color: #8B0000; /* Rouge foncé */
+            color: white !important;
+            padding: 8px 15px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Conteneur principal de la page de suivi */
+        .suivi-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #111;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .suivi-container h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+        }
+
+        /* Formulaire de recherche */
+        .search-form {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .search-form label {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .search-form input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #222;
+            color: #fff;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .search-form button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .search-form button:hover {
+            background: #0056b3;
+        }
+
+        /* Bloc de résultats (affichage des statuts) */
+        #result-display {
+            padding: 20px;
+            border-radius: 8px;
+            background: #222;
+            min-height: 80px;
+            text-align: center;
+        }
+        .status-header {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .status-detail {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        /* Codes couleurs pour les statuts */
+        .status-en_cours { 
+            border: 2px solid #ffcc00; 
+            color: #ffcc00; /* Jaune/Ambre */
+        }
+        .status-traité { 
+            border: 2px solid #7ad6a7; 
+            color: #7ad6a7; /* Vert clair */
+        }
+        .status-id_inconnu, .status-erreur_technique { 
+            border: 2px solid #f1a0a0; 
+            color: #f1a0a0; /* Rouge clair */
+        }
+        .status-initial {
+             border: 2px solid #555; 
+             color: #aaa;
+        }
+
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .suivi-container { margin: 20px; padding: 20px; }
+            .search-form { flex-direction: column; }
+            .search-form label { margin-bottom: 5px; }
+            .search-form input[type="text"], .search-form button { width: 100%; }
+        }
     </style>
 </head>
 <body>
+<header>
+    <h1>La Flamme de l'Ombre</h1>
+    <p>Cartomancien, créateur</p>
+</header>
 
-    <h1>Suivi de votre Demande Gratuite</h1>
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="avis.html">Avis</a></li>
+        <li><a href="carte.html">Carte du jour</a></li>
+        <li class="nav-button-active"><a href="Suivi.html">Suivi de Demande</a></li> 
+    </ul>
+</nav>
 
-    <div id="search-section">
-        <h2>Rechercher l'état de ma demande</h2>
-        <p>Entrez votre numéro de demande unique (ex: FL-ABCD-1234) que vous avez reçu par e-mail ou sur la page de confirmation :</p>
-        <form id="search-form">
-            <input type="text" id="search-id" placeholder="FL-XXXX-XXXX" maxlength="11" required>
-            <button type="submit" id="search-button">Vérifier le Statut</button>
-        </form>
-        <div id="status-result"></div>
+<div class="suivi-container">
+    <h2>Vérifier le Statut de Votre Demande</h2>
+    
+    <form id="trackingForm" class="search-form">
+        <label for="trackingId">Entrez votre ID de Suivi :</label>
+        <input type="text" id="trackingId" name="id" required placeholder="Exemple : 1000000000000000000" aria-required="true">
+        <button type="submit">Rechercher</button>
+    </form>
+    
+    <div id="result-display" class="status-initial">
+        <div class="status-header">Entrez un ID ci-dessus pour vérifier son statut.</div>
     </div>
+</div>
 
-    <div id="queue-section">
-        <h2>Liste d'attente actuelle</h2>
-        <p>Les demandes ci-dessous sont actuellement "En attente" ou "En cours" de traitement par La Flamme de l'Ombre. Votre numéro est ici à titre indicatif.</p>
-        <ul id="queue-list">
-            <li>Chargement de la liste d'attente...</li>
-        </ul>
-    </div>
+<script>
+    // **********************************************************************************************
+    // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la RECHERCHE (doGet) !
+    // **********************************************************************************************
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec'; 
+    // Assurez-vous que le script Apps Script est bien publié avec l'accès 'Any one' (Tout le monde)
+    
+    const form = document.getElementById('trackingForm');
+    const trackingIdInput = document.getElementById('trackingId');
+    const resultDisplay = document.getElementById('result-display');
 
-    <script>
-        // URL de votre Google Apps Script insérée
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec";
-
-        const searchForm = document.getElementById('search-form');
-        const searchIdInput = document.getElementById('search-id');
-        const statusResultDiv = document.getElementById('status-result');
-        const queueList = document.getElementById('queue-list');
-
-        // --- Fonctions Utilitaires ---
-
-        function getStatusClass(status) {
-            const lowerStatus = status.toLowerCase();
-            if (lowerStatus.includes('en attente')) return 'en-attente';
-            if (lowerStatus.includes('en cours')) return 'en-cours';
-            if (lowerStatus.includes('traité')) return 'traite';
-            return '';
-        }
-
-        // --- 1. Gestion de la Recherche de Statut ---
-
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const idToSearch = searchIdInput.value.toUpperCase().trim();
-            statusResultDiv.style.display = 'none';
-            statusResultDiv.innerHTML = '';
-            
-            fetch(`${SCRIPT_URL}?action=getStatus&id=${idToSearch}`)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.status && result.status !== 'error' && result.status !== 'non trouvé') {
-                        const statusClass = getStatusClass(result.status);
-                        
-                        statusResultDiv.className = 'result-found';
-                        statusResultDiv.innerHTML = `
-                            ✅ Statut de votre demande <strong>${idToSearch}</strong> :
-                            <span class="status-badge ${statusClass}">${result.status}</span>
-                            <br>
-                            Soumis le : ${result.date}
-                        `;
-                    } else {
-                        statusResultDiv.className = 'result-not-found';
-                        statusResultDiv.innerHTML = `
-                            ❌ ${result.message || "Erreur de recherche. Veuillez vérifier votre numéro."}
-                        `;
-                    }
-                    statusResultDiv.style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Erreur de recherche:', error);
-                    statusResultDiv.className = 'result-not-found';
-                    statusResultDiv.innerHTML = '❌ Erreur technique. Impossible de contacter le serveur de suivi.';
-                    statusResultDiv.style.display = 'block';
-                });
-        });
-
-        // --- 2. Chargement de la Liste d'Attente ---
-
-        function loadQueue() {
-            queueList.innerHTML = '<li>Actualisation de la liste...</li>';
-
-            fetch(`${SCRIPT_URL}?action=getQueue`)
-                .then(response => response.json())
-                .then(data => {
-                    queueList.innerHTML = ''; // Vider la liste
-                    
-                    if (data.length === 0) {
-                        queueList.innerHTML = '<li>👏 Aucune demande en attente ou en cours !</li>';
-                        return;
-                    }
-                    
-                    data.forEach((item, index) => {
-                        const li = document.createElement('li');
-                        const statusClass = getStatusClass(item.statut);
-                        
-                        const queueNumber = document.createElement('span');
-                        queueNumber.textContent = `#${index + 1}`;
-                        queueNumber.style.marginRight = '10px';
-                        queueNumber.style.fontWeight = 'bold';
-                        
-                        const idSpan = document.createElement('span');
-                        idSpan.className = 'id-label';
-                        
-                        // Masque l'ID pour la confidentialité (Ex: FL-AB**-**34)
-                        const partialId = item.id.substring(0, 5) + '**-' + item.id.substring(item.id.length - 2);
-                        idSpan.textContent = partialId; 
-                        
-                        const statusBadge = document.createElement('span');
-                        statusBadge.className = `status-badge ${statusClass}`;
-                        statusBadge.textContent = item.statut;
-
-                        li.appendChild(queueNumber);
-                        li.appendChild(idSpan);
-                        li.appendChild(statusBadge);
-                        queueList.appendChild(li);
-                    });
-                })
-                .catch(error => {
-                    console.error('Erreur de chargement de la file:', error);
-                    queueList.innerHTML = '<li>❌ Erreur de chargement de la liste d\'attente.</li>';
-                });
-        }
-
-        // Charger la file d'attente au chargement de la page
-        loadQueue();
+    /**
+     * Met à jour l'affichage du statut en fonction de la réponse du script Apps.
+     * @param {string} status - Le statut renvoyé (ex: 'EN_COURS', 'TRAITÉ', 'ID_INCONNU').
+     * @param {string} message - Le message descriptif.
+     */
+    function updateStatusDisplay(status, message) {
+        // Supprime toutes les classes de statut précédentes
+        resultDisplay.className = '';
         
-        // Optionnel: Recharger la file d'attente toutes les minutes (60000 ms)
-        // setInterval(loadQueue, 60000); 
-    </script>
+        let statusClass = 'status-initial';
+        let headerText = "Statut Indisponible";
+        let detailText = message;
+
+        // Mise à jour de l'affichage basé sur les statuts possibles de votre Apps Script
+        if (status === 'EN_COURS') {
+            statusClass = 'status-en_cours';
+            headerText = "⏳ Demande en Cours de Traitement";
+        } else if (status === 'TRAITÉ') {
+            statusClass = 'status-traité';
+            headerText = "✅ Demande Traitée !";
+        } else if (status === 'ID_INCONNU') {
+            statusClass = 'status-id_inconnu';
+            headerText = "❌ ID de Suivi Inconnu";
+            detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
+        } else if (status === 'ERREUR_TECHNIQUE') {
+             statusClass = 'status-erreur_technique';
+             headerText = "⚠️ Erreur de Connexion";
+        }
+        
+        resultDisplay.classList.add(statusClass);
+        resultDisplay.innerHTML = `<div class="status-header">${headerText}</div>
+                                   <div class="status-detail">${detailText}</div>`;
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        const trackingId = trackingIdInput.value.trim();
+        if (!trackingId) return;
+
+        // Message d'attente
+        updateStatusDisplay('EN_COURS', 'Recherche en cours...');
+
+        // L'action 'getstatus' est envoyée pour que le script Apps Script sache quoi faire
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
+
+        fetch(url, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau ou de script. Code: ' + response.status);
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            // Le script Apps Script doit renvoyer un objet JSON { status: '...', message: '...' }
+            
+            if (data.status) {
+                updateStatusDisplay(data.status.toUpperCase(), data.message || "");
+            } else {
+                updateStatusDisplay('ID_INCONNU', "L'ID fourni ne correspond à aucune demande connue, ou la réponse du serveur est incorrecte.");
+            }
+        })
+        .catch(error => {
+            console.error('Erreur de suivi:', error);
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.");
+        });
+    });
+</script>
 
 </body>
 </html>
