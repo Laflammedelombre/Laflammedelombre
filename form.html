@@ -1,463 +1,204 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre - Formulaire</title>
+    <title>Question Gratuite - La Flamme de l'Ombre</title>
     <style>
-        /* Base Styling (Fond noir) */
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        header { padding: 20px; }
-        h1 { font-size: 3em; margin: 0.2em 0; }
-        p { font-size: 1.5em; margin-top: 10px; }
-        
-        /* Navigation */
-        nav ul {
-            list-style-type: none; padding: 0; margin: 20px 0;
-            display: flex; flex-wrap: wrap; justify-content: center;
-        }
-        nav ul li { margin: 10px 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
-        nav ul li a:hover { text-decoration: underline; }
-
-        /* Image */
-        .page-image {
-            width: 80%; 
-            max-width: 600px;
-            margin: 20px auto 40px auto; 
-            display: block;
-            border-radius: 8px; 
-        }
-
-        /* Formulaire */
-        .form-container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #111;
-            padding: 20px 30px; 
-            border-radius: 10px;
-            text-align: left;
-        }
-        .form-container h2 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 25px; 
-        }
-        
-        /* Message d'info standard (pour la personne tierce) */
-        .info-box {
-            background: #222;
-            border-left: 4px solid #007bff;
+        /* Styles de base pour un affichage clair */
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 0 15px; background-color: #f4f4f4; }
+        h1 { color: #8B0000; text-align: center; }
+        form { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        input[type="text"], input[type="email"], input[type="date"], textarea, select {
+            width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 1em;
-            text-align: center; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* S'assure que le padding n'augmente pas la taille totale */
         }
-        
-        /* Styles pour le message de sensibilisation */
-        .disclaimer-message {
-            background-color: #202010; 
-            border-left: 5px solid #ffcc00; 
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 6px;
-            color: #ccc;
-            font-size: 1em;
-            line-height: 1.5;
-        }
-        .disclaimer-message strong {
+        textarea { resize: vertical; height: 100px; }
+        button {
+            background-color: #8B0000;
             color: white;
-        }
-
-        .form-container label {
-            display: block;
-            margin-top: 15px; 
-            font-weight: bold;
-        }
-        /* Styles pour tous les champs d'entrée */
-        .form-container input, .form-container textarea, .form-container select {
-            width: 100%; padding: 10px; margin-top: 5px;
-            border-radius: 6px; border: 1px solid #555;
-            background: #222; color: #fff; box-sizing: border-box;
-            transition: border 0.3s ease;
-        }
-        /* Style pour champ en erreur (validé par JS) */
-        .form-container .input-error {
-            border: 1px solid #ff6666 !important; /* Bordure rouge */
-        }
-        /* Style spécifique pour le conteneur de date de naissance pour alignement */
-        .date-input-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .date-input-group input[type="date"] {
-            flex-grow: 1;
-            width: auto; 
-        }
-        .age-display {
-            font-weight: normal;
-            font-size: 0.9em;
-            color: #aaa;
-            white-space: nowrap;
-        }
-
-
-        .form-container button[type="submit"] { 
-            margin-top: 25px;
-            padding: 12px 18px;
-            border: none; border-radius: 66px; 
-            background: #007bff; color: white; cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: background 0.3s;
-        }
-        .form-container button[type="submit"]:hover { background: #0056b3; }
-        
-        /* Messages de validation (Affichés via JS) */
-        .status-message {
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .success { 
-            background: #3c5244; 
-            border: 1px solid #7ad6a7; 
-            color: #d4edda; 
-        }
-        .error { 
-            background: #5c3434; 
-            border: 1px solid #f1a0a0; 
-            color: #f8d7da; 
-        }
-        /* Style simple pour l'attente, SANS sablier */
-        .sending {
-            background: #2a3e5c;
-            border: 1px solid #5c7fbf;
-            color: #c9e6ff;
-        }
-
-        /* Styles du bouton de Tips (Soutien) - Discret */
-        .support-section {
-            text-align: center;
-            margin-top: 40px;
-            padding: 15px;
-            background-color: #151515; 
-            border-top: 1px solid #333; 
-            color: #aaa; 
-            font-size: 0.85em; 
-            border-radius: 0 0 10px 10px; 
-            margin: 40px -30px -30px -30px; 
-        }
-
-        .support-text {
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .asterisk {
-            vertical-align: super;
-            font-size: 0.7em;
-            margin-right: 2px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: white; 
-        }
-
-        .paypal-button {
-            display: inline-block;
-            padding: 8px 18px;
-            background-color: #0070ba; 
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5); 
+            padding: 15px 20px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
         }
+        button:hover { background-color: #A52A2A; }
+        .consent { font-size: 0.85em; margin-bottom: 15px; }
+        .consent label { font-weight: normal; }
+        /* Style pour les messages de confirmation/erreur */
+        #response-message { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border-radius: 4px; 
+            display: none; 
+            text-align: center;
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-        .paypal-button:hover {
-            background-color: #005ea6;
-            transform: translateY(-1px);
-        }
-        
-        /* Media queries */
-        @media (max-width: 768px) {
-            .form-container { margin: 20px; padding: 20px; }
-            h1 { font-size: 2.5em; }
-            p { font-size: 1.2em; }
-        }
-        @media (max-width: 480px) {
-            h1 { font-size: 2em; }
-            p { font-size: 1em; }
-            nav ul li { margin: 10px 5px; }
-            .date-input-group {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .age-display {
-                margin-top: 5px;
-            }
-        }
+        /* Conteneurs flexibles pour les champs côte à côte */
+        .field-group { display: flex; gap: 10px; }
+        .field-group > div { flex: 1; }
     </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header>
-    <h1>La Flamme de l'Ombre</h1>
-    <p>Cartomancien, créateur</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="avis.html">Avis</a></li>
-        <li><a href="carte.html">Carte du jour</a></li>
-    </ul>
-</nav>
-
-<img src="images/Tirage.webp" alt="Tirage de Cartes" class="page-image">
-
-<div class="form-container">
-    <h2>Pose ta question (Gratuite)</h2>
+    <h1>Votre Question Gratuite</h1>
     
-    <div class="disclaimer-message">
-        **✨ Conseil de lecture :** Ces consultations vous sont offertes. Cependant, il est essentiel de se rappeler que la **précision des cartes** et la **clarté du message** peuvent s'estomper si l'on en abuse. Pour que chaque lecture garde tout son sens et sa puissance, nous vous encourageons à l'utiliser avec intention et non par habitude.
-    </div>
-    
-    <div class="info-box">
-        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
-    </div>
-    
-    <form id="questionForm" action="https://formspree.io/f/movkbvlr" method="POST">
-        
-        <label for="nom">Nom *</label>
-        <input type="text" id="nom" name="nom" required>
+    <p>Remplissez le formulaire ci-dessous pour soumettre votre question gratuite. Soyez le plus précis possible pour une réponse de qualité.</p>
 
-        <label for="prenom">Prénom *</label>
-        <input type="text" id="prenom" name="prenom" required>
-
-        <label for="date_naissance">Date de naissance *</label>
-        <div class="date-input-group">
-            <input type="date" id="date_naissance" name="date_naissance" required onchange="calculateAge('date_naissance', 'age_display', 'age_client')">
-            <span id="age_display" class="age-display">Âge : --</span>
+    <form id="freeQuestionForm">
+        <h2>Vos informations (Confidentialité assurée)</h2>
+        <div class="field-group">
+            <div>
+                <label for="Prénom">Prénom :</label>
+                <input type="text" id="Prénom" name="Prénom" required>
+            </div>
+            <div>
+                <label for="Nom">Nom :</label>
+                <input type="text" id="Nom" name="Nom" required>
+            </div>
         </div>
-        <input type="hidden" id="age_client" name="age_client">
-        
-        <label for="email">Adresse email *</label>
-        <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
-
-        <label for="nom_tiers">Nom personne tierce</label>
-        <input type="text" id="nom_tiers" name="nom_tiers" placeholder="Uniquement si question concerne une autre personne">
-
-        <label for="prenom_tiers">Prénom personne tierce</label>
-        <input type="text" id="prenom_tiers" name="prenom_tiers" placeholder="Uniquement si question concerne une autre personne">
-
-        <label for="date_naissance_tiers">Date de naissance personne tierce</label>
-        <div class="date-input-group">
-            <input type="date" id="date_naissance_tiers" name="date_naissance_tiers" onchange="calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers')">
-            <span id="age_display_tiers" class="age-display">Âge : --</span>
+        <div class="field-group">
+            <div>
+                <label for="Date_Naissance">Date de Naissance :</label>
+                <input type="date" id="Date_Naissance" name="Date_Naissance" required>
+            </div>
+            <div>
+                <label for="Age">Âge :</label>
+                <input type="text" id="Age" name="Age" placeholder="Ex: 35"> 
+            </div>
         </div>
-        <input type="hidden" id="age_tiers" name="age_tiers">
+        
+        <label for="Email">Adresse Email (pour recevoir la réponse et le suivi) :</label>
+        <input type="email" id="Email" name="Email" required>
 
+        <hr>
 
-        <label for="question">Question précise *</label>
-        <textarea id="question" name="question" required></textarea>
+        <h2>Informations Partenaire (si la question concerne une relation)</h2>
+        <p style="font-size: 0.9em; margin-top: -10px; color: #666;">Ces informations sont facultatives si votre question ne concerne pas une personne spécifique.</p>
+        <div class="field-group">
+            <div>
+                <label for="Prénom_Partenaire">Prénom Partenaire :</label>
+                <input type="text" id="Prénom_Partenaire" name="Prénom_Partenaire">
+            </div>
+            <div>
+                <label for="Nom_Partenaire">Nom Partenaire :</label>
+                <input type="text" id="Nom_Partenaire" name="Nom_Partenaire">
+            </div>
+        </div>
+        <div class="field-group">
+            <div>
+                <label for="Date_Naissance_Partenaire">Date de Naissance Partenaire :</label>
+                <input type="date" id="Date_Naissance_Partenaire" name="Date_Naissance_Partenaire">
+            </div>
+            <div>
+                <label for="Age_Partenaire">Âge Partenaire :</label>
+                <input type="text" id="Age_Partenaire" name="Age_Partenaire" placeholder="Ex: 30">
+            </div>
+        </div>
+        
+        <hr>
 
-        <label for="temporalite">Temporalité *</label>
-        <select id="temporalite" name="temporalite" required>
-            <option value="">-- Choisissez --</option>
-            <option value="3 mois">Dans les 3 mois</option>
-            <option value="1 an">Dans l'année</option>
-            <option value="année en cours">Dans l’année en cours</option>
-            <option value="2 ans">Dans les 2 ans</option>
-            <option value="3 ans">Dans les 3 ans</option>
-            <option value="non concerné">Non concerné par la temporalité</option>
+        <h2>Votre Question et Temporalité</h2>
+        
+        <label for="Temporalité">Temporalité souhaitée :</label>
+        <select id="Temporalité" name="Temporalité" required>
+            <option value="">-- Choisissez une option --</option>
+            <option value="Court Terme">Court terme (0-3 mois)</option>
+            <option value="Moyen Terme">Moyen terme (3-12 mois)</option>
+            <option value="Long Terme">Long terme (1 an et +)</option>
+            <option value="Non Précisé">Sans temporalité précise</option>
         </select>
 
-        <button type="submit">Envoyer la question</button>
+        <label for="Question">Votre Question Précise (Max. 500 caractères) :</label>
+        <textarea id="Question" name="Question" maxlength="500" required></textarea>
+
+        <div class="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">J'accepte que mes données (uniquement les informations fournies) soient enregistrées pour le traitement de ma demande, conformément à la <a href="/politique-de-confidentialite.html" target="_blank">Politique de Confidentialité</a>.</label>
+        </div>
+
+        <button type="submit" id="submitButton">Envoyer ma Question Gratuite</button>
     </form>
-    <div id="status"></div>
-
-    <div class="support-section">
-        <p class="support-text">
-            <span class="asterisk">*</span> Ce service vous est utile ? Si vous le souhaitez et le pouvez, vous pouvez me soutenir par un petit <span class="highlight">Tips</span> (montant libre, aucun minimum requis) via le bouton ci-dessous. Merci infiniment !
-        </p>
-        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">
-            Faire un Tips
-        </a>
-    </div>
     
-</div>
+    <div id="response-message"></div>
 
-<script>
-    const form = document.getElementById('questionForm');
-    const statusDiv = document.getElementById('status');
-    const SUCCESS_MESSAGE = '✅ Votre demande a été envoyée. La Flamme de l\'Ombre procédera au tirage et vous recontactera par email dans les plus brefs délais.';
-
-    /**
-     * Calcule l'âge à partir d'une date de naissance (Corrigé pour la précision).
-     */
-    function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
-        const dateInput = document.getElementById(dateInputId);
-        const ageDisplay = document.getElementById(ageDisplayId);
-        const ageHidden = document.getElementById(ageHiddenId);
+    <script>
+        // NOTE: REMPLACEZ L'URL CI-DESSOUS PAR VOTRE VRAIE SCRIPT_URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec";
         
-        const birthDateValue = dateInput.value;
+        const form = document.getElementById('freeQuestionForm');
+        const responseMessage = document.getElementById('response-message');
+        const submitButton = document.getElementById('submitButton');
         
-        if (!birthDateValue) {
-            ageDisplay.textContent = 'Âge : --';
-            ageHidden.value = '';
-            return;
+        // Fonction pour afficher le message de réponse
+        function displayMessage(type, message) {
+            responseMessage.className = (type === 'success') ? 'success' : 'error';
+            responseMessage.innerHTML = message;
+            responseMessage.style.display = 'block';
         }
 
-        const today = new Date();
-        const birthDate = new Date(birthDateValue);
-        
-        // Calcul précis de l'âge
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-
-        // Ajuste si l'anniversaire n'est pas encore passé cette année/mois
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        
-        if (age < 0) {
-            age = 0;
-        }
-
-        ageDisplay.textContent = `Âge : ${age} ans`;
-        ageHidden.value = age; // Stocke l'âge dans le champ masqué pour l'envoi par email
-    }
-
-    /**
-     * Valide les champs requis du formulaire.
-     */
-    function validateForm() {
-        let isValid = true;
-        const requiredFields = form.querySelectorAll('[required]');
-        
-        requiredFields.forEach(field => {
-            field.classList.remove('input-error');
-        });
-        statusDiv.innerHTML = '';
-
-        let firstErrorField = null;
-
-        requiredFields.forEach(field => {
-            const isDateValid = field.type === 'date' ? field.value && !isNaN(new Date(field.value)) : true;
-
-            if (!field.value.trim() || !isDateValid) {
-                field.classList.add('input-error');
-                isValid = false;
-                if (!firstErrorField) {
-                    firstErrorField = field;
-                }
-            }
-        });
-
-        if (!isValid) {
-            statusDiv.innerHTML = '<div class="status-message error">❌ Vérifiez les champs obligatoires (marqués en rouge).</div>';
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            if (firstErrorField) {
-                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                firstErrorField.focus();
+            // Masquer le message précédent et désactiver le bouton
+            responseMessage.style.display = 'none';
+            submitButton.disabled = true;
+            submitButton.textContent = "Envoi en cours...";
+
+            // 1. Collecter les données du formulaire
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
             }
-        }
-
-        return isValid;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        calculateAge('date_naissance', 'age_display', 'age_client');
-        calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
-    });
-
-
-    // Gestion de la soumission du formulaire
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-
-        if (!validateForm()) {
-            return; 
-        }
-        
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        
-        // AFFICHAGE DU MESSAGE DE SUCCÈS IMMÉDIAT
-        statusDiv.innerHTML = `<div class="status-message success">${SUCCESS_MESSAGE}</div>`;
-        
-        const formData = new FormData(form);
-        const actionUrl = form.action;
-
-        fetch(actionUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Succès : Le message est déjà affiché, on vide juste le formulaire
-                form.reset();
-                
-                // Réinitialiser l'affichage de l'âge après le reset
-                document.getElementById('age_display').textContent = 'Âge : --';
-                document.getElementById('age_display_tiers').textContent = 'Âge : --';
-                document.getElementById('age_client').value = '';
-                document.getElementById('age_tiers').value = '';
-
-            } else {
-                // Échec : On remplace le message de succès par l'erreur.
-                response.json().then(data => {
-                    const errorMessage = data.error || "Une erreur est survenue lors de l'envoi (serveur Formspree).";
-                    statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
-                }).catch(() => {
-                    statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur est survenue (Réponse serveur inconnue). Veuillez réessayer.</div>';
-                });
-            }
-        })
-        .catch(error => {
-            // Échec réseau : On remplace le message de succès par l'erreur.
-            console.error('Network Error:', error);
-            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
-        })
-        .finally(() => {
-            // Rétablit le bouton, quel que soit le résultat
-            submitButton.disabled = false;
+            
+            // Le formulaire est envoyé via Fetch/XHR pour rester sur la même page
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: new URLSearchParams(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result.result === 'success') {
+                    // Affichage du message de succès avec l'ID de suivi
+                    displayMessage('success', 
+                        `✅ Votre demande a été enregistrée !<br>
+                        Votre **Numéro de Suivi** est : <strong>${result.id}</strong>.<br>
+                        Un e-mail de confirmation vous a été envoyé.<br>
+                        Consultez l'état d'avancement sur la page <a href="/suivi.html">Suivi des Demandes</a>.`);
+                    
+                    form.reset(); // Vider le formulaire après succès
+                    
+                } else {
+                    displayMessage('error', `❌ Une erreur est survenue lors de l'enregistrement de la demande: ${result.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur technique:', error);
+                displayMessage('error', `❌ Une erreur technique est survenue. Veuillez réessayer plus tard.`);
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = "Envoyer ma Question Gratuite";
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>
