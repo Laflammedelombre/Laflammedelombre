@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi des Demandes Gratuites - La Flamme de l'Ombre</title>
+    <style>
+        /* Styles de base */
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 0 15px; background-color: #f4f4f4; }
+        h1, h2 { color: #8B0000; text-align: center; }
+        
+        /* Section Recherche */
+        #search-section { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        #search-form { display: flex; gap: 10px; align-items: center; }
+        #search-id { 
+            flex-grow: 1; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+            text-transform: uppercase; /* Force la saisie en majuscules */
+        }
+        #search-button {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #search-button:hover { background-color: #A52A2A; }
+        #status-result { margin-top: 15px; padding: 15px; border-radius: 4px; display: none; }
+        .result-found { background-color: #e6e6fa; border: 1px solid #b3a5d8; }
+        .result-not-found { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+
+        /* Section Liste d'Attente */
+        #queue-section { margin-top: 30px; }
+        #queue-list { 
+            background-color: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            list-style: none; 
+            padding: 0; 
+            max-height: 400px; 
+            overflow-y: auto;
+        }
+        #queue-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #queue-list li:last-child { border-bottom: none; }
+        
+        .id-label { font-weight: bold; color: #333; }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        .en-attente { background-color: #FFA500; }
+        .en-cours { background-color: #007bff; }
+        .traite { background-color: #28a745; }
+    </style>
+</head>
+<body>
+
+    <h1>Suivi de votre Demande Gratuite</h1>
+
+    <div id="search-section">
+        <h2>Rechercher l'état de ma demande</h2>
+        <p>Entrez votre numéro de demande unique (ex: FL-ABCD-1234) que vous avez reçu par e-mail ou sur la page de confirmation :</p>
+        <form id="search-form">
+            <input type="text" id="search-id" placeholder="FL-XXXX-XXXX" maxlength="11" required>
+            <button type="submit" id="search-button">Vérifier le Statut</button>
+        </form>
+        <div id="status-result"></div>
+    </div>
+
+    <div id="queue-section">
+        <h2>Liste d'attente actuelle</h2>
+        <p>Les demandes ci-dessous sont actuellement "En attente" ou "En cours" de traitement par La Flamme de l'Ombre. Votre numéro est ici à titre indicatif.</p>
+        <ul id="queue-list">
+            <li>Chargement de la liste d'attente...</li>
+        </ul>
+    </div>
+
+    <script>
+        // NOTE: REMPLACEZ L'URL CI-DESSOUS PAR VOTRE VRAIE SCRIPT_URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec";
+
+        const searchForm = document.getElementById('search-form');
+        const searchIdInput = document.getElementById('search-id');
+        const statusResultDiv = document.getElementById('status-result');
+        const queueList = document.getElementById('queue-list');
+
+        // --- Fonctions Utilitaires ---
+
+        function getStatusClass(status) {
+            const lowerStatus = status.toLowerCase();
+            if (lowerStatus.includes('en attente')) return 'en-attente';
+            if (lowerStatus.includes('en cours')) return 'en-cours';
+            if (lowerStatus.includes('traité')) return 'traite';
+            return '';
+        }
+
+        // --- 1. Gestion de la Recherche de Statut ---
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const idToSearch = searchIdInput.value.toUpperCase().trim();
+            statusResultDiv.style.display = 'none';
+            statusResultDiv.innerHTML = '';
+            
+            fetch(`${SCRIPT_URL}?action=getStatus&id=${idToSearch}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status && result.status !== 'error' && result.status !== 'non trouvé') {
+                        const statusClass = getStatusClass(result.status);
+                        
+                        statusResultDiv.className = 'result-found';
+                        statusResultDiv.innerHTML = `
+                            ✅ Statut de votre demande **${idToSearch}** :
+                            <span class="status-badge ${statusClass}">${result.status}</span>
+                            <br>
+                            Soumis le : ${result.date}
+                        `;
+                    } else {
+                        statusResultDiv.className = 'result-not-found';
+                        statusResultDiv.innerHTML = `
+                            ❌ ${result.message || "Erreur de recherche. Veuillez vérifier votre numéro."}
+                        `;
+                    }
+                    statusResultDiv.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Erreur de recherche:', error);
+                    statusResultDiv.className = 'result-not-found';
+                    statusResultDiv.innerHTML = '❌ Erreur technique. Impossible de contacter le serveur de suivi.';
+                    statusResultDiv.style.display = 'block';
+                });
+        });
+
+        // --- 2. Chargement de la Liste d'Attente ---
+
+        function loadQueue() {
+            queueList.innerHTML = '<li>Actualisation de la liste...</li>';
+
+            fetch(`${SCRIPT_URL}?action=getQueue`)
+                .then(response => response.json())
+                .then(data => {
+                    queueList.innerHTML = ''; // Vider la liste
+                    
+                    if (data.length === 0) {
+                        queueList.innerHTML = '<li>👏 Aucune demande en attente ou en cours !</li>';
+                        return;
+                    }
+                    
+                    data.forEach((item, index) => {
+                        const li = document.createElement('li');
+                        const statusClass = getStatusClass(item.statut);
+                        
+                        // Afficher le numéro de la demande dans la file (pour donner un ordre)
+                        const queueNumber = document.createElement('span');
+                        queueNumber.textContent = `#${index + 1}`;
+                        queueNumber.style.marginRight = '10px';
+                        queueNumber.style.fontWeight = 'bold';
+                        
+                        const idSpan = document.createElement('span');
+                        idSpan.className = 'id-label';
+                        idSpan.textContent = item.id;
+                        
+                        const statusBadge = document.createElement('span');
+                        statusBadge.className = `status-badge ${statusClass}`;
+                        statusBadge.textContent = item.statut;
+
+                        li.appendChild(queueNumber);
+                        li.appendChild(idSpan);
+                        li.appendChild(statusBadge);
+                        queueList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur de chargement de la file:', error);
+                    queueList.innerHTML = '<li>❌ Erreur de chargement de la liste d\'attente.</li>';
+                });
+        }
+
+        // Charger la file d'attente au chargement de la page
+        loadQueue();
+        
+        // Optionnel: Recharger la file d'attente toutes les minutes (60000 ms)
+        // setInterval(loadQueue, 60000); 
+    </script>
+
+</body>
+</html>
