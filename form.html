@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Flamme de l'Ombre - Formulaire</title>
     <style>
-        /* Styles CSS (Zone modifiée pour le bouton de suivi) */
+        /* Styles CSS */
         body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
         header { padding: 20px; }
         h1 { font-size: 3em; margin: 0.2em 0; }
@@ -21,22 +21,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
         nav ul li a:hover { text-decoration: underline; }
         
-        /* NOUVEAUX STYLES POUR LE BOUTON DE SUIVI */
-        .nav-button a {
+        /* STYLE DU BOUTON DE SUIVI SEUL ET CENTRÉ */
+        .suivi-button-container {
+            text-align: center;
+            margin: 30px auto; 
+            max-width: 600px; 
+        }
+        .suivi-button {
+            display: inline-block;
             background-color: #8B0000; /* Rouge foncé */
             color: white !important;
-            padding: 8px 15px !important;
-            border-radius: 20px !important;
+            padding: 12px 25px;
+            border-radius: 6px;
             text-decoration: none !important;
+            font-weight: bold;
+            font-size: 1.1em;
+            letter-spacing: 1px;
             transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
         }
-        .nav-button a:hover {
+        .suivi-button:hover {
             background-color: #A52A2A !important; 
-            transform: translateY(-1px);
-            text-decoration: none !important;
+            transform: translateY(-2px);
         }
-        /* FIN DES NOUVEAUX STYLES */
+        /* FIN DU STYLE DU BOUTON DE SUIVI */
 
         .page-image { width: 80%; max-width: 600px; margin: 20px auto 40px auto; display: block; border-radius: 8px; }
         .form-container { max-width: 700px; margin: 40px auto; background: #111; padding: 20px 30px; border-radius: 10px; text-align: left; }
@@ -82,12 +92,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="avis.html">Avis</a></li>
         <li><a href="carte.html">Carte du jour</a></li>
-        <li class="nav-button"><a href="suivi.html">Suivi de Demande</a></li> 
-    </ul>
+        </ul>
 </nav>
 
 <img src="images/Tirage.webp" alt="Tirage de Cartes" class="page-image">
 
+<div class="suivi-button-container">
+    <a href="Suivi.html" class="suivi-button">
+        Vérifier le Statut de ma Demande
+    </a>
+</div>
 <div class="form-container">
     <h2>Pose ta question (Gratuite)</h2>
     
