@@ -48,6 +48,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         nav ul li a:hover {
             text-decoration: underline; /* Souligne les liens au survol */
         }
+        /* Style pour l'élément de navigation actif (non cliquable) */
+        .nav-current {
+            color: #AAAAAA; /* Couleur légèrement grisée pour indiquer l'état actif */
+            font-weight: bold; 
+            text-decoration: none;
+            cursor: default; /* Curseur standard pour montrer que ce n'est pas cliquable */
+        }
+
         img {
             width: 80%; /* Ajuste la taille de l'image */
             max-width: 600px;
@@ -102,8 +110,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <nav>
         <ul>
+            <li><span class="nav-current">Accueil</span></li> 
             <li><a href="about.html">À propos</a></li>
-            <li><a href="https://www.laflammedelombre.com/form.html">Formulaire de Question (Gratuit)</a></li> 
+            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li> 
             <li><a href="contact.html">Contact</a></li>
             <li><a href="avis.html">Avis</a></li>
             <li><a href="carte.html">Carte du jour</a></li>
