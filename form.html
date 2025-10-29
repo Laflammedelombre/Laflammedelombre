@@ -1,263 +1,221 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question Gratuite - La Flamme de l'Ombre</title>
+    <title>Avis Clients - La Flamme de l'Ombre</title>
     <style>
-        /* Styles Dark Mode */
+        /* Définition de la couleur d'accentuation */
         :root {
-            --color-dark-background: #121212; /* Fond d'écran très sombre */
-            --color-dark-surface: #1E1E1E;    /* Fond du formulaire */
-            --color-dark-text: #E0E0E0;      /* Texte clair */
-            --color-dark-text-secondary: #B0B0B0; /* Texte secondaire/gris */
-            --color-dark-input: #252525;     /* Fond des champs de saisie */
-            --color-dark-border: #333333;    /* Bordures des champs */
-            --color-accent: #8B0000;         /* Rouge Bordeaux (Accentuation) */
-        }
-        
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 600px; 
-            margin: 20px auto; 
-            padding: 0 15px; 
-            background-color: var(--color-dark-background); /* Fond sombre */
-            color: var(--color-dark-text); /* Texte clair par défaut */
-        }
-        
-        h1, h2 { 
-            color: var(--color-accent); /* Conserver la couleur d'accentuation */
-            text-align: center; 
-        }
-        
-        p {
-            color: var(--color-dark-text-secondary);
+            --color-accent: #8B0000; /* Rouge Bordeaux / Lie de Vin */
+            --color-accent-hover: #A52A2A; /* Marron léger pour le survol */
+            --color-dark-surface: #222; /* Fond des conteneurs d'avis */
+            --color-text-secondary: #888; /* Texte secondaire/gris */
         }
 
-        form { 
-            background-color: var(--color-dark-surface); /* Surface du formulaire sombre */
-            padding: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Ombre plus marquée pour le contraste */
-        }
-
-        label { 
-            display: block; 
-            margin-bottom: 5px; 
-            font-weight: bold; 
-            color: var(--color-dark-text); /* Texte des labels clair */
-        }
-
-        input[type="text"], input[type="email"], input[type="date"], textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid var(--color-dark-border); /* Bordure sombre */
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: var(--color-dark-input); /* Fond des inputs sombre */
-            color: var(--color-dark-text); /* Texte de saisie clair */
-        }
-        
-        textarea { resize: vertical; height: 100px; }
-        
-        /* Séparateur (HR) en mode sombre */
-        hr {
-            border-top: 1px solid var(--color-dark-border);
-            margin: 20px 0;
-        }
-
-        button {
-            background-color: var(--color-accent);
+        body {
+            background-color: black;
             color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-        }
-        button:hover { background-color: #A52A2A; } /* Légèrement plus clair au survol */
-        
-        .consent { font-size: 0.85em; margin-bottom: 15px; }
-        .consent label { font-weight: normal; }
-        .consent a { color: var(--color-accent); /* Lien en couleur d'accentuation */ }
-
-        /* Style pour les messages de confirmation/erreur */
-        #response-message { 
-            margin-top: 20px; 
-            padding: 15px; 
-            border-radius: 4px; 
-            display: none; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 3em; 
+            margin-bottom: 20px;
+            color: var(--color-accent); /* Utilisation de la couleur d'accentuation */
+        }
+        p {
+            font-size: 1.2em; line-height: 1.5em; margin-bottom: 30px;
+        }
+        .avis-container {
+            background-color: var(--color-dark-surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15); /* Ombre légèrement plus visible */
+            text-align: left;
+        }
+        .avis-container p {
+            font-size: 1.1em; color: #f0f0f0; margin-bottom: 10px;
+        }
+        .avis-nom {
+            font-weight: bold; margin-bottom: 10px;
+            color: var(--color-accent); /* Mise en évidence du nom de l'auteur */
+        }
+        .avis-date {
+            font-size: 0.9em; color: var(--color-text-secondary);
+        }
+        .avis-stars {
+            color: gold; margin-top: 10px;
+        }
+        img {
+            width: 80%; max-width: 600px; margin: 20px auto; display: block;
+        }
+        
+        /* Style du bouton d'action harmonisé */
+        .btn {
+            background-color: var(--color-accent); /* Couleur d'accentuation forte */
+            color: white; 
+            padding: 15px 25px; /* Plus grand pour plus de clarté */
+            text-align: center;
+            text-decoration: none; 
+            display: inline-block; 
+            font-size: 1.1em; 
+            margin: 20px auto;
+            border-radius: 5px; 
+            border: none; /* Supprime la bordure grise pour un look plus moderne */
+            transition: background-color 0.3s ease;
+            width: 250px; 
+            max-width: 90%;
             font-weight: bold;
-            color: var(--color-dark-text); /* Texte du message clair */
         }
-        /* Couleurs pour les messages (ajustées pour le dark mode) */
-        .success { 
-            background-color: #194C24; /* Vert foncé */
-            border: 1px solid #285A32;
+        .btn:hover {
+            background-color: var(--color-accent-hover);
         }
-        .error { 
-            background-color: #5C2B2B; /* Rouge foncé */
-            border: 1px solid #6D3D3D; 
+        
+        nav ul {
+            list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center;
         }
-
-        /* Conteneurs flexibles pour les champs côte à côte */
-        .field-group { display: flex; gap: 10px; }
-        .field-group > div { flex: 1; }
+        nav ul li {
+            margin: 10px 15px;
+        }
+        nav ul li a {
+            color: white; text-decoration: none; font-weight: bold;
+        }
+        nav ul li a:hover {
+            color: var(--color-accent); /* Effet hover avec la couleur d'accentuation */
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--color-text-secondary); /* Bordure footer moins agressive */
+        }
+        footer p {
+            font-size: 0.9em; color: var(--color-text-secondary);
+        }
+        #avis-list-container {
+            margin-top: 20px;
+        }
+        /* Styles pour mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+        }
     </style>
 </head>
+
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="carte.html">Carte du jour</a></li>
+        </ul>
+    </nav>
 
-    <h1>Votre Question Gratuite</h1>
-    
-    <p>Remplissez le formulaire ci-dessous pour soumettre votre question gratuite. Soyez le plus précis possible pour une réponse de qualité.</p>
+    <h1>Avis de nos Clients</h1>
 
-    <form id="freeQuestionForm">
-        <h2>Vos informations (Confidentialité assurée)</h2>
-        <div class="field-group">
-            <div>
-                <label for="Prénom">Prénom :</label>
-                <input type="text" id="Prénom" name="Prénom" required>
-            </div>
-            <div>
-                <label for="Nom">Nom :</label>
-                <input type="text" id="Nom" name="Nom" required>
-            </div>
-        </div>
-        <div class="field-group">
-            <div>
-                <label for="Date_Naissance">Date de Naissance :</label>
-                <input type="date" id="Date_Naissance" name="Date_Naissance" required>
-            </div>
-            <div>
-                <label for="Age">Âge :</label>
-                <input type="text" id="Age" name="Age" placeholder="Ex: 35"> 
-            </div>
-        </div>
-        
-        <label for="Email">Adresse Email (pour recevoir la réponse et le suivi) :</label>
-        <input type="email" id="Email" name="Email" required>
+    <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
 
-        <hr>
+    <a href="Leave_avis.html" class="btn">Laisser un commentaire</a>
+    <p style="font-size: 0.9em; color: var(--color-text-secondary);">Note : Les avis sont mis à jour après approbation.</p>
 
-        <h2>Informations Partenaire (si la question concerne une relation)</h2>
-        <p style="font-size: 0.9em; margin-top: -10px; color: var(--color-dark-text-secondary);">Ces informations sont facultatives si votre question ne concerne pas une personne spécifique.</p>
-        <div class="field-group">
-            <div>
-                <label for="Prénom_Partenaire">Prénom Partenaire :</label>
-                <input type="text" id="Prénom_Partenaire" name="Prénom_Partenaire">
-            </div>
-            <div>
-                <label for="Nom_Partenaire">Nom Partenaire :</label>
-                <input type="text" id="Nom_Partenaire" name="Nom_Partenaire">
-            </div>
-        </div>
-        <div class="field-group">
-            <div>
-                <label for="Date_Naissance_Partenaire">Date de Naissance Partenaire :</label>
-                <input type="date" id="Date_Naissance_Partenaire" name="Date_Naissance_Partenaire">
-            </div>
-            <div>
-                <label for="Age_Partenaire">Âge Partenaire :</label>
-                <input type="text" id="Age_Partenaire" name="Age_Partenaire" placeholder="Ex: 30">
-            </div>
-        </div>
-        
-        <hr>
+    <div id="avis-list-container">
+        <p>Chargement des avis...</p>
+    </div>
 
-        <h2>Votre Question et Temporalité</h2>
-        
-        <label for="Temporalité">Temporalité souhaitée :</label>
-        <select id="Temporalité" name="Temporalité" required>
-            <option value="">-- Choisissez une option --</option>
-            <option value="Court Terme">Court terme (0-3 mois)</option>
-            <option value="Moyen Terme">Moyen terme (3-12 mois)</option>
-            <option value="Long Terme">Long terme (1 an et +)</option>
-            <option value="Non Précisé">Sans temporalité précise</option>
-        </select>
-
-        <label for="Question">Votre Question Précise (Max. 500 caractères) :</label>
-        <textarea id="Question" name="Question" maxlength="500" required></textarea>
-
-        <div class="consent">
-            <input type="checkbox" id="consent" name="consent" required>
-            <label for="consent">J'accepte que mes données (uniquement les informations fournies) soient enregistrées pour le traitement de ma demande, conformément à la <a href="/politique-de-confidentialite.html" target="_blank">Politique de Confidentialité</a>.</label>
-        </div>
-
-        <button type="submit" id="submitButton">Envoyer ma Question Gratuite</button>
-    </form>
-    
-    <div id="response-message"></div>
+    <footer>
+        <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
+    </footer>
 
     <script>
-        // NOTE: REMPLACEZ L'URL CI-DESSOUS PAR VOTRE VRAIE SCRIPT_URL
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec";
-        
-        const form = document.getElementById('freeQuestionForm');
-        const responseMessage = document.getElementById('response-message');
-        const submitButton = document.getElementById('submitButton');
-        
-        // Fonction pour afficher le message de réponse
-        function displayMessage(type, message) {
-            responseMessage.className = (type === 'success') ? 'success' : 'error';
-            responseMessage.innerHTML = message;
-            responseMessage.style.display = 'block';
+        // Votre URL Apps Script (la même que dans Leave_avis.html)
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec';
+
+        // Fonction pour générer les étoiles
+        function generateStars(rating) {
+            // Assurez-vous que rating est un nombre entre 1 et 5
+            rating = Math.max(1, Math.min(5, parseInt(rating) || 0)); 
+            const fullStar = '★';
+            const emptyStar = '☆';
+            return fullStar.repeat(rating) + emptyStar.repeat(5 - rating);
         }
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Masquer le message précédent et désactiver le bouton
-            responseMessage.style.display = 'none';
-            submitButton.disabled = true;
-            submitButton.textContent = "Envoi en cours...";
+        // Fonction pour récupérer les avis
+        function loadAvis() {
+            const container = document.getElementById('avis-list-container');
+            container.innerHTML = '<p>Chargement des avis en cours...</p>';
 
-            // 1. Collecter les données du formulaire
-            const formData = new FormData(form);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            // Le formulaire est envoyé via Fetch/XHR pour rester sur la même page
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: new URLSearchParams(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(result => {
-                if (result.result === 'success') {
-                    // Affichage du message de succès avec l'ID de suivi
-                    displayMessage('success', 
-                        `✅ Votre demande a été enregistrée !<br>
-                        Votre **Numéro de Suivi** est : <strong>${result.id}</strong>.<br>
-                        Un e-mail de confirmation vous a été envoyé.<br>
-                        Consultez l'état d'avancement sur la page <a href="/suivi.html">Suivi des Demandes</a>.`);
-                    
-                    form.reset(); // Vider le formulaire après succès
-                    
-                } else {
-                    displayMessage('error', `❌ Une erreur est survenue lors de l'enregistrement de la demande: ${result.message}`);
-                }
-            })
-            .catch(error => {
-                console.error('Erreur technique:', error);
-                displayMessage('error', `❌ Une erreur technique est survenue. Veuillez réessayer plus tard.`);
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                submitButton.textContent = "Envoyer ma Question Gratuite";
-            });
-        });
+            // Utilise l'action=getAvis pour appeler la fonction doGet filtrée
+            fetch(APPS_SCRIPT_URL + '?action=getAvis')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur réseau ou Apps Script non accessible.');
+                    }
+                    return response.json();
+                })
+                .then(avisList => {
+                    container.innerHTML = ''; 
+
+                    if (avisList.length === 0) {
+                        container.innerHTML = '<p>Aucun avis publié pour le moment.</p>';
+                        return;
+                    }
+
+                    avisList.forEach(avis => {
+                        // Tente de formater la date
+                        let dateString = 'Date inconnue';
+                        if (avis.Date) {
+                            try {
+                                // Assurez-vous que l'index Date (colonne F) renvoie une valeur que new Date peut traiter
+                                const date = new Date(avis.Date);
+                                if (!isNaN(date)) {
+                                     dateString = date.toLocaleDateString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    });
+                                }
+                            } catch (e) {
+                                // Laisse 'Date inconnue' en cas d'échec de formatage
+                            }
+                        }
+
+                        // Créer l'élément HTML pour l'avis
+                        const avisDiv = document.createElement('div');
+                        avisDiv.classList.add('avis-container');
+                        avisDiv.innerHTML = `
+                            <p class="avis-nom">${avis.Prénom}</p>
+                            <p class="avis-date">${dateString}</p>
+                            <p>"${avis.Avis}"</p>
+                            <div class="avis-stars">${generateStars(avis.Note)}</div>
+                        `;
+                        container.appendChild(avisDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur de chargement des avis:', error);
+                    container.innerHTML = '<p style="color:var(--color-accent);">Impossible de charger les avis. Veuillez vérifier la console du navigateur.</p>';
+                });
+        }
+
+        // Charger les avis au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadAvis);
     </script>
-
 </body>
 </html>
