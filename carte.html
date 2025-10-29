@@ -2,14 +2,12 @@
 <html lang="fr">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<!-- End Google Tag Manager -->
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte du jour - La Flamme de l'Ombre</title>
     <style>
@@ -19,12 +17,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Ajout d'un padding général pour l'espacement */
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* Retire le 100vh et le justify-content pour que la page puisse défiler si nécessaire */
+            min-height: 100vh;
         }
         h1 {
             font-size: 3em;
@@ -34,6 +32,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         p {
             font-size: 1.2em;
         }
+        /* Styles de la navigation */
+        nav ul {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 20px 0;
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        nav ul li {
+            margin: 10px 15px; 
+        }
+        nav ul li a, .nav-current {
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+        nav ul li a:hover {
+            text-decoration: underline; 
+        }
+        .nav-current {
+            color: #AAAAAA; /* Gris pour la page active */
+            cursor: default;
+        }
+
+        /* Styles de la carte */
         .card {
             width: 300px;
             height: 450px;
@@ -70,6 +94,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .back {
             transform: rotateY(180deg);
         }
+        
+        /* Styles des boutons/messages */
         button {
             background-color: #444;
             color: white;
@@ -78,15 +104,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 1.2em;
             cursor: pointer;
             margin-top: 20px;
+            border-radius: 5px;
         }
         button:disabled {
             background-color: #666;
         }
-        #message {
+        #message, #consult-msg {
             display: none;
             margin-top: 20px;
             font-size: 1.2em;
             color: white;
+            max-width: 600px;
         }
         #cta-btn {
             background-color: #444;
@@ -96,37 +124,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 1.2em;
             margin-top: 20px;
             text-decoration: none;
-            display: none; /* Le bouton apparaît seulement à la fin */
+            display: none; 
+            border-radius: 5px;
         }
         #cta-btn:hover {
             background-color: #666;
         }
         #attention-msg-small {
             display: none;
-            font-size: 0.8em;
+            font-size: 0.9em;
             margin-top: 10px;
+            color: #ccc;
         }
-        #cart-details {
-    max-height: 80vh; /* Limiter la hauteur à 80% de la hauteur de l'écran */
-    overflow-y: auto; /* Activer le défilement si le contenu dépasse */
-}
+        
     </style>
 </head>
 <body>
-        <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <nav>
-    <ul style="list-style-type: none; display: flex; justify-content: center; gap: 20px; padding: 0;">
-        <li><a href="index.html" style="color: white; text-decoration: none;">Accueil</a></li>
-        <li><a href="about.html" style="color: white; text-decoration: none;">À propos</a></li>
-        <li><a href="services.html" style="color: white; text-decoration: none;">Services</a></li>
-        <li><a href="products.html" style="color: white; text-decoration: none;">Produits</a></li>
-        <li><a href="contact.html" style="color: white; text-decoration: none;">Contact</a></li>
-        <li><a href="avis.html" style="color: white; text-decoration: none;">Avis</a></li>
-    </ul>
-</nav>
+<nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li> 
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
+            <li><span class="nav-current">Carte du jour</span></li> </ul>
+    </nav>
+    
     <h1>La carte du jour</h1>
 
     <p id="warning-msg" style="color: white; font-size: 1.2em; margin-top: 20px;">Attention : Il est important de ne tirer qu'une seule carte par jour, sinon cela pourrait perdre de son sens.</p>
@@ -140,91 +165,93 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <button id="reveal-btn">Révéler la carte du jour</button>
 
-    <p id="message">Si cette carte résonne en vous, n'hésitez pas à me consulter pour en savoir plus.</p>
-    <p id="consult-msg" style="display: none;">Pour approfondir, n'hésitez pas à réserver une consultation.</p>
-<a href="services.html" id="cta-btn">Voir les services proposés</a>
-    <a href="services.html" id="cta-btn">Voir les services proposés</a>
-
+    <p id="message"></p>
+    <p id="consult-msg" style="display: none;">Pour approfondir cette lecture, n'hésitez pas à poser une question via le formulaire gratuit.</p>
+    
+    <a href="form.html" id="cta-btn">Accéder au Formulaire (Gratuit)</a>
+    
     <script>
+        // Définition des cartes
         var cards = [
-    { img: 'images/cartes/1.jpeg', text: "Aujourd'hui, ouvrez-vous aux autres. La clé est dans les mots que vous choisissez." },
-    { img: 'images/cartes/2.jpeg', text: "Affrontez vos peurs avec courage. Une discussion difficile peut mener à la lumière." },
-    { img: 'images/cartes/3.jpeg', text: "Le succès est à portée de main. Continuez à avancer avec confiance." },
-    { img: 'images/cartes/4.jpeg', text: "Un changement inattendu vous attend. Ne le craignez pas, il vous apportera de nouvelles opportunités." },
-    { img: 'images/cartes/5.jpeg', text: "Il y a une faille à combler. Une petite réparation peut prévenir de plus gros dégâts." },
-    { img: 'images/cartes/6.jpeg', text: "Laissez-vous porter par le flux des émotions. La fluidité est votre alliée aujourd'hui." },
-    { img: 'images/cartes/7.jpeg', text: "Prenez soin de votre corps. Il est le temple qui abrite votre esprit." },
-    { img: 'images/cartes/8.jpeg', text: "Laissez place à l'innocence et à la curiosité. Parfois, l’enfant en nous connaît déjà toutes les réponses." },
-    { img: 'images/cartes/9.jpeg', text: "Un déplacement, qu'il soit physique ou spirituel, s'annonce. Ouvrez-vous à l'inconnu." },
-    { img: 'images/cartes/10.jpeg', text: "Acceptez vos vulnérabilités. C'est en reconnaissant vos failles que vous trouvez votre vraie force." },
-    { img: 'images/cartes/11.jpeg', text: "La force intérieure vous guidera. Utilisez-la pour avancer avec confiance." },
-    { img: 'images/cartes/12.jpeg', text: "Calmez les tempêtes intérieures. Trouvez la paix au milieu du chaos." },
-    { img: 'images/cartes/13.jpeg', text: "Vos pensées sont votre arme. Concentrez-vous pour dompter vos doutes." },
-    { img: 'images/cartes/14.jpeg', text: "Prenez soin de votre corps. Il est le temple qui abrite votre esprit." },
-    { img: 'images/cartes/15.jpeg', text: "Laissez-vous porter par le flux des émotions. La fluidité est votre alliée aujourd'hui." },
-    { img: 'images/cartes/16.jpeg', text: "Ancrez-vous dans le présent. Les racines solides permettent de croître plus haut." },
-    { img: 'images/cartes/17.jpeg', text: "Libérez-vous des poids inutiles. La légèreté du cœur vous fait avancer." },
-    { img: 'images/cartes/18.jpeg', text: "Embrasez votre passion. Aujourd'hui est un jour pour agir avec intensité." },
-    { img: 'images/cartes/19.jpeg', text: "Un déplacement, qu'il soit physique ou spirituel, s'annonce. Ouvrez-vous à l'inconnu." },
-    { img: 'images/cartes/20.jpeg', text: "Il y a de la force dans la solitude. Profitez de ce moment pour vous recentrer." },
-    { img: 'images/cartes/21.jpeg', text: "Votre foyer est un lieu de paix. Protégez-le et trouvez-y refuge." },
-    { img: 'images/cartes/22.jpeg', text: "Tout vous sourit. Profitez pleinement de cette énergie lumineuse." },
-    { img: 'images/cartes/23.jpeg', text: "Un défi se dresse devant vous. Mais rappelez-vous, chaque obstacle est une opportunité de grandir." },
-    { img: 'images/cartes/24.jpeg', text: "Prenez garde à l'excès de contrôle. Parfois, lâcher prise mène à de meilleures solutions." },
-    { img: 'images/cartes/25.jpeg', text: "N'acceptez pas de vous effacer. C'est le moment de reprendre votre pouvoir." },
-    { img: 'images/cartes/26.jpeg', text: "Libérez-vous de ce qui vous retient captif. Aujourd'hui, choisissez votre liberté." },
-    { img: 'images/cartes/27.jpeg', text: "Quelque chose ou quelqu'un tente de vous contrôler. Soyez vigilant et imposez vos limites." },
-    { img: 'images/cartes/28.jpeg', text: "Vous êtes en pleine transformation. Acceptez les changements qui vous mèneront vers une meilleure version de vous-même." },
-    { img: 'images/cartes/29.jpeg', text: "Une main tendue est proche. N'ayez pas peur de demander ou d'accepter de l'aide." },
-    { img: 'images/cartes/30.jpeg', text: "Un obstacle peut être franchi avec persévérance. Ne renoncez pas." },
-    { img: 'images/cartes/31.jpeg', text: "Une union ou une collaboration s'annonce. Ensemble, vous irez plus loin." },
-    { img: 'images/cartes/32.jpeg', text: "Attendez-vous à des nouvelles importantes. Elles changeront peut-être le cours de votre journée." },
-    { img: 'images/cartes/33.jpeg', text: "L’administratif vous appelle. Restez vigilant aux détails." },
-    { img: 'images/cartes/34.jpeg', text: "L'équilibre entre donner et recevoir est crucial. Ce que vous semez aujourd'hui, vous le récolterez demain." },
-    { img: 'images/cartes/35.jpeg', text: "Il est temps de réfléchir. Remettre en question vos choix peut vous ouvrir de nouvelles portes." },
-    { img: 'images/cartes/36.jpeg', text: "Apprenez de vos expériences et de celles des autres. Chaque savoir vous fait grandir." },
-    { img: 'images/cartes/37.jpeg', text: "Un nouveau chapitre s'ouvre. Soyez prêt à embrasser l'inconnu." },
-    { img: 'images/cartes/38.jpeg', text: "L'abondance vous entoure. Soyez reconnaissant pour ce que vous avez." },
-    { img: 'images/cartes/39.jpeg', text: "Le bonheur est à portée de main. Profitez des petites joies de la vie." },
-    { img: 'images/cartes/40.jpeg', text: "L'ange est à vos côtés aujourd'hui. Une protection divine vous entoure, apportant paix et guidance." },
-    { img: 'images/cartes/41.jpeg', text: "Le diable représente la tentation. Prenez garde aux distractions et aux choix impulsifs." },
-    { img: 'images/cartes/42.jpeg', text: "Vous êtes à un carrefour important. Choisissez la voie qui résonne le plus avec votre cœur." },
-    { img: 'images/cartes/43.jpeg', text: "La route est ouverte devant vous, mais prenez le temps de bien réfléchir avant de choisir une direction." },
-    { img: 'images/cartes/44.jpeg', text: "La distance peut parfois renforcer les liens. Restez connecté avec ceux que vous aimez." },
-    { img: 'images/cartes/45.jpeg', text: "La sérénité vous entoure. Prenez un moment pour savourer la tranquillité." },
-    { img: 'images/cartes/46.jpeg', text: "La lenteur n'est pas synonyme d'échec. Profitez du voyage, même s'il est long." },
-    { img: 'images/cartes/47.jpeg', text: "Les choses vont s'accélérer. Préparez-vous à une période de changement rapide." },
-    { img: 'images/cartes/48.jpeg', text: "Le printemps annonce un renouveau. De nouvelles opportunités se profilent à l'horizon." },
-    { img: 'images/cartes/49.jpeg', text: "L'hiver est un moment de réflexion. Prenez le temps de recharger vos énergies." },
-    { img: 'images/cartes/50.jpeg', text: "L'automne symbolise la récolte. Profitez des fruits de vos efforts." },
-    { img: 'images/cartes/51.jpeg', text: "L'été apporte chaleur et épanouissement. C'est le moment de s'ouvrir aux autres." },
-    { img: 'images/cartes/52.jpeg', text: "L'enfant représente la pureté et l'innocence. Faites confiance à votre intuition." },
-    { img: 'images/cartes/53.jpeg', text: "La femme joue un rôle central aujourd'hui. Son énergie vous guide." },
-    { img: 'images/cartes/54.jpeg', text: "L'amitié est précieuse. Prenez soin de vos amis et ils prendront soin de vous." },
-    { img: 'images/cartes/55.jpeg', text: "La réponse est peut-être incertaine. Soyez patient et restez ouvert aux possibilités." },
-    { img: 'images/cartes/56.jpeg', text: "La famille est votre pilier. Recherchez leur soutien dans les moments difficiles." },
-    { img: 'images/cartes/57.jpeg', text: "L'argent circule, mais faites preuve de prudence dans vos dépenses aujourd'hui." },
-    { img: 'images/cartes/58.jpeg', text: "Prenez soin de votre bien-être aujourd'hui. Le corps a besoin d'attention." },
-    { img: 'images/cartes/59.jpeg', text: "L'amour vous entoure. Soyez ouvert à recevoir cette belle énergie." },
-    { img: 'images/cartes/60.jpeg', text: "Le travail acharné porte ses fruits. Continuez sur cette voie." },
-    { img: 'images/cartes/61.jpeg', text: "Restez vigilant, mais sachez que chaque blessure guérit avec le temps." },
-    { img: 'images/cartes/62.jpeg', text: "La confiance est précieuse. Accordez-la à ceux qui le méritent." },
-    { img: 'images/cartes/63.jpeg', text: "Vous avez entre vos mains la clé de votre destin. Osez ouvrir cette porte." },
-    { img: 'images/cartes/64.jpeg', text: "N'attendez pas pour demander de l'aide. Parfois, tendre la main est un signe de force." },
-    { img: 'images/cartes/65.jpeg', text: "Prenez le temps de guérir. Chaque cicatrice a une histoire à raconter." },
-    { img: 'images/cartes/66.jpeg', text: "Restez dans l’instant. Ce moment est le seul qui compte vraiment." },
-    { img: 'images/cartes/67.jpeg', text: "Le futur est encore à écrire. Chaque action aujourd'hui façonne demain." },    
-    { img: 'images/cartes/68.jpeg', text: "Ne laissez pas le passé définir votre présent. Ce qui est fait ne peut être changé, mais vous pouvez avancer." },
-    { img: 'images/cartes/69.jpeg', text: "Ce que vous attendez ne viendra pas de cette façon. Il est temps de chercher ailleurs." },
-    { img: 'images/cartes/70.jpeg', text: "L'univers vous dit oui. C'est le moment d'agir avec confiance." },
-    { img: 'images/cartes/71.jpeg', text: "Une énergie masculine est en jeu aujourd'hui. Fiez-vous à cette force protectrice." },
-    { img: 'images/cartes/72.jpeg', text: "Votre relation amoureuse est sous les projecteurs. N’oubliez pas l'importance de la communication." },
-    { img: 'images/cartes/73.jpeg', text: "C'est vous qui êtes au centre de cette énergie. Faites confiance à votre instinct." },
-    { img: 'images/cartes/74.jpeg', text: "L'instabilité vous pousse à vous adapter et à grandir. Ne craignez pas le changement." },
-    { img: 'images/cartes/75.jpeg', text: "Une connexion numérique vous apportera des informations importantes aujourd'hui." },
-    { img: 'images/cartes/76.jpeg', text: "Une révélation pourrait changer la donne. Soyez prêt à accueillir la vérité." },
-    { img: 'images/cartes/77.jpeg', text: "L'habitude est rassurante, mais le changement vous apportera de nouvelles opportunités." }
-    ];
+            { img: 'images/cartes/1.jpeg', text: "Aujourd'hui, ouvrez-vous aux autres. La clé est dans les mots que vous choisissez." },
+            { img: 'images/cartes/2.jpeg', text: "Affrontez vos peurs avec courage. Une discussion difficile peut mener à la lumière." },
+            { img: 'images/cartes/3.jpeg', text: "Le succès est à portée de main. Continuez à avancer avec confiance." },
+            { img: 'images/cartes/4.jpeg', text: "Un changement inattendu vous attend. Ne le craignez pas, il vous apportera de nouvelles opportunités." },
+            { img: 'images/cartes/5.jpeg', text: "Il y a une faille à combler. Une petite réparation peut prévenir de plus gros dégâts." },
+            { img: 'images/cartes/6.jpeg', text: "Laissez-vous porter par le flux des émotions. La fluidité est votre alliée aujourd'hui." },
+            { img: 'images/cartes/7.jpeg', text: "Prenez soin de votre corps. Il est le temple qui abrite votre esprit." },
+            { img: 'images/cartes/8.jpeg', text: "Laissez place à l'innocence et à la curiosité. Parfois, l’enfant en nous connaît déjà toutes les réponses." },
+            { img: 'images/cartes/9.jpeg', text: "Un déplacement, qu'il soit physique ou spirituel, s'annonce. Ouvrez-vous à l'inconnu." },
+            { img: 'images/cartes/10.jpeg', text: "Acceptez vos vulnérabilités. C'est en reconnaissant vos failles que vous trouvez votre vraie force." },
+            { img: 'images/cartes/11.jpeg', text: "La force intérieure vous guidera. Utilisez-la pour avancer avec confiance." },
+            { img: 'images/cartes/12.jpeg', text: "Calmez les tempêtes intérieures. Trouvez la paix au milieu du chaos." },
+            { img: 'images/cartes/13.jpeg', text: "Vos pensées sont votre arme. Concentrez-vous pour dompter vos doutes." },
+            { img: 'images/cartes/14.jpeg', text: "Prenez soin de votre corps. Il est le temple qui abrite votre esprit." },
+            { img: 'images/cartes/15.jpeg', text: "Laissez-vous porter par le flux des émotions. La fluidité est votre alliée aujourd'hui." },
+            { img: 'images/cartes/16.jpeg', text: "Ancrez-vous dans le présent. Les racines solides permettent de croître plus haut." },
+            { img: 'images/cartes/17.jpeg', text: "Libérez-vous des poids inutiles. La légèreté du cœur vous fait avancer." },
+            { img: 'images/cartes/18.jpeg', text: "Embrasez votre passion. Aujourd'hui est un jour pour agir avec intensité." },
+            { img: 'images/cartes/19.jpeg', text: "Un déplacement, qu'il soit physique ou spirituel, s'annonce. Ouvrez-vous à l'inconnu." },
+            { img: 'images/cartes/20.jpeg', text: "Il y a de la force dans la solitude. Profitez de ce moment pour vous recentrer." },
+            { img: 'images/cartes/21.jpeg', text: "Votre foyer est un lieu de paix. Protégez-le et trouvez-y refuge." },
+            { img: 'images/cartes/22.jpeg', text: "Tout vous sourit. Profitez pleinement de cette énergie lumineuse." },
+            { img: 'images/cartes/23.jpeg', text: "Un défi se dresse devant vous. Mais rappelez-vous, chaque obstacle est une opportunité de grandir." },
+            { img: 'images/cartes/24.jpeg', text: "Prenez garde à l'excès de contrôle. Parfois, lâcher prise mène à de meilleures solutions." },
+            { img: 'images/cartes/25.jpeg', text: "N'acceptez pas de vous effacer. C'est le moment de reprendre votre pouvoir." },
+            { img: 'images/cartes/26.jpeg', text: "Libérez-vous de ce qui vous retient captif. Aujourd'hui, choisissez votre liberté." },
+            { img: 'images/cartes/27.jpeg', text: "Quelque chose ou quelqu'un tente de vous contrôler. Soyez vigilant et imposez vos limites." },
+            { img: 'images/cartes/28.jpeg', text: "Vous êtes en pleine transformation. Acceptez les changements qui vous mèneront vers une meilleure version de vous-même." },
+            { img: 'images/cartes/29.jpeg', text: "Une main tendue est proche. N'ayez pas peur de demander ou d'accepter de l'aide." },
+            { img: 'images/cartes/30.jpeg', text: "Un obstacle peut être franchi avec persévérance. Ne renoncez pas." },
+            { img: 'images/cartes/31.jpeg', text: "Une union ou une collaboration s'annonce. Ensemble, vous irez plus loin." },
+            { img: 'images/cartes/32.jpeg', text: "Attendez-vous à des nouvelles importantes. Elles changeront peut-être le cours de votre journée." },
+            { img: 'images/cartes/33.jpeg', text: "L’administratif vous appelle. Restez vigilant aux détails." },
+            { img: 'images/cartes/34.jpeg', text: "L'équilibre entre donner et recevoir est crucial. Ce que vous semez aujourd'hui, vous le récolterez demain." },
+            { img: 'images/cartes/35.jpeg', text: "Il est temps de réfléchir. Remettre en question vos choix peut vous ouvrir de nouvelles portes." },
+            { img: 'images/cartes/36.jpeg', text: "Apprenez de vos expériences et de celles des autres. Chaque savoir vous fait grandir." },
+            { img: 'images/cartes/37.jpeg', text: "Un nouveau chapitre s'ouvre. Soyez prêt à embrasser l'inconnu." },
+            { img: 'images/cartes/38.jpeg', text: "L'abondance vous entoure. Soyez reconnaissant pour ce que vous avez." },
+            { img: 'images/cartes/39.jpeg', text: "Le bonheur est à portée de main. Profitez des petites joies de la vie." },
+            { img: 'images/cartes/40.jpeg', text: "L'ange est à vos côtés aujourd'hui. Une protection divine vous entoure, apportant paix et guidance." },
+            { img: 'images/cartes/41.jpeg', text: "Le diable représente la tentation. Prenez garde aux distractions et aux choix impulsifs." },
+            { img: 'images/cartes/42.jpeg', text: "Vous êtes à un carrefour important. Choisissez la voie qui résonne le plus avec votre cœur." },
+            { img: 'images/cartes/43.jpeg', text: "La route est ouverte devant vous, mais prenez le temps de bien réfléchir avant de choisir une direction." },
+            { img: 'images/cartes/44.jpeg', text: "La distance peut parfois renforcer les liens. Restez connecté avec ceux que vous aimez." },
+            { img: 'images/cartes/45.jpeg', text: "La sérénité vous entoure. Prenez un moment pour savourer la tranquillité." },
+            { img: 'images/cartes/46.jpeg', text: "La lenteur n'est pas synonyme d'échec. Profitez du voyage, même s'il est long." },
+            { img: 'images/cartes/47.jpeg', text: "Les choses vont s'accélérer. Préparez-vous à une période de changement rapide." },
+            { img: 'images/cartes/48.jpeg', text: "Le printemps annonce un renouveau. De nouvelles opportunités se profilent à l'horizon." },
+            { img: 'images/cartes/49.jpeg', text: "L'hiver est un moment de réflexion. Prenez le temps de recharger vos énergies." },
+            { img: 'images/cartes/50.jpeg', text: "L'automne symbolise la récolte. Profitez des fruits de vos efforts." },
+            { img: 'images/cartes/51.jpeg', text: "L'été apporte chaleur et épanouissement. C'est le moment de s'ouvrir aux autres." },
+            { img: 'images/cartes/52.jpeg', text: "L'enfant représente la pureté et l'innocence. Faites confiance à votre intuition." },
+            { img: 'images/cartes/53.jpeg', text: "La femme joue un rôle central aujourd'hui. Son énergie vous guide." },
+            { img: 'images/cartes/54.jpeg', text: "L'amitié est précieuse. Prenez soin de vos amis et ils prendront soin de vous." },
+            { img: 'images/cartes/55.jpeg', text: "La réponse est peut-être incertaine. Soyez patient et restez ouvert aux possibilités." },
+            { img: 'images/cartes/56.jpeg', text: "La famille est votre pilier. Recherchez leur soutien dans les moments difficiles." },
+            { img: 'images/cartes/57.jpeg', text: "L'argent circule, mais faites preuve de prudence dans vos dépenses aujourd'hui." },
+            { img: 'images/cartes/58.jpeg', text: "Prenez soin de votre bien-être aujourd'hui. Le corps a besoin d'attention." },
+            { img: 'images/cartes/59.jpeg', text: "L'amour vous entoure. Soyez ouvert à recevoir cette belle énergie." },
+            { img: 'images/cartes/60.jpeg', text: "Le travail acharné porte ses fruits. Continuez sur cette voie." },
+            { img: 'images/cartes/61.jpeg', text: "Restez vigilant, mais sachez que chaque blessure guérit avec le temps." },
+            { img: 'images/cartes/62.jpeg', text: "La confiance est précieuse. Accordez-la à ceux qui le méritent." },
+            { img: 'images/cartes/63.jpeg', text: "Vous avez entre vos mains la clé de votre destin. Osez ouvrir cette porte." },
+            { img: 'images/cartes/64.jpeg', text: "N'attendez pas pour demander de l'aide. Parfois, tendre la main est un signe de force." },
+            { img: 'images/cartes/65.jpeg', text: "Prenez le temps de guérir. Chaque cicatrice a une histoire à raconter." },
+            { img: 'images/cartes/66.jpeg', text: "Restez dans l’instant. Ce moment est le seul qui compte vraiment." },
+            { img: 'images/cartes/67.jpeg', text: "Le futur est encore à écrire. Chaque action aujourd'hui façonne demain." },    
+            { img: 'images/cartes/68.jpeg', text: "Ne laissez pas le passé définir votre présent. Ce qui est fait ne peut être changé, mais vous pouvez avancer." },
+            { img: 'images/cartes/69.jpeg', text: "Ce que vous attendez ne viendra pas de cette façon. Il est temps de chercher ailleurs." },
+            { img: 'images/cartes/70.jpeg', text: "L'univers vous dit oui. C'est le moment d'agir avec confiance." },
+            { img: 'images/cartes/71.jpeg', text: "Une énergie masculine est en jeu aujourd'hui. Fiez-vous à cette force protectrice." },
+            { img: 'images/cartes/72.jpeg', text: "Votre relation amoureuse est sous les projecteurs. N’oubliez pas l'importance de la communication." },
+            { img: 'images/cartes/73.jpeg', text: "C'est vous qui êtes au centre de cette énergie. Faites confiance à votre instinct." },
+            { img: 'images/cartes/74.jpeg', text: "L'instabilité vous pousse à vous adapter et à grandir. Ne craignez pas le changement." },
+            { img: 'images/cartes/75.jpeg', text: "Une connexion numérique vous apportera des informations importantes aujourd'hui." },
+            { img: 'images/cartes/76.jpeg', text: "Une révélation pourrait changer la donne. Soyez prêt à accueillir la vérité." },
+            { img: 'images/cartes/77.jpeg', text: "L'habitude est rassurante, mais le changement vous apportera de nouvelles opportunités." }
+        ];
+
         document.getElementById('reveal-btn').addEventListener('click', function() {
             var card = document.getElementById('flip-card');
             var backFace = document.querySelector('.back');
@@ -238,152 +265,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             this.disabled = true;
 
             setTimeout(function() {
-    // Afficher le message et le bouton après l'animation
-    document.getElementById('message').style.display = 'block';
-    document.getElementById('cta-btn').style.display = 'inline-block';
-
-    // Afficher le nouveau message de consultation après 2 secondes
-    setTimeout(function() {
-        document.getElementById('consult-msg').style.display = 'block';
-    }, 2000); // 2 secondes de délai avant l'affichage
-    
-    // Réafficher le message d'attention en plus petit en bas
-    document.getElementById('attention-msg-small').style.display = 'block';
-}, 3000); // Durée de l'animation (3 secondes)
-
-            setTimeout(function() {
-                // Afficher le texte associé à la carte après l'animation
+                // Afficher le texte associé à la carte
                 document.getElementById('message').textContent = randomCard.text;
                 document.getElementById('message').style.display = 'block';
+                
+                // Afficher le message de consultation et le bouton CTA
+                document.getElementById('consult-msg').style.display = 'block';
                 document.getElementById('cta-btn').style.display = 'inline-block';
             }, 3000); // Durée de l'animation (3 secondes)
         });
     </script>
-
-<!-- Icône du panier -->
-<div id="cart-wrapper" style="position: fixed; top: 20px; right: 20px;">
-    <i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer;"></i>
-    <div id="cart-details" style="position: fixed; top: 80px; right: 20px; background-color: #222; padding: 20px; border-radius: 10px; display: none; max-width: 300px; text-align: left;">
-        <h3>Panier</h3>
-        <div id="cart-items"></div>
-        <p id="cart-total">Total : 0 €</p>
-        <div id="paypal-button-container"></div>
-    </div>
-</div>
-
-<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
-
-<script>
-    var cart = [];
-    var totalAmount = 0;
-    var freeShippingThreshold = 35; // Montant pour livraison gratuite
-    var shippingBase = 3; // Frais de port de base
-    var shippingPerItem = 1; // 1 € par article supplémentaire
-
-    // Charger le panier depuis localStorage
-    function loadCartFromLocalStorage() {
-        var storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-            cart = JSON.parse(storedCart);
-            updateCart();
-        }
-    }
-
-    // Sauvegarder le panier dans localStorage
-    function saveCartToLocalStorage() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    // Afficher ou masquer le détail du panier
-    function toggleCart() {
-        var cartDetails = document.getElementById('cart-details');
-        cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Mettre à jour l'affichage du panier
-    function updateCart() {
-        var cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = ''; // Vider le contenu précédent
-        var total = 0;
-        var itemCount = 0;
-        var shipping = 0;
-
-        cart.forEach(function(item, index) {
-            total += item.price * item.quantity;
-            itemCount += item.quantity;
-
-            var itemElement = document.createElement('div');
-            itemElement.innerHTML = `
-                <p>${item.name} - ${item.price} € x ${item.quantity}</p>
-                <button onclick="changeQuantity(${index}, -1)">-</button>
-                <button onclick="changeQuantity(${index}, 1)">+</button>
-                <button onclick="removeItem(${index})">Supprimer</button>
-            `;
-            cartItems.appendChild(itemElement);
-        });
-
-        // Calcul des frais de port
-        if (total < freeShippingThreshold) {
-            shipping = shippingBase + (itemCount - 1) * shippingPerItem;
-        }
-
-        total += shipping;
-        var shippingMessage = total >= freeShippingThreshold ? "Frais de port offerts" : `Frais de port : ${shipping} €`;
-        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
-
-        totalAmount = total;
-        renderPayPalButton();
-    }
-
-    // Modifier la quantité d'un article
-    function changeQuantity(index, change) {
-        if (cart[index].quantity + change > 0) {
-            cart[index].quantity += change;
-        } else {
-            removeItem(index);
-        }
-        updateCart();
-        saveCartToLocalStorage();
-    }
-
-    // Supprimer un article du panier
-    function removeItem(index) {
-        cart.splice(index, 1);
-        updateCart();
-        saveCartToLocalStorage();
-    }
-
-    // Rendre le bouton PayPal
-function renderPayPalButton() {
-    document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
-    paypal.Buttons({
-        style: {
-            layout: 'vertical',  // Utiliser une mise en page verticale pour que le bouton s'affiche bien
-            color: 'blue',       // Couleur du bouton
-            shape: 'rect',       // Forme rectangulaire du bouton
-            label: 'pay'         // Texte du bouton
-        },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: totalAmount.toFixed(2)
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Transaction réussie par ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container');
-}
-
-    // Charger le panier dès que la page est prête
-    document.addEventListener('DOMContentLoaded', function() {
-        loadCartFromLocalStorage();
-    });
-</script>
 </body>
 </html>
