@@ -5,22 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question Gratuite - La Flamme de l'Ombre</title>
     <style>
-        /* Styles de base pour un affichage clair */
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 0 15px; background-color: #f4f4f4; }
-        h1 { color: #8B0000; text-align: center; }
-        form { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        /* Styles Dark Mode */
+        :root {
+            --color-dark-background: #121212; /* Fond d'écran très sombre */
+            --color-dark-surface: #1E1E1E;    /* Fond du formulaire */
+            --color-dark-text: #E0E0E0;      /* Texte clair */
+            --color-dark-text-secondary: #B0B0B0; /* Texte secondaire/gris */
+            --color-dark-input: #252525;     /* Fond des champs de saisie */
+            --color-dark-border: #333333;    /* Bordures des champs */
+            --color-accent: #8B0000;         /* Rouge Bordeaux (Accentuation) */
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            padding: 0 15px; 
+            background-color: var(--color-dark-background); /* Fond sombre */
+            color: var(--color-dark-text); /* Texte clair par défaut */
+        }
+        
+        h1, h2 { 
+            color: var(--color-accent); /* Conserver la couleur d'accentuation */
+            text-align: center; 
+        }
+        
+        p {
+            color: var(--color-dark-text-secondary);
+        }
+
+        form { 
+            background-color: var(--color-dark-surface); /* Surface du formulaire sombre */
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Ombre plus marquée pour le contraste */
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold; 
+            color: var(--color-dark-text); /* Texte des labels clair */
+        }
+
         input[type="text"], input[type="email"], input[type="date"], textarea, select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--color-dark-border); /* Bordure sombre */
             border-radius: 4px;
-            box-sizing: border-box; /* S'assure que le padding n'augmente pas la taille totale */
+            box-sizing: border-box;
+            background-color: var(--color-dark-input); /* Fond des inputs sombre */
+            color: var(--color-dark-text); /* Texte de saisie clair */
         }
+        
         textarea { resize: vertical; height: 100px; }
+        
+        /* Séparateur (HR) en mode sombre */
+        hr {
+            border-top: 1px solid var(--color-dark-border);
+            margin: 20px 0;
+        }
+
         button {
-            background-color: #8B0000;
+            background-color: var(--color-accent);
             color: white;
             padding: 15px 20px;
             border: none;
@@ -30,9 +78,12 @@
             font-size: 1.1em;
             transition: background-color 0.3s;
         }
-        button:hover { background-color: #A52A2A; }
+        button:hover { background-color: #A52A2A; } /* Légèrement plus clair au survol */
+        
         .consent { font-size: 0.85em; margin-bottom: 15px; }
         .consent label { font-weight: normal; }
+        .consent a { color: var(--color-accent); /* Lien en couleur d'accentuation */ }
+
         /* Style pour les messages de confirmation/erreur */
         #response-message { 
             margin-top: 20px; 
@@ -41,9 +92,17 @@
             display: none; 
             text-align: center;
             font-weight: bold;
+            color: var(--color-dark-text); /* Texte du message clair */
         }
-        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        /* Couleurs pour les messages (ajustées pour le dark mode) */
+        .success { 
+            background-color: #194C24; /* Vert foncé */
+            border: 1px solid #285A32;
+        }
+        .error { 
+            background-color: #5C2B2B; /* Rouge foncé */
+            border: 1px solid #6D3D3D; 
+        }
 
         /* Conteneurs flexibles pour les champs côte à côte */
         .field-group { display: flex; gap: 10px; }
@@ -85,7 +144,7 @@
         <hr>
 
         <h2>Informations Partenaire (si la question concerne une relation)</h2>
-        <p style="font-size: 0.9em; margin-top: -10px; color: #666;">Ces informations sont facultatives si votre question ne concerne pas une personne spécifique.</p>
+        <p style="font-size: 0.9em; margin-top: -10px; color: var(--color-dark-text-secondary);">Ces informations sont facultatives si votre question ne concerne pas une personne spécifique.</p>
         <div class="field-group">
             <div>
                 <label for="Prénom_Partenaire">Prénom Partenaire :</label>
