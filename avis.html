@@ -2,14 +2,12 @@
 <html lang="fr">
 <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<!-- End Google Tag Manager -->
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avis Clients - La Flamme de l'Ombre</title>
     <style>
@@ -141,24 +139,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 width: 200px; /* Pour les très petits écrans */
             }
         }
-            #cart-details {
-    max-height: 80vh; /* Limiter la hauteur à 80% de la hauteur de l'écran */
-    overflow-y: auto; /* Activer le défilement si le contenu dépasse */
-}
     </style>
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <nav>
+<nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
             <li><a href="about.html">À propos</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="products.html">Produits</a></li>
+            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="carte.html">Carte du jour</a></li>
         </ul>
@@ -166,146 +157,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <h1>Avis de nos Clients</h1>
 
-    <!-- Image du sorcier en train d'écrire sur son ordinateur -->
     <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
 
-    <!-- Bouton pour laisser un commentaire -->
     <a href="https://docs.google.com/forms/d/1gIxQxhQp0L8-xMtlwUlBmQ4ulEDLt-4m2F0lAemilSg/prefill" class="btn">Laisser un commentaire</a>
     <p style="font-size: 0.9em; color: #888;">Note : Les commentaires peuvent mettre plusieurs heures avant d'apparaître sur le site.</p>
 
-    <!-- Premier avis client -->
     <div class="avis-container">
         <p class="avis-nom">Mathilde</p>
         <p class="avis-date">31 août 2024</p>
         <p>"J’ai trouvé que la flamme est un cartomancien très attentionné. Il ne regarde pas le temps, il n’est pas à la minute. Les services ne sont pas chers pour la prestation. Il est plein de bienveillance et de compassion. Il est également de bon conseil. Je recommande 100%."</p>
-        <div class="avis-stars">★★★★★</div> <!-- 5 étoiles -->
-    </div>
+        <div class="avis-stars">★★★★★</div> </div>
 
     <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
     </footer>
-<!-- Icône du panier -->
-<i id="cart-icon" class="fas fa-shopping-cart" onclick="toggleCart()" style="font-size: 30px; color: white; cursor: pointer; position: fixed; top: 20px; right: 20px;"></i>
-<div id="cart-details" style="position: fixed; top: 80px; right: 20px; background-color: #222; padding: 20px; border-radius: 10px; display: none; max-width: 300px; text-align: left;">
-    <h3>Panier</h3>
-    <div id="cart-items"></div>
-    <p id="cart-total">Total : 0 €</p>
-    <div id="paypal-button-container"></div>
-</div>
-
-<script src="https://www.paypal.com/sdk/js?client-id=AWkjF8CgHw4EX6gLr-Bhiurh51jfn-tLkTiDUb_rEBq14Y_Gk9ZqtQi919n7L4vABy64WKC0sEEbS2lX"></script>
-
-<script>
-    var cart = [];
-    var totalAmount = 0;
-    var freeShippingThreshold = 35; // Montant pour livraison gratuite
-    var shippingBase = 3; // Frais de port de base
-    var shippingPerItem = 1; // 1 € par article supplémentaire
-
-    // Charger le panier depuis localStorage
-    function loadCartFromLocalStorage() {
-        var storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-            cart = JSON.parse(storedCart);
-            updateCart();
-        }
-    }
-
-    // Sauvegarder le panier dans localStorage
-    function saveCartToLocalStorage() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    // Afficher ou masquer le détail du panier
-    function toggleCart() {
-        var cartDetails = document.getElementById('cart-details');
-        cartDetails.style.display = cartDetails.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Mettre à jour l'affichage du panier
-    function updateCart() {
-        var cartItems = document.getElementById('cart-items');
-        cartItems.innerHTML = ''; // Vider le contenu précédent
-        var total = 0;
-        var itemCount = 0;
-        var shipping = 0;
-
-        cart.forEach(function(item, index) {
-            total += item.price * item.quantity;
-            itemCount += item.quantity;
-
-            var itemElement = document.createElement('div');
-            itemElement.innerHTML = `
-                <p>${item.name} - ${item.price} € x ${item.quantity}</p>
-                <button onclick="changeQuantity(${index}, -1)">-</button>
-                <button onclick="changeQuantity(${index}, 1)">+</button>
-                <button onclick="removeItem(${index})">Supprimer</button>
-            `;
-            cartItems.appendChild(itemElement);
-        });
-
-        // Calcul des frais de port
-        if (total < freeShippingThreshold) {
-            shipping = shippingBase + (itemCount - 1) * shippingPerItem;
-        }
-
-        total += shipping;
-        var shippingMessage = total >= freeShippingThreshold ? "Frais de port offerts" : `Frais de port : ${shipping} €`;
-        document.getElementById('cart-total').textContent = `Total : ${total.toFixed(2)} € (${shippingMessage})`;
-
-        totalAmount = total;
-        renderPayPalButton();
-    }
-
-    // Modifier la quantité d'un article
-    function changeQuantity(index, change) {
-        if (cart[index].quantity + change > 0) {
-            cart[index].quantity += change;
-        } else {
-            removeItem(index);
-        }
-        updateCart();
-        saveCartToLocalStorage();
-    }
-
-    // Supprimer un article du panier
-    function removeItem(index) {
-        cart.splice(index, 1);
-        updateCart();
-        saveCartToLocalStorage();
-    }
-
-    // Rendre le bouton PayPal
-function renderPayPalButton() {
-    document.getElementById('paypal-button-container').innerHTML = ''; // Vider les boutons précédents
-    paypal.Buttons({
-        style: {
-            layout: 'vertical',  // Utiliser une mise en page verticale pour s'adapter au conteneur
-            color: 'blue',       // Couleur du bouton
-            shape: 'rect',       // Forme rectangulaire du bouton
-            label: 'pay'         // Texte du bouton
-        },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: totalAmount.toFixed(2)  // Le total actuel du panier
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Transaction réussie par ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container');
-}
-
-    // Charger le panier dès que la page est prête
-    document.addEventListener('DOMContentLoaded', function() {
-        loadCartFromLocalStorage();
-    });
-</script>
 </body>
 </html>
