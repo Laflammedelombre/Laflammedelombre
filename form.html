@@ -29,7 +29,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .suivi-button {
             display: inline-block;
-            background-color: #8B0000; /* Rouge foncé */
+            background-color: #8B0000; 
             color: white !important;
             padding: 12px 25px;
             border-radius: 6px;
@@ -92,10 +92,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="avis.html">Avis</a></li>
         <li><a href="carte.html">Carte du jour</a></li>
-        </ul>
+    </ul>
 </nav>
 
-<img src="images/Tirage.webp" alt="Tirage de Cartes" class="page-image">
+[attachment_0](attachment)
 
 <div class="suivi-button-container">
     <a href="Suivi.html" class="suivi-button">
@@ -175,23 +175,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-    // URL de votre Google Apps Script
+    // **********************************************************************************************
+    // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la soumission (doPost) !
+    // **********************************************************************************************
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec'; 
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
     const SUCCESS_MESSAGE_BASE = '✅ Votre demande a été envoyée. Votre ID de suivi est : <strong>';
 
-    /**
-     * Calcule l'âge à partir d'une date de naissance.
-     */
     function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
         const dateInput = document.getElementById(dateInputId);
         const ageDisplay = document.getElementById(ageDisplayId);
         const ageHidden = document.getElementById(ageHiddenId);
         
         const birthDateValue = dateInput.value;
-        
         if (!birthDateValue) {
             ageDisplay.textContent = 'Âge : --';
             ageHidden.value = '';
@@ -200,14 +198,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         const today = new Date();
         const birthDate = new Date(birthDateValue);
-        
         let age = today.getFullYear() - birthDate.getFullYear();
         const m = today.getMonth() - birthDate.getMonth();
 
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        
         if (age < 0) {
             age = 0;
         }
@@ -216,16 +212,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ageHidden.value = age; 
     }
 
-    /**
-     * Valide les champs requis du formulaire.
-     */
     function validateForm() {
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
         
-        requiredFields.forEach(field => {
-            field.classList.remove('input-error');
-        });
+        requiredFields.forEach(field => field.classList.remove('input-error'));
         statusDiv.innerHTML = '';
 
         let firstErrorField = null;
@@ -244,13 +235,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         if (!isValid) {
             statusDiv.innerHTML = '<div class="status-message error">❌ Vérifiez les champs obligatoires (marqués en rouge).</div>';
-            
             if (firstErrorField) {
                 firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 firstErrorField.focus();
             }
         }
-
         return isValid;
     }
 
@@ -259,19 +248,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
     });
 
-
     // Gestion de la soumission du formulaire
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
-
-        if (!validateForm()) {
-            return; 
-        }
+        if (!validateForm()) return; 
         
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         
-        // AFFICHAGE DU MESSAGE PENDANT L'ENVOI
         statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi de votre question en cours...</div>';
         
         const formData = new FormData(form);
@@ -281,18 +265,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             body: formData,
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur de réseau ou de configuration du script.');
-            }
+            if (!response.ok) throw new Error('Erreur de réseau ou de configuration du script.');
             return response.json(); 
         })
         .then(data => {
             if (data.result === 'success') {
-                // Succès : On affiche l'ID unique renvoyé par le script
                 const finalMessage = SUCCESS_MESSAGE_BASE + data.id + '</strong>. La Flamme de l\'Ombre vous recontactera par email dans les plus brefs délais.';
                 statusDiv.innerHTML = `<div class="status-message success">${finalMessage}</div>`;
 
-                // On vide le formulaire et réinitialise les affichages
                 form.reset();
                 document.getElementById('age_display').textContent = 'Âge : --';
                 document.getElementById('age_display_tiers').textContent = 'Âge : --';
@@ -300,18 +280,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 document.getElementById('age_tiers').value = '';
 
             } else {
-                // Échec logique renvoyé par le script
                 const errorMessage = data.message || "Une erreur inconnue est survenue côté serveur Google.";
                 statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
             }
         })
         .catch(error => {
-            // Échec réseau ou parsing JSON
             console.error('Network/Parsing Error:', error);
             statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
         })
         .finally(() => {
-            // Rétablit le bouton, quel que soit le résultat
             submitButton.disabled = false;
         });
     });
