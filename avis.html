@@ -107,7 +107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
 
-    <a href="leave_avis.html" class="btn">Laisser un commentaire</a>
+    <a href="Leave_avis.html" class="btn">Laisser un commentaire</a>
     <p style="font-size: 0.9em; color: #888;">Note : Les avis sont mis à jour après validation manuelle.</p>
 
     <div id="avis-list-container">
@@ -119,7 +119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </footer>
 
     <script>
-        // Votre URL Apps Script (la même que dans leave_avis.html)
+        // Votre URL Apps Script (la même que dans Leave_avis.html)
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec';
 
         // Fonction pour générer les étoiles
@@ -185,7 +185,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 })
                 .catch(error => {
                     console.error('Erreur de chargement des avis:', error);
-                    container.innerHTML = '<p style="color:red;">Impossible de charger les avis. Le problème vient souvent du redéploiement du script Apps Script.</p>';
+                    container.innerHTML = '<p style="color:red;">Impossible de charger les avis. Veuillez vérifier la console du navigateur.</p>';
                 });
         }
 
