@@ -12,9 +12,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>Avis Clients - La Flamme de l'Ombre</title>
     <style>
         body {
-            background-color: black; /* Fond noir */
-            color: white; /* Texte en blanc */
-            font-family: Arial, sans-serif; /* Police par défaut */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -24,120 +24,68 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             min-height: 100vh;
         }
         h1 {
-            font-size: 3em; /* Taille du titre */
-            margin-bottom: 20px;
+            font-size: 3em; margin-bottom: 20px;
         }
         p {
-            font-size: 1.2em; /* Taille du texte */
-            line-height: 1.5em;
-            margin-bottom: 30px;
+            font-size: 1.2em; line-height: 1.5em; margin-bottom: 30px;
         }
         .avis-container {
-            background-color: #222; /* Couleur légèrement plus claire pour encadrer l'avis */
+            background-color: #222;
             border-radius: 10px;
             padding: 20px;
             margin: 20px auto;
             max-width: 600px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Effet de lumière douce */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            text-align: left;
         }
         .avis-container p {
-            font-size: 1.1em;
-            color: #f0f0f0;
+            font-size: 1.1em; color: #f0f0f0; margin-bottom: 10px;
         }
         .avis-nom {
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: bold; margin-bottom: 10px;
         }
         .avis-date {
-            font-size: 0.9em;
-            color: #888;
+            font-size: 0.9em; color: #888;
         }
         .avis-stars {
-            color: gold;
-            margin-top: 10px;
+            color: gold; margin-top: 10px;
         }
         img {
-            width: 80%;
-            max-width: 600px;
-            margin: 20px auto;
-            display: block;
+            width: 80%; max-width: 600px; margin: 20px auto; display: block;
         }
         .btn {
-            background-color: #444444;
-            color: white;
-            padding: 10px 20px; /* Ajustement de l'espacement pour que le texte rentre toujours */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1.1em; /* Taille du texte ajustée */
-            margin: 20px auto; /* Centrage du bouton */
-            border-radius: 5px;
-            border: 1px solid #888888;
-            transition: background-color 0.3s ease;
-            width: 250px; /* Largeur fixe pour que le texte rentre bien */
-            max-width: 90%; /* Ajustement sur mobile */
+            background-color: #444444; color: white; padding: 10px 20px; text-align: center;
+            text-decoration: none; display: inline-block; font-size: 1.1em; margin: 20px auto;
+            border-radius: 5px; border: 1px solid #888888; transition: background-color 0.3s ease;
+            width: 250px; max-width: 90%;
         }
         .btn:hover {
             background-color: #666666;
         }
         nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center;
         }
         nav ul li {
             margin: 10px 15px;
         }
         nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+            color: white; text-decoration: none; font-weight: bold;
         }
         nav ul li a:hover {
             text-decoration: underline;
         }
         footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid white;
+            margin-top: 30px; padding-top: 20px; border-top: 1px solid white;
         }
         footer p {
-            font-size: 0.9em;
-            color: #888888;
+            font-size: 0.9em; color: #888888;
         }
-
-        /* Media Queries pour écrans plus petits */
+        #avis-list-container {
+            margin-top: 20px;
+        }
+        /* Styles pour mobile */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
-            p {
-                font-size: 1em;
-            }
-            img {
-                width: 90%;
-            }
-            .btn {
-                width: 220px; /* Réduit la largeur du bouton pour mobile */
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2em;
-            }
-            p {
-                font-size: 0.9em;
-            }
-            img {
-                width: 100%;
-            }
-            .btn {
-                width: 200px; /* Pour les très petits écrans */
-            }
+            h1 { font-size: 2.5em; }
         }
     </style>
 </head>
@@ -159,17 +107,90 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <img src="images/avis.image.jpeg" alt="Sorcier tapant sur son ordinateur avec un Maine Coon">
 
-    <a href="https://docs.google.com/forms/d/1gIxQxhQp0L8-xMtlwUlBmQ4ulEDLt-4m2F0lAemilSg/prefill" class="btn">Laisser un commentaire</a>
-    <p style="font-size: 0.9em; color: #888;">Note : Les commentaires peuvent mettre plusieurs heures avant d'apparaître sur le site.</p>
+    <a href="leave_avis.html" class="btn">Laisser un commentaire</a>
+    <p style="font-size: 0.9em; color: #888;">Note : Les avis sont mis à jour après validation manuelle.</p>
 
-    <div class="avis-container">
-        <p class="avis-nom">Mathilde</p>
-        <p class="avis-date">31 août 2024</p>
-        <p>"J’ai trouvé que la flamme est un cartomancien très attentionné. Il ne regarde pas le temps, il n’est pas à la minute. Les services ne sont pas chers pour la prestation. Il est plein de bienveillance et de compassion. Il est également de bon conseil. Je recommande 100%."</p>
-        <div class="avis-stars">★★★★★</div> </div>
+    <div id="avis-list-container">
+        <p>Chargement des avis...</p>
+    </div>
 
     <footer>
         <p>&copy; 2024 La Flamme de l'Ombre. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        // Votre URL Apps Script (la même que dans leave_avis.html)
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec';
+
+        // Fonction pour générer les étoiles
+        function generateStars(rating) {
+            // Assurez-vous que rating est un nombre entre 1 et 5
+            rating = Math.max(1, Math.min(5, parseInt(rating) || 0)); 
+            const fullStar = '★';
+            const emptyStar = '☆';
+            return fullStar.repeat(rating) + emptyStar.repeat(5 - rating);
+        }
+
+        // Fonction pour récupérer les avis
+        function loadAvis() {
+            const container = document.getElementById('avis-list-container');
+            container.innerHTML = '<p>Chargement des avis en cours...</p>';
+
+            // Utilise l'action=getAvis pour appeler la fonction doGet filtrée
+            fetch(APPS_SCRIPT_URL + '?action=getAvis')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur réseau ou Apps Script non accessible.');
+                    }
+                    return response.json();
+                })
+                .then(avisList => {
+                    container.innerHTML = ''; 
+
+                    if (avisList.length === 0) {
+                        container.innerHTML = '<p>Aucun avis publié pour le moment.</p>';
+                        return;
+                    }
+
+                    avisList.forEach(avis => {
+                        // Tente de formater la date
+                        let dateString = 'Date inconnue';
+                        if (avis.Date) {
+                            try {
+                                // Assurez-vous que l'index Date (colonne F) renvoie une valeur que new Date peut traiter
+                                const date = new Date(avis.Date);
+                                if (!isNaN(date)) {
+                                     dateString = date.toLocaleDateString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    });
+                                }
+                            } catch (e) {
+                                // Laisse 'Date inconnue' en cas d'échec de formatage
+                            }
+                        }
+
+                        // Créer l'élément HTML pour l'avis
+                        const avisDiv = document.createElement('div');
+                        avisDiv.classList.add('avis-container');
+                        avisDiv.innerHTML = `
+                            <p class="avis-nom">${avis.Prénom}</p>
+                            <p class="avis-date">${dateString}</p>
+                            <p>"${avis.Avis}"</p>
+                            <div class="avis-stars">${generateStars(avis.Note)}</div>
+                        `;
+                        container.appendChild(avisDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur de chargement des avis:', error);
+                    container.innerHTML = '<p style="color:red;">Impossible de charger les avis. Le problème vient souvent du redéploiement du script Apps Script.</p>';
+                });
+        }
+
+        // Charger les avis au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadAvis);
+    </script>
 </body>
 </html>
