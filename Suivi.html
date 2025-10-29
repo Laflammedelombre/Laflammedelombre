@@ -83,14 +83,14 @@
 
     <div id="queue-section">
         <h2>Liste d'attente actuelle</h2>
-        <p>Les demandes ci-dessous sont actuellement "En attente" ou "En cours" de traitement par La Flamme de l'Ombre. Votre numéro est ici à titre indicatif.</p>
+        <p>Les demandes ci-dessous sont actuellement "En Attente" ou "En Cours" de traitement par La Flamme de l'Ombre. Votre numéro est ici à titre indicatif.</p>
         <ul id="queue-list">
             <li>Chargement de la liste d'attente...</li>
         </ul>
     </div>
 
     <script>
-        // NOTE: REMPLACEZ L'URL CI-DESSOUS PAR VOTRE VRAIE SCRIPT_URL
+        // NOTE: VOTRE SCRIPT_URL
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec";
 
         const searchForm = document.getElementById('search-form');
@@ -99,6 +99,14 @@
         const queueList = document.getElementById('queue-list');
 
         // --- Fonctions Utilitaires ---
+
+        // Fonction pour mettre en majuscule la première lettre de chaque mot
+        function toTitleCase(str) {
+            if (!str) return '';
+            return str.toLowerCase().split(' ').map(word => {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
+        }
 
         function getStatusClass(status) {
             const lowerStatus = status.toLowerCase();
@@ -120,12 +128,13 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status && result.status !== 'error' && result.status !== 'non trouvé') {
+                        const capitalizedStatus = toTitleCase(result.status); // Mise en majuscule
                         const statusClass = getStatusClass(result.status);
                         
                         statusResultDiv.className = 'result-found';
                         statusResultDiv.innerHTML = `
                             ✅ Statut de votre demande **${idToSearch}** :
-                            <span class="status-badge ${statusClass}">${result.status}</span>
+                            <span class="status-badge ${statusClass}">${capitalizedStatus}</span>
                             <br>
                             Soumis le : ${result.date}
                         `;
@@ -162,6 +171,7 @@
                     
                     data.forEach((item, index) => {
                         const li = document.createElement('li');
+                        const capitalizedStatus = toTitleCase(item.statut); // Mise en majuscule
                         const statusClass = getStatusClass(item.statut);
                         
                         // Afficher le numéro de la demande dans la file (pour donner un ordre)
@@ -176,7 +186,7 @@
                         
                         const statusBadge = document.createElement('span');
                         statusBadge.className = `status-badge ${statusClass}`;
-                        statusBadge.textContent = item.statut;
+                        statusBadge.textContent = capitalizedStatus; // Utilisation du statut capitalisé
 
                         li.appendChild(queueNumber);
                         li.appendChild(idSpan);
