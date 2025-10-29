@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suivi de Demande - La Flamme de l'Ombre</title>
     <style>
-        /* Styles Globaux (Correspondant à index.html) */
+        /* Styles Globaux */
         body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
         header { padding: 20px; }
         h1 { font-size: 3em; margin: 0.2em 0; }
@@ -18,9 +18,9 @@
         nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
         nav ul li a:hover { text-decoration: underline; }
         
-        /* STYLE DU BOUTON DE SUIVI ACTIF (pour indiquer que nous sommes sur cette page) */
+        /* STYLE DU BOUTON DE SUIVI ACTIF */
         .nav-button-active a {
-            background-color: #8B0000; /* Rouge foncé */
+            background-color: #8B0000;
             color: white !important;
             padding: 8px 15px !important;
             border-radius: 6px !important;
@@ -47,6 +47,39 @@
             padding-bottom: 15px;
         }
 
+        /* STYLE POUR L'INFO DE LISTE D'ATTENTE (Bloc conteneur) */
+        #waiting-list-info {
+            background-color: #333; 
+            border: 1px solid #ffcc00; 
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.1em;
+            display: none; /* Caché par défaut */
+        }
+        #waiting-list-info p {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        /* STYLE POUR LA LISTE DES 10 PREMIERS IDs */
+        #waiting-list-info ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            max-width: 300px;
+            margin: 10px auto 0 auto;
+            line-height: 1.6;
+            border-top: 1px dashed #555;
+            padding-top: 10px;
+        }
+        #waiting-list-info ul li {
+            font-family: monospace; 
+            font-size: 0.95em;
+            color: #ccc;
+        }
+        
         /* Formulaire de recherche */
         .search-form {
             display: flex;
@@ -101,22 +134,10 @@
         }
 
         /* Codes couleurs pour les statuts */
-        .status-en_cours { 
-            border: 2px solid #ffcc00; 
-            color: #ffcc00; /* Jaune/Ambre */
-        }
-        .status-traité { 
-            border: 2px solid #7ad6a7; 
-            color: #7ad6a7; /* Vert clair */
-        }
-        .status-id_inconnu, .status-erreur_technique { 
-            border: 2px solid #f1a0a0; 
-            color: #f1a0a0; /* Rouge clair */
-        }
-        .status-initial {
-             border: 2px solid #555; 
-             color: #aaa;
-        }
+        .status-en_cours { border: 2px solid #ffcc00; color: #ffcc00; }
+        .status-traité { border: 2px solid #7ad6a7; color: #7ad6a7; }
+        .status-id_inconnu, .status-erreur_technique { border: 2px solid #f1a0a0; color: #f1a0a0; }
+        .status-initial { border: 2px solid #555; color: #aaa; }
 
         /* Media Queries */
         @media (max-width: 600px) {
@@ -146,6 +167,9 @@
 
 <div class="suivi-container">
     <h2>Vérifier le Statut de Votre Demande</h2>
+
+    <div id="waiting-list-info">
+        </div>
     
     <form id="trackingForm" class="search-form">
         <label for="trackingId">Entrez votre ID de Suivi :</label>
@@ -163,26 +187,77 @@
     // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la RECHERCHE (doGet) !
     // **********************************************************************************************
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec'; 
-    // Assurez-vous que le script Apps Script est bien publié avec l'accès 'Any one' (Tout le monde)
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
     const resultDisplay = document.getElementById('result-display');
+    const waitingListInfo = document.getElementById('waiting-list-info');
 
     /**
-     * Met à jour l'affichage du statut en fonction de la réponse du script Apps.
+     * Met à jour l'affichage du statut et de l'information de liste d'attente.
      * @param {string} status - Le statut renvoyé (ex: 'EN_COURS', 'TRAITÉ', 'ID_INCONNU').
      * @param {string} message - Le message descriptif.
+     * @param {number|null} [waitingOrder=null] - L'ordre dans la file d'attente (si EN_COURS).
+     * @param {Array<string>|null} [top10Ids=null] - Les 10 premiers IDs en attente.
      */
-    function updateStatusDisplay(status, message) {
-        // Supprime toutes les classes de statut précédentes
+    function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
+        // 1. Gérer le bloc d'information de la liste d'attente
+        waitingListInfo.style.display = 'none'; 
+        
+        if (status === 'EN_COURS' && top10Ids !== null) { // top10Ids est vérifié si non null pour éviter d'afficher le bloc si la donnée manque
+            let infoHTML = '';
+            
+            // 1a. Afficher l'ordre de la demande de l'utilisateur
+            if (waitingOrder !== null && waitingOrder > 0) {
+                infoHTML += `
+                    <p style="font-size: 1.2em; margin-bottom: 15px;">
+                        <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
+                        Votre demande est en file d'attente. Ordre actuel : 
+                        <strong style="color:#ffcc00;">N° ${waitingOrder}</strong>
+                    </p>
+                `;
+            } else if (waitingOrder === 0) {
+                 infoHTML += `<p style="font-size: 1.2em; margin-bottom: 15px;">Votre demande est la prochaine à être traitée !</p>`;
+            }
+
+            // 1b. Afficher la liste des 10 premières demandes (ou le message "pas de demande en cours")
+            if (top10Ids.length > 0) {
+                infoHTML += `
+                    <div style="padding-top: 15px;">
+                        <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px; color: white;">Demandes à suivre (max 10) :</p>
+                        <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
+                `;
+                top10Ids.forEach((id, index) => {
+                    infoHTML += `
+                        <li>
+                            <strong style="color: #007bff; margin-right: 5px;">${index + 1}:</strong> ${id.toLocaleUpperCase()}
+                        </li>
+                    `;
+                });
+                infoHTML += `</ul></div>`;
+            } else {
+                 // Cas où tous les statuts sont traités / liste vide
+                 infoHTML = `
+                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7;">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        Pas de demande en cours.
+                    </p>
+                `;
+            }
+
+            if (infoHTML) {
+                waitingListInfo.innerHTML = infoHTML;
+                waitingListInfo.style.display = 'block';
+            }
+        }
+
+        // 2. Gérer le bloc de résultat du statut
         resultDisplay.className = '';
         
         let statusClass = 'status-initial';
         let headerText = "Statut Indisponible";
         let detailText = message;
 
-        // Mise à jour de l'affichage basé sur les statuts possibles de votre Apps Script
         if (status === 'EN_COURS') {
             statusClass = 'status-en_cours';
             headerText = "⏳ Demande en Cours de Traitement";
@@ -209,26 +284,25 @@
         const trackingId = trackingIdInput.value.trim();
         if (!trackingId) return;
 
-        // Message d'attente
-        updateStatusDisplay('EN_COURS', 'Recherche en cours...');
+        updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
 
-        // L'action 'getstatus' est envoyée pour que le script Apps Script sache quoi faire
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
 
         fetch(url, {
             method: 'GET'
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            }
+            if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
             return response.json(); 
         })
         .then(data => {
-            // Le script Apps Script doit renvoyer un objet JSON { status: '...', message: '...' }
-            
             if (data.status) {
-                updateStatusDisplay(data.status.toUpperCase(), data.message || "");
+                updateStatusDisplay(
+                    data.status.toUpperCase(), 
+                    data.message || "", 
+                    data.order || null, 
+                    data.top10Ids || [] // Passer un tableau vide si null
+                );
             } else {
                 updateStatusDisplay('ID_INCONNU', "L'ID fourni ne correspond à aucune demande connue, ou la réponse du serveur est incorrecte.");
             }
