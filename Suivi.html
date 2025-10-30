@@ -47,7 +47,7 @@
             padding-bottom: 15px;
         }
 
-        /* STYLE POUR L'INFO DE LISTE D'ATTENTE (Bloc conteneur) */
+        /* STYLE POUR L'INFO DE LISTE D'ATTENTE (Bloc conteneur NOUVEAUTÉ) */
         #waiting-list-info {
             background-color: #333; 
             border: 1px solid #ffcc00; 
@@ -184,7 +184,8 @@
 
 <script>
     // **********************************************************************************************
-    // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la RECHERCHE (doGet) !
+    // 🛑 VÉRIFIEZ ET REMPLACEZ CETTE URL 🛑
+    // C'est l'URL de votre Apps Script (doGet) après le déploiement du code mis à jour.
     // **********************************************************************************************
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMN4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
     
@@ -195,10 +196,6 @@
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
-     * @param {string} status - Le statut renvoyé (ex: 'EN_COURS', 'TRAITÉ', 'ID_INCONNU').
-     * @param {string} message - Le message descriptif.
-     * @param {number|null} [waitingOrder=null] - L'ordre dans la file d'attente (si EN_COURS).
-     * @param {Array<string>|null} [top10Ids=null] - Les 10 premiers IDs en attente.
      */
     function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
         // 1. Gérer le bloc d'information de la liste d'attente
@@ -284,6 +281,7 @@
         const trackingId = trackingIdInput.value.trim();
         if (!trackingId) return;
 
+        // Affichage d'un état de chargement initial
         updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
 
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
@@ -301,7 +299,7 @@
                     data.status.toUpperCase(), 
                     data.message || "", 
                     data.order || null, 
-                    data.top10Ids || [] // Passer un tableau vide si null
+                    data.top10Ids || [] 
                 );
             } else {
                 updateStatusDisplay('ID_INCONNU', "L'ID fourni ne correspond à aucune demande connue, ou la réponse du serveur est incorrecte.");
