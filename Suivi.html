@@ -186,7 +186,7 @@
     // **********************************************************************************************
     // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la RECHERCHE (doGet) !
     // **********************************************************************************************
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyjXlWuy7qSPUqYlcfyuKnqD5OvS-5_gykO2IoYTshzNh4q6rrG2kcNBU7YnlXvK4Yulg/exec'; 
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMN4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
@@ -204,7 +204,7 @@
         // 1. Gérer le bloc d'information de la liste d'attente
         waitingListInfo.style.display = 'none'; 
         
-        if (status === 'EN_COURS' && top10Ids !== null) { // top10Ids est vérifié si non null pour éviter d'afficher le bloc si la donnée manque
+        if (status === 'EN_COURS' && top10Ids !== null) { 
             let infoHTML = '';
             
             // 1a. Afficher l'ordre de la demande de l'utilisateur
