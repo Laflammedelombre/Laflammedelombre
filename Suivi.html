@@ -1,167 +1,373 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PMTZHZKR');</script>
-<meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre</title>
+    <title>Suivi de Demande - La Flamme de l'Ombre</title>
     <style>
-        body {
-            background-color: black; /* Fond noir */
-            color: white; /* Texte en blanc */
-            font-family: Arial, sans-serif; /* Police par défaut */
+        /* Styles Globaux */
+        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 20px; }
+        h1 { font-size: 3em; margin: 0.2em 0; }
+        p { font-size: 1.5em; margin-top: 10px; }
+        
+        /* Navigation */
+        nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333;}
+        nav ul li { margin: 10px 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        nav ul li a:hover { text-decoration: underline; }
+        
+        /* STYLE DU BOUTON DE SUIVI ACTIF */
+        .nav-button-active a {
+            background-color: #8B0000;
+            color: white !important;
+            padding: 8px 15px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Conteneur principal de la page de suivi */
+        .suivi-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #111;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .suivi-container h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+        }
+
+        /* STYLE POUR L'INFO DE LISTE D'ATTENTE (Bloc conteneur NOUVEAUTÉ) */
+        #waiting-list-info {
+            background-color: #333; 
+            border: 1px solid #ffcc00; 
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        #waiting-list-info p {
             margin: 0;
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        /* STYLE POUR LA LISTE DES 10 PREMIERS IDs */
+        #waiting-list-info ul {
+            list-style: none;
             padding: 0;
-            text-align: center; /* Centrer le texte */
+            text-align: left;
+            max-width: 300px;
+            margin: 10px auto 0 auto;
+            line-height: 1.6;
+            border-top: 1px dashed #555;
+            padding-top: 10px;
         }
-        header {
-            padding: 20px;
+        #waiting-list-info ul li {
+            font-family: monospace; 
+            font-size: 0.95em;
+            color: #ccc;
         }
-        h1 {
-            font-size: 3em; /* Taille du titre */
-            margin: 0.2em 0; /* Réduit les marges autour du titre */
-        }
-        p {
-            font-size: 1.5em; /* Texte sous le titre */
-            margin-top: 10px;
-        }
-        nav ul {
-            list-style-type: none; /* Enlève les puces des listes */
-            padding: 0;
-            margin: 20px 0;
+        
+        /* Formulaire de recherche */
+        .search-form {
             display: flex;
-            flex-wrap: wrap; /* Permet aux liens de se répartir sur plusieurs lignes si nécessaire */
-            justify-content: center; /* Centre les liens */
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
         }
-        nav ul li {
-            margin: 10px 15px; /* Espace entre les éléments */
+        .search-form label {
+            font-weight: bold;
+            white-space: nowrap;
         }
-        nav ul li a {
-            color: white; /* Couleur des liens en blanc */
-            text-decoration: none; /* Enlève le soulignement */
-            font-weight: bold; /* Met les liens en gras */
+        .search-form input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #222;
+            color: #fff;
+            font-size: 1em;
+            box-sizing: border-box;
         }
-        nav ul li a:hover {
-            text-decoration: underline; /* Souligne les liens au survol */
+        .search-form button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
         }
-        /* Style pour l'élément de navigation actif (non cliquable) */
-        .nav-current {
-            color: #AAAAAA; /* Couleur légèrement grisée pour indiquer l'état actif */
+        .search-form button:hover {
+            background: #0056b3;
+        }
+
+        /* Bloc de résultats (affichage des statuts) */
+        #result-display {
+            padding: 20px;
+            border-radius: 8px;
+            background: #222;
+            min-height: 80px;
+            text-align: center;
+        }
+        .status-header {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .status-detail {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+        /* Style pour l'ordre dans la file */
+        .order-message {
+            font-size: 1.1em; 
+            margin-top: 10px; 
             font-weight: bold; 
-            text-decoration: none;
-            cursor: default; /* Curseur standard pour montrer que ce n'est pas cliquable */
-        }
-
-        img {
-            width: 80%; /* Ajuste la taille de l'image */
-            max-width: 600px;
-            margin: 20px auto; /* Centrage et espacement autour de l'image */
-            display: block;
-        }
-
-        /* AJOUT : Styles pour votre Post-it dynamique */
-        #postit {
-          width: 90%;
-          max-width: 400px;
-          min-height: 50px;
-          margin: 30px auto; /* Espacement ajusté pour le séparer des autres éléments */
-          padding: 15px 20px;
-          background-color: #ffffa5; /* Jaune Post-it */
-          border-radius: 4px;
-          border-left: 5px solid #ffcc00; 
-          box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Ombre plus visible sur fond noir */
-          color: #333; /* Texte noir sur le post-it jaune */
-          line-height: 1.4;
-          white-space: pre-wrap;
-          font-weight: bold;
-          text-align: left; /* Aligner le texte à gauche pour la lecture */
-          transform: rotate(-1deg); /* Léger effet sympa */
+            color: #ffcc00;
         }
 
 
-        /* Media Queries pour écrans plus petits */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em; /* Ajustement du titre pour tablettes et mobiles */
-            }
-            p {
-                font-size: 1.2em; /* Réduction de la taille du texte sous le titre */
-            }
-            img {
-                width: 90%; /* Image prend moins de largeur pour éviter les débordements */
-            }
-            nav ul li {
-                margin: 10px 5px; /* Réduction de l'espacement entre les liens sur mobile */
-            }
-        }
+        /* Codes couleurs pour les statuts */
+        .status-en_cours { border: 2px solid #ffcc00; color: #ffcc00; }
+        .status-traité { border: 2px solid #7ad6a7; color: #7ad6a7; }
+        .status-id_inconnu, .status-erreur_technique { border: 2px solid #f1a0a0; color: #f1a0a0; }
+        .status-initial { border: 2px solid #555; color: #aaa; }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2em; /* Réduction supplémentaire pour les petits écrans */
-            }
-            p {
-                font-size: 1em; /* Texte plus petit sur les très petits écrans */
-            }
-            img {
-                width: 100%; /* Image prend toute la largeur pour les très petits écrans */
-            }
-            nav ul {
-                justify-content: center; /* Centre les liens également sur mobile */
-            }
-            nav ul li {
-                margin: 10px 5px; /* Espacement ajusté pour les petits écrans */
-            }
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .suivi-container { margin: 20px; padding: 20px; }
+            .search-form { flex-direction: column; }
+            .search-form label { margin-bottom: 5px; }
+            .search-form input[type="text"], .search-form button { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header>
-        <h1>La Flamme de l'Ombre</h1>
-        <p>Cartomancien, créateur</p>
-    </header>
-    
-    <div id="postit">
-      Chargement du message dynamique...
-    </div>
-    
-    <img src="images/Table.jpeg.jpg" alt="Image de la chaumière" style="width: 80%; max-width: 600px; margin: 20px auto;">
-    
-    <nav>
-        <ul>
-            <li><span class="nav-current">Accueil</span></li> 
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li> 
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="avis.html">Avis</a></li>
-            <li><a href="carte.html">Carte du jour</a></li>
-        </ul>
-    </nav>
-    
-    <script>
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztfW-KIDw1PECfBGg3xDWWoGTQc3El7lIffA2joKxbVEP5FGUIciROEM9zUpLZNOr8/exec'; 
+    <h1>La Flamme de l'Ombre</h1>
+    <p>Cartomancien, créateur</p>
+</header>
 
-      fetch(APPS_SCRIPT_URL)
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="avis.html">Avis</a></li>
+        <li><a href="carte.html">Carte du jour</a></li>
+        <li class="nav-button-active"><a href="Suivi.html">Suivi de Demande</a></li> 
+    </ul>
+</nav>
+
+<div class="suivi-container">
+    <h2>Vérifier le Statut de Votre Demande</h2>
+
+    <div id="waiting-list-info" style="display: none;">
+        </div>
+    
+    <form id="trackingForm" class="search-form">
+        <label for="trackingId">Entrez votre ID de Suivi :</label>
+        <input type="text" id="trackingId" name="id" required placeholder="Exemple : 1000000000000000000" aria-required="true">
+        <button type="submit">Rechercher</button>
+    </form>
+    
+    <div id="result-display" class="status-initial">
+        <div class="status-header">Entrez un ID ci-dessus pour vérifier son statut.</div>
+    </div>
+</div>
+
+<script>
+    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE NOUVEAU DÉPLOIEMENT FINAL 🛑
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMNr4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
+    
+    const form = document.getElementById('trackingForm');
+    const trackingIdInput = document.getElementById('trackingId');
+    const resultDisplay = document.getElementById('result-display');
+    const waitingListInfo = document.getElementById('waiting-list-info');
+
+    /**
+     * Met à jour l'affichage du statut et de l'information de liste d'attente.
+     */
+    function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
+        
+        // 1. Gérer le bloc d'information de la liste d'attente et du message de position
+        let infoHTML = '';
+
+        if (top10Ids !== null) {
+            
+            // 1a. Afficher l'ordre de la demande de l'utilisateur (NOUVEAU MESSAGE)
+            if (status === 'EN_COURS' && waitingOrder !== null) {
+                let textOrder = '';
+                if (waitingOrder > 1) {
+                    const remaining = waitingOrder - 1;
+                    textOrder = `<strong style="color:#ffcc00;">${remaining} demande(s)</strong> en cours de traitement avant la vôtre.`;
+                } else if (waitingOrder === 1) {
+                    textOrder = `<strong style="color:#ffcc00;">Votre demande est la prochaine</strong> à être traitée.`;
+                }
+
+                if (textOrder) {
+                    infoHTML += `
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">
+                            <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
+                            ${textOrder}
+                        </p>
+                    `;
+                }
+            }
+
+            // 1b. Afficher la liste des 10 premières demandes (avec le nouveau message d'information)
+            if (top10Ids.length > 0) {
+                infoHTML += `
+                    <div style="padding-top: 15px;">
+                        <p style="font-size: 0.9em; color: #ccc; margin-bottom: 10px;">
+                            <i class="fas fa-info-circle" style="margin-right: 5px;"></i> 
+                            Les 10 premières demandes en attente sont affichées ci-dessous. Utilisez l'outil de recherche ci-dessus pour connaître la position exacte de votre ID.
+                        </p>
+                        <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
+                `;
+                top10Ids.forEach((id, index) => {
+                    infoHTML += `
+                        <li>
+                            <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> ${id.toString().toLocaleUpperCase()}
+                        </li>
+                    `;
+                });
+                infoHTML += `</ul></div>`;
+            } else {
+                 // Liste des 10 vide (si toutes les demandes sont traitées)
+                 infoHTML += `
+                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        Aucune demande en cours dans la file d'attente !
+                    </p>
+                `;
+            }
+
+            waitingListInfo.innerHTML = infoHTML;
+            waitingListInfo.style.display = 'block';
+
+        } else {
+            waitingListInfo.style.display = 'none';
+        }
+
+
+        // 2. Gérer le bloc de résultat du statut (resultDisplay)
+        
+        if (status !== 'LOADING') { 
+            resultDisplay.className = '';
+        }
+
+        let statusClass = 'status-initial';
+        let headerText = "Statut Indisponible";
+        let detailText = message;
+
+        if (status === 'LOADING') {
+             headerText = "Chargement...";
+             detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
+        } else if (status === 'EN_COURS') {
+            statusClass = 'status-en_cours';
+            headerText = "⏳ Demande en Cours de Traitement";
+        } else if (status === 'TRAITÉ') {
+            statusClass = 'status-traité';
+            headerText = "✅ Demande Traitée !";
+        } else if (status === 'ID_INCONNU') {
+            statusClass = 'status-id_inconnu';
+            headerText = "❌ ID de Suivi Inconnu";
+            detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
+        } else if (status === 'ERREUR_TECHNIQUE') {
+             statusClass = 'status-erreur_technique';
+             headerText = "⚠️ Erreur de Connexion";
+        }
+        
+        resultDisplay.classList.add(statusClass);
+        resultDisplay.innerHTML = `<div class="status-header">${headerText}</div>
+                                   <div class="status-detail">${detailText}</div>`;
+    }
+
+    // Fonction pour charger l'état initial de la liste d'attente au chargement de la page
+    function loadInitialWaitingList() {
+        // Afficher un état de chargement
+        updateStatusDisplay('LOADING', '', null, null); 
+        waitingListInfo.innerHTML = '<p style="margin-bottom: 0;">Chargement de la file d\'attente...</p>';
+        waitingListInfo.style.display = 'block';
+
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
+        
+        fetch(url, { method: 'GET' })
         .then(response => {
-          if (!response.ok) {
-            throw new Error('Erreur de réseau lors de la récupération du message.');
-          }
-          return response.text(); 
+            if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
+            return response.json(); 
         })
         .then(data => {
-          // Injection du texte dans le Post-it
-          document.getElementById('postit').innerText = data;
+            // Afficher la liste d'attente et rétablir le message d'invite
+            updateStatusDisplay(
+                'INITIAL', 
+                "Entrez votre ID ci-dessus pour vérifier son statut.", 
+                null, 
+                data.top10Ids || []
+            );
         })
         .catch(error => {
-          console.error('Erreur lors du chargement du message dynamique:', error);
-          // Affichage d'un message d'erreur en cas d'échec
-          document.getElementById('postit').innerText = 'Désolé, impossible de charger le message.';
+            console.error('Erreur lors du chargement initial de la liste d\'attente:', error);
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de charger la liste d'attente.");
         });
-    </script>
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        const trackingId = trackingIdInput.value.trim();
+        if (!trackingId) return;
+
+        updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
+
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
+
+        fetch(url, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
+            return response.json(); 
+        })
+        .then(data => {
+            if (data.status) {
+                // L'ordre d'attente (data.order) est la position DANS la liste (1, 2, 3...)
+                // On affiche ce statut, et la fonction updateStatusDisplay gérera le message basé sur (data.order - 1)
+                updateStatusDisplay(
+                    data.status.toUpperCase(), 
+                    data.message || "", 
+                    data.order || null, 
+                    data.top10Ids || [] 
+                );
+            } else {
+                updateStatusDisplay('ID_INCONNU', "L'ID fourni ne correspond à aucune demande connue, ou la réponse du serveur est incorrecte.");
+            }
+        })
+        .catch(error => {
+            console.error('Erreur de suivi:', error);
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.");
+        });
+    });
+
+    // Chargement initial de la liste d'attente (top 10)
+    document.addEventListener('DOMContentLoaded', loadInitialWaitingList);
+
+</script>
+
 </body>
 </html>
