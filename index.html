@@ -55,6 +55,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             text-decoration: none;
             cursor: default; /* Curseur standard pour montrer que ce n'est pas cliquable */
         }
+        
+        /* NOUVEAU : Styles pour votre Post-it dynamique intégrés au bloc style principal */
+        #postit {
+          width: 90%;
+          max-width: 400px;
+          min-height: 50px;
+          margin: 30px auto; 
+          padding: 15px 20px;
+          background-color: #ffffa5; /* Jaune Post-it */
+          border-radius: 4px;
+          border-left: 5px solid #ffcc00; 
+          box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); 
+          color: #333; /* Texte noir sur le post-it jaune */
+          line-height: 1.4;
+          white-space: pre-wrap;
+          font-weight: bold;
+          text-align: left; 
+          transform: rotate(-1deg);
+        }
 
         img {
             width: 80%; /* Ajuste la taille de l'image */
@@ -106,6 +125,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Cartomancien, créateur</p>
     </header>
     
+    <div id="postit">
+      Chargement du message dynamique...
+    </div>
+    
     <img src="images/Table.jpeg.jpg" alt="Image de la chaumière" style="width: 80%; max-width: 600px; margin: 20px auto;">
     
     <nav>
@@ -119,5 +142,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </ul>
     </nav>
     
+    <script>
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztfW-KIDw1PECfBGg3xDWWoGTQc3El7lIffA2joKxbVEP5FGUIciROEM9zUpLZNOr8/exec'; 
+
+      fetch(APPS_SCRIPT_URL)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erreur de réseau lors de la récupération du message.');
+          }
+          return response.text(); 
+        })
+        .then(data => {
+          // Injection du texte dans le Post-it
+          document.getElementById('postit').innerText = data;
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement du message dynamique:', error);
+          // Affichage d'un message d'erreur en cas d'échec
+          document.getElementById('postit').innerText = 'Désolé, impossible de charger le message.';
+        });
+    </script>
 </body>
 </html>
