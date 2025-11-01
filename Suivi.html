@@ -184,10 +184,9 @@
 
 <script>
     // **********************************************************************************************
-    // 🛑 VÉRIFIEZ ET REMPLACEZ CETTE URL 🛑
-    // C'est l'URL de votre Apps Script (doGet) après le déploiement du code mis à jour.
-    // **********************************************************************************************
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMN4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
+    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE DEPLOIEMENT GOOGLE APPS SCRIPT FINAL 🛑
+    // URL fournie pour la connexion GET du suivi :
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec'; 
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
@@ -227,17 +226,17 @@
                 top10Ids.forEach((id, index) => {
                     infoHTML += `
                         <li>
-                            <strong style="color: #007bff; margin-right: 5px;">${index + 1}:</strong> ${id.toLocaleUpperCase()}
+                            <strong style="color: #007bff; margin-right: 5px;">${index + 1}:</strong> ${id.toString().toLocaleUpperCase()}
                         </li>
                     `;
                 });
                 infoHTML += `</ul></div>`;
-            } else {
-                 // Cas où tous les statuts sont traités / liste vide
+            } else if (waitingListInfo.innerHTML === '') {
+                 // Cas où tous les statuts sont traités / liste vide et l'ID cherché n'est pas EN_COURS
                  infoHTML = `
                     <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7;">
                         <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        Pas de demande en cours.
+                        Pas de demande en cours dans la file d'attente.
                     </p>
                 `;
             }
@@ -275,6 +274,28 @@
                                    <div class="status-detail">${detailText}</div>`;
     }
 
+    // Fonction pour afficher l'état initial de la liste d'attente au chargement de la page
+    function loadInitialWaitingList() {
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; // Recherche générale, sans ID
+        
+        fetch(url, { method: 'GET' })
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial.');
+            return response.json(); 
+        })
+        .then(data => {
+            // Utiliser les données de top10Ids pour initialiser l'affichage
+            if (data.top10Ids) {
+                // Simuler un statut 'EN_COURS' pour afficher la liste d'attente
+                updateStatusDisplay('EN_COURS', 'Entrez votre ID pour vérifier votre statut.', null, data.top10Ids);
+            }
+        })
+        .catch(error => {
+            console.warn('Erreur lors du chargement initial de la liste d\'attente:', error);
+            // On peut laisser le bloc vide ou afficher un message d'erreur discret si l'on souhaite
+        });
+    }
+
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
         
@@ -284,6 +305,7 @@
         // Affichage d'un état de chargement initial
         updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
 
+        // Appel avec l'ID pour la recherche individuelle
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
 
         fetch(url, {
@@ -310,6 +332,10 @@
             updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.");
         });
     });
+
+    // Chargement initial de la liste d'attente (top 10)
+    document.addEventListener('DOMContentLoaded', loadInitialWaitingList);
+
 </script>
 
 </body>
