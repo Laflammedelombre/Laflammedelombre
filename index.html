@@ -56,23 +56,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             cursor: default; /* Curseur standard pour montrer que ce n'est pas cliquable */
         }
         
-        /* NOUVEAU : Styles pour votre Post-it dynamique intégrés au bloc style principal */
+        /* MODIFICATION : Styles pour votre Post-it dynamique */
         #postit {
-          width: 90%;
-          max-width: 400px;
+          width: 80%; /* Réduit la largeur pour qu'il ne prenne pas toute la page */
+          max-width: 350px; /* Taille maximale fixée */
           min-height: 50px;
           margin: 30px auto; 
           padding: 15px 20px;
-          background-color: #ffffa5; /* Jaune Post-it */
+          background-color: #333333; /* Gris foncé, plus cohérent avec le fond noir */
           border-radius: 4px;
-          border-left: 5px solid #ffcc00; 
-          box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); 
-          color: #333; /* Texte noir sur le post-it jaune */
+          border-left: 5px solid #ffcc00; /* Garde la touche de couleur */
+          box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.2); /* Ombre claire sur fond sombre */
+          color: white; /* Texte blanc sur le fond gris foncé */
           line-height: 1.4;
           white-space: pre-wrap;
           font-weight: bold;
           text-align: left; 
           transform: rotate(-1deg);
+          /* Ajout initial : par défaut masqué en attendant la confirmation du message */
+          display: none; 
         }
 
         img {
@@ -144,6 +146,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <script>
       const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztfW-KIDw1PECfBGg3xDWWoGTQc3El7lIffA2joKxbVEP5FGUIciROEM9zUpLZNOr8/exec'; 
+      const postitElement = document.getElementById('postit');
 
       fetch(APPS_SCRIPT_URL)
         .then(response => {
@@ -153,13 +156,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return response.text(); 
         })
         .then(data => {
-          // Injection du texte dans le Post-it
-          document.getElementById('postit').innerText = data;
+          // 1. Nettoyage du message : supprime les espaces, sauts de ligne, etc.
+          const trimmedData = data.trim();
+
+          // 2. LOGIQUE DE MASQUAGE : si le message est vide, on arrête ici
+          if (trimmedData.length === 0) {
+            postitElement.style.display = 'none'; // S'assurer qu'il est masqué
+            return; // Terminer l'exécution
+          }
+          
+          // 3. Si le message existe : l'afficher et mettre le contenu à jour
+          postitElement.innerText = trimmedData;
+          postitElement.style.display = 'block'; // Rendre le post-it visible
         })
         .catch(error => {
           console.error('Erreur lors du chargement du message dynamique:', error);
-          // Affichage d'un message d'erreur en cas d'échec
-          document.getElementById('postit').innerText = 'Désolé, impossible de charger le message.';
+          // En cas d'erreur de chargement, on masque le post-it
+          postitElement.style.display = 'none'; 
         });
     </script>
 </body>
