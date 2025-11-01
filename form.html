@@ -176,9 +176,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script>
     // **********************************************************************************************
-    // REMPLACEZ CETTE URL par l'URL de DEPLOIEMENT de votre Google Apps Script qui gère la soumission (doPost) !
-    // **********************************************************************************************
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMN4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
+    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE DEPLOIEMENT GOOGLE APPS SCRIPT FINAL 🛑
+    // URL fournie pour la connexion POST du formulaire :
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec'; 
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
@@ -244,6 +244,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Initialisation de l'âge au chargement si une date par défaut existe
         calculateAge('date_naissance', 'age_display', 'age_client');
         calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
     });
@@ -258,6 +259,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi de votre question en cours...</div>';
         
+        // La méthode FormData encode les données pour le POST vers Apps Script
         const formData = new FormData(form);
 
         fetch(APPS_SCRIPT_URL, {
@@ -269,10 +271,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             return response.json(); 
         })
         .then(data => {
-            if (data.result === 'success') {
+            if (data.result === 'success' && data.id) {
+                // Le script Apps Script doit retourner l'ID pour cette étape
                 const finalMessage = SUCCESS_MESSAGE_BASE + data.id + '</strong>. La Flamme de l\'Ombre vous recontactera par email dans les plus brefs délais.';
                 statusDiv.innerHTML = `<div class="status-message success">${finalMessage}</div>`;
 
+                // Réinitialisation du formulaire après succès
                 form.reset();
                 document.getElementById('age_display').textContent = 'Âge : --';
                 document.getElementById('age_display_tiers').textContent = 'Âge : --';
