@@ -56,7 +56,7 @@
             border-radius: 6px;
             text-align: center;
             font-size: 1.1em;
-            display: none; /* Caché par défaut */
+            /* Laissez display: none pour le contrôle JS */
         }
         #waiting-list-info p {
             margin: 0;
@@ -168,7 +168,7 @@
 <div class="suivi-container">
     <h2>Vérifier le Statut de Votre Demande</h2>
 
-    <div id="waiting-list-info">
+    <div id="waiting-list-info" style="display: none;">
         </div>
     
     <form id="trackingForm" class="search-form">
@@ -195,32 +195,37 @@
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
+     * @param {string} status - Statut de la requête (EN_COURS, TRAITÉ, ID_INCONNU, etc.)
+     * @param {string} message - Message d'accompagnement
+     * @param {number|null} waitingOrder - Ordre de l'utilisateur dans la file (1, 2, 3...)
+     * @param {Array<string>|null} top10Ids - Liste des 10 premiers IDs en attente
      */
     function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
         // 1. Gérer le bloc d'information de la liste d'attente
-        waitingListInfo.style.display = 'none'; 
-        
-        if (status === 'EN_COURS' && top10Ids !== null) { 
-            let infoHTML = '';
+        let infoHTML = '';
+
+        if (top10Ids !== null) {
             
-            // 1a. Afficher l'ordre de la demande de l'utilisateur
-            if (waitingOrder !== null && waitingOrder > 0) {
-                infoHTML += `
-                    <p style="font-size: 1.2em; margin-bottom: 15px;">
-                        <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
-                        Votre demande est en file d'attente. Ordre actuel : 
-                        <strong style="color:#ffcc00;">N° ${waitingOrder}</strong>
-                    </p>
-                `;
-            } else if (waitingOrder === 0) {
-                 infoHTML += `<p style="font-size: 1.2em; margin-bottom: 15px;">Votre demande est la prochaine à être traitée !</p>`;
+            // 1a. Afficher l'ordre de la demande de l'utilisateur (si pertinent)
+            if (status === 'EN_COURS' && waitingOrder !== null) {
+                if (waitingOrder > 0) {
+                    infoHTML += `
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">
+                            <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
+                            Votre demande est en file d'attente. Ordre actuel : 
+                            <strong style="color:#ffcc00;">N° ${waitingOrder}</strong>
+                        </p>
+                    `;
+                } else if (waitingOrder === 0) {
+                    infoHTML += `<p style="font-size: 1.2em; margin-bottom: 15px; color: #7ad6a7;">Votre demande est la prochaine à être traitée !</p>`;
+                }
             }
 
-            // 1b. Afficher la liste des 10 premières demandes (ou le message "pas de demande en cours")
+            // 1b. Afficher la liste des 10 premières demandes
             if (top10Ids.length > 0) {
                 infoHTML += `
                     <div style="padding-top: 15px;">
-                        <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px; color: white;">Demandes à suivre (max 10) :</p>
+                        <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px; color: white;">Demandes en cours (max 10) :</p>
                         <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
                 `;
                 top10Ids.forEach((id, index) => {
@@ -231,30 +236,40 @@
                     `;
                 });
                 infoHTML += `</ul></div>`;
-            } else if (waitingListInfo.innerHTML === '') {
-                 // Cas où tous les statuts sont traités / liste vide et l'ID cherché n'est pas EN_COURS
-                 infoHTML = `
-                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7;">
+            } else {
+                 // Liste des 10 vide (si toutes les demandes sont traitées)
+                 infoHTML += `
+                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
                         <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        Pas de demande en cours dans la file d'attente.
+                        Aucune demande en cours dans la file d'attente.
                     </p>
                 `;
             }
 
-            if (infoHTML) {
-                waitingListInfo.innerHTML = infoHTML;
-                waitingListInfo.style.display = 'block';
-            }
+            waitingListInfo.innerHTML = infoHTML;
+            waitingListInfo.style.display = 'block';
+
+        } else {
+            // Cacher le bloc s'il n'y a pas d'info (par exemple, erreur technique)
+            waitingListInfo.style.display = 'none';
         }
 
+
         // 2. Gérer le bloc de résultat du statut
-        resultDisplay.className = '';
         
+        // N'effacer la classe que si ce n'est pas le chargement initial
+        if (status !== 'LOADING') { 
+            resultDisplay.className = '';
+        }
+
         let statusClass = 'status-initial';
         let headerText = "Statut Indisponible";
         let detailText = message;
 
-        if (status === 'EN_COURS') {
+        if (status === 'LOADING') {
+             headerText = "Chargement...";
+             detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
+        } else if (status === 'EN_COURS') {
             statusClass = 'status-en_cours';
             headerText = "⏳ Demande en Cours de Traitement";
         } else if (status === 'TRAITÉ') {
@@ -274,25 +289,33 @@
                                    <div class="status-detail">${detailText}</div>`;
     }
 
-    // Fonction pour afficher l'état initial de la liste d'attente au chargement de la page
+    // Fonction pour charger l'état initial de la liste d'attente au chargement de la page
     function loadInitialWaitingList() {
-        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; // Recherche générale, sans ID
+        // Afficher un état de chargement dans les deux blocs
+        updateStatusDisplay('LOADING', '', null, null); 
+        waitingListInfo.innerHTML = '<p style="margin-bottom: 0;">Chargement de la file d\'attente...</p>';
+        waitingListInfo.style.display = 'block';
+
+        // Requête GET sans ID pour récupérer uniquement la liste d'attente (gérée par le Apps Script)
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
         
         fetch(url, { method: 'GET' })
         .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial.');
+            if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
             return response.json(); 
         })
         .then(data => {
-            // Utiliser les données de top10Ids pour initialiser l'affichage
-            if (data.top10Ids) {
-                // Simuler un statut 'EN_COURS' pour afficher la liste d'attente
-                updateStatusDisplay('EN_COURS', 'Entrez votre ID pour vérifier votre statut.', null, data.top10Ids);
-            }
+            // Afficher la liste d'attente et rétablir le message d'invite
+            updateStatusDisplay(
+                'INITIAL', 
+                "Entrez votre ID ci-dessus pour vérifier son statut.", 
+                null, 
+                data.top10Ids || [] // Utiliser la liste reçue (peut être vide)
+            );
         })
         .catch(error => {
-            console.warn('Erreur lors du chargement initial de la liste d\'attente:', error);
-            // On peut laisser le bloc vide ou afficher un message d'erreur discret si l'on souhaite
+            console.error('Erreur lors du chargement initial de la liste d\'attente:', error);
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de charger la liste d'attente.");
         });
     }
 
@@ -302,10 +325,10 @@
         const trackingId = trackingIdInput.value.trim();
         if (!trackingId) return;
 
-        // Affichage d'un état de chargement initial
+        // Affichage d'un état de chargement pour la recherche
         updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
 
-        // Appel avec l'ID pour la recherche individuelle
+        // Appel avec l'ID pour la recherche individuelle (Le Apps Script renvoie aussi la liste Top 10)
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
 
         fetch(url, {
