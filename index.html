@@ -56,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             cursor: default; /* Curseur standard pour montrer que ce n'est pas cliquable */
         }
         
-        /* MODIFICATION : Styles pour votre Post-it dynamique */
+        /* Styles pour votre Post-it dynamique */
         #postit {
           width: 80%;
           max-width: 280px; /* Plus étroit pour l'effet Post-it */
@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           font-weight: bold;
           text-align: left; 
           transform: rotate(-1deg);
-          display: block; /* Toujours visible par défaut */
+          display: block; /* Toujours visible */
         }
 
         img {
@@ -149,7 +149,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztfW-KIDw1PECfBGg3xDWWoGTQc3El7lIffA2joKxbVEP5FGUIciROEM9zUpLZNOr8/exec'; 
           const postitElement = document.getElementById('postit');
           
-          // Message par défaut si la cellule A1 est vide
+          // MESSAGE CLÉ : Message lorsque la cellule A1 est vide
           const defaultMessage = "Pas d'info particulière actuellement.";
 
           if (!postitElement) {
@@ -165,7 +165,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               return response.text(); 
             })
             .then(data => {
-              // Nettoyage du message (supprime espaces et sauts de ligne)
+              // Nettoyage du message (supprime espaces et sauts de ligne pour vérifier si c'est VRAIMENT vide)
               const trimmedData = data.trim();
 
               // Si la cellule A1 est vide, affiche le message par défaut
@@ -176,13 +176,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 postitElement.innerText = trimmedData;
               }
               
-              // Le post-it reste visible dans tous les cas
-              postitElement.style.display = 'block'; 
+              postitElement.style.display = 'block'; // Assurer qu'il est visible
             })
             .catch(error => {
               console.error('Erreur lors du chargement du message dynamique:', error);
-              // En cas d'échec de la connexion au script, affiche un message d'erreur
-              postitElement.innerText = "Erreur de connexion. Veuillez réessayer plus tard.";
+              // En cas d'échec de la connexion, affiche un message d'erreur
+              postitElement.innerText = "Erreur de connexion. Impossible de vérifier les infos.";
               postitElement.style.display = 'block';
             });
       };
