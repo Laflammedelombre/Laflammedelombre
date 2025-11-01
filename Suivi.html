@@ -184,9 +184,8 @@
 
 <script>
     // **********************************************************************************************
-    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE DEPLOIEMENT GOOGLE APPS SCRIPT FINAL 🛑
-    // URL fournie pour la connexion GET du suivi :
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyj203cWTlHOhsWWeOLVB3zCg_16oTjcrwuMwxRh-HujuPGSUJhCTev_NhnPOPTjg-QfQ/exec'; 
+    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE NOUVEAU DÉPLOIEMENT FINAL 🛑
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMNr4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
@@ -195,10 +194,6 @@
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
-     * @param {string} status - Statut de la requête (EN_COURS, TRAITÉ, ID_INCONNU, etc.)
-     * @param {string} message - Message d'accompagnement
-     * @param {number|null} waitingOrder - Ordre de l'utilisateur dans la file (1, 2, 3...)
-     * @param {Array<string>|null} top10Ids - Liste des 10 premiers IDs en attente
      */
     function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
         // 1. Gérer le bloc d'information de la liste d'attente
