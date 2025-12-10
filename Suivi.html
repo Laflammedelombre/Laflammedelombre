@@ -69,7 +69,7 @@
             list-style: none;
             padding: 0;
             text-align: left;
-            max-width: 400px; /* Élargi pour le statut */
+            max-width: 400px; 
             margin: 10px auto 0 auto;
             line-height: 1.6;
             border-top: 1px dashed #555;
@@ -79,7 +79,6 @@
             font-family: monospace; 
             font-size: 0.95em;
             color: #ccc;
-            /* Utilisation de flexbox pour aligner le statut et l'ID */
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -95,10 +94,10 @@
             font-size: 0.85em;
             margin-right: 15px;
             flex-shrink: 0;
-            min-width: 100px; /* Pour aligner les IDs */
+            min-width: 100px; 
             text-align: center;
         }
-        .status-tag.en_cours, .status-tag.demande_recue {
+        .status-tag.en-cours, .status-tag.demande-recue {
             background-color: #ffcc0020;
             color: #ffcc00;
             border: 1px solid #ffcc00;
@@ -162,7 +161,7 @@
             font-size: 1.6em;
             margin-bottom: 10px;
             font-weight: bold;
-            display: flex; /* Permet d'aligner l'icône et le texte */
+            display: flex; 
             justify-content: center;
             align-items: center;
         }
@@ -232,24 +231,23 @@
     const resultDisplay = document.getElementById('result-display');
     const waitingListInfo = document.getElementById('waiting-list-info');
 
-    // Fonction utilitaire pour normaliser le statut pour le CSS (enlève accents, espaces, tirets)
     function normalizeStatusForCSS(status) {
+        // Normalise pour la classe CSS (en minuscules, sans accents, sans espaces ni tirets bas)
         return status
             .toUpperCase()
             .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "") // Enlève les accents
-            .replace(/[\s_]/g, '-');        // Remplace espaces/_ par -
+            .replace(/[\u0300-\u036f]/g, "") 
+            .replace(/[\s_]/g, '-').toLowerCase();        
     }
 
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
-     * @param {Array<Object>} top10Requests - Tableau d'objets {id: string, status: string}.
      */
     function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Requests = null) {
         
         const status = normalizeStatusForCSS(rawStatus);
-        const isWaiting = (status === 'EN-COURS' || status === 'DEMANDE-RECUE');
+        const isWaiting = (status === 'en-cours' || status === 'demande-recue');
 
         // 1. Gérer le bloc d'information de la liste d'attente
         let infoHTML = '';
@@ -257,11 +255,12 @@
 
         if (top10Requests !== null) { 
             
-            // 1a. Afficher l'ordre de la demande de l'utilisateur
+            // 1a. Afficher l'ordre de la demande de l'utilisateur (s'il est en cours de traitement)
             if (isWaiting && waitingOrder !== null && waitingOrder > 0) {
                 let textOrder = '';
                 if (waitingOrder > 1) {
                     const remaining = waitingOrder - 1;
+                    // Affichage de l'ordre personnalisé
                     textOrder = `<strong style="color:#ffcc00;">${remaining} demande(s)</strong> en cours de traitement avant la vôtre.`;
                 } else if (waitingOrder === 1) {
                     textOrder = `<strong style="color:#ffcc00;">Votre demande est la prochaine</strong> à être traitée.`;
@@ -276,9 +275,16 @@
             }
 
             // 1b. Afficher la liste des 10 premières demandes AVEC STATUT
+            // ✅ CORRECTION CLÉ : Affiche la liste détaillée SI la liste n'est pas vide (quel que soit le statut de la recherche)
             if (top10Requests.length > 0) {
+                
+                // Si l'ordre était affiché au-dessus, ajoute un séparateur
+                if (infoHTML) {
+                     infoHTML += '<div style="border-top: 1px dashed #555; margin-top: 10px; padding-top: 10px;"></div>';
+                }
+
                 infoHTML += `
-                    <div style="padding-top: 15px;">
+                    <div>
                         <p style="font-size: 0.9em; color: #ccc; margin-bottom: 10px;">
                             <i class="fas fa-info-circle" style="margin-right: 5px;"></i> 
                             Les 10 premières demandes en attente sont affichées ci-dessous.
@@ -287,7 +293,7 @@
                 `;
                 top10Requests.forEach((request, index) => {
                     if(request.id) { 
-                        const tagClass = normalizeStatusForCSS(request.status).toLowerCase();
+                        const tagClass = normalizeStatusForCSS(request.status);
                         infoHTML += `
                             <li>
                                 <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> 
@@ -300,13 +306,15 @@
                     }
                 });
                 infoHTML += `</ul></div>`;
-            } else if (status !== 'LOADING' && status !== 'INITIAL') {
-                    infoHTML += `
-                        <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
-                            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                            Aucune demande en cours dans la file d'attente !
-                        </p>
-                    `;
+
+            // ✅ CORRECTION DU CONFLIT : Affiche ce message UNIQUEMENT si la liste des 10 est vide ET que nous ne sommes pas en train de charger
+            } else if (status !== 'loading' && status !== 'initial') {
+                infoHTML += `
+                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                        Aucune demande en cours dans la file d'attente !
+                    </p>
+                `;
             }
 
             if (infoHTML) {
@@ -318,7 +326,7 @@
 
         // 2. Gérer le bloc de résultat du statut (resultDisplay)
         
-        resultDisplay.className = `status-${status.toLowerCase()}`;
+        resultDisplay.className = `status-${status}`;
         
         let headerText = message; 
         let detailText = (isWaiting && waitingOrder !== null && waitingOrder > 0) 
@@ -326,20 +334,20 @@
             : ''; 
 
         let currentIcon = icon;
-        if (status === 'INITIAL') {
+        if (status === 'initial') {
             headerText = "Entrez un ID ci-dessus pour vérifier son statut.";
             detailText = '';
             resultDisplay.className = 'status-initial';
             currentIcon = null;
-        } else if (status === 'LOADING') {
+        } else if (status === 'loading') {
              headerText = "Chargement...";
              detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
              currentIcon = 'fas fa-spinner fa-spin'; 
              resultDisplay.className = 'status-initial';
-        } else if (status === 'ID-INCONNU') {
+        } else if (status === 'id-inconnu') {
              headerText = "❌ ID de Suivi Inconnu";
              detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
-        } else if (status === 'ERREUR-TECHNIQUE') {
+        } else if (status === 'erreur-technique') {
              headerText = "⚠️ Erreur de Connexion";
              detailText = message || "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.";
         }
@@ -367,13 +375,12 @@
         .then(responseText => {
             const data = JSON.parse(responseText);
             
-            // MODIFICATION : Utilise data.top10Requests
             updateStatusDisplay(
                 'INITIAL', 
                 "Entrez votre ID ci-dessus pour vérifier son statut.", 
                 null, 
                 null, 
-                data.top10Requests || [] // Passe le nouveau tableau
+                data.top10Requests || [] 
             );
         })
         .catch(error => {
@@ -402,13 +409,12 @@
         .then(responseText => {
              const data = JSON.parse(responseText);
             
-            // MODIFICATION : Utilise data.top10Requests
             updateStatusDisplay(
                 data.status || 'ID_INCONNU', 
                 data.message || '', 
                 data.icon || null, 
                 data.order || null, 
-                data.top10Requests || [] // Passe le nouveau tableau
+                data.top10Requests || [] 
             );
         })
         .catch(error => {
