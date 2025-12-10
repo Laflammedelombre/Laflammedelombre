@@ -195,8 +195,8 @@
 </div>
 
 <script>
-    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT MISE À JOUR AVEC LA NOUVELLE URL
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwit3WPa2UrwsqyL-3Nb4xuGiamDe0jLAvHkZsqup-xl3DGs_yiFFz3IE_MqqOMBbiUOQ/exec'; 
+    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE (Utilise la toute dernière URL)
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyoZC4-QPyUnCpeUXIis6Q3EbqB7vxrLRJFysP-MDcJZpXWgGRJMk-LWXUmUsghWeqa-A/exec'; 
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
@@ -247,11 +247,13 @@
                         <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
                 `;
                 top10Ids.forEach((id, index) => {
-                    infoHTML += `
-                        <li>
-                            <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> ${id.toString().toLocaleUpperCase()}
-                        </li>
-                    `;
+                    if(id) { // Vérifie que l'ID n'est pas vide
+                        infoHTML += `
+                            <li>
+                                <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> ${id.toString().toLocaleUpperCase()}
+                            </li>
+                        `;
+                    }
                 });
                 infoHTML += `</ul></div>`;
             } else if (status !== 'LOADING' && status !== 'INITIAL') {
