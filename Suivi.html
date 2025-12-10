@@ -47,7 +47,7 @@
             padding-bottom: 15px;
         }
 
-        /* STYLE POUR L'INFO DE LISTE D'ATTENTE (Bloc conteneur NOUVEAUTÉ) */
+        /* STYLE POUR L'INFO DE LISTE D'ATTENTE */
         #waiting-list-info {
             background-color: #333; 
             border: 1px solid #ffcc00; 
@@ -56,6 +56,7 @@
             border-radius: 6px;
             text-align: center;
             font-size: 1.1em;
+            display: none; 
         }
         #waiting-list-info p {
             margin: 0;
@@ -127,24 +128,27 @@
             font-size: 1.6em;
             margin-bottom: 10px;
             font-weight: bold;
+            display: flex; /* Permet d'aligner l'icône et le texte */
+            justify-content: center;
+            align-items: center;
+        }
+        .status-header i {
+            margin-right: 10px;
+            font-size: 1.2em;
         }
         .status-detail {
             font-size: 1.1em;
             color: #ccc;
         }
-        /* Style pour l'ordre dans la file */
-        .order-message {
-            font-size: 1.1em; 
-            margin-top: 10px; 
-            font-weight: bold; 
-            color: #ffcc00;
-        }
-
 
         /* Codes couleurs pour les statuts */
-        .status-en_cours { border: 2px solid #ffcc00; color: #ffcc00; }
+        /* EN_COURS et DEMANDE_REÇUE (File d'attente/En attente) */
+        .status-en-cours, .status-demande-reçue { border: 2px solid #ffcc00; color: #ffcc00; }
+        /* TRAITÉ (Complété) */
         .status-traité { border: 2px solid #7ad6a7; color: #7ad6a7; }
-        .status-id_inconnu, .status-erreur_technique { border: 2px solid #f1a0a0; color: #f1a0a0; }
+        /* ID_INCONNU, ERREUR_TECHNIQUE, ANNULÉ (Problème/Annulation) */
+        .status-id-inconnu, .status-erreur-technique, .status-annulé { border: 2px solid #f1a0a0; color: #f1a0a0; }
+        /* INITIAL (Défaut) */
         .status-initial { border: 2px solid #555; color: #aaa; }
 
         /* Media Queries */
@@ -191,7 +195,7 @@
 </div>
 
 <script>
-    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE NOUVEAU DÉPLOIEMENT FINAL 🛑
+    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT CONFIRMÉE ET CORRECTE
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMNr4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
     
     const form = document.getElementById('trackingForm');
@@ -201,16 +205,26 @@
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
+     * @param {string} rawStatus - Statut brut (EN_COURS, TRAITÉ, etc.).
+     * @param {string} message - Message de détail renvoyé par le script.
+     * @param {string} icon - Classe d'icône Font Awesome renvoyée par le script.
+     * @param {number|null} waitingOrder - Position dans la file (1-based).
+     * @param {Array<string>|null} top10Ids - Liste des 10 premiers IDs en attente.
      */
-    function updateStatusDisplay(status, message, waitingOrder = null, top10Ids = null) {
+    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Ids = null) {
         
-        // 1. Gérer le bloc d'information de la liste d'attente et du message de position
+        // Nettoyage et Normalisation du statut pour le CSS (remplace les _ et les espaces par -)
+        const status = (rawStatus || 'ID_INCONNU').toUpperCase().replace(/[\s_]/g, '-');
+        const isWaiting = (status === 'EN-COURS' || status === 'DEMANDE-REÇUE');
+
+        // 1. Gérer le bloc d'information de la liste d'attente
         let infoHTML = '';
+        waitingListInfo.style.display = 'none';
 
         if (top10Ids !== null) {
             
-            // 1a. Afficher l'ordre de la demande de l'utilisateur (NOUVEAU MESSAGE)
-            if (status === 'EN_COURS' && waitingOrder !== null) {
+            // 1a. Afficher l'ordre de la demande de l'utilisateur (si EN_COURS ou DEMANDE_REÇUE)
+            if (isWaiting && waitingOrder !== null && waitingOrder > 0) {
                 let textOrder = '';
                 if (waitingOrder > 1) {
                     const remaining = waitingOrder - 1;
@@ -218,24 +232,22 @@
                 } else if (waitingOrder === 1) {
                     textOrder = `<strong style="color:#ffcc00;">Votre demande est la prochaine</strong> à être traitée.`;
                 }
-
-                if (textOrder) {
-                    infoHTML += `
-                        <p style="font-size: 1.2em; margin-bottom: 15px;">
-                            <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
-                            ${textOrder}
-                        </p>
-                    `;
-                }
+                
+                infoHTML += `
+                    <p style="font-size: 1.2em; margin-bottom: 15px;">
+                        <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
+                        ${textOrder}
+                    </p>
+                `;
             }
 
-            // 1b. Afficher la liste des 10 premières demandes (avec le nouveau message d'information)
+            // 1b. Afficher la liste des 10 premières demandes
             if (top10Ids.length > 0) {
                 infoHTML += `
                     <div style="padding-top: 15px;">
                         <p style="font-size: 0.9em; color: #ccc; margin-bottom: 10px;">
                             <i class="fas fa-info-circle" style="margin-right: 5px;"></i> 
-                            Les 10 premières demandes en attente sont affichées ci-dessous. Utilisez l'outil de recherche ci-dessus pour connaître la position exacte de votre ID.
+                            Les 10 premières demandes en attente sont affichées ci-dessous.
                         </p>
                         <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
                 `;
@@ -247,7 +259,7 @@
                     `;
                 });
                 infoHTML += `</ul></div>`;
-            } else {
+            } else if (status !== 'LOADING' && status !== 'INITIAL') {
                  // Liste des 10 vide (si toutes les demandes sont traitées)
                  infoHTML += `
                     <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
@@ -257,53 +269,56 @@
                 `;
             }
 
-            waitingListInfo.innerHTML = infoHTML;
-            waitingListInfo.style.display = 'block';
-
-        } else {
-            waitingListInfo.style.display = 'none';
+            if (infoHTML) {
+                waitingListInfo.innerHTML = infoHTML;
+                waitingListInfo.style.display = 'block';
+            }
         }
 
 
         // 2. Gérer le bloc de résultat du statut (resultDisplay)
         
-        if (status !== 'LOADING') { 
-            resultDisplay.className = '';
-        }
+        // Initialiser l'affichage avec le statut actuel ou par défaut
+        resultDisplay.className = `status-${status.toLowerCase()}`;
+        
+        let headerText = message; // Utiliser le message par défaut comme header
+        let detailText = (isWaiting && waitingOrder !== null && waitingOrder > 0) 
+            ? `Votre ID de suivi : ${trackingIdInput.value.trim() || 'Non fourni'}` 
+            : ''; // Message de détail de l'ID seulement pour l'attente
 
-        let statusClass = 'status-initial';
-        let headerText = "Statut Indisponible";
-        let detailText = message;
-
-        if (status === 'LOADING') {
+        // Cas spéciaux
+        let currentIcon = icon;
+        if (status === 'INITIAL') {
+            headerText = "Entrez un ID ci-dessus pour vérifier son statut.";
+            detailText = '';
+            resultDisplay.className = 'status-initial';
+            currentIcon = null;
+        } else if (status === 'LOADING') {
              headerText = "Chargement...";
              detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
-        } else if (status === 'EN_COURS') {
-            statusClass = 'status-en_cours';
-            headerText = "⏳ Demande en Cours de Traitement";
-        } else if (status === 'TRAITÉ') {
-            statusClass = 'status-traité';
-            headerText = "✅ Demande Traitée !";
-        } else if (status === 'ID_INCONNU') {
-            statusClass = 'status-id_inconnu';
-            headerText = "❌ ID de Suivi Inconnu";
-            detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
-        } else if (status === 'ERREUR_TECHNIQUE') {
-             statusClass = 'status-erreur_technique';
+             currentIcon = 'fas fa-spinner fa-spin'; // Icône de chargement
+             resultDisplay.className = 'status-initial';
+        } else if (status === 'ID-INCONNU') {
+             headerText = "❌ ID de Suivi Inconnu";
+             detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
+        } else if (status === 'ERREUR-TECHNIQUE') {
              headerText = "⚠️ Erreur de Connexion";
+             detailText = message || "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.";
         }
         
-        resultDisplay.classList.add(statusClass);
-        resultDisplay.innerHTML = `<div class="status-header">${headerText}</div>
-                                   <div class="status-detail">${detailText}</div>`;
+        resultDisplay.innerHTML = `
+            <div class="status-header">
+                ${currentIcon ? `<i class="${currentIcon}"></i>` : ''}
+                ${headerText}
+            </div>
+            <div class="status-detail">${detailText}</div>
+        `;
     }
 
     // Fonction pour charger l'état initial de la liste d'attente au chargement de la page
     function loadInitialWaitingList() {
-        // Afficher un état de chargement
-        updateStatusDisplay('LOADING', '', null, null); 
-        waitingListInfo.innerHTML = '<p style="margin-bottom: 0;">Chargement de la file d\'attente...</p>';
-        waitingListInfo.style.display = 'block';
+        // Afficher un état de chargement initial
+        updateStatusDisplay('LOADING', 'Chargement de la file d\'attente...', 'fas fa-spinner fa-spin', null, null); 
 
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
         
@@ -318,12 +333,13 @@
                 'INITIAL', 
                 "Entrez votre ID ci-dessus pour vérifier son statut.", 
                 null, 
+                null, 
                 data.top10Ids || []
             );
         })
         .catch(error => {
             console.error('Erreur lors du chargement initial de la liste d\'attente:', error);
-            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de charger la liste d'attente.");
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de charger la liste d'attente.", 'fas fa-exclamation-triangle');
         });
     }
 
@@ -333,7 +349,7 @@
         const trackingId = trackingIdInput.value.trim();
         if (!trackingId) return;
 
-        updateStatusDisplay('EN_COURS', 'Recherche en cours...', null, null); 
+        updateStatusDisplay('LOADING', 'Recherche en cours...', 'fas fa-spinner fa-spin', null, null); 
 
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
 
@@ -345,22 +361,18 @@
             return response.json(); 
         })
         .then(data => {
-            if (data.status) {
-                // L'ordre d'attente (data.order) est la position DANS la liste (1, 2, 3...)
-                // On affiche ce statut, et la fonction updateStatusDisplay gérera le message basé sur (data.order - 1)
-                updateStatusDisplay(
-                    data.status.toUpperCase(), 
-                    data.message || "", 
-                    data.order || null, 
-                    data.top10Ids || [] 
-                );
-            } else {
-                updateStatusDisplay('ID_INCONNU', "L'ID fourni ne correspond à aucune demande connue, ou la réponse du serveur est incorrecte.");
-            }
+            // Le script Apps Script renvoie maintenant data.icon et data.message (personnalisé)
+            updateStatusDisplay(
+                data.status || 'ID_INCONNU', 
+                data.message || '', 
+                data.icon || null, 
+                data.order || null, 
+                data.top10Ids || [] 
+            );
         })
         .catch(error => {
             console.error('Erreur de suivi:', error);
-            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.");
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.", 'fas fa-exclamation-triangle');
         });
     });
 
