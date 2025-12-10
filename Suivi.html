@@ -195,8 +195,8 @@
 </div>
 
 <script>
-    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT CONFIRMÉE ET CORRECTE
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwcoSXc8yCQklQGKBgLeYVYVhMNr4YqjLiVXRMrdPF-gkMKyRygE2y3QF4OmpUcP3B0cg/exec'; 
+    // ✅ NOUVELLE URL DE DÉPLOIEMENT APPS SCRIPT
+    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwIl1nbK4rYotjByJoQuv6P2EhtGQROusOXUeVMJXKBxCJc0WNqN7oUyycf8pS9nwrwxg/exec'; 
     
     const form = document.getElementById('trackingForm');
     const trackingIdInput = document.getElementById('trackingId');
@@ -205,11 +205,6 @@
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
-     * @param {string} rawStatus - Statut brut (EN_COURS, TRAITÉ, etc.).
-     * @param {string} message - Message de détail renvoyé par le script.
-     * @param {string} icon - Classe d'icône Font Awesome renvoyée par le script.
-     * @param {number|null} waitingOrder - Position dans la file (1-based).
-     * @param {Array<string>|null} top10Ids - Liste des 10 premiers IDs en attente.
      */
     function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Ids = null) {
         
