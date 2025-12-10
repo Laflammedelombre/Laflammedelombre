@@ -195,7 +195,7 @@
 </div>
 
 <script>
-    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE (Votre URL actuelle)
+    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyoZC4-QPyUnCpeUXIis6Q3EbqB7vxrLRJFysP-MDcJZpXWgGRJMk-LWXUmUsghWeqa-A/exec'; 
     
     const form = document.getElementById('trackingForm');
@@ -322,10 +322,10 @@
         fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
-            return response.text(); // 👈 MODIFIÉ : Lit la réponse en texte
+            return response.text(); // ✅ CORRECTION APPLIQUÉE : Lit la réponse en TEXTE
         })
         .then(responseText => {
-            const data = JSON.parse(responseText); // 👈 AJOUTÉ : Parse le texte en JSON
+            const data = JSON.parse(responseText); // ✅ CORRECTION APPLIQUÉE : Parse le texte en JSON
             
             // Afficher la liste d'attente et rétablir le message d'invite
             updateStatusDisplay(
@@ -357,10 +357,10 @@
         })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            return response.text(); // 👈 MODIFIÉ : Lit la réponse en texte
+            return response.text(); // ✅ CORRECTION APPLIQUÉE : Lit la réponse en TEXTE
         })
         .then(responseText => {
-             const data = JSON.parse(responseText); // 👈 AJOUTÉ : Parse le texte en JSON
+             const data = JSON.parse(responseText); // ✅ CORRECTION APPLIQUÉE : Parse le texte en JSON
             
             // Le script Apps Script renvoie maintenant data.icon et data.message (personnalisé)
             updateStatusDisplay(
