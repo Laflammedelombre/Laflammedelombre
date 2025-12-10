@@ -69,7 +69,7 @@
             list-style: none;
             padding: 0;
             text-align: left;
-            max-width: 300px;
+            max-width: 400px; /* Élargi pour le statut */
             margin: 10px auto 0 auto;
             line-height: 1.6;
             border-top: 1px dashed #555;
@@ -79,7 +79,41 @@
             font-family: monospace; 
             font-size: 0.95em;
             color: #ccc;
+            /* Utilisation de flexbox pour aligner le statut et l'ID */
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
         }
+        #waiting-list-info ul li strong {
+            margin-right: 5px;
+            flex-shrink: 0;
+        }
+        .status-tag {
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-right: 15px;
+            flex-shrink: 0;
+            min-width: 100px; /* Pour aligner les IDs */
+            text-align: center;
+        }
+        .status-tag.en_cours, .status-tag.demande_recue {
+            background-color: #ffcc0020;
+            color: #ffcc00;
+            border: 1px solid #ffcc00;
+        }
+        .status-tag.traitee, .status-tag.traite {
+            background-color: #7ad6a720;
+            color: #7ad6a7;
+            border: 1px solid #7ad6a7;
+        }
+        .status-tag.annulee, .status-tag.annule {
+            background-color: #f1a0a020;
+            color: #f1a0a0;
+            border: 1px solid #f1a0a0;
+        }
+
         
         /* Formulaire de recherche */
         .search-form {
@@ -142,13 +176,9 @@
         }
 
         /* Codes couleurs pour les statuts */
-        /* EN_COURS et DEMANDE_REÇUE (File d'attente/En attente) */
-        .status-en-cours, .status-demande-reçue { border: 2px solid #ffcc00; color: #ffcc00; }
-        /* TRAITÉ (Complété) */
-        .status-traité { border: 2px solid #7ad6a7; color: #7ad6a7; }
-        /* ID_INCONNU, ERREUR_TECHNIQUE, ANNULÉ (Problème/Annulation) */
-        .status-id-inconnu, .status-erreur-technique, .status-annulé { border: 2px solid #f1a0a0; color: #f1a0a0; }
-        /* INITIAL (Défaut) */
+        .status-en-cours, .status-demande-recue { border: 2px solid #ffcc00; color: #ffcc00; }
+        .status-traitee, .status-traite { border: 2px solid #7ad6a7; color: #7ad6a7; }
+        .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid #f1a0a0; color: #f1a0a0; }
         .status-initial { border: 2px solid #555; color: #aaa; }
 
         /* Media Queries */
@@ -195,7 +225,6 @@
 </div>
 
 <script>
-    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyoZC4-QPyUnCpeUXIis6Q3EbqB7vxrLRJFysP-MDcJZpXWgGRJMk-LWXUmUsghWeqa-A/exec'; 
     
     const form = document.getElementById('trackingForm');
@@ -203,22 +232,32 @@
     const resultDisplay = document.getElementById('result-display');
     const waitingListInfo = document.getElementById('waiting-list-info');
 
+    // Fonction utilitaire pour normaliser le statut pour le CSS (enlève accents, espaces, tirets)
+    function normalizeStatusForCSS(status) {
+        return status
+            .toUpperCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // Enlève les accents
+            .replace(/[\s_]/g, '-');        // Remplace espaces/_ par -
+    }
+
+
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
+     * @param {Array<Object>} top10Requests - Tableau d'objets {id: string, status: string}.
      */
-    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Ids = null) {
+    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Requests = null) {
         
-        // Nettoyage et Normalisation du statut pour le CSS (remplace les _ et les espaces par -)
-        const status = (rawStatus || 'ID_INCONNU').toUpperCase().replace(/[\s_]/g, '-');
-        const isWaiting = (status === 'EN-COURS' || status === 'DEMANDE-REÇUE');
+        const status = normalizeStatusForCSS(rawStatus);
+        const isWaiting = (status === 'EN-COURS' || status === 'DEMANDE-RECUE');
 
         // 1. Gérer le bloc d'information de la liste d'attente
         let infoHTML = '';
         waitingListInfo.style.display = 'none';
 
-        if (top10Ids !== null) {
+        if (top10Requests !== null) { 
             
-            // 1a. Afficher l'ordre de la demande de l'utilisateur (si EN_COURS ou DEMANDE_REÇUE)
+            // 1a. Afficher l'ordre de la demande de l'utilisateur
             if (isWaiting && waitingOrder !== null && waitingOrder > 0) {
                 let textOrder = '';
                 if (waitingOrder > 1) {
@@ -236,28 +275,32 @@
                 `;
             }
 
-            // 1b. Afficher la liste des 10 premières demandes
-            if (top10Ids.length > 0) {
+            // 1b. Afficher la liste des 10 premières demandes AVEC STATUT
+            if (top10Requests.length > 0) {
                 infoHTML += `
                     <div style="padding-top: 15px;">
                         <p style="font-size: 0.9em; color: #ccc; margin-bottom: 10px;">
                             <i class="fas fa-info-circle" style="margin-right: 5px;"></i> 
                             Les 10 premières demandes en attente sont affichées ci-dessous.
                         </p>
-                        <ul style="list-style: none; padding: 0; text-align: left; max-width: 300px; margin: 0 auto; line-height: 1.6;">
+                        <ul style="list-style: none; padding: 0; text-align: left; margin: 0 auto; line-height: 1.6;">
                 `;
-                top10Ids.forEach((id, index) => {
-                    if(id) { // Vérifie que l'ID n'est pas vide
+                top10Requests.forEach((request, index) => {
+                    if(request.id) { 
+                        const tagClass = normalizeStatusForCSS(request.status).toLowerCase();
                         infoHTML += `
                             <li>
-                                <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> ${id.toString().toLocaleUpperCase()}
+                                <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> 
+                                <span class="status-tag ${tagClass}">
+                                    ${request.status}
+                                </span> 
+                                ${request.id}
                             </li>
                         `;
                     }
                 });
                 infoHTML += `</ul></div>`;
             } else if (status !== 'LOADING' && status !== 'INITIAL') {
-                    // Liste des 10 vide (si toutes les demandes sont traitées)
                     infoHTML += `
                         <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
                             <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
@@ -275,15 +318,13 @@
 
         // 2. Gérer le bloc de résultat du statut (resultDisplay)
         
-        // Initialiser l'affichage avec le statut actuel ou par défaut
         resultDisplay.className = `status-${status.toLowerCase()}`;
         
-        let headerText = message; // Utiliser le message par défaut comme header
+        let headerText = message; 
         let detailText = (isWaiting && waitingOrder !== null && waitingOrder > 0) 
             ? `Votre ID de suivi : ${trackingIdInput.value.trim() || 'Non fourni'}` 
-            : ''; // Message de détail de l'ID seulement pour l'attente
+            : ''; 
 
-        // Cas spéciaux
         let currentIcon = icon;
         if (status === 'INITIAL') {
             headerText = "Entrez un ID ci-dessus pour vérifier son statut.";
@@ -293,7 +334,7 @@
         } else if (status === 'LOADING') {
              headerText = "Chargement...";
              detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
-             currentIcon = 'fas fa-spinner fa-spin'; // Icône de chargement
+             currentIcon = 'fas fa-spinner fa-spin'; 
              resultDisplay.className = 'status-initial';
         } else if (status === 'ID-INCONNU') {
              headerText = "❌ ID de Suivi Inconnu";
@@ -314,7 +355,6 @@
 
     // Fonction pour charger l'état initial de la liste d'attente au chargement de la page
     function loadInitialWaitingList() {
-        // Afficher un état de chargement initial
         updateStatusDisplay('LOADING', 'Chargement de la file d\'attente...', 'fas fa-spinner fa-spin', null, null); 
 
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
@@ -322,18 +362,18 @@
         fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
-            return response.text(); // ✅ CORRECTION APPLIQUÉE : Lit la réponse en TEXTE
+            return response.text();
         })
         .then(responseText => {
-            const data = JSON.parse(responseText); // ✅ CORRECTION APPLIQUÉE : Parse le texte en JSON
+            const data = JSON.parse(responseText);
             
-            // Afficher la liste d'attente et rétablir le message d'invite
+            // MODIFICATION : Utilise data.top10Requests
             updateStatusDisplay(
                 'INITIAL', 
                 "Entrez votre ID ci-dessus pour vérifier son statut.", 
                 null, 
                 null, 
-                data.top10Ids || []
+                data.top10Requests || [] // Passe le nouveau tableau
             );
         })
         .catch(error => {
@@ -357,18 +397,18 @@
         })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            return response.text(); // ✅ CORRECTION APPLIQUÉE : Lit la réponse en TEXTE
+            return response.text();
         })
         .then(responseText => {
-             const data = JSON.parse(responseText); // ✅ CORRECTION APPLIQUÉE : Parse le texte en JSON
+             const data = JSON.parse(responseText);
             
-            // Le script Apps Script renvoie maintenant data.icon et data.message (personnalisé)
+            // MODIFICATION : Utilise data.top10Requests
             updateStatusDisplay(
                 data.status || 'ID_INCONNU', 
                 data.message || '', 
                 data.icon || null, 
                 data.order || null, 
-                data.top10Ids || [] 
+                data.top10Requests || [] // Passe le nouveau tableau
             );
         })
         .catch(error => {
@@ -377,7 +417,6 @@
         });
     });
 
-    // Chargement initial de la liste d'attente (top 10)
     document.addEventListener('DOMContentLoaded', loadInitialWaitingList);
 
 </script>
