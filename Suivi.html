@@ -195,7 +195,7 @@
 </div>
 
 <script>
-    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE (Utilise la toute dernière URL)
+    // ✅ URL DE DÉPLOIEMENT APPS SCRIPT FINALE (Votre URL actuelle)
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyoZC4-QPyUnCpeUXIis6Q3EbqB7vxrLRJFysP-MDcJZpXWgGRJMk-LWXUmUsghWeqa-A/exec'; 
     
     const form = document.getElementById('trackingForm');
@@ -257,13 +257,13 @@
                 });
                 infoHTML += `</ul></div>`;
             } else if (status !== 'LOADING' && status !== 'INITIAL') {
-                 // Liste des 10 vide (si toutes les demandes sont traitées)
-                 infoHTML += `
-                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        Aucune demande en cours dans la file d'attente !
-                    </p>
-                `;
+                    // Liste des 10 vide (si toutes les demandes sont traitées)
+                    infoHTML += `
+                        <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
+                            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                            Aucune demande en cours dans la file d'attente !
+                        </p>
+                    `;
             }
 
             if (infoHTML) {
@@ -322,9 +322,11 @@
         fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
-            return response.json(); 
+            return response.text(); // 👈 MODIFIÉ : Lit la réponse en texte
         })
-        .then(data => {
+        .then(responseText => {
+            const data = JSON.parse(responseText); // 👈 AJOUTÉ : Parse le texte en JSON
+            
             // Afficher la liste d'attente et rétablir le message d'invite
             updateStatusDisplay(
                 'INITIAL', 
@@ -355,9 +357,11 @@
         })
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            return response.json(); 
+            return response.text(); // 👈 MODIFIÉ : Lit la réponse en texte
         })
-        .then(data => {
+        .then(responseText => {
+             const data = JSON.parse(responseText); // 👈 AJOUTÉ : Parse le texte en JSON
+            
             // Le script Apps Script renvoie maintenant data.icon et data.message (personnalisé)
             updateStatusDisplay(
                 data.status || 'ID_INCONNU', 
