@@ -216,6 +216,7 @@
 </div>
 
 <script>
+    // ** ASSUREZ-VOUS QUE CETTE URL EST VOTRE URL DE DÉPLOIEMENT APPS SCRIPT **/
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbyoZC4-QPyUnCpeUXIis6Q3EbqB7vxrLRJFysP-MDcJZpXWgGRJMk-LWXUmUsghWeqa-A/exec'; 
     
     const form = document.getElementById('trackingForm');
@@ -276,7 +277,7 @@
                 infoHTML += `
                     <p style="font-size: 1.2em; margin-bottom: 15px;">
                         <i class="fas fa-user-clock" style="color:var(--color-active); margin-right: 10px;"></i>
-                        ${message}
+                        <strong style="color:var(--color-active);">${message}</strong>
                     </p>
                 `;
             }
@@ -333,7 +334,7 @@
         // 2. Gérer le bloc de résultat du statut (resultDisplay)
         resultDisplay.className = `status-${status}`;
         let headerText = message; 
-        let detailText = `ID de suivi : ${trackingId || 'Non fourni'}`; 
+        let detailText = trackingId ? `ID de suivi : ${trackingId}` : ''; 
         let currentIcon = icon;
 
         if (status === 'initial') {
@@ -396,7 +397,7 @@
         })
         .then(responseText => {
             const data = JSON.parse(responseText);
-            if (data.status === 'ANNULÉ' || data.status === 'ANNULÉE') {
+            if (data.status === 'ANNULÉE' || data.status === 'ANNULÉ') {
                 alert(`Demande ${idToCancel} annulée avec succès.`);
             } else {
                  alert(`L'annulation a échoué : ${data.message || 'Statut non mis à jour.'}`);
