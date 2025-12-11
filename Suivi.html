@@ -9,9 +9,9 @@
         /* Couleurs du Nouveau Thème */
         :root {
             --color-primary: black;
-            --color-secondary: #C00000; /* ROUGE VIF/BORDEAUX pour l'accentuation principale */
-            --color-active-bg: rgba(192, 0, 0, 0.2); /* NOUVEAU: Rouge transparent pour le fond actif */
-            --color-active-text: #C00000; /* NOUVEAU: Utilise le Rouge VIF pour le texte actif */
+            --color-secondary: #C00000; /* ROUGE VIF/BORDEAUX pour l'accentuation principale (boutons, titres) */
+            --color-active-bg: rgba(192, 0, 0, 0.2); /* Rouge transparent pour le fond actif */
+            --color-active-text: #C00000; /* Rouge VIF pour le texte actif */
             --color-success: #7ad6a7;
             --color-error: #f1a0a0;
             --color-text: white;
@@ -60,7 +60,7 @@
         /* STYLE POUR L'INFO DE LISTE D'ATTENTE */
         #waiting-list-info {
             background-color: #333; 
-            border: 1px solid var(--color-active-text); /* BORDURE: Couleur Rouge VIF */
+            border: 1px solid var(--color-active-text);
             padding: 15px;
             margin-bottom: 30px;
             border-radius: 6px;
@@ -130,7 +130,7 @@
         }
         
         /* Couleurs des Tags */
-        .status-tag.en-cours, .status-tag.demande-recue {
+        .status-tag.en-cours, .status-tag.demande-recue, .status-tag.reçu {
             /* NOUVELLE COULEUR ROUGE TRANSPARENTE */
             background-color: var(--color-active-bg); 
             color: var(--color-active-text);
@@ -186,7 +186,10 @@
         .status-detail { font-size: 1.1em; color: #ccc; }
 
         /* Codes couleurs pour les statuts */
-        .status-en-cours, .status-demande-recue { border: 2px solid var(--color-active-text); color: var(--color-active-text); }
+        .status-en-cours, .status-demande-recue, .status-reçu { 
+            border: 2px solid var(--color-active-text); 
+            color: var(--color-active-text); 
+        }
         .status-traitee, .status-traite { border: 2px solid var(--color-success); color: var(--color-success); }
         .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid var(--color-error); color: var(--color-error); }
         .status-initial { border: 2px solid #555; color: #aaa; }
@@ -253,10 +256,11 @@
     const waitingListInfo = document.getElementById('waiting-list-info');
     const cancelZone = document.getElementById('cancel-zone');
 
-    // Mappage des statuts et des icônes
+    // Mappage des statuts et des icônes (AJOUT DE 'REÇU')
     const STATUS_ICONS = {
         'EN_COURS': { icon: 'fas fa-hourglass-half', name: 'EN COURS' },
         'DEMANDE_REÇUE': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' },
+        'REÇU': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' }, 
         'TRAITÉE': { icon: 'fas fa-check-circle', name: 'TRAITÉE' },
         'TRAITÉ': { icon: 'fas fa-check-circle', name: 'TRAITÉ' },
         'ANNULÉE': { icon: 'fas fa-times-circle', name: 'ANNULÉE' },
@@ -295,8 +299,9 @@
      */
     function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, trackingId = null, top10Requests = null) {
         
+        // Mise à jour de la détection pour les statuts 'actif'
         const status = normalizeStatusForCSS(rawStatus);
-        const isWaiting = (status === 'en-cours' || status === 'demande-recue');
+        const isWaiting = (status === 'en-cours' || status === 'demande-recue' || status === 'reçu');
         cancelZone.innerHTML = ''; // Réinitialiser le bouton Annuler
 
         // 1. Gérer le bloc d'information de la liste d'attente (waiting-list-info)
