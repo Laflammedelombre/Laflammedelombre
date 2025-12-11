@@ -6,21 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suivi de Demande - La Flamme de l'Ombre</title>
     <style>
+        /* Couleurs du Nouveau Thème */
+        :root {
+            --color-primary: black;
+            --color-secondary: #993399; /* Violet Mystique */
+            --color-active: #00FFFF; /* Cyan/Turquoise Clair */
+            --color-success: #7ad6a7;
+            --color-error: #f1a0a0;
+            --color-text: white;
+            --color-background-dark: #111;
+            --color-background-medium: #222;
+        }
+
         /* Styles Globaux */
-        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        body { background-color: var(--color-primary); color: var(--color-text); font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
         header { padding: 20px; }
         h1 { font-size: 3em; margin: 0.2em 0; }
-        p { font-size: 1.5em; margin-top: 10px; }
         
-        /* Navigation */
+        /* Navigation (inchangé) */
         nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333;}
         nav ul li { margin: 10px 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        nav ul li a { color: var(--color-text); text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
         nav ul li a:hover { text-decoration: underline; }
-        
-        /* STYLE DU BOUTON DE SUIVI ACTIF */
         .nav-button-active a {
-            background-color: #8B0000;
+            background-color: var(--color-secondary);
             color: white !important;
             padding: 8px 15px !important;
             border-radius: 6px !important;
@@ -29,11 +38,11 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
         }
         
-        /* Conteneur principal de la page de suivi */
+        /* Conteneur principal */
         .suivi-container {
             max-width: 700px;
             margin: 50px auto;
-            background: #111;
+            background: var(--color-background-dark);
             padding: 30px;
             border-radius: 10px;
             text-align: left;
@@ -41,7 +50,7 @@
         }
         .suivi-container h2 {
             text-align: center;
-            color: #fff;
+            color: var(--color-text);
             margin-bottom: 30px;
             border-bottom: 2px solid #333;
             padding-bottom: 15px;
@@ -50,7 +59,7 @@
         /* STYLE POUR L'INFO DE LISTE D'ATTENTE */
         #waiting-list-info {
             background-color: #333; 
-            border: 1px solid #ffcc00; 
+            border: 1px solid var(--color-active); 
             padding: 15px;
             margin-bottom: 30px;
             border-radius: 6px;
@@ -58,20 +67,15 @@
             font-size: 1.1em;
             display: none; 
         }
-        #waiting-list-info p {
-            margin: 0;
-            font-size: 1em;
-            line-height: 1.4;
-        }
+        #waiting-list-info p { margin: 0; font-size: 1em; line-height: 1.4; }
 
-        /* STYLE POUR LA LISTE DES 10 PREMIERS IDs */
+        /* LISTE DES 10 PREMIERS IDs (ALIGENEMENT PARFAIT) */
         #waiting-list-info ul {
             list-style: none;
             padding: 0;
             text-align: left;
-            max-width: 400px; 
+            max-width: 450px; 
             margin: 10px auto 0 auto;
-            line-height: 1.6;
             border-top: 1px dashed #555;
             padding-top: 10px;
         }
@@ -79,14 +83,19 @@
             font-family: monospace; 
             font-size: 0.95em;
             color: #ccc;
+            /* Flexbox pour l'alignement */
             display: flex;
-            justify-content: flex-start;
             align-items: center;
+            line-height: 1.8;
         }
         #waiting-list-info ul li strong {
             margin-right: 5px;
             flex-shrink: 0;
+            min-width: 25px; /* Pour aligner le #1, #2, etc. */
+            color: var(--color-secondary);
         }
+        
+        /* Tags de Statut dans la liste */
         .status-tag {
             font-weight: bold;
             padding: 2px 5px;
@@ -94,66 +103,46 @@
             font-size: 0.85em;
             margin-right: 15px;
             flex-shrink: 0;
-            min-width: 100px; 
-            text-align: center;
-        }
-        .status-tag.en-cours, .status-tag.demande-recue {
-            background-color: #ffcc0020;
-            color: #ffcc00;
-            border: 1px solid #ffcc00;
-        }
-        .status-tag.traitee, .status-tag.traite {
-            background-color: #7ad6a720;
-            color: #7ad6a7;
-            border: 1px solid #7ad6a7;
-        }
-        .status-tag.annulee, .status-tag.annule {
-            background-color: #f1a0a020;
-            color: #f1a0a0;
-            border: 1px solid #f1a0a0;
-        }
-
-        
-        /* Formulaire de recherche */
-        .search-form {
+            min-width: 140px; /* Alignement de la colonne de statut */
+            text-align: left;
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
             align-items: center;
         }
-        .search-form label {
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .search-form input[type="text"] {
-            flex-grow: 1;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #555;
-            background: #222;
-            color: #fff;
+        .status-tag i {
+            margin-right: 8px;
             font-size: 1em;
-            box-sizing: border-box;
         }
-        .search-form button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
+        
+        /* Couleurs des Tags */
+        .status-tag.en-cours, .status-tag.demande-recue {
+            background-color: rgba(0, 255, 255, 0.1); 
+            color: var(--color-active);
+            border: 1px solid var(--color-active);
         }
-        .search-form button:hover {
-            background: #0056b3;
+        .status-tag.traitee, .status-tag.traite {
+            background-color: rgba(122, 214, 167, 0.1);
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
         }
+        .status-tag.annulee, .status-tag.annule {
+            background-color: rgba(241, 160, 160, 0.1);
+            color: var(--color-error);
+            border: 1px solid var(--color-error);
+        }
+
+
+        /* Formulaire de recherche (inchangé) */
+        .search-form { display: flex; gap: 15px; margin-bottom: 30px; align-items: center; }
+        .search-form label { font-weight: bold; white-space: nowrap; }
+        .search-form input[type="text"] { flex-grow: 1; padding: 12px; border-radius: 6px; border: 1px solid #555; background: var(--color-background-medium); color: var(--color-text); font-size: 1em; box-sizing: border-box; }
+        .search-form button { padding: 12px 25px; border: none; border-radius: 6px; background: var(--color-secondary); color: white; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+        .search-form button:hover { background: #6b226b; }
 
         /* Bloc de résultats (affichage des statuts) */
         #result-display {
             padding: 20px;
             border-radius: 8px;
-            background: #222;
+            background: var(--color-background-medium);
             min-height: 80px;
             text-align: center;
         }
@@ -165,27 +154,28 @@
             justify-content: center;
             align-items: center;
         }
-        .status-header i {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .status-detail {
-            font-size: 1.1em;
-            color: #ccc;
-        }
+        .status-header i { margin-right: 10px; font-size: 1.2em; }
+        .status-detail { font-size: 1.1em; color: #ccc; }
 
         /* Codes couleurs pour les statuts */
-        .status-en-cours, .status-demande-recue { border: 2px solid #ffcc00; color: #ffcc00; }
-        .status-traitee, .status-traite { border: 2px solid #7ad6a7; color: #7ad6a7; }
-        .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid #f1a0a0; color: #f1a0a0; }
+        .status-en-cours, .status-demande-recue { border: 2px solid var(--color-active); color: var(--color-active); }
+        .status-traitee, .status-traite { border: 2px solid var(--color-success); color: var(--color-success); }
+        .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid var(--color-error); color: var(--color-error); }
         .status-initial { border: 2px solid #555; color: #aaa; }
 
-        /* Media Queries */
-        @media (max-width: 600px) {
-            .suivi-container { margin: 20px; padding: 20px; }
-            .search-form { flex-direction: column; }
-            .search-form label { margin-bottom: 5px; }
-            .search-form input[type="text"], .search-form button { width: 100%; }
+        /* Bouton Annuler */
+        #cancelButton {
+            background-color: var(--color-error);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        #cancelButton:hover {
+            background-color: #c93030;
         }
     </style>
 </head>
@@ -210,7 +200,7 @@
     <h2>Vérifier le Statut de Votre Demande</h2>
 
     <div id="waiting-list-info" style="display: none;">
-        </div>
+    </div>
     
     <form id="trackingForm" class="search-form">
         <label for="trackingId">Entrez votre ID de Suivi :</label>
@@ -221,6 +211,8 @@
     <div id="result-display" class="status-initial">
         <div class="status-header">Entrez un ID ci-dessus pour vérifier son statut.</div>
     </div>
+    
+    <div id="cancel-zone" style="text-align: center; margin-top: 20px;"></div>
 </div>
 
 <script>
@@ -230,7 +222,19 @@
     const trackingIdInput = document.getElementById('trackingId');
     const resultDisplay = document.getElementById('result-display');
     const waitingListInfo = document.getElementById('waiting-list-info');
+    const cancelZone = document.getElementById('cancel-zone');
 
+    // Mappage des statuts et des icônes
+    const STATUS_ICONS = {
+        'EN_COURS': { icon: 'fas fa-hourglass-half', name: 'EN COURS' },
+        'DEMANDE_REÇUE': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' },
+        'TRAITÉE': { icon: 'fas fa-check-circle', name: 'TRAITÉE' },
+        'TRAITÉ': { icon: 'fas fa-check-circle', name: 'TRAITÉ' },
+        'ANNULÉE': { icon: 'fas fa-times-circle', name: 'ANNULÉE' },
+        'ANNULÉ': { icon: 'fas fa-times-circle', name: 'ANNULÉ' },
+        'DEFAULT': { icon: 'fas fa-question-circle', name: 'STATUT INCONNU' }
+    };
+    
     function normalizeStatusForCSS(status) {
         // Normalise pour la classe CSS (en minuscules, sans accents, sans espaces ni tirets bas)
         return status
@@ -239,47 +243,48 @@
             .replace(/[\u0300-\u036f]/g, "") 
             .replace(/[\s_]/g, '-').toLowerCase();        
     }
+    
+    function getStatusIcon(rawStatus) {
+        const normalized = rawStatus.toUpperCase().replace(/ /g, '_');
+        for (const key in STATUS_ICONS) {
+            if (normalized.includes(key.replace(/ /g, '_'))) {
+                return STATUS_ICONS[key];
+            }
+        }
+        return STATUS_ICONS['DEFAULT'];
+    }
 
 
     /**
      * Met à jour l'affichage du statut et de l'information de liste d'attente.
      */
-    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, top10Requests = null) {
+    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, trackingId = null, top10Requests = null) {
         
         const status = normalizeStatusForCSS(rawStatus);
         const isWaiting = (status === 'en-cours' || status === 'demande-recue');
+        cancelZone.innerHTML = ''; // Réinitialiser le bouton Annuler
 
-        // 1. Gérer le bloc d'information de la liste d'attente
+        // 1. Gérer le bloc d'information de la liste d'attente (waiting-list-info)
         let infoHTML = '';
         waitingListInfo.style.display = 'none';
 
         if (top10Requests !== null) { 
             
-            // 1a. Afficher l'ordre de la demande de l'utilisateur (s'il est en cours de traitement)
+            // 1a. Afficher l'ordre de la demande de l'utilisateur
             if (isWaiting && waitingOrder !== null && waitingOrder > 0) {
-                let textOrder = '';
-                if (waitingOrder > 1) {
-                    const remaining = waitingOrder - 1;
-                    // Affichage de l'ordre personnalisé
-                    textOrder = `<strong style="color:#ffcc00;">${remaining} demande(s)</strong> en cours de traitement avant la vôtre.`;
-                } else if (waitingOrder === 1) {
-                    textOrder = `<strong style="color:#ffcc00;">Votre demande est la prochaine</strong> à être traitée.`;
-                }
                 
                 infoHTML += `
                     <p style="font-size: 1.2em; margin-bottom: 15px;">
-                        <i class="fas fa-user-clock" style="color:#ffcc00; margin-right: 10px;"></i>
-                        ${textOrder}
+                        <i class="fas fa-user-clock" style="color:var(--color-active); margin-right: 10px;"></i>
+                        ${message}
                     </p>
                 `;
             }
 
             // 1b. Afficher la liste des 10 premières demandes AVEC STATUT
-            // ✅ CORRECTION CLÉ : Affiche la liste détaillée SI la liste n'est pas vide (quel que soit le statut de la recherche)
             if (top10Requests.length > 0) {
                 
-                // Si l'ordre était affiché au-dessus, ajoute un séparateur
-                if (infoHTML) {
+                if (infoHTML && top10Requests.length > 0) {
                      infoHTML += '<div style="border-top: 1px dashed #555; margin-top: 10px; padding-top: 10px;"></div>';
                 }
 
@@ -294,11 +299,13 @@
                 top10Requests.forEach((request, index) => {
                     if(request.id) { 
                         const tagClass = normalizeStatusForCSS(request.status);
+                        const statusData = getStatusIcon(request.status);
                         infoHTML += `
                             <li>
-                                <strong style="color: #007bff; margin-right: 5px;">#${index + 1}:</strong> 
+                                <strong>#${index + 1}:</strong> 
                                 <span class="status-tag ${tagClass}">
-                                    ${request.status}
+                                    <i class="${statusData.icon}"></i>
+                                    ${statusData.name}
                                 </span> 
                                 ${request.id}
                             </li>
@@ -307,10 +314,9 @@
                 });
                 infoHTML += `</ul></div>`;
 
-            // ✅ CORRECTION DU CONFLIT : Affiche ce message UNIQUEMENT si la liste des 10 est vide ET que nous ne sommes pas en train de charger
             } else if (status !== 'loading' && status !== 'initial') {
                 infoHTML += `
-                    <p style="font-size: 1.2em; font-weight: bold; color: #7ad6a7; margin-top: 10px;">
+                    <p style="font-size: 1.2em; font-weight: bold; color: var(--color-success); margin-top: 10px;">
                         <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
                         Aucune demande en cours dans la file d'attente !
                     </p>
@@ -325,15 +331,11 @@
 
 
         // 2. Gérer le bloc de résultat du statut (resultDisplay)
-        
         resultDisplay.className = `status-${status}`;
-        
         let headerText = message; 
-        let detailText = (isWaiting && waitingOrder !== null && waitingOrder > 0) 
-            ? `Votre ID de suivi : ${trackingIdInput.value.trim() || 'Non fourni'}` 
-            : ''; 
-
+        let detailText = `ID de suivi : ${trackingId || 'Non fourni'}`; 
         let currentIcon = icon;
+
         if (status === 'initial') {
             headerText = "Entrez un ID ci-dessus pour vérifier son statut.";
             detailText = '';
@@ -344,12 +346,9 @@
              detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
              currentIcon = 'fas fa-spinner fa-spin'; 
              resultDisplay.className = 'status-initial';
-        } else if (status === 'id-inconnu') {
-             headerText = "❌ ID de Suivi Inconnu";
-             detailText = message || "Veuillez vérifier l'ID que vous avez reçu par email.";
-        } else if (status === 'erreur-technique') {
-             headerText = "⚠️ Erreur de Connexion";
-             detailText = message || "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.";
+        } else if (status === 'id-inconnu' || status === 'erreur-technique') {
+             headerText = (status === 'id-inconnu') ? "❌ ID de Suivi Inconnu" : "⚠️ Erreur de Connexion";
+             detailText = message || "Veuillez vérifier l'ID.";
         }
         
         resultDisplay.innerHTML = `
@@ -359,11 +358,95 @@
             </div>
             <div class="status-detail">${detailText}</div>
         `;
+        
+        // 3. Afficher le bouton d'annulation
+        if (isWaiting && trackingId) {
+            cancelZone.innerHTML = `
+                <button id="cancelButton" data-id="${trackingId}">
+                    <i class="fas fa-ban"></i> Annuler ma demande
+                </button>
+            `;
+            document.getElementById('cancelButton').addEventListener('click', handleCancel);
+        }
     }
 
-    // Fonction pour charger l'état initial de la liste d'attente au chargement de la page
+    // --- Logique du Bouton Annuler ---
+    function handleCancel(event) {
+        const idToCancel = event.currentTarget.getAttribute('data-id');
+        if (!confirm(`Êtes-vous sûr de vouloir annuler la demande ${idToCancel} ? Cette action est irréversible.`)) {
+            return;
+        }
+        
+        // Afficher le statut de chargement pendant l'annulation
+        resultDisplay.className = 'status-initial';
+        resultDisplay.innerHTML = `
+            <div class="status-header">
+                <i class="fas fa-spinner fa-spin"></i> Annulation en cours...
+            </div>
+            <div class="status-detail">Veuillez patienter.</div>
+        `;
+        cancelZone.innerHTML = '';
+
+        const cancelUrl = `${APPS_SCRIPT_URL_SEARCH}?action=cancelrequest&id=${idToCancel}`;
+        
+        fetch(cancelUrl, { method: 'GET' })
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur réseau ou de script lors de l\'annulation.');
+            return response.text();
+        })
+        .then(responseText => {
+            const data = JSON.parse(responseText);
+            if (data.status === 'ANNULÉ' || data.status === 'ANNULÉE') {
+                alert(`Demande ${idToCancel} annulée avec succès.`);
+            } else {
+                 alert(`L'annulation a échoué : ${data.message || 'Statut non mis à jour.'}`);
+            }
+            // Recharger les données pour refléter le nouveau statut (ANNULÉE)
+            searchById(idToCancel);
+        })
+        .catch(error => {
+            console.error('Erreur d\'annulation:', error);
+            alert('Erreur technique lors de l\'annulation. Veuillez réessayer.');
+            // Recharger pour rétablir l'état initial
+            searchById(idToCancel); 
+        });
+    }
+
+
+    // --- Logique de Recherche ---
+    function searchById(trackingId) {
+        updateStatusDisplay('LOADING', 'Recherche en cours...', 'fas fa-spinner fa-spin', null, trackingId, null); 
+
+        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
+
+        fetch(url, { method: 'GET' })
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
+            return response.text();
+        })
+        .then(responseText => {
+             const data = JSON.parse(responseText);
+             const statusData = getStatusIcon(data.status || 'DEFAULT');
+            
+            updateStatusDisplay(
+                data.status || 'ID_INCONNU', 
+                data.message || statusData.name, 
+                data.icon || statusData.icon, 
+                data.order || null, 
+                trackingId,
+                data.top10Requests || [] 
+            );
+        })
+        .catch(error => {
+            console.error('Erreur de suivi:', error);
+            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.", 'fas fa-exclamation-triangle', null, trackingId);
+        });
+    }
+
+
+    // --- Logique de Chargement Initial ---
     function loadInitialWaitingList() {
-        updateStatusDisplay('LOADING', 'Chargement de la file d\'attente...', 'fas fa-spinner fa-spin', null, null); 
+        updateStatusDisplay('LOADING', 'Chargement de la file d\'attente...', 'fas fa-spinner fa-spin', null, null, null); 
 
         const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
         
@@ -380,6 +463,7 @@
                 "Entrez votre ID ci-dessus pour vérifier son statut.", 
                 null, 
                 null, 
+                null,
                 data.top10Requests || [] 
             );
         })
@@ -391,36 +475,10 @@
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
-        
         const trackingId = trackingIdInput.value.trim();
-        if (!trackingId) return;
-
-        updateStatusDisplay('LOADING', 'Recherche en cours...', 'fas fa-spinner fa-spin', null, null); 
-
-        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
-
-        fetch(url, {
-            method: 'GET'
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            return response.text();
-        })
-        .then(responseText => {
-             const data = JSON.parse(responseText);
-            
-            updateStatusDisplay(
-                data.status || 'ID_INCONNU', 
-                data.message || '', 
-                data.icon || null, 
-                data.order || null, 
-                data.top10Requests || [] 
-            );
-        })
-        .catch(error => {
-            console.error('Erreur de suivi:', error);
-            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.", 'fas fa-exclamation-triangle');
-        });
+        if (trackingId) {
+             searchById(trackingId);
+        }
     });
 
     document.addEventListener('DOMContentLoaded', loadInitialWaitingList);
