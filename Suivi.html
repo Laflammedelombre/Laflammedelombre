@@ -10,9 +10,10 @@
         :root {
             --color-primary: black;
             --color-secondary: #C00000; /* ROUGE VIF/BORDEAUX pour l'accentuation principale */
-            --color-active: #00FFFF; /* Cyan/Turquoise Clair (pour les statuts "En Cours") */
+            --color-active-bg: rgba(192, 0, 0, 0.2); /* NOUVEAU: Rouge transparent pour le fond actif */
+            --color-active-text: #C00000; /* NOUVEAU: Utilise le Rouge VIF pour le texte actif */
             --color-success: #7ad6a7;
-            --color-error: #f1a0a0; /* Reste en rouge clair pour les erreurs/annulations */
+            --color-error: #f1a0a0;
             --color-text: white;
             --color-background-dark: #111;
             --color-background-medium: #222;
@@ -59,7 +60,7 @@
         /* STYLE POUR L'INFO DE LISTE D'ATTENTE */
         #waiting-list-info {
             background-color: #333; 
-            border: 1px solid var(--color-active); 
+            border: 1px solid var(--color-active-text); /* BORDURE: Couleur Rouge VIF */
             padding: 15px;
             margin-bottom: 30px;
             border-radius: 6px;
@@ -92,11 +93,11 @@
         #waiting-list-info ul li strong {
             margin-right: 5px;
             flex-shrink: 0;
-            min-width: 25px; 
+            min-width: 35px; /* CORRECTION ALIGNEMENT DU "10" */
             color: var(--color-secondary);
         }
         
-        /* NOUVEAU STYLE: Conteneur Flex pour les éléments de gauche */
+        /* Conteneur Flex pour les éléments de gauche */
         .list-left-col {
             display: flex;
             align-items: center;
@@ -130,9 +131,10 @@
         
         /* Couleurs des Tags */
         .status-tag.en-cours, .status-tag.demande-recue {
-            background-color: rgba(0, 255, 255, 0.1); 
-            color: var(--color-active);
-            border: 1px solid var(--color-active);
+            /* NOUVELLE COULEUR ROUGE TRANSPARENTE */
+            background-color: var(--color-active-bg); 
+            color: var(--color-active-text);
+            border: 1px solid var(--color-active-text);
         }
         .status-tag.traitee, .status-tag.traite {
             background-color: rgba(122, 214, 167, 0.1);
@@ -184,7 +186,7 @@
         .status-detail { font-size: 1.1em; color: #ccc; }
 
         /* Codes couleurs pour les statuts */
-        .status-en-cours, .status-demande-recue { border: 2px solid var(--color-active); color: var(--color-active); }
+        .status-en-cours, .status-demande-recue { border: 2px solid var(--color-active-text); color: var(--color-active-text); }
         .status-traitee, .status-traite { border: 2px solid var(--color-success); color: var(--color-success); }
         .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid var(--color-error); color: var(--color-error); }
         .status-initial { border: 2px solid #555; color: #aaa; }
@@ -308,8 +310,8 @@
                 
                 infoHTML += `
                     <p style="font-size: 1.2em; margin-bottom: 15px;">
-                        <i class="fas fa-user-clock" style="color:var(--color-active); margin-right: 10px;"></i>
-                        <strong style="color:var(--color-active);">${message}</strong>
+                        <i class="fas fa-user-clock" style="color:var(--color-active-text); margin-right: 10px;"></i>
+                        <strong style="color:var(--color-active-text);">${message}</strong>
                     </p>
                 `;
             }
