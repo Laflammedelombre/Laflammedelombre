@@ -24,7 +24,7 @@
         header { padding: 20px; }
         h1 { font-size: 3em; margin: 0.2em 0; }
         
-        /* Navigation (inchangé) */
+        /* Navigation */
         nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333;}
         nav ul li { margin: 10px 15px; }
         nav ul li a { color: var(--color-text); text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
@@ -131,7 +131,7 @@
         
         /* Couleurs des Tags */
         .status-tag.en-cours, .status-tag.demande-recue, .status-tag.reçu {
-            /* NOUVELLE COULEUR ROUGE TRANSPARENTE */
+            /* COULEUR ROUGE TRANSPARENTE */
             background-color: var(--color-active-bg); 
             color: var(--color-active-text);
             border: 1px solid var(--color-active-text);
@@ -208,6 +208,75 @@
         #cancelButton:hover {
             background-color: #c93030;
         }
+
+        /* --- MISE EN PAGE RESPONSIVE POUR TÉLÉPHONES (MAX 600PX) --- */
+        @media (max-width: 600px) {
+            
+            header { padding: 10px; }
+            h1 { font-size: 2em; }
+            
+            /* Réduit le padding du conteneur principal */
+            .suivi-container {
+                margin: 20px auto;
+                padding: 20px 15px; 
+            }
+
+            /* Le formulaire de recherche passe de FLEX (horizontal) à BLOCK (vertical) */
+            .search-form {
+                flex-direction: column; 
+                gap: 10px;
+            }
+            
+            /* Le label et l'input prennent toute la largeur */
+            .search-form label {
+                text-align: left;
+                width: 100%;
+            }
+
+            .search-form input[type="text"] {
+                width: 100%;
+                margin-bottom: 5px; 
+            }
+            
+            .search-form button {
+                width: 100%; 
+                padding: 10px;
+            }
+
+            /* Réduit la taille des éléments de la liste d'attente */
+            #waiting-list-info ul {
+                max-width: 100%; 
+            }
+            
+            /* Optimisation de l'alignement pour les petits écrans */
+            #waiting-list-info ul li strong {
+                min-width: 30px; 
+            }
+            
+            .list-left-col {
+                min-width: 150px; 
+            }
+            .status-tag {
+                min-width: 120px; 
+                font-size: 0.8em;
+            }
+            
+            /* Réduit la taille du statut affiché après la recherche */
+            .status-header {
+                font-size: 1.3em;
+            }
+            .status-detail {
+                font-size: 1em;
+            }
+            
+            /* Navigation: plus compacte */
+            nav ul {
+                padding: 0 10px;
+            }
+            nav ul li {
+                margin: 5px 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -255,18 +324,7 @@
     const resultDisplay = document.getElementById('result-display');
     const waitingListInfo = document.getElementById('waiting-list-info');
     const cancelZone = document.getElementById('cancel-zone');
-
-    // Mappage des statuts et des icônes (AJOUT DE 'REÇU')
-    const STATUS_ICONS = {
-        'EN_COURS': { icon: 'fas fa-hourglass-half', name: 'EN COURS' },
-        'DEMANDE_REÇUE': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' },
-        'REÇU': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' }, 
-        'TRAITÉE': { icon: 'fas fa-check-circle', name: 'TRAITÉE' },
-        'TRAITÉ': { icon: 'fas fa-check-circle', name: 'TRAITÉ' },
-        'ANNULÉE': { icon: 'fas fa-times-circle', name: 'ANNULÉE' },
-        'ANNULÉ': { icon: 'fas fa-times-circle', name: 'ANNULÉ' },
-        'DEFAULT': { icon: 'fas fa-question-circle', name: 'STATUT INCONNU' }
-    };
+    
     
     function normalizeStatusForCSS(status) {
         // Normalise pour la classe CSS (en minuscules, sans accents, sans espaces ni tirets bas)
@@ -277,20 +335,41 @@
             .replace(/[\s_]/g, '-').toLowerCase();        
     }
     
+    // Mappage des statuts pour l'icône et l'affichage du nom (intégré dans la fonction)
     function getStatusIcon(rawStatus) {
-        // Normalise le statut pour la recherche (en majuscules, remplace les espaces par des underscores)
-        const normalized = rawStatus.toUpperCase().replace(/ /g, '_').replace(/-/g, '_'); 
-        
-        for (const key in STATUS_ICONS) {
-             // Normalise la clé pour la comparaison (enlève les accents si la clé en a)
-            const normalizedKey = key.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ /g, '_');
+        // Normalise le statut pour la recherche : en MAJUSCULES, enlève les accents, remplace les espaces/tirets par des UNDERSCORES
+        // Exemples: "Demande reçue" devient "DEMANDE_RECUE". "reçu" devient "RECU".
+        const normalized = rawStatus
+            .toUpperCase()
+            .normalize("NFD") // Supprime les accents (Ç -> C, É -> E)
+            .replace(/[\u0300-\u036f]/g, "") 
+            .replace(/[\s-]/g, '_'); 
 
-            // On vérifie si le statut réel contient la clé normalisée
-            if (normalized.includes(normalizedKey.replace(/É/g, 'E').replace(/È/g, 'E'))) { 
-                return STATUS_ICONS[key];
+        // Les clés ci-dessous sont les valeurs idéales recherchées (sans accents pour la comparaison)
+        const STATUS_ICONS_MAPPING = {
+            'EN_COURS': { icon: 'fas fa-hourglass-half', name: 'EN COURS' },
+            'DEMANDE_RECUE': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' },
+            'RECU': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' }, // <-- CLÉ SANS ACCENT POUR ASSURER LA CORRESPONDANCE
+            'TRAITEE': { icon: 'fas fa-check-circle', name: 'TRAITÉE' },
+            'TRAITE': { icon: 'fas fa-check-circle', name: 'TRAITÉ' },
+            'ANNULEE': { icon: 'fas fa-times-circle', name: 'ANNULÉE' },
+            'ANNULE': { icon: 'fas fa-times-circle', name: 'ANNULÉ' },
+            'DEFAULT': { icon: 'fas fa-question-circle', name: 'STATUT INCONNU' }
+        };
+        
+        // Tente de trouver une correspondance exacte après normalisation
+        if (STATUS_ICONS_MAPPING[normalized]) {
+            return STATUS_ICONS_MAPPING[normalized];
+        }
+
+        // Sinon, vérifie si le statut normalisé contient l'une des clés 
+        for (const key in STATUS_ICONS_MAPPING) {
+             if (normalized.includes(key)) { 
+                return STATUS_ICONS_MAPPING[key];
             }
         }
-        return STATUS_ICONS['DEFAULT'];
+
+        return STATUS_ICONS_MAPPING['DEFAULT'];
     }
 
 
@@ -299,9 +378,9 @@
      */
     function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, trackingId = null, top10Requests = null) {
         
-        // Mise à jour de la détection pour les statuts 'actif'
+        // Mise à jour de la détection pour les statuts 'actif' (en utilisant la normalisation)
         const status = normalizeStatusForCSS(rawStatus);
-        const isWaiting = (status === 'en-cours' || status === 'demande-recue' || status === 'reçu');
+        const isWaiting = (status.includes('en-cours') || status.includes('demande-recue') || status.includes('reçu'));
         cancelZone.innerHTML = ''; // Réinitialiser le bouton Annuler
 
         // 1. Gérer le bloc d'information de la liste d'attente (waiting-list-info)
