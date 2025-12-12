@@ -2,287 +2,75 @@
 <html lang="fr">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-PMTZHZKR');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suivi de Demande - La Flamme de l'Ombre</title>
+    <title>La Flamme de l'Ombre - Suivi de Demande</title>
     <style>
-        /* Couleurs du Nouveau Thème */
-        :root {
-            --color-primary: black;
-            --color-secondary: #C00000; /* ROUGE VIF/BORDEAUX pour l'accentuation principale (boutons, titres) */
-            --color-active-bg: rgba(192, 0, 0, 0.2); /* Rouge transparent pour le fond actif */
-            --color-active-text: #C00000; /* Rouge VIF pour le texte actif */
-            --color-success: #7ad6a7;
-            --color-error: #f1a0a0;
-            --color-text: white;
-            --color-background-dark: #111;
-            --color-background-medium: #222;
-        }
-
-        /* Styles Globaux */
-        body { background-color: var(--color-primary); color: var(--color-text); font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        /* Styles CSS */
+        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
         header { padding: 20px; }
         h1 { font-size: 3em; margin: 0.2em 0; }
-        
-        /* Navigation */
-        nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid #333;}
+        p { font-size: 1.5em; margin-top: 10px; }
+        nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; }
         nav ul li { margin: 10px 15px; }
-        nav ul li a { color: var(--color-text); text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
         nav ul li a:hover { text-decoration: underline; }
-        .nav-button-active a {
-            background-color: var(--color-secondary);
-            color: white !important;
-            padding: 8px 15px !important;
-            border-radius: 6px !important;
-            text-decoration: none !important;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-        }
+
+        .content-container { max-width: 800px; margin: 40px auto; background: #111; padding: 30px; border-radius: 10px; text-align: left; }
+        .content-container h2 { text-align: center; color: #fff; margin-bottom: 25px; }
         
-        /* Conteneur principal */
-        .suivi-container {
-            max-width: 700px;
-            margin: 50px auto;
-            background: var(--color-background-dark);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        .suivi-container h2 {
-            text-align: center;
-            color: var(--color-text);
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
-        }
+        .search-form { display: flex; gap: 10px; margin-bottom: 30px; align-items: center; }
+        .search-form input[type="text"] { flex-grow: 1; padding: 10px; border-radius: 6px; border: 1px solid #555; background: #222; color: #fff; }
+        .search-form button { padding: 10px 15px; border: none; border-radius: 6px; background: #007bff; color: white; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+        .search-form button:hover { background: #0056b3; }
 
-        /* STYLE POUR L'INFO DE LISTE D'ATTENTE */
-        #waiting-list-info {
-            background-color: #333; 
-            border: 1px solid var(--color-active-text);
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 1.1em;
-            display: none; 
-        }
-        #waiting-list-info p { margin: 0; font-size: 1em; line-height: 1.4; }
-
-        /* LISTE DES 10 PREMIERS IDs (ALIGENEMENT PARFAIT) */
-        #waiting-list-info ul {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            max-width: 450px; 
-            margin: 10px auto 0 auto;
-            border-top: 1px dashed #555;
-            padding-top: 10px;
-        }
-        #waiting-list-info ul li {
-            font-family: monospace; 
-            font-size: 0.95em;
-            color: #ccc;
-            /* Flexbox pour l'alignement strict */
-            display: flex;
-            align-items: center;
-            justify-content: space-between; 
-            line-height: 1.8;
-        }
-        #waiting-list-info ul li strong {
-            margin-right: 5px;
-            flex-shrink: 0;
-            min-width: 35px; /* CORRECTION ALIGNEMENT DU "10" */
-            color: var(--color-secondary);
-        }
+        #result-container { padding: 15px; border-radius: 6px; margin-top: 20px; text-align: center; }
+        .status-message { margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
+        .status-info { background: #333; padding: 15px; border-radius: 8px; margin-top: 20px; line-height: 1.6; }
         
-        /* Conteneur Flex pour les éléments de gauche */
-        .list-left-col {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-            min-width: 200px; 
-        }
+        .status-demande-recue, .status-en-cours { background-color: #3c5244; border: 1px solid #7ad6a7; color: #d4edda; }
+        .status-traitee { background-color: #2a3e5c; border: 1px solid #5c7fbf; color: #c9e6ff; }
+        .status-annulee, .status-id-inconnu { background-color: #5c3434; border: 1px solid #f1a0a0; color: #f8d7da; }
 
-        .list-right-col {
-            flex-grow: 1; 
-            text-align: right;
-            white-space: nowrap; 
-        }
-
-        /* Tags de Statut dans la liste */
-        .status-tag {
-            font-weight: bold;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 0.85em;
-            margin-right: 15px;
-            flex-shrink: 0;
-            min-width: 145px; 
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-        .status-tag i {
-            margin-right: 8px;
-            font-size: 1em;
-        }
-        
-        /* Couleurs des Tags */
-        .status-tag.en-cours, .status-tag.demande-recue, .status-tag.reçu {
-            /* COULEUR ROUGE TRANSPARENTE */
-            background-color: var(--color-active-bg); 
-            color: var(--color-active-text);
-            border: 1px solid var(--color-active-text);
-        }
-        .status-tag.traitee, .status-tag.traite {
-            background-color: rgba(122, 214, 167, 0.1);
-            color: var(--color-success);
-            border: 1px solid var(--color-success);
-        }
-        .status-tag.annulee, .status-tag.annule {
-            background-color: rgba(241, 160, 160, 0.1);
-            color: var(--color-error);
-            border: 1px solid var(--color-error);
-        }
-
-
-        /* Formulaire de recherche */
-        .search-form { display: flex; gap: 15px; margin-bottom: 30px; align-items: center; }
-        .search-form label { font-weight: bold; white-space: nowrap; }
-        .search-form input[type="text"] { flex-grow: 1; padding: 12px; border-radius: 6px; border: 1px solid #555; background: var(--color-background-medium); color: var(--color-text); font-size: 1em; box-sizing: border-box; }
-        .search-form button { 
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: var(--color-secondary); 
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .search-form button:hover { 
-            background: #8b0000; /* Rouge plus foncé au survol */
-        }
-
-        /* Bloc de résultats (affichage des statuts) */
-        #result-display {
-            padding: 20px;
-            border-radius: 8px;
-            background: var(--color-background-medium);
-            min-height: 80px;
-            text-align: center;
-        }
-        .status-header {
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            font-weight: bold;
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-        }
-        .status-header i { margin-right: 10px; font-size: 1.2em; }
-        .status-detail { font-size: 1.1em; color: #ccc; }
-
-        /* Codes couleurs pour les statuts */
-        .status-en-cours, .status-demande-recue, .status-reçu { 
-            border: 2px solid var(--color-active-text); 
-            color: var(--color-active-text); 
-        }
-        .status-traitee, .status-traite { border: 2px solid var(--color-success); color: var(--color-success); }
-        .status-id-inconnu, .status-erreur-technique, .status-annulee, .status-annule { border: 2px solid var(--color-error); color: var(--color-error); }
-        .status-initial { border: 2px solid #555; color: #aaa; }
-
-        /* Bouton Annuler */
-        #cancelButton {
-            background-color: var(--color-error);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
+        #cancel-button {
             margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #cc0000;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
             transition: background 0.3s;
         }
-        #cancelButton:hover {
-            background-color: #c93030;
-        }
+        #cancel-button:hover { background: #ff3333; }
 
-        /* --- MISE EN PAGE RESPONSIVE POUR TÉLÉPHONES (MAX 600PX) --- */
-        @media (max-width: 600px) {
-            
-            header { padding: 10px; }
-            h1 { font-size: 2em; }
-            
-            /* Réduit le padding du conteneur principal */
-            .suivi-container {
-                margin: 20px auto;
-                padding: 20px 15px; 
-            }
+        #waiting-list-section { margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; }
+        #waiting-list-section h3 { text-align: center; margin-bottom: 15px; color: #aaa; }
+        #waiting-list { list-style-type: none; padding: 0; max-height: 250px; overflow-y: auto; background: #222; border-radius: 6px; }
+        #waiting-list li { padding: 8px 15px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; font-size: 0.9em; }
+        #waiting-list li:last-child { border-bottom: none; }
+        .list-id { color: #888; font-family: monospace; }
+        .list-status { font-weight: bold; color: #7ad6a7; }
 
-            /* Le formulaire de recherche passe de FLEX (horizontal) à BLOCK (vertical) */
-            .search-form {
-                flex-direction: column; 
-                gap: 10px;
-            }
-            
-            /* Le label et l'input prennent toute la largeur */
-            .search-form label {
-                text-align: left;
-                width: 100%;
-            }
-
-            .search-form input[type="text"] {
-                width: 100%;
-                margin-bottom: 5px; 
-            }
-            
-            .search-form button {
-                width: 100%; 
-                padding: 10px;
-            }
-
-            /* Réduit la taille des éléments de la liste d'attente */
-            #waiting-list-info ul {
-                max-width: 100%; 
-            }
-            
-            /* Optimisation de l'alignement pour les petits écrans */
-            #waiting-list-info ul li strong {
-                min-width: 30px; 
-            }
-            
-            .list-left-col {
-                min-width: 150px; 
-            }
-            .status-tag {
-                min-width: 120px; 
-                font-size: 0.8em;
-            }
-            
-            /* Réduit la taille du statut affiché après la recherche */
-            .status-header {
-                font-size: 1.3em;
-            }
-            .status-detail {
-                font-size: 1em;
-            }
-            
-            /* Navigation: plus compacte */
-            nav ul {
-                padding: 0 10px;
-            }
-            nav ul li {
-                margin: 5px 8px;
-            }
-        }
+        @media (max-width: 768px) { .content-container { margin: 20px; padding: 20px; } h1 { font-size: 2.5em; } p { font-size: 1.2em; } }
+        @media (max-width: 480px) { h1 { font-size: 2em; } p { font-size: 1em; } nav ul li { margin: 10px 5px; } .search-form { flex-direction: column; } .search-form button, .search-form input { width: 100%; } }
     </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header>
     <h1>La Flamme de l'Ombre</h1>
-    <p>Cartomancien, créateur</p>
+    <p>Suivi de ta Demande</p>
 </header>
 
 <nav>
@@ -292,320 +80,192 @@
         <li><a href="contact.html">Contact</a></li>
         <li><a href="avis.html">Avis</a></li>
         <li><a href="carte.html">Carte du jour</a></li>
-        <li class="nav-button-active"><a href="Suivi.html">Suivi de Demande</a></li> 
     </ul>
 </nav>
 
-<div class="suivi-container">
-    <h2>Vérifier le Statut de Votre Demande</h2>
-
-    <div id="waiting-list-info" style="display: none;">
-    </div>
+<div class="content-container">
+    <h2>Vérifier le Statut</h2>
     
-    <form id="trackingForm" class="search-form">
-        <label for="trackingId">Entrez votre ID de Suivi :</label>
-        <input type="text" id="trackingId" name="id" required placeholder="Exemple : 1000000000000000000" aria-required="true">
+    <form id="searchForm" class="search-form">
+        <input type="text" id="trackingId" placeholder="Entrez votre ID de suivi (ex: 1700000000000)" required>
         <button type="submit">Rechercher</button>
     </form>
-    
-    <div id="result-display" class="status-initial">
-        <div class="status-header">Entrez un ID ci-dessus pour vérifier son statut.</div>
+
+    <div id="result-container" style="display: none;">
+        <div id="statusMessage" class="status-message"></div>
+        <div id="statusInfo" class="status-info"></div>
+        <button id="cancel-button" style="display: none;">Annuler ma demande</button>
     </div>
-    
-    <div id="cancel-zone" style="text-align: center; margin-top: 20px;"></div>
+
+    <div id="waiting-list-section">
+        <h3>Queue des 10 prochaines demandes</h3>
+        <ul id="waiting-list">
+            <li>Chargement...</li>
+        </ul>
+    </div>
 </div>
 
 <script>
-    // ** ASSUREZ-VOUS QUE CETTE URL EST VOTRE URL DE DÉPLOIEMENT APPS SCRIPT **/
+    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE DERNIER DÉPLOIEMENT APPS SCRIPT
+    // Utilisez l'URL que vous avez générée et validée :
     const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbx69mO2qRsvT4lHwBeBoA6DF7l0HGcdSVQkDLVe72hz9aNkLmuL5q-q5B2RYLYdv2kG0w/exec'; 
-    
-    const form = document.getElementById('trackingForm');
+
+    const searchForm = document.getElementById('searchForm');
     const trackingIdInput = document.getElementById('trackingId');
-    const resultDisplay = document.getElementById('result-display');
-    const waitingListInfo = document.getElementById('waiting-list-info');
-    const cancelZone = document.getElementById('cancel-zone');
+    const resultContainer = document.getElementById('result-container');
+    const statusMessageDiv = document.getElementById('statusMessage');
+    const statusInfoDiv = document.getElementById('statusInfo');
+    const cancelButton = document.getElementById('cancel-button');
+    const waitingListUl = document.getElementById('waiting-list');
     
-    
-    function normalizeStatusForCSS(status) {
-        // Normalise pour la classe CSS (en minuscules, sans accents, sans espaces ni tirets bas)
-        return status
-            .toUpperCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "") 
-            .replace(/[\s_]/g, '-').toLowerCase();        
-    }
-    
-    // Mappage des statuts pour l'icône et l'affichage du nom (intégré dans la fonction)
-    function getStatusIcon(rawStatus) {
-        // Normalise le statut pour la recherche : en MAJUSCULES, enlève les accents, remplace les espaces/tirets par des UNDERSCORES
-        // Exemples: "Demande reçue" devient "DEMANDE_RECUE". "reçu" devient "RECU".
-        const normalized = rawStatus
-            .toUpperCase()
-            .normalize("NFD") // Supprime les accents (Ç -> C, É -> E)
-            .replace(/[\u0300-\u036f]/g, "") 
-            .replace(/[\s-]/g, '_'); 
+    // État local de la demande recherchée
+    let currentTrackingId = null;
 
-        // Les clés ci-dessous sont les valeurs idéales recherchées (sans accents pour la comparaison)
-        const STATUS_ICONS_MAPPING = {
-            'EN_COURS': { icon: 'fas fa-hourglass-half', name: 'EN COURS' },
-            'DEMANDE_RECUE': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' },
-            'RECU': { icon: 'fas fa-crystal-ball', name: 'DEMANDE REÇUE' }, // <-- CLÉ SANS ACCENT POUR ASSURER LA CORRESPONDANCE
-            'TRAITEE': { icon: 'fas fa-check-circle', name: 'TRAITÉE' },
-            'TRAITE': { icon: 'fas fa-check-circle', name: 'TRAITÉ' },
-            'ANNULEE': { icon: 'fas fa-times-circle', name: 'ANNULÉE' },
-            'ANNULE': { icon: 'fas fa-times-circle', name: 'ANNULÉ' },
-            'DEFAULT': { icon: 'fas fa-question-circle', name: 'STATUT INCONNU' }
-        };
-        
-        // Tente de trouver une correspondance exacte après normalisation
-        if (STATUS_ICONS_MAPPING[normalized]) {
-            return STATUS_ICONS_MAPPING[normalized];
-        }
-
-        // Sinon, vérifie si le statut normalisé contient l'une des clés 
-        for (const key in STATUS_ICONS_MAPPING) {
-             if (normalized.includes(key)) { 
-                return STATUS_ICONS_MAPPING[key];
-            }
-        }
-
-        return STATUS_ICONS_MAPPING['DEFAULT'];
+    // Fonction utilitaire pour le statut
+    function getStatusClass(status) {
+        if (!status) return 'status-id-inconnu';
+        const upperStatus = status.toUpperCase().trim();
+        if (upperStatus.includes('REÇUE') || upperStatus.includes('REÇU')) return 'status-demande-recue';
+        if (upperStatus.includes('EN COURS')) return 'status-demande-recue status-en-cours';
+        if (upperStatus.includes('TRAITÉE') || upperStatus.includes('TRAITÉ')) return 'status-traitee';
+        if (upperStatus.includes('ANNULÉE') || upperStatus.includes('ANNULÉ')) return 'status-annulee';
+        return 'status-id-inconnu';
     }
 
+    // Affichage des informations
+    function displayStatus(data) {
+        resultContainer.style.display = 'block';
+        currentTrackingId = trackingIdInput.value.trim();
 
-    /**
-     * Met à jour l'affichage du statut et de l'information de liste d'attente.
-     */
-    function updateStatusDisplay(rawStatus, message, icon, waitingOrder = null, trackingId = null, top10Requests = null) {
+        // Ajoute la classe de couleur au message
+        statusMessageDiv.className = 'status-message ' + getStatusClass(data.status);
         
-        // Mise à jour de la détection pour les statuts 'actif' (en utilisant la normalisation)
-        const status = normalizeStatusForCSS(rawStatus);
-        const isWaiting = (status.includes('en-cours') || status.includes('demande-recue') || status.includes('reçu'));
-        cancelZone.innerHTML = ''; // Réinitialiser le bouton Annuler
-
-        // 1. Gérer le bloc d'information de la liste d'attente (waiting-list-info)
-        let infoHTML = '';
-        waitingListInfo.style.display = 'none';
-
-        if (top10Requests !== null) { 
-            
-            // 1a. Afficher l'ordre de la demande de l'utilisateur
-            if (isWaiting && waitingOrder !== null && waitingOrder > 0) {
-                
-                infoHTML += `
-                    <p style="font-size: 1.2em; margin-bottom: 15px;">
-                        <i class="fas fa-user-clock" style="color:var(--color-active-text); margin-right: 10px;"></i>
-                        <strong style="color:var(--color-active-text);">${message}</strong>
-                    </p>
-                `;
-            }
-
-            // 1b. Afficher la liste des 10 premières demandes AVEC STATUT (avec nouvel alignement)
-            if (top10Requests.length > 0) {
-                
-                if (infoHTML && top10Requests.length > 0) {
-                     infoHTML += '<div style="border-top: 1px dashed #555; margin-top: 10px; padding-top: 10px;"></div>';
-                }
-
-                infoHTML += `
-                    <div>
-                        <p style="font-size: 0.9em; color: #ccc; margin-bottom: 10px;">
-                            <i class="fas fa-info-circle" style="margin-right: 5px;"></i> 
-                            Les 10 premières demandes en attente sont affichées ci-dessous.
-                        </p>
-                        <ul style="list-style: none; padding: 0; text-align: left; margin: 0 auto; line-height: 1.6;">
-                `;
-                top10Requests.forEach((request, index) => {
-                    if(request.id) { 
-                        const tagClass = normalizeStatusForCSS(request.status);
-                        const statusData = getStatusIcon(request.status);
-                        infoHTML += `
-                            <li>
-                                <div class="list-left-col">
-                                    <strong>#${index + 1}:</strong> 
-                                    <span class="status-tag ${tagClass}">
-                                        <i class="${statusData.icon}"></i>
-                                        ${statusData.name}
-                                    </span> 
-                                </div>
-                                <div class="list-right-col">
-                                    ${request.id}
-                                </div>
-                            </li>
-                        `;
-                    }
-                });
-                infoHTML += `</ul></div>`;
-
-            } else if (status !== 'loading' && status !== 'initial') {
-                infoHTML += `
-                    <p style="font-size: 1.2em; font-weight: bold; color: var(--color-success); margin-top: 10px;">
-                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
-                        Aucune demande en cours dans la file d'attente !
-                    </p>
-                `;
-            }
-
-            if (infoHTML) {
-                waitingListInfo.innerHTML = infoHTML;
-                waitingListInfo.style.display = 'block';
-            }
-        }
-
-
-        // 2. Gérer le bloc de résultat du statut (resultDisplay)
-        resultDisplay.className = `status-${status}`;
-        let headerText = message; 
-        let detailText = trackingId ? `ID de suivi : ${trackingId}` : ''; 
-        let currentIcon = icon;
-
-        if (status === 'initial') {
-            headerText = "Entrez un ID ci-dessus pour vérifier son statut.";
-            detailText = '';
-            resultDisplay.className = 'status-initial';
-            currentIcon = null;
-        } else if (status === 'loading') {
-             headerText = "Chargement...";
-             detailText = "Veuillez patienter pendant le chargement de la file d'attente.";
-             currentIcon = 'fas fa-spinner fa-spin'; 
-             resultDisplay.className = 'status-initial';
-        } else if (status === 'id-inconnu' || status === 'erreur-technique') {
-             headerText = (status === 'id-inconnu') ? "❌ ID de Suivi Inconnu" : "⚠️ Erreur de Connexion";
-             detailText = message || "Veuillez vérifier l'ID.";
-        }
-        
-        resultDisplay.innerHTML = `
-            <div class="status-header">
-                ${currentIcon ? `<i class="${currentIcon}"></i>` : ''}
-                ${headerText}
-            </div>
-            <div class="status-detail">${detailText}</div>
+        let infoHtml = `
+            <strong>ID de Suivi :</strong> ${currentTrackingId}<br>
+            <strong>Statut :</strong> ${data.status || 'Non trouvé'}
         `;
-        
-        // 3. Afficher le bouton d'annulation
-        if (isWaiting && trackingId) {
-            cancelZone.innerHTML = `
-                <button id="cancelButton" data-id="${trackingId}">
-                    <i class="fas fa-ban"></i> Annuler ma demande
-                </button>
-            `;
-            document.getElementById('cancelButton').addEventListener('click', handleCancel);
-        }
-    }
 
-    // --- Logique du Bouton Annuler ---
-    function handleCancel(event) {
-        const idToCancel = event.currentTarget.getAttribute('data-id');
-        if (!confirm(`Êtes-vous sûr de vouloir annuler la demande ${idToCancel} ? Cette action est irréversible.`)) {
+        if (data.message) {
+            infoHtml += `<p>${data.message}</p>`;
+        }
+        
+        statusInfoDiv.innerHTML = infoHtml;
+        
+        // Gérer le bouton d'annulation
+        const upperStatus = data.status.toUpperCase().trim();
+        if (upperStatus.includes('REÇUE') || upperStatus.includes('REÇU') || upperStatus.includes('EN COURS')) {
+            cancelButton.style.display = 'block';
+        } else {
+            cancelButton.style.display = 'none';
+        }
+
+        // Afficher la liste d'attente mise à jour
+        displayWaitingList(data.top10Requests);
+    }
+    
+    // Affichage de la liste d'attente
+    function displayWaitingList(requests) {
+        waitingListUl.innerHTML = ''; // Nettoyer
+        if (!requests || requests.length === 0) {
+            waitingListUl.innerHTML = '<li>Aucune demande en attente ou erreur de chargement.</li>';
             return;
         }
-        
-        // Afficher le statut de chargement pendant l'annulation
-        resultDisplay.className = 'status-initial';
-        resultDisplay.innerHTML = `
-            <div class="status-header">
-                <i class="fas fa-spinner fa-spin"></i> Annulation en cours...
-            </div>
-            <div class="status-detail">Veuillez patienter.</div>
-        `;
-        cancelZone.innerHTML = '';
 
-        const cancelUrl = `${APPS_SCRIPT_URL_SEARCH}?action=cancelrequest&id=${idToCancel}`;
-        
-        fetch(cancelUrl, { method: 'GET' })
+        requests.forEach((req, index) => {
+            const statusClass = getStatusClass(req.status);
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span>N°${index + 1} - <span class="list-id">${req.id}</span></span>
+                <span class="list-status ${statusClass}">${req.status}</span>
+            `;
+            waitingListUl.appendChild(listItem);
+        });
+    }
+
+    // Fonction principale de recherche
+    function checkStatus(id = null) {
+        const idToCheck = id || trackingIdInput.value.trim();
+        if (!idToCheck) return;
+
+        statusMessageDiv.innerHTML = '<div class="status-message sending">⚙️ Recherche en cours...</div>';
+        resultContainer.style.display = 'block';
+        cancelButton.style.display = 'none';
+
+        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${idToCheck}`)
         .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou de script lors de l\'annulation.');
-            return response.text();
+            if (!response.ok) throw new Error('Erreur réseau ou script non autorisé.');
+            return response.json();
         })
-        .then(responseText => {
-            const data = JSON.parse(responseText);
-            if (data.status === 'ANNULÉE' || data.status === 'ANNULÉ') {
-                alert(`Demande ${idToCancel} annulée avec succès.`);
+        .then(data => {
+            if (data.result === 'error') {
+                statusMessageDiv.innerHTML = `<div class="status-message status-annulee">❌ ${data.message}</div>`;
+                statusInfoDiv.innerHTML = '';
             } else {
-                 alert(`L'annulation a échoué : ${data.message || 'Statut non mis à jour.'}`);
+                displayStatus(data);
             }
-            // Recharger les données pour refléter le nouveau statut (ANNULÉE)
-            searchById(idToCancel);
         })
         .catch(error => {
-            console.error('Erreur d\'annulation:', error);
-            alert('Erreur technique lors de l\'annulation. Veuillez réessayer.');
-            // Recharger pour rétablir l'état initial
-            searchById(idToCancel); 
+            console.error('Error fetching status:', error);
+            statusMessageDiv.innerHTML = '<div class="status-message status-annulee">❌ Erreur de connexion au serveur de suivi.</div>';
+            statusInfoDiv.innerHTML = '';
         });
     }
 
-
-    // --- Logique de Recherche ---
-    function searchById(trackingId) {
-        updateStatusDisplay('LOADING', 'Recherche en cours...', 'fas fa-spinner fa-spin', null, trackingId, null); 
-
-        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${trackingId}`;
-
-        fetch(url, { method: 'GET' })
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou de script. Code: ' + response.status);
-            return response.text();
-        })
-        .then(responseText => {
-             const data = JSON.parse(responseText);
-             const statusData = getStatusIcon(data.status || 'DEFAULT');
-            
-            updateStatusDisplay(
-                data.status || 'ID_INCONNU', 
-                data.message || statusData.name, 
-                data.icon || statusData.icon, 
-                data.order || null, 
-                trackingId,
-                data.top10Requests || [] 
-            );
-        })
-        .catch(error => {
-            console.error('Erreur de suivi:', error);
-            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de communiquer avec le serveur de suivi. Veuillez réessayer plus tard.", 'fas fa-exclamation-triangle', null, trackingId);
-        });
-    }
-
-
-    // --- Logique de Chargement Initial ---
-    function loadInitialWaitingList() {
-        updateStatusDisplay('LOADING', 'Chargement de la file d\'attente...', 'fas fa-spinner fa-spin', null, null, null); 
-
-        const url = `${APPS_SCRIPT_URL_SEARCH}?action=getstatus`; 
-        
-        fetch(url, { method: 'GET' })
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou de script lors du chargement initial. Code: ' + response.status);
-            return response.text();
-        })
-        .then(responseText => {
-            const data = JSON.parse(responseText);
-            
-            updateStatusDisplay(
-                'INITIAL', 
-                "Entrez votre ID ci-dessus pour vérifier son statut.", 
-                null, 
-                null, 
-                null,
-                data.top10Requests || [] 
-            );
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement initial de la liste d\'attente:', error);
-            updateStatusDisplay('ERREUR_TECHNIQUE', "Impossible de charger la liste d'attente.", 'fas fa-exclamation-triangle');
-        });
-    }
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        const trackingId = trackingIdInput.value.trim();
-        if (trackingId) {
-             searchById(trackingId);
-        }
+    // Gestion de la soumission du formulaire de recherche
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        checkStatus();
     });
 
-    document.addEventListener('DOMContentLoaded', loadInitialWaitingList);
+    // Fonction d'annulation
+    cancelButton.addEventListener('click', function() {
+        if (!currentTrackingId || !confirm('Êtes-vous sûr(e) de vouloir annuler la demande ' + currentTrackingId + ' ? Cette action est irréversible.')) {
+            return;
+        }
 
+        cancelButton.disabled = true;
+        cancelButton.textContent = 'Annulation...';
+
+        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=cancelrequest&id=${currentTrackingId}`)
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur réseau.');
+            return response.json();
+        })
+        .then(data => {
+            
+            // 🛑 GESTION DU STATUT 'EN COURS' (Point 3)
+            if (data.result === 'error_in_progress') {
+                alert("🚨 ATTENTION : Votre demande est EN COURS de traitement et ne peut plus être annulée. Merci de contacter le support si nécessaire.");
+            } else if (data.result === 'success') {
+                alert('✅ Annulation réussie : ' + data.message);
+            } else {
+                alert('❌ Erreur d\'annulation : ' + data.message);
+            }
+            
+            checkStatus(currentTrackingId); // Recharge le statut pour mettre à jour l'affichage
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'annulation:', error);
+            alert('❌ Erreur de réseau lors de la tentative d\'annulation.');
+        })
+        .finally(() => {
+            cancelButton.disabled = false;
+            cancelButton.textContent = 'Annuler ma demande';
+        });
+    });
+
+    // Chargement initial (pour afficher la liste des 10 premières demandes)
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=gettop10`)
+        .then(response => response.json())
+        .then(data => {
+            displayWaitingList(data.top10Requests);
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement initial de la liste:', error);
+            waitingListUl.innerHTML = '<li>Impossible de charger la liste d\'attente.</li>';
+        });
+    });
 </script>
 
 </body>
