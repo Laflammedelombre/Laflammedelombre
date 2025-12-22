@@ -49,7 +49,6 @@
             background-color: #A52A2A !important; 
             transform: translateY(-2px);
         }
-        /* FIN DU STYLE DU BOUTON DE SUIVI */
 
         .page-image { width: 80%; max-width: 600px; margin: 20px auto 40px auto; display: block; border-radius: 8px; }
         .form-container { max-width: 700px; margin: 40px auto; background: #111; padding: 20px 30px; border-radius: 10px; text-align: left; }
@@ -58,6 +57,10 @@
         .disclaimer-message { background-color: #202010; border-left: 5px solid #ffcc00; padding: 15px; margin-bottom: 30px; border-radius: 6px; color: #ccc; font-size: 1em; line-height: 1.5; }
         .disclaimer-message strong { color: white; }
         .form-container label { display: block; margin-top: 15px; font-weight: bold; }
+        
+        /* Nouveau style pour le texte facultatif */
+        .facultatif { font-size: 0.8em; font-weight: normal; color: #aaa; margin-left: 4px; }
+
         .form-container input, .form-container textarea, .form-container select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; transition: border 0.3s ease; }
         .form-container .input-error { border: 1px solid #ff6666 !important; }
         .date-input-group { display: flex; align-items: center; gap: 15px; }
@@ -117,8 +120,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <form id="questionForm" method="POST">
         
-        <label for="nom">Nom *</label>
-        <input type="text" id="nom" name="Nom" required aria-required="true">
+        <label for="nom">Nom <span class="facultatif">(facultatif)</span></label>
+        <input type="text" id="nom" name="Nom">
 
         <label for="prenom">Prénom *</label>
         <input type="text" id="prenom" name="Prénom" required aria-required="true">
@@ -133,7 +136,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <label for="email">Adresse email *</label>
         <input type="email" id="email" name="Email" placeholder="exemple@domaine.com" required aria-required="true">
 
-        <label for="nom_tiers">Nom personne tierce</label>
+        <label for="nom_tiers">Nom personne tierce <span class="facultatif">(facultatif)</span></label>
         <input type="text" id="nom_tiers" name="Nom_Partenaire" placeholder="Uniquement si question concerne une autre personne">
 
         <label for="prenom_tiers">Prénom personne tierce</label>
@@ -177,17 +180,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-    // **********************************************************************************************
-    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE NOUVEAU DÉPLOIEMENT FINAL 🛑
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
     const SUCCESS_MESSAGE_BASE = '✅ Votre demande a été envoyée. Votre ID de suivi est : <strong>';
 
-    /**
-     * Calcule et affiche l'âge à partir d'une date de naissance.
-     */
     function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
         const dateInput = document.getElementById(dateInputId);
         const ageDisplay = document.getElementById(ageDisplayId);
@@ -208,17 +206,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        if (age < 0) {
-            age = 0;
-        }
+        if (age < 0) { age = 0; }
 
         ageDisplay.textContent = `Âge : ${age} ans`;
         ageHidden.value = age; 
     }
 
-    /**
-     * Valide les champs requis du formulaire.
-     */
     function validateForm() {
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
@@ -234,9 +227,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if (!field.value.trim() || !isDateValid) {
                 field.classList.add('input-error');
                 isValid = false;
-                if (!firstErrorField) {
-                    firstErrorField = field;
-                }
+                if (!firstErrorField) { firstErrorField = field; }
             }
         });
 
@@ -251,12 +242,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Initialisation de l'âge au chargement si une date par défaut existe
         calculateAge('date_naissance', 'age_display', 'age_client');
         calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
     });
 
-    // Gestion de la soumission du formulaire
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
         if (!validateForm()) return; 
@@ -266,7 +255,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         
         statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi de votre question en cours...</div>';
         
-        // La méthode FormData encode les données pour le POST vers Apps Script
         const formData = new FormData(form);
 
         fetch(APPS_SCRIPT_URL, {
@@ -274,36 +262,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             body: formData,
         })
         .then(response => {
-            if (!response.ok) throw new Error('Erreur de réseau ou de configuration du script. Code: ' + response.status);
+            if (!response.ok) throw new Error('Erreur de réseau. Code: ' + response.status);
             return response.json(); 
         })
         .then(data => {
             if (data.result === 'success' && data.id) {
-                // Le script Apps Script doit retourner l'ID pour cette étape
                 const finalMessage = SUCCESS_MESSAGE_BASE + data.id + '</strong>. La Flamme de l\'Ombre vous recontactera par email dans les plus brefs délais.';
                 statusDiv.innerHTML = `<div class="status-message success">${finalMessage}</div>`;
-
-                // Réinitialisation du formulaire après succès
                 form.reset();
                 document.getElementById('age_display').textContent = 'Âge : --';
                 document.getElementById('age_display_tiers').textContent = 'Âge : --';
-                document.getElementById('age_client').value = '';
-                document.getElementById('age_tiers').value = '';
-
             } else {
-                const errorMessage = data.message || "Une erreur inconnue est survenue côté serveur Google.";
-                statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${errorMessage}</div>`;
+                statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${data.message || "Erreur serveur."}</div>`;
             }
         })
         .catch(error => {
-            console.error('Network/Parsing Error:', error);
-            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue. Veuillez vérifier votre réseau.</div>';
+            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue.</div>';
         })
         .finally(() => {
             submitButton.disabled = false;
         });
     });
 </script>
-
 </body>
 </html>
