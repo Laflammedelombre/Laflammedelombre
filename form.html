@@ -24,12 +24,7 @@
         nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
         nav ul li a:hover { text-decoration: underline; }
         
-        /* STYLE DU BOUTON DE SUIVI SEUL ET CENTRÉ */
-        .suivi-button-container {
-            text-align: center;
-            margin: 30px auto; 
-            max-width: 600px; 
-        }
+        .suivi-button-container { text-align: center; margin: 30px auto; max-width: 600px; }
         .suivi-button {
             display: inline-block;
             background-color: #8B0000; 
@@ -45,20 +40,39 @@
             border: none;
             cursor: pointer;
         }
-        .suivi-button:hover {
-            background-color: #A52A2A !important; 
-            transform: translateY(-2px);
-        }
+        .suivi-button:hover { background-color: #A52A2A !important; transform: translateY(-2px); }
 
         .page-image { width: 80%; max-width: 600px; margin: 20px auto 40px auto; display: block; border-radius: 8px; }
         .form-container { max-width: 700px; margin: 40px auto; background: #111; padding: 20px 30px; border-radius: 10px; text-align: left; }
         .form-container h2 { text-align: center; color: #fff; margin-bottom: 25px; }
         .info-box { background: #222; border-left: 4px solid #007bff; padding: 10px; margin-bottom: 15px; border-radius: 6px; color: #fff; font-size: 1em; text-align: center; }
         .disclaimer-message { background-color: #202010; border-left: 5px solid #ffcc00; padding: 15px; margin-bottom: 30px; border-radius: 6px; color: #ccc; font-size: 1em; line-height: 1.5; }
-        .disclaimer-message strong { color: white; }
-        .form-container label { display: block; margin-top: 15px; font-weight: bold; }
         
-        /* Nouveau style pour le texte facultatif */
+        /* BANDEAU ANONYME */
+        .anonymous-box {
+            background: #1a0000;
+            border: 2px dashed #8B0000;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+        .anonymous-box h3 { color: #ff4444; margin-top: 0; font-size: 1.1em; }
+        .anonymous-box p { font-size: 0.8em; color: #bbb; line-height: 1.4; margin: 10px 0; }
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            transition: background 0.3s;
+        }
+        .toggle-container:hover { background: #444; }
+        .toggle-container input { width: auto !important; margin-right: 12px !important; margin-top: 0 !important; cursor: pointer; }
+
+        .form-container label { display: block; margin-top: 15px; font-weight: bold; }
         .facultatif { font-size: 0.8em; font-weight: normal; color: #aaa; margin-left: 4px; }
 
         .form-container input, .form-container textarea, .form-container select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; transition: border 0.3s ease; }
@@ -68,18 +82,16 @@
         .age-display { font-weight: normal; font-size: 0.9em; color: #aaa; white-space: nowrap; }
         .form-container button[type="submit"] { margin-top: 25px; padding: 12px 18px; border: none; border-radius: 66px; background: #007bff; color: white; cursor: pointer; width: 100%; font-weight: bold; letter-spacing: 1px; transition: background 0.3s; }
         .form-container button[type="submit"]:hover { background: #0056b3; }
+        
         .status-message { margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
         .success { background: #3c5244; border: 1px solid #7ad6a7; color: #d4edda; }
         .error { background: #5c3434; border: 1px solid #f1a0a0; color: #f8d7da; }
         .sending { background: #2a3e5c; border: 1px solid #5c7fbf; color: #c9e6ff; }
+        
         .support-section { text-align: center; margin-top: 40px; padding: 15px; background-color: #151515; border-top: 1px solid #333; color: #aaa; font-size: 0.85em; border-radius: 0 0 10px 10px; margin: 40px -30px -30px -30px; }
-        .support-text { margin-bottom: 12px; line-height: 1.4; }
-        .asterisk { vertical-align: super; font-size: 0.7em; margin-right: 2px; }
         .highlight { font-weight: bold; color: white; }
         .paypal-button { display: inline-block; padding: 8px 18px; background-color: #0070ba; color: white; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.9em; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 0 5px rgba(0,0,0,0.5); border: none; cursor: pointer; }
-        .paypal-button:hover { background-color: #005ea6; transform: translateY(-1px); }
-        @media (max-width: 768px) { .form-container { margin: 20px; padding: 20px; } h1 { font-size: 2.5em; } p { font-size: 1.2em; } }
-        @media (max-width: 480px) { h1 { font-size: 2em; } p { font-size: 1em; } nav ul li { margin: 10px 5px; } .date-input-group { flex-direction: column; gap: 5px; } .age-display { margin-top: 5px; } }
+        @media (max-width: 768px) { .form-container { margin: 20px; padding: 20px; } }
     </style>
 </head>
 <body>
@@ -103,19 +115,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <img src="images/Tirage.webp" alt="Tirage de Cartes" class="page-image">
 
 <div class="suivi-button-container">
-    <a href="Suivi.html" class="suivi-button">
-        Vérifier le Statut de ma Demande
-    </a>
+    <a href="Suivi.html" class="suivi-button">Vérifier le Statut de ma Demande</a>
 </div>
+
 <div class="form-container">
     <h2>Pose ta question (Gratuite)</h2>
     
-    <div class="disclaimer-message">
-        **✨ Conseil de lecture :** Ces consultations vous sont offertes. Cependant, il est essentiel de se rappeler que la **précision des cartes** et la **clarté du message** peuvent s'estomper si l'on en abuse. Pour que chaque lecture garde tout son sens et sa puissance, nous vous encourageons à l'utiliser avec intention et non par habitude.
+    <div class="anonymous-box">
+        <h3>🤫 Mode Anonyme disponible</h3>
+        <p>
+            Vous souhaitez rester discret ? C'est possible !<br>
+            1. Activez le bouton ci-dessous.<br>
+            2. Utilisez un <strong>Pseudo</strong> à la place de votre prénom.<br>
+            3. <strong>IMPORTANT :</strong> Précisez dans votre question comment vous contacter (TikTok, Instagram, etc.) car vous ne recevrez pas d'e-mail.
+        </p>
+        <label class="toggle-container">
+            <input type="checkbox" id="anonymousToggle"> 
+            <span>ACTIVER LE MODE ANONYME</span>
+        </label>
     </div>
-    
-    <div class="info-box">
-        Remplissez les champs concernant une personne tierce <strong>seulement si votre question concerne une autre personne</strong>.
+
+    <div class="disclaimer-message">
+        **✨ Conseil de lecture :** Ces consultations vous sont offertes. Pour que chaque lecture garde son sens, utilisez-les avec intention.
     </div>
     
     <form id="questionForm" method="POST">
@@ -123,7 +144,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <label for="nom">Nom <span class="facultatif">(facultatif)</span></label>
         <input type="text" id="nom" name="Nom">
 
-        <label for="prenom">Prénom *</label>
+        <label for="prenom">Prénom ou Pseudo *</label>
         <input type="text" id="prenom" name="Prénom" required aria-required="true">
 
         <label for="date_naissance">Date de naissance *</label>
@@ -137,10 +158,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="email" id="email" name="Email" placeholder="exemple@domaine.com" required aria-required="true">
 
         <label for="nom_tiers">Nom personne tierce <span class="facultatif">(facultatif)</span></label>
-        <input type="text" id="nom_tiers" name="Nom_Partenaire" placeholder="Uniquement si question concerne une autre personne">
+        <input type="text" id="nom_tiers" name="Nom_Partenaire">
 
         <label for="prenom_tiers">Prénom personne tierce</label>
-        <input type="text" id="prenom_tiers" name="Prénom_Partenaire" placeholder="Uniquement si question concerne une autre personne">
+        <input type="text" id="prenom_tiers" name="Prénom_Partenaire">
 
         <label for="date_naissance_tiers">Date de naissance personne tierce</label>
         <div class="date-input-group">
@@ -149,9 +170,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <input type="hidden" id="age_tiers" name="Age_Partenaire">
 
-
         <label for="question">Question précise *</label>
-        <textarea id="question" name="Question" required aria-required="true"></textarea>
+        <textarea id="question" name="Question" required aria-required="true" placeholder="Si anonyme, indiquez ici votre TikTok/Insta pour la réponse..."></textarea>
 
         <label for="temporalite">Temporalité *</label>
         <select id="temporalite" name="Temporalité" required aria-required="true">
@@ -169,14 +189,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="status"></div>
 
     <div class="support-section">
-        <p class="support-text">
-            <span class="asterisk">*</span> Ce service vous est utile ? Si vous le souhaitez et le pouvez, vous pouvez me soutenir par un petit <span class="highlight">Tips</span> (montant libre, aucun minimum requis) via le bouton ci-dessous. Merci infiniment !
-        </p>
-        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">
-            Faire un Tips
-        </a>
+        <p>Ce service vous est utile ? <span class="highlight">Faire un Tips</span> (montant libre).</p>
+        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">Faire un Tips</a>
     </div>
-    
 </div>
 
 <script>
@@ -184,30 +199,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
-    const SUCCESS_MESSAGE_BASE = '✅ Votre demande a été envoyée. Votre ID de suivi est : <strong>';
+    const anonToggle = document.getElementById('anonymousToggle');
+    const emailInput = document.getElementById('email');
+
+    // LOGIQUE MODE ANONYME
+    anonToggle.addEventListener('change', function() {
+        if (this.checked) {
+            emailInput.value = "laflammedelombre@gmail.com";
+            emailInput.readOnly = true;
+            emailInput.style.backgroundColor = "#333";
+            emailInput.style.color = "#888";
+        } else {
+            emailInput.value = "";
+            emailInput.readOnly = false;
+            emailInput.style.backgroundColor = "#222";
+            emailInput.style.color = "#fff";
+        }
+    });
 
     function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
         const dateInput = document.getElementById(dateInputId);
         const ageDisplay = document.getElementById(ageDisplayId);
         const ageHidden = document.getElementById(ageHiddenId);
-        
-        const birthDateValue = dateInput.value;
-        if (!birthDateValue) {
-            ageDisplay.textContent = 'Âge : --';
-            ageHidden.value = '';
-            return;
-        }
-
+        if (!dateInput.value) return;
         const today = new Date();
-        const birthDate = new Date(birthDateValue);
+        const birthDate = new Date(dateInput.value);
         let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        if (age < 0) { age = 0; }
-
+        if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) age--;
         ageDisplay.textContent = `Âge : ${age} ans`;
         ageHidden.value = age; 
     }
@@ -215,73 +233,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     function validateForm() {
         let isValid = true;
         const requiredFields = form.querySelectorAll('[required]');
-        
         requiredFields.forEach(field => field.classList.remove('input-error'));
-        statusDiv.innerHTML = '';
-
-        let firstErrorField = null;
-
         requiredFields.forEach(field => {
-            const isDateValid = field.type === 'date' ? field.value && !isNaN(new Date(field.value)) : true;
-
-            if (!field.value.trim() || !isDateValid) {
-                field.classList.add('input-error');
-                isValid = false;
-                if (!firstErrorField) { firstErrorField = field; }
-            }
+            if (!field.value.trim()) { field.classList.add('input-error'); isValid = false; }
         });
-
-        if (!isValid) {
-            statusDiv.innerHTML = '<div class="status-message error">❌ Vérifiez les champs obligatoires (marqués en rouge).</div>';
-            if (firstErrorField) {
-                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                firstErrorField.focus();
-            }
-        }
         return isValid;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        calculateAge('date_naissance', 'age_display', 'age_client');
-        calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers');
-    });
-
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
-        if (!validateForm()) return; 
+        if (!validateForm()) {
+            statusDiv.innerHTML = '<div class="status-message error">❌ Champs obligatoires manquants.</div>';
+            return;
+        }
         
         const submitButton = form.querySelector('button[type="submit"]');
         submitButton.disabled = true;
+        statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi en cours...</div>';
         
-        statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi de votre question en cours...</div>';
-        
-        const formData = new FormData(form);
-
-        fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur de réseau. Code: ' + response.status);
-            return response.json(); 
-        })
+        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+        .then(res => res.json())
         .then(data => {
-            if (data.result === 'success' && data.id) {
-                const finalMessage = SUCCESS_MESSAGE_BASE + data.id + '</strong>. La Flamme de l\'Ombre vous recontactera par email dans les plus brefs délais.';
-                statusDiv.innerHTML = `<div class="status-message success">${finalMessage}</div>`;
+            if (data.result === 'success') {
+                statusDiv.innerHTML = `<div class="status-message success">✅ Envoyé ! ID de suivi : <strong>${data.id}</strong></div>`;
                 form.reset();
-                document.getElementById('age_display').textContent = 'Âge : --';
-                document.getElementById('age_display_tiers').textContent = 'Âge : --';
+                if(anonToggle.checked) anonToggle.click(); // Reset le mode anonyme
             } else {
-                statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${data.message || "Erreur serveur."}</div>`;
+                statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${data.message}</div>`;
             }
         })
-        .catch(error => {
-            statusDiv.innerHTML = '<div class="status-message error">❌ Une erreur de connexion est survenue.</div>';
-        })
-        .finally(() => {
-            submitButton.disabled = false;
-        });
+        .catch(() => { statusDiv.innerHTML = '<div class="status-message error">❌ Erreur de connexion.</div>'; })
+        .finally(() => { submitButton.disabled = false; });
     });
 </script>
 </body>
