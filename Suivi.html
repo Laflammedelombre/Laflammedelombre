@@ -3,85 +3,48 @@
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-    .container { 
-      max-width: 400px; 
-      margin: auto; 
-      background: white; 
-      padding: 20px; 
-      border-radius: 8px; 
-      box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-      box-sizing: border-box;
-    }
-    h2 { text-align: center; color: #333; }
+    :root { --gold: #d4af37; --dark-red: #8B0000; --parchment: #f4e4bc; }
+    body { font-family: 'Raleway', sans-serif; background-color: #0a0a0a; color: var(--parchment); display: flex; justify-content: center; padding: 15px; margin: 0; }
+    .container { background: rgba(20, 20, 20, 0.95); padding: 25px; border: 1px solid var(--gold); border-radius: 8px; max-width: 500px; width: 100%; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); box-sizing: border-box; }
     
+    .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
+    .nav-tabs a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8em; padding: 5px 10px; border: 1px solid transparent; }
+    .nav-tabs a.active { border: 1px solid var(--gold); border-radius: 4px; }
+
+    h2 { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; margin-bottom: 20px; }
     .login-box { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    input { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
     
-    input { 
-      padding: 10px; 
-      border: 1px solid #ccc; 
-      border-radius: 4px; 
-      font-size: 16px; /* Taille pour éviter le zoom forcé sur mobile */
-      box-sizing: border-box;
-      width: 100%;
-    }
+    button { width: 100%; padding: 12px; background: var(--dark-red); color: white; border: 1px solid var(--gold); font-family: 'Cinzel', serif; font-size: 1.1em; cursor: pointer; }
     
-    button { 
-      padding: 10px; 
-      background-color: #007bff; 
-      color: white; 
-      border: none; 
-      border-radius: 4px; 
-      cursor: pointer; 
-      font-weight: bold;
-      font-size: 16px;
-    }
-    
-    #resultat { 
-      margin-top: 20px; 
-      padding: 15px; 
-      border-top: 2px solid #eee; 
-      display: none; 
-      line-height: 1.6;
-    }
-    
-    .status-badge { 
-      display: inline-block; 
-      padding: 5px 10px; 
-      border-radius: 20px; 
-      font-size: 0.8em; 
-      font-weight: bold; 
-      margin-bottom: 10px;
-    }
-    
-    .reponse-box { 
-      background: #f9f9f9; 
-      padding: 15px; 
-      border-left: 4px solid #007bff; 
-      white-space: pre-wrap;
-      font-size: 0.95em;
-    }
-    
-    #loader { text-align: center; margin-bottom: 10px; font-weight: bold; color: #555; }
+    #resultat { margin-top: 20px; padding: 15px; border-top: 1px solid var(--gold); display: none; }
+    .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 15px; font-family: 'Cinzel', serif; }
+    .reponse-box { background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid var(--gold); white-space: pre-wrap; font-size: 0.95em; }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <div class="nav-tabs">
+    <a href="https://www.laflammedelombre.com/Formulaire.html">FORMULAIRE</a>
+    <a href="#" class="active">SUIVI</a>
+  </div>
+
   <h2>Suivi de mon Tirage</h2>
   
   <div class="login-box">
     <input type="text" id="idInput" placeholder="Votre ID (ex: LFO-123456)">
     <input type="text" id="codeInput" placeholder="Votre Code Secret">
-    <button onclick="chercherTirage()">Consulter mon tirage</button>
+    <button onclick="chercherTirage()">Consulter</button>
   </div>
 
-  <div id="loader" style="display:none;">Recherche en cours...</div>
+  <div id="loader" style="display:none; text-align:center; color:var(--gold);">Recherche...</div>
   
   <div id="resultat">
     <div id="badge" class="status-badge"></div>
-    <div id="infoClient" style="margin-bottom:15px; font-weight:bold;"></div>
+    <div id="infoClient" style="margin-bottom:15px; font-family: 'Cinzel', serif; color: var(--gold);"></div>
     <div id="reponseContent" class="reponse-box"></div>
   </div>
 </div>
@@ -90,36 +53,19 @@
   function chercherTirage() {
     const id = document.getElementById('idInput').value.trim();
     const code = document.getElementById('codeInput').value.trim();
-    const resDiv = document.getElementById('resultat');
-    const loader = document.getElementById('loader');
-
-    if(!id || !code) { alert("Veuillez remplir les deux champs."); return; }
-
-    loader.style.display = 'block';
-    resDiv.style.display = 'none';
-
-    // Appel à ta fonction dans le Code.gs
+    if(!id || !code) return;
+    document.getElementById('loader').style.display = 'block';
     google.script.run.withSuccessHandler(function(data) {
-      loader.style.display = 'none';
+      document.getElementById('loader').style.display = 'none';
       if(data) {
-        resDiv.style.display = 'block';
+        document.getElementById('resultat').style.display = 'block';
         document.getElementById('infoClient').innerText = "Tirage de " + data.prenom;
-        
         const badge = document.getElementById('badge');
         badge.innerText = data.statut;
-        
-        if(data.statut === "TRAITÉE") {
-          badge.style.backgroundColor = "#d4edda";
-          badge.style.color = "#155724";
-          document.getElementById('reponseContent').innerText = data.reponse || "L'interprétation sera disponible ici sous peu.";
-        } else {
-          badge.style.backgroundColor = "#fff3cd";
-          badge.style.color = "#856404";
-          document.getElementById('reponseContent').innerText = "Votre tirage est en cours de préparation. Je reviens vers vous rapidement !";
-        }
-      } else {
-        alert("Identifiants incorrects ou tirage introuvable.");
-      }
+        badge.style.backgroundColor = (data.statut === "TRAITÉE") ? "#155724" : "#856404";
+        badge.style.color = "white";
+        document.getElementById('reponseContent').innerText = data.reponse || "En cours de préparation...";
+      } else { alert("Identifiants incorrects."); }
     }).chercherDemandeDansSheet(id, code);
   }
 </script>
