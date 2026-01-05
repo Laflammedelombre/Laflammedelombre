@@ -1,73 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    :root { --gold: #d4af37; --dark-red: #8B0000; --parchment: #f4e4bc; }
-    body { font-family: 'Raleway', sans-serif; background-color: #0a0a0a; color: var(--parchment); display: flex; justify-content: center; padding: 15px; margin: 0; }
-    .container { background: rgba(20, 20, 20, 0.95); padding: 25px; border: 1px solid var(--gold); border-radius: 8px; max-width: 500px; width: 100%; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); box-sizing: border-box; }
-    
-    .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
-    .nav-tabs a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8em; padding: 5px 10px; border: 1px solid transparent; }
-    .nav-tabs a.active { border: 1px solid var(--gold); border-radius: 4px; }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Flamme de l'Ombre - Suivi de votre tirage</title>
+    <style>
+        :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 40px 20px; }
+        h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav ul li a:hover { color: white; text-decoration: underline; }
 
-    h2 { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; margin-bottom: 20px; }
-    .login-box { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    input { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
-    
-    button { width: 100%; padding: 12px; background: var(--dark-red); color: white; border: 1px solid var(--gold); font-family: 'Cinzel', serif; font-size: 1.1em; cursor: pointer; }
-    
-    #resultat { margin-top: 20px; padding: 15px; border-top: 1px solid var(--gold); display: none; }
-    .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 15px; font-family: 'Cinzel', serif; }
-    .reponse-box { background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid var(--gold); white-space: pre-wrap; font-size: 0.95em; }
-  </style>
+        .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
+        .box { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); box-sizing: border-box; }
+        h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; }
+
+        button { margin-top: 10px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
+        button:hover { background: #A52A2A; }
+
+        #loader { margin-top: 20px; display: none; color: #aaa; font-style: italic; text-align: center; }
+
+        #resultat { margin-top: 30px; display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+        .status-badge { display: inline-block; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9em; margin-bottom: 20px; text-transform: uppercase; }
+        .reponse-box { background: #0a0a0a; padding: 25px; border-radius: 15px; border: 1px solid #333; line-height: 1.8; color: #ddd; white-space: pre-wrap; font-size: 1.05em; }
+        .client-name { color: var(--primary-color); font-size: 1.2em; margin-bottom: 10px; font-weight: bold; display: block; }
+    </style>
 </head>
 <body>
 
+<header>
+    <h1>La Flamme de l'Ombre</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
+            <li><a href="carte.html">Carte du jour</a></li>
+            <li><a href="Formulaire.html">Formulaire</a></li>
+        </ul>
+    </nav>
+</header>
+
 <div class="container">
-  <div class="nav-tabs">
-    <a href="https://www.laflammedelombre.com/Formulaire.html">FORMULAIRE</a>
-    <a href="#" class="active">SUIVI</a>
-  </div>
+    <div class="box">
+        <h2>Suivi de votre tirage</h2>
+        
+        <div class="form-group">
+            <label>Votre ID (ex: LFO-123456)</label>
+            <input type="text" id="idInput" placeholder="Entrez votre ID">
+        </div>
 
-  <h2>Suivi de mon Tirage</h2>
-  
-  <div class="login-box">
-    <input type="text" id="idInput" placeholder="Votre ID (ex: LFO-123456)">
-    <input type="text" id="codeInput" placeholder="Votre Code Secret">
-    <button onclick="chercherTirage()">Consulter</button>
-  </div>
+        <div class="form-group">
+            <label>Votre Code Secret</label>
+            <input type="text" id="codeInput" placeholder="Entrez votre Code">
+        </div>
 
-  <div id="loader" style="display:none; text-align:center; color:var(--gold);">Recherche...</div>
-  
-  <div id="resultat">
-    <div id="badge" class="status-badge"></div>
-    <div id="infoClient" style="margin-bottom:15px; font-family: 'Cinzel', serif; color: var(--gold);"></div>
-    <div id="reponseContent" class="reponse-box"></div>
-  </div>
+        <button onclick="chercherTirage()">Consulter mon tirage</button>
+
+        <div id="loader"><i class="fas fa-spinner fa-spin"></i> Recherche de votre demande dans les étoiles...</div>
+
+        <div id="resultat">
+            <div id="badge" class="status-badge"></div>
+            <span id="infoClient" class="client-name"></span>
+            <div id="reponseContent" class="reponse-box"></div>
+        </div>
+    </div>
 </div>
 
 <script>
-  function chercherTirage() {
-    const id = document.getElementById('idInput').value.trim();
-    const code = document.getElementById('codeInput').value.trim();
-    if(!id || !code) return;
-    document.getElementById('loader').style.display = 'block';
-    google.script.run.withSuccessHandler(function(data) {
-      document.getElementById('loader').style.display = 'none';
-      if(data) {
-        document.getElementById('resultat').style.display = 'block';
-        document.getElementById('infoClient').innerText = "Tirage de " + data.prenom;
-        const badge = document.getElementById('badge');
-        badge.innerText = data.statut;
-        badge.style.backgroundColor = (data.statut === "TRAITÉE") ? "#155724" : "#856404";
-        badge.style.color = "white";
-        document.getElementById('reponseContent').innerText = data.reponse || "En cours de préparation...";
-      } else { alert("Identifiants incorrects."); }
-    }).chercherDemandeDansSheet(id, code);
-  }
+    function chercherTirage() {
+        const id = document.getElementById('idInput').value.trim();
+        const code = document.getElementById('codeInput').value.trim();
+        const resDiv = document.getElementById('resultat');
+        const loader = document.getElementById('loader');
+
+        if(!id || !code) { 
+            alert("Veuillez remplir les deux champs pour accéder à votre suivi."); 
+            return; 
+        }
+
+        loader.style.display = 'block';
+        resDiv.style.display = 'none';
+
+        // Appel à la fonction Google Apps Script
+        google.script.run.withSuccessHandler(function(data) {
+            loader.style.display = 'none';
+            if(data) {
+                resDiv.style.display = 'block';
+                document.getElementById('infoClient').innerText = "Tirage de " + data.prenom;
+                
+                const badge = document.getElementById('badge');
+                badge.innerText = data.statut;
+                
+                if(data.statut === "TRAITÉE") {
+                    badge.style.background = "#0c1a0c";
+                    badge.style.color = "#28a745";
+                    badge.style.border = "1px solid #28a745";
+                    document.getElementById('reponseContent').innerText = data.reponse || "L'interprétation sera bientôt affichée ici.";
+                } else {
+                    badge.style.background = "#1a160c";
+                    badge.style.color = "#ffcc00";
+                    badge.style.border = "1px solid #ffcc00";
+                    document.getElementById('reponseContent').innerText = "Votre demande a bien été reçue. Je prépare votre tirage avec attention, revenez d'ici peu.";
+                }
+            } else {
+                alert("Identifiants incorrects ou tirage introuvable. Vérifiez bien votre ID et votre Code (attention aux majuscules).");
+            }
+        }).chercherDemandeDansSheet(id, code);
+    }
 </script>
+
 </body>
 </html>
