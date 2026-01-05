@@ -6,45 +6,21 @@
     body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
     .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     h2 { text-align: center; color: #333; }
-    
-    /* Le nouveau bloc d'explication */
-    .note-explicative { 
-      background-color: #fff3cd; 
-      border: 1px solid #ffeeba; 
-      padding: 10px; 
-      border-radius: 4px; 
-      font-size: 0.9em; 
-      color: #856404; 
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-
     input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-    button:hover { background-color: #218838; }
+    label { font-size: 0.9em; font-weight: bold; color: #555; display: block; margin-top: 10px; }
+    .info-box { font-size: 0.85em; padding: 12px; border-radius: 4px; display: none; margin-bottom: 10px; line-height: 1.4; border: 1px solid #bee5eb; background-color: #e2f3f5; color: #0c5460; }
+    button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; }
     #loader { display: none; text-align: center; margin-top: 10px; }
-    
-    .checkbox-container { display: flex; align-items: center; gap: 8px; margin: 10px 0; font-size: 0.9em; }
-    .checkbox-container input { width: auto; margin: 0; }
   </style>
 </head>
 <body>
 
 <div class="container" id="formContainer">
   <h2>Demande de Tirage</h2>
-
-  <div class="note-explicative">
-    L'envoi de ce formulaire déclenche une demande de tirage de mon côté.<br><br>
-    <b>Confidentialité :</b><br>
-    - Cochez la case en bas si vous voulez la réponse par mail.<br>
-    - Ne cochez rien si vous préférez la confidentialité : vous utiliserez alors l'ID et le Code Secret envoyés par mail pour voir vos résultats.
-  </div>
-
   <form id="tirageForm">
     <input type="text" name="Prénom" placeholder="Votre Prénom" required>
     <input type="email" name="Email" placeholder="Votre Email" required>
     <input type="date" name="Date_Naissance" title="Votre Date de Naissance" required>
-    
     <textarea name="Question" placeholder="Votre Question / Thématique" required></textarea>
     
     <select name="Temporalité">
@@ -53,54 +29,57 @@
       <option value="Long terme">Long terme (1 an)</option>
     </select>
 
-    <div class="checkbox-container">
-      <input type="checkbox" name="copie_mail" id="copie_mail">
-      <label for="copie_mail">Je souhaite recevoir la réponse par mail</label>
-    </div>
+    <label>Comment souhaitez-vous consulter la réponse ?</label>
+    <select name="methode" id="methode" required onchange="updateView()">
+      <option value="" disabled selected>-- Choisir une option --</option>
+      <option value="email">Par réponse e-mail directe</option>
+      <option value="site">Via mon espace privé sécurisé</option>
+    </select>
 
+    <div id="infoTexte" class="info-box"></div>
+
+    <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
     <button type="submit" id="submitBtn">Envoyer ma demande</button>
   </form>
-
-  <div id="loader">Chargement...</div>
+  <div id="loader">Transmission en cours...</div>
 </div>
 
 <script>
-  const form = document.getElementById('tirageForm');
-  const btn = document.getElementById('submitBtn');
-  const loader = document.getElementById('loader');
-  const container = document.getElementById('formContainer');
-
-  form.onsubmit = function(e) {
-    e.preventDefault();
-    btn.style.display = 'none';
-    loader.style.display = 'block';
-
-    const formData = new FormData(form);
+  function updateView() {
+    const choix = document.getElementById('methode').value;
+    const info = document.getElementById('infoTexte');
+    const hidden = document.getElementById('copie_mail_hidden');
+    info.style.display = 'block';
     
+    if (choix === 'email') {
+      info.innerHTML = "Vous recevrez une confirmation immédiate, puis votre interprétation directement par e-mail dès qu'elle sera prête.";
+      hidden.value = 'on';
+    } else {
+      info.innerHTML = "Vous recevrez par e-mail vos codes d'accès personnels pour consulter votre réponse sur le site en toute confidentialité.";
+      hidden.value = 'off';
+    }
+  }
+
+  document.getElementById('tirageForm').onsubmit = function(e) {
+    e.preventDefault();
+    document.getElementById('submitBtn').style.display = 'none';
+    document.getElementById('loader').style.display = 'block';
     fetch('https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec', {
       method: 'POST',
-      body: new URLSearchParams(formData)
+      body: new URLSearchParams(new FormData(this))
     })
     .then(() => {
-      // Message de succès avec la note sur les spams
-      container.innerHTML = `
+      document.getElementById('formContainer').innerHTML = `
         <div style="text-align:center;">
-          <h2 style="color: #28a745;">Demande Envoyée !</h2>
-          <p>Votre ID et votre Code Secret viennent de vous être envoyés par e-mail.</p>
-          <p style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; border: 1px solid #f5c6cb;">
-            ⚠️ <b>Pensez à vérifier vos SPAMS</b>, les mails s'y glissent souvent !
+          <h2 style="color: #28a745;">Demande Reçue</h2>
+          <p>Un e-mail de confirmation vient de vous être envoyé.</p>
+          <p style="background: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; border: 1px solid #ffeeba; font-size: 0.9em;">
+            ⚠️ <b>Note :</b> Si vous ne voyez rien d'ici 2 minutes, vérifiez vos <b>SPAMS</b>.
           </p>
           <button onclick="window.location.reload()" style="background:#007bff;">Retour</button>
-        </div>
-      `;
-    })
-    .catch(err => {
-      alert("Erreur de connexion");
-      btn.style.display = 'block';
-      loader.style.display = 'none';
+        </div>`;
     });
   };
 </script>
-
 </body>
 </html>
