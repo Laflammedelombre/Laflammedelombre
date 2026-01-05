@@ -17,28 +17,37 @@
 
         .container { max-width: 800px; margin: 40px auto; padding: 20px; }
         
+        /* ZONE DE RECHERCHE */
         .search-box { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .input-group { margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 8px; color: #888; font-size: 0.9em; }
         input { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box; font-size: 1.1em; }
         
-        .btn-search { width: 100%; padding: 15px; border: none; border-radius: 8px; background: #8B0000; color: white; font-weight: bold; font-size: 1.1em; cursor: pointer; }
+        .btn-search { width: 100%; padding: 15px; border: none; border-radius: 8px; background: #8B0000; color: white; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.3s; }
         .btn-search:hover { background: #A52A2A; }
 
-        #resultArea { display: none; margin-top: 30px; text-align: left; }
+        /* ZONE DE RÉSULTAT */
+        #resultArea { display: none; margin-top: 30px; text-align: left; animation: fadeIn 0.5s; }
         .response-card { background: #1a1a1a; padding: 40px; border-radius: 15px; border-left: 5px solid #8B0000; line-height: 1.8; font-size: 1.1em; }
         .response-content { color: #ddd; white-space: pre-wrap; }
         
+        /* FEEDBACK & ÉTOILES */
         .feedback-section { margin-top: 40px; background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: center; }
         .stars { font-size: 2em; margin: 15px 0; color: #444; }
-        .star { cursor: pointer; }
+        .star { cursor: pointer; transition: color 0.2s; }
         .star.active { color: #ffcc00; }
         textarea#clientMsg { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 15px; border-radius: 8px; margin-top: 15px; box-sizing: border-box; }
-        .btn-feedback { margin-top: 15px; padding: 10px 25px; border: none; border-radius: 20px; background: #007bff; color: white; cursor: pointer; }
+        .btn-feedback { margin-top: 15px; padding: 10px 25px; border: none; border-radius: 20px; background: #007bff; color: white; cursor: pointer; font-weight: bold; }
+
+        /* ANNULATION */
+        .cancel-box { margin-top: 30px; padding: 20px; border-top: 1px solid #222; text-align: center; }
+        .btn-cancel { background: none; border: 1px solid #444; color: #666; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; }
+        .btn-cancel:hover { border-color: #8B0000; color: #8B0000; }
 
         #avisPublicSection { display: none; margin-top: 20px; padding: 15px; background: #1a2a1a; border-radius: 10px; border: 1px solid #28a745; }
         .btn-avis { display: inline-block; margin-top: 10px; color: #28a745; text-decoration: none; font-weight: bold; border: 1px solid #28a745; padding: 5px 15px; border-radius: 5px; }
 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .loader { border: 4px solid #333; border-top: 4px solid #8B0000; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -61,16 +70,20 @@
 
 <div class="container">
     <div class="search-box" id="searchBox">
-        <h2>Consulter votre tirage</h2>
+        <h2>Consulter mon tirage</h2>
+        <p style="color: #666; font-size: 0.9em; margin-bottom: 25px;">Utilisez l'ID et le Code Secret reçus par e-mail.</p>
+        
         <div class="input-group">
-            <label>votre ID de suivi</label>
-            <input type="text" id="searchID" placeholder="Ex: LFO-XXXXXX">
+            <label>ID de suivi (LFO-XXXXXX)</label>
+            <input type="text" id="searchID" placeholder="Copiez l'ID ici">
         </div>
+        
         <div class="input-group">
-            <label>votre Code Secret</label>
-            <input type="text" id="searchCode" placeholder="Ex: JU1990XX!">
+            <label>Code Secret</label>
+            <input type="text" id="searchCode" placeholder="Entrez le code secret">
         </div>
-        <button class="btn-search" onclick="consulterTirage()">Accéder à ma réponse</button>
+        
+        <button class="btn-search" onclick="consulterTirage()">Voir mon interprétation</button>
         <div class="loader" id="loader"></div>
         <p id="errorMsg" style="color: #ff6666; margin-top: 15px; display: none;"></p>
     </div>
@@ -78,11 +91,16 @@
     <div id="resultArea">
         <div class="response-card">
             <h3 style="margin-top: 0; color: #8B0000;"><i class="fas fa-scroll"></i> Votre Interprétation</h3>
-            <div id="reponseTexte" class="response-content"></div>
+            <div id="reponseTexte" class="response-content">Votre tirage est en cours de préparation par Jimmy...</div>
+            
+            <div id="cancelArea" class="cancel-box" style="display:none;">
+                <p style="color:#555; font-size:0.8em;">Vous ne souhaitez plus recevoir de réponse ?</p>
+                <button class="btn-cancel" onclick="annulerDemande()" id="btnCancel">Annuler ma demande</button>
+            </div>
         </div>
 
         <div class="feedback-section" id="feedbackSection">
-            <h3>Votre avis</h3>
+            <h3>Votre retour est précieux</h3>
             <div class="stars" id="starRating">
                 <span class="star" data-value="1"><i class="fas fa-star"></i></span>
                 <span class="star" data-value="2"><i class="fas fa-star"></i></span>
@@ -90,8 +108,8 @@
                 <span class="star" data-value="4"><i class="fas fa-star"></i></span>
                 <span class="star" data-value="5"><i class="fas fa-star"></i></span>
             </div>
-            <textarea id="clientMsg" placeholder="Un message pour Jimmy ?" rows="3"></textarea>
-            <button class="btn-feedback" onclick="envoyerFeedback()">Envoyer mon retour</button>
+            <textarea id="clientMsg" placeholder="Un mot pour Jimmy ?" rows="3"></textarea>
+            <button class="btn-feedback" onclick="envoyerFeedback()">Envoyer mon avis</button>
             
             <div id="avisPublicSection">
                 <p>✨ Merci ! N'hésitez pas à laisser un avis public :</p>
@@ -105,6 +123,7 @@
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
     let currentID = "";
+    let currentCode = "";
     let selectedNote = 0;
 
     async function consulterTirage() {
@@ -113,31 +132,66 @@
         const loader = document.getElementById('loader');
         const errorMsg = document.getElementById('errorMsg');
 
-        if(!id || !code) return alert("Remplissez les deux champs.");
+        if(!id || !code) return alert("Veuillez remplir les deux champs.");
 
         loader.style.display = "block";
         errorMsg.style.display = "none";
         currentID = id;
+        currentCode = code;
 
         try {
             const response = await fetch(`${APPS_SCRIPT_URL}?action=getstatus&id=${id}&code=${code}`);
             const data = await response.json();
             loader.style.display = "none";
+
             if (data.result === 'success') {
                 document.getElementById('searchBox').style.display = "none";
                 document.getElementById('resultArea').style.display = "block";
-                document.getElementById('reponseTexte').innerHTML = data.reponse;
+                
+                // Si une réponse existe, on l'affiche, sinon texte par défaut
+                if(data.reponse && data.reponse.trim() !== "") {
+                    document.getElementById('reponseTexte').innerHTML = data.reponse;
+                }
+
+                // Affichage du bouton d'annulation seulement si non traité
+                if (data.status === 'DEMANDE_REÇUE') {
+                    document.getElementById('cancelArea').style.display = "block";
+                }
             } else {
-                errorMsg.innerText = "❌ Accès refusé. Vérifiez vos codes.";
+                errorMsg.innerText = "❌ ID ou Code incorrect.";
                 errorMsg.style.display = "block";
             }
         } catch (e) {
             loader.style.display = "none";
-            errorMsg.innerText = "❌ Erreur serveur.";
+            errorMsg.innerText = "❌ Erreur de connexion.";
             errorMsg.style.display = "block";
         }
     }
 
+    async function annulerDemande() {
+        if(!confirm("Voulez-vous vraiment annuler votre question ? Cette action est irréversible.")) return;
+        const btn = document.getElementById('btnCancel');
+        btn.innerText = "Annulation...";
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(`${APPS_SCRIPT_URL}?action=cancel&id=${currentID}&code=${currentCode}`);
+            const data = await res.json();
+            if(data.result === 'success') {
+                alert("Votre demande a bien été annulée.");
+                window.location.reload();
+            } else {
+                alert(data.message);
+                btn.disabled = false;
+                btn.innerText = "Annuler ma demande";
+            }
+        } catch(e) {
+            alert("Erreur technique lors de l'annulation.");
+            btn.disabled = false;
+        }
+    }
+
+    // Étoiles
     document.querySelectorAll('.star').forEach(star => {
         star.addEventListener('click', function() {
             selectedNote = this.getAttribute('data-value');
@@ -152,12 +206,19 @@
         if(selectedNote === 0) return alert("Sélectionnez une note.");
         const btn = document.querySelector('.btn-feedback');
         btn.innerText = "Envoi...";
+        btn.disabled = true;
+
         try {
-            await fetch(`${APPS_SCRIPT_URL}?action=feedback&id=${currentID}&note=${selectedNote}&msg=${encodeURIComponent(document.getElementById('clientMsg').value)}`);
-            btn.innerText = "Merci !";
+            const msg = encodeURIComponent(document.getElementById('clientMsg').value);
+            await fetch(`${APPS_SCRIPT_URL}?action=feedback&id=${currentID}&note=${selectedNote}&msg=${msg}`);
+            btn.innerText = "Merci pour votre retour !";
             btn.style.background = "#28a745";
             if(selectedNote >= 4) document.getElementById('avisPublicSection').style.display = "block";
-        } catch (e) { alert("Erreur."); btn.innerText = "Réessayer"; }
+        } catch (e) {
+            alert("Erreur lors de l'envoi.");
+            btn.disabled = false;
+            btn.innerText = "Réessayer";
+        }
     }
 </script>
 </body>
