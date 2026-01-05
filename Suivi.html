@@ -2,270 +2,196 @@
 <html lang="fr">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-PMTZHZKR');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre - Suivi de Demande</title>
+    <title>La Flamme de l'Ombre - Consulter mon Tirage</title>
     <style>
-        /* Styles CSS */
-        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        header { padding: 20px; }
-        h1 { font-size: 3em; margin: 0.2em 0; }
-        p { font-size: 1.5em; margin-top: 10px; }
+        body { background-color: black; color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 30px; }
+        h1 { font-size: 2.5em; margin: 0; color: #fff; }
+        
         nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; }
         nav ul li { margin: 10px 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
-        nav ul li a:hover { text-decoration: underline; }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav ul li a:hover { color: white; }
 
-        .content-container { max-width: 800px; margin: 40px auto; background: #111; padding: 30px; border-radius: 10px; text-align: left; }
-        .content-container h2 { text-align: center; color: #fff; margin-bottom: 25px; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
         
-        .search-form { display: flex; gap: 10px; margin-bottom: 30px; align-items: center; }
-        .search-form input[type="text"] { flex-grow: 1; padding: 10px; border-radius: 6px; border: 1px solid #555; background: #222; color: #fff; }
-        .search-form button { padding: 10px 15px; border: none; border-radius: 6px; background: #007bff; color: white; cursor: pointer; font-weight: bold; transition: background 0.3s; }
-        .search-form button:hover { background: #0056b3; }
-
-        #result-container { padding: 15px; border-radius: 6px; margin-top: 20px; text-align: center; }
-        .status-message { margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
-        .status-info { background: #333; padding: 15px; border-radius: 8px; margin-top: 20px; line-height: 1.6; }
+        /* FORMULAIRE DE RECHERCHE */
+        .search-box { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .search-box h2 { margin-top: 0; color: #fff; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #888; font-size: 0.9em; }
+        input { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box; font-size: 1.1em; }
         
-        .status-demande-recue, .status-en-cours { background-color: #3c5244; border: 1px solid #7ad6a7; color: #d4edda; }
-        .status-traitee { background-color: #2a3e5c; border: 1px solid #5c7fbf; color: #c9e6ff; }
-        .status-annulee, .status-id-inconnu { background-color: #5c3434; border: 1px solid #f1a0a0; color: #f8d7da; }
+        .btn-search { width: 100%; padding: 15px; border: none; border-radius: 8px; background: #8B0000; color: white; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.3s; }
+        .btn-search:hover { background: #A52A2A; }
 
-        #cancel-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            background: #cc0000;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        #cancel-button:hover { background: #ff3333; }
+        /* RÉSULTAT DU TIRAGE */
+        #resultArea { display: none; margin-top: 30px; text-align: left; animation: fadeIn 0.5s; }
+        .response-card { background: #1a1a1a; padding: 40px; border-radius: 15px; border-left: 5px solid #8B0000; line-height: 1.8; font-size: 1.1em; }
+        .response-content { color: #ddd; white-space: pre-wrap; }
+        
+        /* SYSTÈME DE NOTATION */
+        .feedback-section { margin-top: 40px; background: #111; padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: center; }
+        .stars { font-size: 2em; margin: 15px 0; color: #444; }
+        .star { cursor: pointer; transition: color 0.2s; }
+        .star.active { color: #ffcc00; }
+        textarea#clientMsg { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 15px; border-radius: 8px; margin-top: 15px; box-sizing: border-box; resize: vertical; }
+        .btn-feedback { margin-top: 15px; padding: 10px 25px; border: none; border-radius: 20px; background: #007bff; color: white; cursor: pointer; font-weight: bold; }
 
-        #waiting-list-section { margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; }
-        #waiting-list-section h3 { text-align: center; margin-bottom: 15px; color: #aaa; }
-        #waiting-list { list-style-type: none; padding: 0; max-height: 250px; overflow-y: auto; background: #222; border-radius: 6px; }
-        #waiting-list li { padding: 8px 15px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; font-size: 0.9em; }
-        #waiting-list li:last-child { border-bottom: none; }
-        .list-id { color: #888; font-family: monospace; }
-        .list-status { font-weight: bold; color: #7ad6a7; }
+        /* AVIS PUBLIC */
+        #avisPublicSection { display: none; margin-top: 20px; padding: 15px; background: #1a2a1a; border-radius: 10px; border: 1px solid #28a745; }
+        .btn-avis { display: inline-block; margin-top: 10px; color: #28a745; text-decoration: none; font-weight: bold; border: 1px solid #28a745; padding: 5px 15px; border-radius: 5px; }
 
-        @media (max-width: 768px) { .content-container { margin: 20px; padding: 20px; } h1 { font-size: 2.5em; } p { font-size: 1.2em; } }
-        @media (max-width: 480px) { h1 { font-size: 2em; } p { font-size: 1em; } nav ul li { margin: 10px 5px; } .search-form { flex-direction: column; } .search-form button, .search-form input { width: 100%; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .loader { border: 4px solid #333; border-top: 4px solid #8B0000; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 <header>
     <h1>La Flamme de l'Ombre</h1>
-    <p>Suivi de ta Demande</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="Formulaire.html">Poser une question</a></li>
+            <li><a href="avis.html">Avis</a></li>
+        </ul>
+    </nav>
 </header>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="avis.html">Avis</a></li>
-        <li><a href="carte.html">Carte du jour</a></li>
-    </ul>
-</nav>
-
-<div class="content-container">
-    <h2>Vérifier le Statut</h2>
-    
-    <form id="searchForm" class="search-form">
-        <input type="text" id="trackingId" placeholder="Entrez votre ID de suivi (ex: 1700000000000)" required>
-        <button type="submit">Rechercher</button>
-    </form>
-
-    <div id="result-container" style="display: none;">
-        <div id="statusMessage" class="status-message"></div>
-        <div id="statusInfo" class="status-info"></div>
-        <button id="cancel-button" style="display: none;">Annuler ma demande</button>
+<div class="container">
+    <div class="search-box" id="searchBox">
+        <h2>Consulter votre réponse</h2>
+        <p style="color: #888; font-size: 0.9em;">Entrez les codes reçus par e-mail pour accéder à votre tirage privé.</p>
+        
+        <div class="input-group">
+            <label for="searchID">ID de suivi (ex: LFO-123456)</label>
+            <input type="text" id="searchID" placeholder="Ex: LFO-XXXXXX">
+        </div>
+        
+        <div class="input-group">
+            <label for="searchCode">Code Secret</label>
+            <input type="text" id="searchCode" placeholder="Ex: JU1990XX!">
+        </div>
+        
+        <button class="btn-search" onclick="consulterTirage()">Voir mon interprétation</button>
+        <div class="loader" id="loader"></div>
+        <p id="errorMsg" style="color: #ff6666; margin-top: 15px; display: none;"></p>
     </div>
 
-    <div id="waiting-list-section">
-        <h3>Queue des 10 prochaines demandes</h3>
-        <ul id="waiting-list">
-            <li>Chargement...</li>
-        </ul>
+    <div id="resultArea">
+        <div class="response-card">
+            <h3 style="margin-top: 0; color: #8B0000;"><i class="fas fa-scroll"></i> Votre Interprétation</h3>
+            <div id="reponseTexte" class="response-content"></div>
+        </div>
+
+        <div class="feedback-section" id="feedbackSection">
+            <h3>Cette réponse vous éclaire-t-elle ?</h3>
+            <p style="color: #888; font-size: 0.8em;">Votre note et votre message sont privés et lus uniquement par Jimmy.</p>
+            
+            <div class="stars" id="starRating">
+                <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+                <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+                <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+                <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+                <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+            </div>
+
+            <textarea id="clientMsg" placeholder="Un petit mot pour Jimmy ? (Optionnel)" rows="3"></textarea>
+            <button class="btn-feedback" onclick="envoyerFeedback()">Envoyer mon retour</button>
+            
+            <div id="avisPublicSection">
+                <p>✨ Merci ! Si ce tirage vous a aidé, n'hésitez pas à laisser un avis public sur ma page :</p>
+                <a href="avis.html" class="btn-avis">Laisser un avis public</a>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    // 🛑 ATTENTION : CETTE URL DOIT CORRESPONDRE À VOTRE DERNIER DÉPLOIEMENT APPS SCRIPT
-    // Utilisez l'URL que vous avez générée et validée :
-    const APPS_SCRIPT_URL_SEARCH = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
+    // URL DE TON SCRIPT DÉPLOYÉ
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
-    const searchForm = document.getElementById('searchForm');
-    const trackingIdInput = document.getElementById('trackingId');
-    const resultContainer = document.getElementById('result-container');
-    const statusMessageDiv = document.getElementById('statusMessage');
-    const statusInfoDiv = document.getElementById('statusInfo');
-    const cancelButton = document.getElementById('cancel-button');
-    const waitingListUl = document.getElementById('waiting-list');
-    
-    // État local de la demande recherchée
-    let currentTrackingId = null;
+    let currentID = "";
+    let selectedNote = 0;
 
-    // Fonction utilitaire pour le statut
-    function getStatusClass(status) {
-        if (!status) return 'status-id-inconnu';
-        const upperStatus = status.toUpperCase().trim();
-        if (upperStatus.includes('REÇUE') || upperStatus.includes('REÇU')) return 'status-demande-recue';
-        if (upperStatus.includes('EN COURS')) return 'status-demande-recue status-en-cours';
-        if (upperStatus.includes('TRAITÉE') || upperStatus.includes('TRAITÉ')) return 'status-traitee';
-        if (upperStatus.includes('ANNULÉE') || upperStatus.includes('ANNULÉ')) return 'status-annulee';
-        return 'status-id-inconnu';
-    }
+    async function consulterTirage() {
+        const id = document.getElementById('searchID').value.trim();
+        const code = document.getElementById('searchCode').value.trim();
+        const loader = document.getElementById('loader');
+        const errorMsg = document.getElementById('errorMsg');
 
-    // Affichage des informations
-    function displayStatus(data) {
-        resultContainer.style.display = 'block';
-        currentTrackingId = trackingIdInput.value.trim();
-
-        // Ajoute la classe de couleur au message
-        statusMessageDiv.className = 'status-message ' + getStatusClass(data.status);
-        
-        let infoHtml = `
-            <strong>ID de Suivi :</strong> ${currentTrackingId}<br>
-            <strong>Statut :</strong> ${data.status || 'Non trouvé'}
-        `;
-
-        if (data.message) {
-            infoHtml += `<p>${data.message}</p>`;
-        }
-        
-        statusInfoDiv.innerHTML = infoHtml;
-        
-        // Gérer le bouton d'annulation
-        const upperStatus = data.status.toUpperCase().trim();
-        if (upperStatus.includes('REÇUE') || upperStatus.includes('REÇU') || upperStatus.includes('EN COURS')) {
-            cancelButton.style.display = 'block';
-        } else {
-            cancelButton.style.display = 'none';
-        }
-
-        // Afficher la liste d'attente mise à jour
-        displayWaitingList(data.top10Requests);
-    }
-    
-    // Affichage de la liste d'attente
-    function displayWaitingList(requests) {
-        waitingListUl.innerHTML = ''; // Nettoyer
-        if (!requests || requests.length === 0) {
-            waitingListUl.innerHTML = '<li>Aucune demande en attente ou erreur de chargement.</li>';
+        if(!id || !code) {
+            alert("Merci de remplir l'ID et le Code Secret.");
             return;
         }
 
-        requests.forEach((req, index) => {
-            const statusClass = getStatusClass(req.status);
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `
-                <span>N°${index + 1} - <span class="list-id">${req.id}</span></span>
-                <span class="list-status ${statusClass}">${req.status}</span>
-            `;
-            waitingListUl.appendChild(listItem);
-        });
-    }
+        loader.style.display = "block";
+        errorMsg.style.display = "none";
+        currentID = id;
 
-    // Fonction principale de recherche
-    function checkStatus(id = null) {
-        const idToCheck = id || trackingIdInput.value.trim();
-        if (!idToCheck) return;
+        try {
+            const response = await fetch(`${APPS_SCRIPT_URL}?action=getstatus&id=${id}&code=${code}`);
+            const data = await response.json();
 
-        statusMessageDiv.innerHTML = '<div class="status-message sending">⚙️ Recherche en cours...</div>';
-        resultContainer.style.display = 'block';
-        cancelButton.style.display = 'none';
+            loader.style.display = "none";
 
-        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=getstatus&id=${idToCheck}`)
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau ou script non autorisé.');
-            return response.json();
-        })
-        .then(data => {
-            if (data.result === 'error') {
-                statusMessageDiv.innerHTML = `<div class="status-message status-annulee">❌ ${data.message}</div>`;
-                statusInfoDiv.innerHTML = '';
+            if (data.result === 'success') {
+                document.getElementById('searchBox').style.display = "none";
+                document.getElementById('resultArea').style.display = "block";
+                // Affiche la réponse (accepte le HTML provenant du Sheets)
+                document.getElementById('reponseTexte').innerHTML = data.reponse;
             } else {
-                displayStatus(data);
+                errorMsg.innerText = "❌ ID ou Code incorrect. Vérifiez vos e-mails.";
+                errorMsg.style.display = "block";
             }
-        })
-        .catch(error => {
-            console.error('Error fetching status:', error);
-            statusMessageDiv.innerHTML = '<div class="status-message status-annulee">❌ Erreur de connexion au serveur de suivi.</div>';
-            statusInfoDiv.innerHTML = '';
-        });
+        } catch (e) {
+            loader.style.display = "none";
+            errorMsg.innerText = "❌ Erreur technique. Réessayez plus tard.";
+            errorMsg.style.display = "block";
+        }
     }
 
-    // Gestion de la soumission du formulaire de recherche
-    searchForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        checkStatus();
+    // Gestion interactive des étoiles
+    document.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', function() {
+            selectedNote = this.getAttribute('data-value');
+            document.querySelectorAll('.star').forEach(s => {
+                s.classList.remove('active');
+                if(s.getAttribute('data-value') <= selectedNote) s.classList.add('active');
+            });
+        });
     });
 
-    // Fonction d'annulation
-    cancelButton.addEventListener('click', function() {
-        if (!currentTrackingId || !confirm('Êtes-vous sûr(e) de vouloir annuler la demande ' + currentTrackingId + ' ? Cette action est irréversible.')) {
-            return;
+    async function envoyerFeedback() {
+        const msg = document.getElementById('clientMsg').value;
+        if(selectedNote === 0) { 
+            alert("Merci de choisir une note (étoiles) avant d'envoyer."); 
+            return; 
         }
 
-        cancelButton.disabled = true;
-        cancelButton.textContent = 'Annulation...';
+        const btn = document.querySelector('.btn-feedback');
+        btn.disabled = true;
+        btn.innerText = "Envoi en cours...";
 
-        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=cancelrequest&id=${currentTrackingId}`)
-        .then(response => {
-            if (!response.ok) throw new Error('Erreur réseau.');
-            return response.json();
-        })
-        .then(data => {
+        try {
+            await fetch(`${APPS_SCRIPT_URL}?action=feedback&id=${currentID}&note=${selectedNote}&msg=${encodeURIComponent(msg)}`);
+            btn.innerText = "Merci pour votre retour !";
+            btn.style.background = "#28a745";
             
-            // 🛑 GESTION DU STATUT 'EN COURS' (Point 3)
-            if (data.result === 'error_in_progress') {
-                alert("🚨 ATTENTION : Votre demande est EN COURS de traitement et ne peut plus être annulée. Merci de contacter le support si nécessaire.");
-            } else if (data.result === 'success') {
-                alert('✅ Annulation réussie : ' + data.message);
-            } else {
-                alert('❌ Erreur d\'annulation : ' + data.message);
+            // Si la note est excellente, on propose de laisser un avis public
+            if(selectedNote >= 4) {
+                document.getElementById('avisPublicSection').style.display = "block";
             }
-            
-            checkStatus(currentTrackingId); // Recharge le statut pour mettre à jour l'affichage
-        })
-        .catch(error => {
-            console.error('Erreur lors de l\'annulation:', error);
-            alert('❌ Erreur de réseau lors de la tentative d\'annulation.');
-        })
-        .finally(() => {
-            cancelButton.disabled = false;
-            cancelButton.textContent = 'Annuler ma demande';
-        });
-    });
-
-    // Chargement initial (pour afficher la liste des 10 premières demandes)
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch(`${APPS_SCRIPT_URL_SEARCH}?action=gettop10`)
-        .then(response => response.json())
-        .then(data => {
-            displayWaitingList(data.top10Requests);
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement initial de la liste:', error);
-            waitingListUl.innerHTML = '<li>Impossible de charger la liste d\'attente.</li>';
-        });
-    });
+        } catch (e) {
+            alert("Désolé, une erreur est survenue lors de l'envoi.");
+            btn.disabled = false;
+            btn.innerText = "Réessayer";
+        }
+    }
 </script>
 
 </body>
