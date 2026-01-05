@@ -32,10 +32,11 @@
         .checkbox-container label { margin: 0; cursor: pointer; text-transform: none; color: #ddd; }
 
         button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
-        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); }
+        button[type="submit"]:hover { background: #A52A2A; }
 
         #status { margin-top: 25px; }
-        .success-box { background: #0c1a0c; border: 1px solid #28a745; padding: 20px; border-radius: 10px; text-align: center; }
+        .success-box { background: #0c1a0c; border: 2px solid #28a745; padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body>
@@ -70,7 +71,7 @@
             </div>
             <div>
                 <label>Âge</label>
-                <input type="text" name="Age" id="age_client" readonly placeholder="--">
+                <input type="text" name="Age" id="age_client" readonly>
             </div>
         </div>
         
@@ -91,7 +92,7 @@
             </div>
             <div>
                 <label>Âge</label>
-                <input type="text" name="Age_Partenaire" id="age_tierce" readonly placeholder="--">
+                <input type="text" name="Age_Partenaire" id="age_tierce" readonly>
             </div>
         </div>
 
@@ -111,8 +112,8 @@
             </select>
         </div>
 
-        <div class="checkbox-container" onclick="document.getElementById('copie_mail').click()">
-            <input type="checkbox" id="copie_mail" name="copie_mail" onclick="event.stopPropagation()">
+        <div class="checkbox-container" id="div_copie">
+            <input type="checkbox" id="copie_mail" name="copie_mail">
             <label for="copie_mail">Recevoir une copie de la réponse directement par e-mail.</label>
         </div>
 
@@ -124,18 +125,15 @@
 <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
-    // Fonction de calcul d'âge automatique
     function calculerAge(idDate, idAge) {
-        const dateNaissance = document.getElementById(idDate).value;
-        if (!dateNaissance) return;
+        const val = document.getElementById(idDate).value;
+        if (!val) return;
+        const naissance = new Date(val);
         const aujourdhui = new Date();
-        const naissance = new Date(dateNaissance);
         let age = aujourdhui.getFullYear() - naissance.getFullYear();
         const m = aujourdhui.getMonth() - naissance.getMonth();
-        if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) {
-            age--;
-        }
-        document.getElementById(idAge).value = age + " ans";
+        if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) age--;
+        document.getElementById(idAge).value = age; // On envoie juste le chiffre
     }
 
     const form = document.getElementById('questionForm');
@@ -145,26 +143,46 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         submitBtn.disabled = true;
-        submitBtn.innerText = "Envoi...";
+        submitBtn.innerText = "Envoi en cours...";
         
-        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+        const formData = new FormData(form);
+
+        fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData })
         .then(res => res.json())
         .then(data => {
+            console.log("Réponse reçue :", data);
             if (data.result === 'success') {
+                form.style.display = "none"; // Cache le formulaire pour montrer le succès
                 statusDiv.innerHTML = `
                     <div class="success-box">
-                        <h3 style="color:#28a745;">✨ Demande transmise !</h3>
-                        <p>ID : <b>${data.id}</b> | Code : <b>${data.code}</b></p>
+                        <h2 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h2>
+                        <p>Notez bien vos codes d'accès (reçus aussi par mail) :</p>
+                        <div style="background:#000; padding:15px; border-radius:10px; margin:20px 0; border:1px dashed #444;">
+                            <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
+                            <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>
+                        </div>
+                        <p><a href="Suivi.html" style="color:#aaa;">Accéder à la page de suivi</a></p>
                     </div>`;
-                form.reset();
-                document.getElementById('age_client').value = "";
-                document.getElementById('age_tierce').value = "";
+            } else {
+                alert("Erreur du serveur : " + data.message);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Réessayer";
             }
         })
         .catch(err => {
-            statusDiv.innerHTML = "Erreur. Réessayez.";
+            console.error("Erreur Fetch :", err);
+            alert("Erreur de connexion au script.");
             submitBtn.disabled = false;
+            submitBtn.innerText = "Réessayer";
         });
+    });
+
+    // Permet de cliquer sur le texte de la checkbox
+    document.getElementById('div_copie').addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+            const cb = document.getElementById('copie_mail');
+            cb.checked = !cb.checked;
+        }
     });
 </script>
 </body>
