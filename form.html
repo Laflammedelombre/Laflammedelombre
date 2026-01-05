@@ -24,10 +24,9 @@
         .flex-row div:last-child { flex: 1; }
 
         label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
-        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; } /* 16px pour mobile */
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; }
         input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
 
-        /* Style pour les textes descriptifs sous le menu */
         .info-box { 
           font-size: 0.85em; 
           padding: 12px; 
@@ -130,10 +129,10 @@
             </select>
             
             <div id="descMail" class="info-box">
-              Vous allez recevoir un code secret et un ID, mais ils ne seront pas nécessairement utiles puisque la réponse sera envoyée directement par email.
+              Vous allez recevoir un e-mail de confirmation indiquant que votre demande est bien enregistrée. Votre tirage vous sera ensuite envoyé directement par e-mail dès qu'il sera traité.
             </div>
             <div id="descSite" class="info-box">
-              Vous allez recevoir par email un ID et un code secret nécessaires pour consulter la réponse sur le site. Vérifiez bien vos spams.
+              Vous allez recevoir par e-mail vos codes d'accès (ID et Code secret). Ils vous seront nécessaires pour consulter votre réponse sur l'espace de suivi du site dès que le tirage sera prêt.
             </div>
         </div>
 
@@ -195,7 +194,7 @@
                 statusDiv.innerHTML = `
                     <div class="success-box">
                         <h2 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h2>
-                        <p>Vos codes ont été envoyés par email.</p>
+                        <p>Un e-mail de confirmation vient de vous être envoyé.</p>
                         <div style="background:#000; padding:15px; border-radius:10px; margin:20px 0; border:1px dashed #444;">
                             <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
                             <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>
