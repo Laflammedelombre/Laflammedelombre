@@ -6,65 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Flamme de l'Ombre - Posez votre question</title>
     <style>
-        body { background-color: black; color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        header { padding: 30px; }
-        h1 { font-size: 2.5em; margin: 0; color: #fff; }
-        p.subtitle { font-size: 1.2em; color: #888; margin-top: 5px; }
+        :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; }
         
-        nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; }
-        nav ul li { margin: 10px 15px; }
-        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav ul li a:hover { color: white; text-decoration: underline; }
-
-        .container { max-width: 700px; margin: 20px auto; padding: 0 20px; }
+        header { padding: 40px 20px; }
+        h1 { font-size: 2.8em; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
         
-        .info-box {
-            background: #111;
-            border: 1px solid #333;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 12px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .info-box i { color: #8B0000; font-size: 1.5em; }
-        .info-box p { margin: 0; font-size: 0.9em; color: #bbb; line-height: 1.5; }
+        /* Navigation */
+        nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.3s; padding: 5px 10px; }
+        nav ul li a:hover { color: white; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .active-link { color: white !important; border-bottom: 2px solid var(--primary-color); }
 
-        form { background: #111; padding: 30px; border-radius: 15px; text-align: left; border: 1px solid #222; }
-        h2 { margin-top: 0; font-size: 1.5em; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
+        
+        .info-box { background: var(--card-bg); border: 1px solid #333; padding: 25px; margin-bottom: 35px; border-radius: 15px; text-align: left; display: flex; align-items: flex-start; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .info-box i { color: var(--primary-color); font-size: 1.8em; margin-top: 5px; }
+        .info-box p { margin: 0; font-size: 0.95em; color: #ccc; }
 
-        label { display: block; margin-top: 20px; font-weight: bold; color: #ccc; font-size: 0.9em; }
-        .facultatif { font-weight: normal; color: #666; font-size: 0.8em; margin-left: 5px; }
+        /* Formulaire */
+        form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+        h2 { margin-top: 0; font-size: 1.8em; color: #fff; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
 
-        input, textarea, select { 
-            width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; 
-            border: 1px solid #333; background: #222; color: #fff; 
-            box-sizing: border-box; font-size: 1em; 
-        }
-        input:focus, textarea:focus { border-color: #8B0000; outline: none; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: #eee; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
+        .optional { font-weight: normal; color: #666; font-size: 0.85em; text-transform: none; }
 
-        button[type="submit"] { 
-            margin-top: 30px; padding: 15px; border: none; border-radius: 8px; 
-            background: #8B0000; color: white; cursor: pointer; width: 100%; 
-            font-weight: bold; font-size: 1.1em; transition: transform 0.2s, background 0.3s; 
-        }
-        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); }
-        button[type="submit"]:disabled { background: #444; cursor: not-allowed; }
+        input, textarea, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 1em; transition: border-color 0.3s; }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary-color); outline: none; background: #222; }
 
-        .status-message { margin-top: 20px; padding: 20px; border-radius: 10px; line-height: 1.6; }
-        .success-box { background: #0c1a0c; border: 1px solid #28a745; color: #fff; }
-        .error-box { background: #1a0c0c; border: 1px solid #a72828; color: #fff; }
+        /* Checkbox moderne */
+        .checkbox-container { background: rgba(139, 0, 0, 0.05); padding: 20px; border-radius: 12px; border: 1px dashed #444; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: background 0.3s; margin-top: 30px; }
+        .checkbox-container:hover { background: rgba(139, 0, 0, 0.1); border-color: var(--primary-color); }
+        .checkbox-container input { width: 22px; height: 22px; cursor: pointer; margin: 0; }
+        .checkbox-container label { margin: 0; cursor: pointer; text-transform: none; letter-spacing: 0; color: #ddd; font-weight: 500; font-size: 1em; }
 
-        .footer-note { margin-top: 40px; color: #555; font-size: 0.8em; padding-bottom: 50px; }
+        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4); }
+        button[type="submit"]:disabled { background: #444; transform: none; cursor: not-allowed; }
+
+        /* Status messages */
+        #status { margin-top: 25px; }
+        .status-card { padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s ease-out; }
+        .success-card { background: #0c1a0c; border: 1px solid #28a745; color: #fff; }
+        .error-card { background: #1a0c0c; border: 1px solid #dc3545; color: #fff; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        footer { margin: 60px 0; color: #555; font-size: 0.85em; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>La Flamme de l'Ombre</h1>
-    <p class="subtitle">Tirages & Interprétations</p>
     <nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
@@ -72,61 +67,80 @@
             <li><a href="contact.html">Contact</a></li>
             <li><a href="avis.html">Avis</a></li>
             <li><a href="carte.html">Carte du jour</a></li>
-            <li><a href="Suivi.html" style="color: #8B0000;">Suivi</a></li>
+            <li><a href="Suivi.html">Suivi</a></li>
         </ul>
     </nav>
 </header>
 
 <div class="container">
     <div class="info-box">
-        <i class="fas fa-envelope-open-text"></i>
+        <i class="fas fa-lock"></i>
         <p>
-            <strong>E-mail :</strong> Utilisé uniquement pour l'envoi de votre <b>ID</b> et <b>Code Secret</b>. 
-            Zéro publicité, confidentialité totale.
+            <strong>Confidentialité garantie :</strong> Votre email est utilisé uniquement pour vous transmettre vos accès personnels (ID et Code Secret) indispensables pour consulter votre réponse en toute discrétion.
         </p>
     </div>
 
     <form id="questionForm">
         <h2>Posez votre question</h2>
         
-        <label for="prenom">Votre Prénom (ou Pseudo)</label>
-        <input type="text" id="prenom" name="Prénom" required placeholder="Ex: Julie">
+        <div class="form-group">
+            <label>Votre Prénom (ou Pseudo)</label>
+            <input type="text" name="Prénom" required placeholder="Ex: Elara">
+        </div>
 
-        <label for="date_naissance">Votre Date de naissance</label>
-        <input type="date" id="date_naissance" name="Date_Naissance" required>
+        <div class="form-group">
+            <label>Votre Date de naissance</label>
+            <input type="date" name="Date_Naissance" required>
+        </div>
         
-        <label for="email">Votre Email (pour recevoir vos accès)</label>
-        <input type="email" id="email" name="Email" placeholder="Indispensable pour la réponse" required>
+        <div class="form-group">
+            <label>Votre Email de contact</label>
+            <input type="email" name="Email" required placeholder="votre@email.com">
+        </div>
 
-        <label for="prenom_tiers">Prénom d'une personne tierce <span class="facultatif">(facultatif)</span></label>
-        <input type="text" id="prenom_tiers" name="Prénom_Partenaire" placeholder="Si concerné">
+        <div class="form-group">
+            <label>Prénom personne tierce <span class="optional">(Si concernée par la question)</span></label>
+            <input type="text" name="Prénom_Partenaire" placeholder="Ex: Marc">
+        </div>
 
-        <label for="date_naissance_tiers">Date de naissance tierce <span class="facultatif">(facultatif)</span></label>
-        <input type="date" id="date_naissance_tiers" name="Date_Naissance_Partenaire">
+        <div class="form-group">
+            <label>Date de naissance tierce <span class="optional">(Facultatif)</span></label>
+            <input type="date" name="Date_Naissance_Partenaire">
+        </div>
 
-        <label for="question">Votre Question</label>
-        <textarea id="question" name="Question" required placeholder="Soyez le plus précis possible..." style="height: 120px;"></textarea>
+        <div class="form-group">
+            <label>Votre Question précise</label>
+            <textarea name="Question" required placeholder="Plus vous êtes précis, plus le tirage sera éclairant..." style="height: 150px;"></textarea>
+        </div>
 
-        <label for="temporalite">Temporalité souhaitée</label>
-        <select id="temporalite" name="Temporalité" required>
-            <option value="">-- Sélectionner --</option>
-            <option value="3 mois">Dans les 3 mois</option>
-            <option value="1 an">Dans l'année</option>
-            <option value="2 ans">Dans les 2 ans</option>
-            <option value="non concerné">Non concerné</option>
-        </select>
+        <div class="form-group">
+            <label>Temporalité souhaitée</label>
+            <select name="Temporalité" required>
+                <option value="" disabled selected>-- Choisissez une période --</option>
+                <option value="3 mois">Court terme (3 mois)</option>
+                <option value="1 an">Moyen terme (1 an)</option>
+                <option value="2 ans">Long terme (2 ans)</option>
+                <option value="non concerné">Pas de temporalité spécifique</option>
+            </select>
+        </div>
 
-        <button type="submit" id="submitBtn">Envoyer ma demande</button>
+        <div class="checkbox-container" onclick="event.stopPropagation();">
+            <input type="checkbox" id="copie_mail" name="copie_mail">
+            <label for="copie_mail">Je souhaite recevoir une copie de l'interprétation par e-mail une fois traitée.</label>
+        </div>
+
+        <button type="submit" id="submitBtn">Transmettre ma demande</button>
     </form>
 
     <div id="status"></div>
 
-    <div class="footer-note">
-        <p>Service gratuit. Vos données sont supprimées après traitement.</p>
-    </div>
+    <footer>
+        <p>© 2026 La Flamme de l'Ombre - Service d'interprétation ésotérique</p>
+    </footer>
 </div>
 
 <script>
+    // Remplacer par ton URL d'exécution Google Apps Script
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
     const form = document.getElementById('questionForm');
@@ -135,33 +149,49 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Traitement...";
         
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Transmission à l'univers...";
+        statusDiv.innerHTML = "";
+
         const formData = new FormData(form);
 
-        fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData })
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        })
         .then(res => res.json())
         .then(data => {
             if (data.result === 'success') {
                 statusDiv.innerHTML = `
-                    <div class="status-message success-box">
-                        <h3 style="color:#28a745; margin-top:0;">✨ Envoyé !</h3>
-                        <p>Vérifiez vos mails pour votre ID et Code Secret.</p>
-                        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; margin-top:10px; border: 1px dashed #444;">
-                            <p style="margin:5px 0;">ID : <b>${data.id}</b> | CODE : <b style="color:#ffcc00;">${data.code}</b></p>
+                    <div class="status-card success-box">
+                        <i class="fas fa-check-circle" style="font-size: 2em; color: #28a745; margin-bottom: 15px;"></i>
+                        <h3 style="margin: 0 0 10px 0;">Demande transmise avec succès !</h3>
+                        <p>Vérifiez immédiatement votre boîte mail.</p>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #555;">
+                            <p style="margin: 5px 0;">ID de suivi : <strong>${data.id}</strong></p>
+                            <p style="margin: 5px 0;">Code Secret : <strong style="color: #ffcc00;">${data.code}</strong></p>
                         </div>
+                        <p style="font-size: 0.85em; margin-top: 15px; color: #bbb;">Utilisez ces codes sur la page <a href="Suivi.html" style="color: white;">Suivi</a> pour consulter votre réponse.</p>
                     </div>`;
                 form.reset();
                 submitBtn.innerText = "Demande envoyée";
-            } else { throw new Error(data.message); }
+            } else {
+                throw new Error(data.message);
+            }
         })
         .catch(error => {
-            statusDiv.innerHTML = `<div class="status-message error-box">❌ Erreur : ${error.message}</div>`;
+            statusDiv.innerHTML = `
+                <div class="status-card error-box">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 2em; color: #dc3545; margin-bottom: 15px;"></i>
+                    <p>Une erreur est survenue : ${error.message}</p>
+                    <p>Veuillez réessayer ou me contacter directement.</p>
+                </div>`;
             submitBtn.disabled = false;
-            submitBtn.innerText = "Réessayer";
+            submitBtn.innerText = "Réessayer l'envoi";
         });
     });
 </script>
+
 </body>
 </html>
