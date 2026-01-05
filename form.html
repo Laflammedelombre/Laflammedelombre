@@ -7,53 +7,35 @@
     <title>La Flamme de l'Ombre - Posez votre question</title>
     <style>
         :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; }
-        
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
         header { padding: 40px 20px; }
-        h1 { font-size: 2.8em; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
-        
-        /* Navigation */
+        h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
         nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        nav ul li a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95em; transition: all 0.3s; padding: 5px 10px; }
-        nav ul li a:hover { color: white; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
-        .active-link { color: white !important; border-bottom: 2px solid var(--primary-color); }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav ul li a:hover { color: white; text-decoration: underline; }
 
         .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
-        
-        .info-box { background: var(--card-bg); border: 1px solid #333; padding: 25px; margin-bottom: 35px; border-radius: 15px; text-align: left; display: flex; align-items: flex-start; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .info-box i { color: var(--primary-color); font-size: 1.8em; margin-top: 5px; }
-        .info-box p { margin: 0; font-size: 0.95em; color: #ccc; }
-
-        /* Formulaire */
         form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
-        h2 { margin-top: 0; font-size: 1.8em; color: #fff; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
+        h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
 
-        .form-group { margin-bottom: 25px; }
-        label { display: block; margin-bottom: 10px; font-weight: 600; color: #eee; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
-        .optional { font-weight: normal; color: #666; font-size: 0.85em; text-transform: none; }
+        .form-group { margin-bottom: 20px; }
+        .flex-row { display: flex; gap: 15px; align-items: flex-end; }
+        .flex-row div:first-child { flex: 3; }
+        .flex-row div:last-child { flex: 1; }
 
-        input, textarea, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 1em; transition: border-color 0.3s; }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary-color); outline: none; background: #222; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 1em; }
+        input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
 
-        /* Checkbox moderne */
-        .checkbox-container { background: rgba(139, 0, 0, 0.05); padding: 20px; border-radius: 12px; border: 1px dashed #444; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: background 0.3s; margin-top: 30px; }
-        .checkbox-container:hover { background: rgba(139, 0, 0, 0.1); border-color: var(--primary-color); }
-        .checkbox-container input { width: 22px; height: 22px; cursor: pointer; margin: 0; }
-        .checkbox-container label { margin: 0; cursor: pointer; text-transform: none; letter-spacing: 0; color: #ddd; font-weight: 500; font-size: 1em; }
+        .checkbox-container { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; display: flex; align-items: center; gap: 15px; cursor: pointer; margin-top: 30px; }
+        .checkbox-container input { width: 20px; height: 20px; cursor: pointer; margin: 0; }
+        .checkbox-container label { margin: 0; cursor: pointer; text-transform: none; color: #ddd; }
 
-        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
-        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4); }
-        button[type="submit"]:disabled { background: #444; transform: none; cursor: not-allowed; }
+        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
+        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); }
 
-        /* Status messages */
         #status { margin-top: 25px; }
-        .status-card { padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s ease-out; }
-        .success-card { background: #0c1a0c; border: 1px solid #28a745; color: #fff; }
-        .error-card { background: #1a0c0c; border: 1px solid #dc3545; color: #fff; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        footer { margin: 60px 0; color: #555; font-size: 0.85em; }
+        .success-box { background: #0c1a0c; border: 1px solid #28a745; padding: 20px; border-radius: 10px; text-align: center; }
     </style>
 </head>
 <body>
@@ -73,75 +55,88 @@
 </header>
 
 <div class="container">
-    <div class="info-box">
-        <i class="fas fa-lock"></i>
-        <p>
-            <strong>Confidentialité garantie :</strong> Votre email est utilisé uniquement pour vous transmettre vos accès personnels (ID et Code Secret) indispensables pour consulter votre réponse en toute discrétion.
-        </p>
-    </div>
-
     <form id="questionForm">
         <h2>Posez votre question</h2>
         
         <div class="form-group">
-            <label>Votre Prénom (ou Pseudo)</label>
-            <input type="text" name="Prénom" required placeholder="Ex: Elara">
+            <label>Votre Prénom</label>
+            <input type="text" name="Prénom" required>
         </div>
 
-        <div class="form-group">
-            <label>Votre Date de naissance</label>
-            <input type="date" name="Date_Naissance" required>
+        <div class="flex-row form-group">
+            <div>
+                <label>Votre Date de naissance</label>
+                <input type="date" name="Date_Naissance" id="date_client" required onchange="calculerAge('date_client', 'age_client')">
+            </div>
+            <div>
+                <label>Âge</label>
+                <input type="text" name="Age" id="age_client" readonly placeholder="--">
+            </div>
         </div>
         
         <div class="form-group">
-            <label>Votre Email de contact</label>
-            <input type="email" name="Email" required placeholder="votre@email.com">
+            <label>Votre Email</label>
+            <input type="email" name="Email" required>
         </div>
 
         <div class="form-group">
-            <label>Prénom personne tierce <span class="optional">(Si concernée par la question)</span></label>
-            <input type="text" name="Prénom_Partenaire" placeholder="Ex: Marc">
+            <label>Prénom personne tierce (facultatif)</label>
+            <input type="text" name="Prénom_Partenaire">
+        </div>
+
+        <div class="flex-row form-group">
+            <div>
+                <label>Date de naissance tierce (facultatif)</label>
+                <input type="date" name="Date_Naissance_Partenaire" id="date_tierce" onchange="calculerAge('date_tierce', 'age_tierce')">
+            </div>
+            <div>
+                <label>Âge</label>
+                <input type="text" name="Age_Partenaire" id="age_tierce" readonly placeholder="--">
+            </div>
         </div>
 
         <div class="form-group">
-            <label>Date de naissance tierce <span class="optional">(Facultatif)</span></label>
-            <input type="date" name="Date_Naissance_Partenaire">
-        </div>
-
-        <div class="form-group">
-            <label>Votre Question précise</label>
-            <textarea name="Question" required placeholder="Plus vous êtes précis, plus le tirage sera éclairant..." style="height: 150px;"></textarea>
+            <label>Votre Question</label>
+            <textarea name="Question" required style="height: 120px;"></textarea>
         </div>
 
         <div class="form-group">
             <label>Temporalité souhaitée</label>
             <select name="Temporalité" required>
-                <option value="" disabled selected>-- Choisissez une période --</option>
-                <option value="3 mois">Court terme (3 mois)</option>
-                <option value="1 an">Moyen terme (1 an)</option>
-                <option value="2 ans">Long terme (2 ans)</option>
-                <option value="non concerné">Pas de temporalité spécifique</option>
+                <option value="" disabled selected>-- Choisissez --</option>
+                <option value="3 mois">3 mois</option>
+                <option value="1 an">1 an</option>
+                <option value="2 ans">2 ans</option>
+                <option value="non concerné">Non concerné</option>
             </select>
         </div>
 
-        <div class="checkbox-container" onclick="event.stopPropagation();">
-            <input type="checkbox" id="copie_mail" name="copie_mail">
-            <label for="copie_mail">Je souhaite recevoir une copie de l'interprétation par e-mail une fois traitée.</label>
+        <div class="checkbox-container" onclick="document.getElementById('copie_mail').click()">
+            <input type="checkbox" id="copie_mail" name="copie_mail" onclick="event.stopPropagation()">
+            <label for="copie_mail">Recevoir une copie de la réponse directement par e-mail.</label>
         </div>
 
         <button type="submit" id="submitBtn">Transmettre ma demande</button>
     </form>
-
     <div id="status"></div>
-
-    <footer>
-        <p>© 2026 La Flamme de l'Ombre - Service d'interprétation ésotérique</p>
-    </footer>
 </div>
 
 <script>
-    // Remplacer par ton URL d'exécution Google Apps Script
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
+
+    // Fonction de calcul d'âge automatique
+    function calculerAge(idDate, idAge) {
+        const dateNaissance = document.getElementById(idDate).value;
+        if (!dateNaissance) return;
+        const aujourdhui = new Date();
+        const naissance = new Date(dateNaissance);
+        let age = aujourdhui.getFullYear() - naissance.getFullYear();
+        const m = aujourdhui.getMonth() - naissance.getMonth();
+        if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) {
+            age--;
+        }
+        document.getElementById(idAge).value = age + " ans";
+    }
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
@@ -149,49 +144,28 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
         submitBtn.disabled = true;
-        submitBtn.innerText = "Transmission à l'univers...";
-        statusDiv.innerHTML = "";
-
-        const formData = new FormData(form);
-
-        fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            body: formData
-        })
+        submitBtn.innerText = "Envoi...";
+        
+        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
         .then(res => res.json())
         .then(data => {
             if (data.result === 'success') {
                 statusDiv.innerHTML = `
-                    <div class="status-card success-box">
-                        <i class="fas fa-check-circle" style="font-size: 2em; color: #28a745; margin-bottom: 15px;"></i>
-                        <h3 style="margin: 0 0 10px 0;">Demande transmise avec succès !</h3>
-                        <p>Vérifiez immédiatement votre boîte mail.</p>
-                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed #555;">
-                            <p style="margin: 5px 0;">ID de suivi : <strong>${data.id}</strong></p>
-                            <p style="margin: 5px 0;">Code Secret : <strong style="color: #ffcc00;">${data.code}</strong></p>
-                        </div>
-                        <p style="font-size: 0.85em; margin-top: 15px; color: #bbb;">Utilisez ces codes sur la page <a href="Suivi.html" style="color: white;">Suivi</a> pour consulter votre réponse.</p>
+                    <div class="success-box">
+                        <h3 style="color:#28a745;">✨ Demande transmise !</h3>
+                        <p>ID : <b>${data.id}</b> | Code : <b>${data.code}</b></p>
                     </div>`;
                 form.reset();
-                submitBtn.innerText = "Demande envoyée";
-            } else {
-                throw new Error(data.message);
+                document.getElementById('age_client').value = "";
+                document.getElementById('age_tierce').value = "";
             }
         })
-        .catch(error => {
-            statusDiv.innerHTML = `
-                <div class="status-card error-box">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 2em; color: #dc3545; margin-bottom: 15px;"></i>
-                    <p>Une erreur est survenue : ${error.message}</p>
-                    <p>Veuillez réessayer ou me contacter directement.</p>
-                </div>`;
+        .catch(err => {
+            statusDiv.innerHTML = "Erreur. Réessayez.";
             submitBtn.disabled = false;
-            submitBtn.innerText = "Réessayer l'envoi";
         });
     });
 </script>
-
 </body>
 </html>
