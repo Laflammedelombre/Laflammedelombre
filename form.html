@@ -132,7 +132,7 @@
               Vous allez recevoir un e-mail de confirmation indiquant que votre demande est bien enregistrée. Votre tirage vous sera ensuite envoyé directement par e-mail dès qu'il sera traité.
             </div>
             <div id="descSite" class="info-box">
-              Vous allez recevoir par e-mail vos codes d'accès (ID et Code secret). Ils vous seront nécessaires pour consulter votre réponse sur l'espace de suivi du site dès que le tirage sera prêt.
+              Vous allez recevoir par e-mail vos codes d'accès (ID et Code secret). Un second e-mail vous sera envoyé automatiquement dès que votre tirage sera disponible pour consultation sur notre espace de suivi.
             </div>
         </div>
 
@@ -158,7 +158,7 @@
         if (choix === 'email') {
             descMail.style.display = 'block';
             hiddenInput.value = 'on';
-        } else {
+        } else if (choix === 'site') {
             descSite.style.display = 'block';
             hiddenInput.value = 'off';
         }
