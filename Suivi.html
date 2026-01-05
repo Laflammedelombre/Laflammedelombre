@@ -4,9 +4,9 @@
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 15px; background-color: #f4f4f4; }
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
     .container { 
-      max-width: 500px; 
+      max-width: 400px; 
       margin: auto; 
       background: white; 
       padding: 20px; 
@@ -14,19 +14,21 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1); 
       box-sizing: border-box;
     }
-    h2 { text-align: center; color: #333; margin-top: 0; }
+    h2 { text-align: center; color: #333; }
     
     .login-box { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    
     input { 
-      padding: 12px; 
+      padding: 10px; 
       border: 1px solid #ccc; 
       border-radius: 4px; 
-      font-size: 16px; 
+      font-size: 16px; /* Taille pour éviter le zoom forcé sur mobile */
       box-sizing: border-box;
+      width: 100%;
     }
     
     button { 
-      padding: 15px; 
+      padding: 10px; 
       background-color: #007bff; 
       color: white; 
       border: none; 
@@ -43,14 +45,16 @@
       display: none; 
       line-height: 1.6;
     }
+    
     .status-badge { 
       display: inline-block; 
-      padding: 5px 12px; 
+      padding: 5px 10px; 
       border-radius: 20px; 
-      font-size: 0.85em; 
+      font-size: 0.8em; 
       font-weight: bold; 
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
+    
     .reponse-box { 
       background: #f9f9f9; 
       padding: 15px; 
@@ -58,6 +62,8 @@
       white-space: pre-wrap;
       font-size: 0.95em;
     }
+    
+    #loader { text-align: center; margin-bottom: 10px; font-weight: bold; color: #555; }
   </style>
 </head>
 <body>
@@ -71,11 +77,11 @@
     <button onclick="chercherTirage()">Consulter mon tirage</button>
   </div>
 
-  <div id="loader" style="display:none; text-align:center; font-weight:bold;">Recherche en cours...</div>
+  <div id="loader" style="display:none;">Recherche en cours...</div>
   
   <div id="resultat">
     <div id="badge" class="status-badge"></div>
-    <div id="infoClient" style="margin-bottom:15px; font-weight:bold; color: #333;"></div>
+    <div id="infoClient" style="margin-bottom:15px; font-weight:bold;"></div>
     <div id="reponseContent" class="reponse-box"></div>
   </div>
 </div>
@@ -92,6 +98,7 @@
     loader.style.display = 'block';
     resDiv.style.display = 'none';
 
+    // Appel à ta fonction dans le Code.gs
     google.script.run.withSuccessHandler(function(data) {
       loader.style.display = 'none';
       if(data) {
@@ -104,11 +111,11 @@
         if(data.statut === "TRAITÉE") {
           badge.style.backgroundColor = "#d4edda";
           badge.style.color = "#155724";
-          document.getElementById('reponseContent').innerText = data.reponse || "L'interprétation sera bientôt disponible ici.";
+          document.getElementById('reponseContent').innerText = data.reponse || "L'interprétation sera disponible ici sous peu.";
         } else {
           badge.style.backgroundColor = "#fff3cd";
           badge.style.color = "#856404";
-          document.getElementById('reponseContent').innerText = "Votre demande a bien été reçue. Je prépare votre tirage avec soin.";
+          document.getElementById('reponseContent').innerText = "Votre tirage est en cours de préparation. Je reviens vers vous rapidement !";
         }
       } else {
         alert("Identifiants incorrects ou tirage introuvable.");
