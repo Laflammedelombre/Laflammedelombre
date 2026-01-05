@@ -1,230 +1,120 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre - Consulter mon Tirage</title>
-    <style>
-        :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        
-        header { padding: 40px 20px; }
-        h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
-        
-        nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav ul li a:hover { color: white; text-decoration: underline; }
-
-        .container { max-width: 800px; margin: 20px auto 60px; padding: 0 20px; }
-        
-        /* Zone de Recherche */
-        .search-box { background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .input-group { margin-bottom: 25px; text-align: left; }
-        label { display: block; margin-bottom: 10px; color: #888; font-size: 0.9em; text-transform: uppercase; }
-        input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #444; background: #222; color: #fff; box-sizing: border-box; font-size: 1.1em; }
-        input:focus { border-color: var(--primary-color); outline: none; }
-        
-        .btn-search { width: 100%; padding: 18px; border: none; border-radius: 10px; background: var(--primary-color); color: white; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.3s; text-transform: uppercase; }
-        .btn-search:hover { background: #A52A2A; }
-
-        /* Zone de Résultat */
-        #resultArea { display: none; margin-top: 30px; text-align: left; animation: fadeIn 0.5s ease-out; }
-        .response-card { background: #1a1a1a; padding: 40px; border-radius: 20px; border-left: 5px solid var(--primary-color); line-height: 1.8; font-size: 1.1em; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .response-content { color: #ddd; white-space: pre-wrap; }
-        
-        /* Feedback */
-        .feedback-section { margin-top: 40px; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #333; text-align: center; }
-        .stars { font-size: 2.2em; margin: 20px 0; color: #333; }
-        .star { cursor: pointer; transition: color 0.2s; padding: 0 5px; }
-        .star.active { color: #ffcc00; }
-        textarea { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 15px; border-radius: 10px; margin-top: 20px; box-sizing: border-box; font-size: 1em; }
-        .btn-feedback { margin-top: 20px; padding: 12px 30px; border: none; border-radius: 25px; background: #007bff; color: white; cursor: pointer; font-weight: bold; }
-
-        /* Annulation */
-        .cancel-box { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; text-align: center; }
-        .btn-cancel { background: none; border: 1px solid #444; color: #666; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; }
-        .btn-cancel:hover { border-color: var(--primary-color); color: var(--primary-color); }
-
-        #avisPublicSection { display: none; margin-top: 25px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 10px; border: 1px solid #28a745; }
-        .btn-avis { display: inline-block; margin-top: 10px; color: #28a745; text-decoration: none; font-weight: bold; border: 1px solid #28a745; padding: 8px 20px; border-radius: 8px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .loader { border: 4px solid #333; border-top: 4px solid var(--primary-color); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 25px auto; display: none; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 15px; background-color: #f4f4f4; }
+    .container { 
+      max-width: 500px; 
+      margin: auto; 
+      background: white; 
+      padding: 20px; 
+      border-radius: 8px; 
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+      box-sizing: border-box;
+    }
+    h2 { text-align: center; color: #333; margin-top: 0; }
+    
+    .login-box { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    input { 
+      padding: 12px; 
+      border: 1px solid #ccc; 
+      border-radius: 4px; 
+      font-size: 16px; 
+      box-sizing: border-box;
+    }
+    
+    button { 
+      padding: 15px; 
+      background-color: #007bff; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    #resultat { 
+      margin-top: 20px; 
+      padding: 15px; 
+      border-top: 2px solid #eee; 
+      display: none; 
+      line-height: 1.6;
+    }
+    .status-badge { 
+      display: inline-block; 
+      padding: 5px 12px; 
+      border-radius: 20px; 
+      font-size: 0.85em; 
+      font-weight: bold; 
+      margin-bottom: 12px;
+    }
+    .reponse-box { 
+      background: #f9f9f9; 
+      padding: 15px; 
+      border-left: 4px solid #007bff; 
+      white-space: pre-wrap;
+      font-size: 0.95em;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>La Flamme de l'Ombre</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="avis.html">Avis</a></li>
-            <li><a href="carte.html">Carte du jour</a></li>
-            <li><a href="form.html">Formulaire de Question(Gratuit)</a></li>
-        </ul>
-    </nav>
-</header>
-
 <div class="container">
-    <div class="search-box" id="searchBox">
-        <h2>Consulter mon interprétation</h2>
-        <p style="color: #666; margin-bottom: 30px;">Saisissez vos codes reçus par e-mail pour accéder à votre tirage.</p>
-        
-        <div class="input-group">
-            <label>Votre ID de suivi</label>
-            <input type="text" id="searchID" placeholder="Ex: LFO-123456">
-        </div>
-        
-        <div class="input-group">
-            <label>Votre Code Secret</label>
-            <input type="text" id="searchCode" placeholder="Ex: EL1990XX!">
-        </div>
-        
-        <button class="btn-search" onclick="consulterTirage()">Découvrir mon tirage</button>
-        <div class="loader" id="loader"></div>
-        <p id="errorMsg" style="color: #ff6666; margin-top: 20px; display: none;"></p>
-    </div>
+  <h2>Suivi de mon Tirage</h2>
+  
+  <div class="login-box">
+    <input type="text" id="idInput" placeholder="Votre ID (ex: LFO-123456)">
+    <input type="text" id="codeInput" placeholder="Votre Code Secret">
+    <button onclick="chercherTirage()">Consulter mon tirage</button>
+  </div>
 
-    <div id="resultArea">
-        <div class="response-card">
-            <h3 style="margin-top: 0; color: var(--primary-color);"><i class="fas fa-moon"></i> Votre Interprétation</h3>
-            <div id="reponseTexte" class="response-content"></div>
-            
-            <div id="cancelArea" class="cancel-box" style="display:none;">
-                <p style="color:#555; font-size:0.85em;">Vous souhaitez finalement retirer votre question ?</p>
-                <button class="btn-cancel" onclick="annulerDemande()" id="btnCancel">Annuler la demande</button>
-            </div>
-        </div>
-
-        <div class="feedback-section" id="feedbackSection">
-            <h3>Que pensez-vous de ce tirage ?</h3>
-            <div class="stars" id="starRating">
-                <span class="star" data-value="1"><i class="fas fa-star"></i></span>
-                <span class="star" data-value="2"><i class="fas fa-star"></i></span>
-                <span class="star" data-value="3"><i class="fas fa-star"></i></span>
-                <span class="star" data-value="4"><i class="fas fa-star"></i></span>
-                <span class="star" data-value="5"><i class="fas fa-star"></i></span>
-            </div>
-            <textarea id="clientMsg" placeholder="Laissez un message à Jimmy..." rows="3"></textarea>
-            <button class="btn-feedback" onclick="envoyerFeedback()">Envoyer mon retour</button>
-            
-            <div id="avisPublicSection">
-                <p>✨ Merci pour votre confiance ! Pourriez-vous partager votre expérience sur notre page publique ?</p>
-                <a href="avis.html" class="btn-avis">Laisser un avis public</a>
-            </div>
-        </div>
-    </div>
+  <div id="loader" style="display:none; text-align:center; font-weight:bold;">Recherche en cours...</div>
+  
+  <div id="resultat">
+    <div id="badge" class="status-badge"></div>
+    <div id="infoClient" style="margin-bottom:15px; font-weight:bold; color: #333;"></div>
+    <div id="reponseContent" class="reponse-box"></div>
+  </div>
 </div>
 
 <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
+  function chercherTirage() {
+    const id = document.getElementById('idInput').value.trim();
+    const code = document.getElementById('codeInput').value.trim();
+    const resDiv = document.getElementById('resultat');
+    const loader = document.getElementById('loader');
 
-    let currentID = "";
-    let currentCode = "";
-    let selectedNote = 0;
+    if(!id || !code) { alert("Veuillez remplir les deux champs."); return; }
 
-    async function consulterTirage() {
-        const id = document.getElementById('searchID').value.trim();
-        const code = document.getElementById('searchCode').value.trim();
-        const loader = document.getElementById('loader');
-        const errorMsg = document.getElementById('errorMsg');
-        const reponseDiv = document.getElementById('reponseTexte');
-        const cancelArea = document.getElementById('cancelArea');
+    loader.style.display = 'block';
+    resDiv.style.display = 'none';
 
-        if(!id || !code) return alert("Veuillez remplir les deux champs.");
-
-        loader.style.display = "block";
-        errorMsg.style.display = "none";
-        currentID = id;
-        currentCode = code;
-
-        try {
-            const response = await fetch(`${APPS_SCRIPT_URL}?action=getstatus&id=${id}&code=${code}`);
-            const data = await response.json();
-            loader.style.display = "none";
-
-            if (data.result === 'success') {
-                document.getElementById('searchBox').style.display = "none";
-                document.getElementById('resultArea').style.display = "block";
-                
-                if (data.status === 'DEMANDE_REÇUE') {
-                    reponseDiv.innerHTML = "<p style='color:#888; font-style:italic;'>Votre demande a bien été reçue. Jimmy prépare actuellement votre interprétation. Un e-mail vous préviendra dès qu'elle sera disponible ici.</p>";
-                    cancelArea.style.display = "block";
-                } else if (data.status === 'ANNULÉE') {
-                    reponseDiv.innerHTML = "<p style='color:#ff6666; font-weight:bold;'>Cette demande a été annulée.</p>";
-                    cancelArea.style.display = "none";
-                } else {
-                    reponseDiv.innerHTML = data.reponse || "La réponse arrive très bientôt...";
-                    cancelArea.style.display = "none";
-                }
-            } else {
-                errorMsg.innerText = "❌ ID ou Code Secret incorrect.";
-                errorMsg.style.display = "block";
-            }
-        } catch (e) {
-            loader.style.display = "none";
-            errorMsg.innerText = "❌ Problème de connexion au serveur.";
-            errorMsg.style.display = "block";
+    google.script.run.withSuccessHandler(function(data) {
+      loader.style.display = 'none';
+      if(data) {
+        resDiv.style.display = 'block';
+        document.getElementById('infoClient').innerText = "Tirage de " + data.prenom;
+        
+        const badge = document.getElementById('badge');
+        badge.innerText = data.statut;
+        
+        if(data.statut === "TRAITÉE") {
+          badge.style.backgroundColor = "#d4edda";
+          badge.style.color = "#155724";
+          document.getElementById('reponseContent').innerText = data.reponse || "L'interprétation sera bientôt disponible ici.";
+        } else {
+          badge.style.backgroundColor = "#fff3cd";
+          badge.style.color = "#856404";
+          document.getElementById('reponseContent').innerText = "Votre demande a bien été reçue. Je prépare votre tirage avec soin.";
         }
-    }
-
-    async function annulerDemande() {
-        if(!confirm("Êtes-vous sûr de vouloir annuler définitivement cette demande ?")) return;
-        const btn = document.getElementById('btnCancel');
-        btn.innerText = "Annulation...";
-        btn.disabled = true;
-
-        try {
-            const res = await fetch(`${APPS_SCRIPT_URL}?action=cancel&id=${currentID}&code=${currentCode}`);
-            const data = await res.json();
-            if(data.result === 'success') {
-                alert("Votre demande a été annulée.");
-                window.location.reload();
-            } else {
-                alert("Impossible d'annuler : " + data.message);
-                btn.disabled = false;
-                btn.innerText = "Annuler la demande";
-            }
-        } catch(e) {
-            alert("Erreur lors de l'annulation.");
-            btn.disabled = false;
-        }
-    }
-
-    // Gestion des étoiles
-    document.querySelectorAll('.star').forEach(star => {
-        star.addEventListener('click', function() {
-            selectedNote = this.getAttribute('data-value');
-            document.querySelectorAll('.star').forEach(s => {
-                s.classList.remove('active');
-                if(s.getAttribute('data-value') <= selectedNote) s.classList.add('active');
-            });
-        });
-    });
-
-    async function envoyerFeedback() {
-        if(selectedNote === 0) return alert("Veuillez sélectionner une note avec les étoiles.");
-        const btn = document.querySelector('.btn-feedback');
-        btn.innerText = "Envoi...";
-        btn.disabled = true;
-
-        try {
-            const msg = encodeURIComponent(document.getElementById('clientMsg').value);
-            await fetch(`${APPS_SCRIPT_URL}?action=feedback&id=${currentID}&note=${selectedNote}&msg=${msg}`);
-            btn.innerText = "Merci pour votre retour !";
-            btn.style.background = "#28a745";
-            if(selectedNote >= 4) document.getElementById('avisPublicSection').style.display = "block";
-        } catch (e) {
-            alert("Erreur lors de l'envoi du feedback.");
-            btn.disabled = false;
-            btn.innerText = "Réessayer";
-        }
-    }
+      } else {
+        alert("Identifiants incorrects ou tirage introuvable.");
+      }
+    }).chercherDemandeDansSheet(id, code);
+  }
 </script>
 </body>
 </html>
