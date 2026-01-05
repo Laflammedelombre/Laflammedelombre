@@ -1,189 +1,188 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre - Posez votre question</title>
-    <style>
-        :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        header { padding: 40px 20px; }
-        h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
-        nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav ul li a:hover { color: white; text-decoration: underline; }
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --dark-red: #8B0000;
+      --parchment: #f4e4bc;
+    }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: #0a0a0a;
+      color: var(--parchment);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 30px;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    /* Note d'explication */
+    .info-box {
+      background: rgba(212, 175, 55, 0.1);
+      border-left: 3px solid var(--gold);
+      padding: 15px;
+      margin-bottom: 25px;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+    .info-box b { color: var(--gold); }
 
-        .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
-        form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
-        h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
-
-        .form-group { margin-bottom: 20px; }
-        .flex-row { display: flex; gap: 15px; align-items: flex-end; }
-        .flex-row div:first-child { flex: 3; }
-        .flex-row div:last-child { flex: 1; }
-
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
-        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 1em; }
-        input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
-
-        .checkbox-container { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; display: flex; align-items: center; gap: 15px; cursor: pointer; margin-top: 30px; }
-        .checkbox-container input { width: 20px; height: 20px; cursor: pointer; margin: 0; }
-        .checkbox-container label { margin: 0; cursor: pointer; text-transform: none; color: #ddd; }
-
-        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
-        button[type="submit"]:hover { background: #A52A2A; }
-
-        #status { margin-top: 25px; }
-        .success-box { background: #0c1a0c; border: 2px solid #28a745; padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    </style>
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; color: var(--gold); }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: white;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    textarea { height: 100px; resize: vertical; }
+    button {
+      width: 100%;
+      padding: 15px;
+      background: var(--dark-red);
+      color: white;
+      border: 1px solid var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #b00000; box-shadow: 0 0 10px var(--gold); }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 12px;
+      border-radius: 4px;
+      margin-top: 10px;
+      border: 1px dashed rgba(212, 175, 55, 0.3);
+    }
+    .checkbox-group input { width: auto; cursor: pointer; }
+    .checkbox-group label { margin: 0; font-size: 0.85em; cursor: pointer; }
+    
+    #loader { display: none; text-align: center; margin-top: 15px; color: var(--gold); font-style: italic; }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>La Flamme de l'Ombre</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="avis.html">Avis</a></li>
-            <li><a href="carte.html">Carte du jour</a></li>
-            <li><a href="Suivi.html">Suivi</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="container" id="mainContainer">
+  <h2>Demande de Tirage</h2>
 
-<div class="container">
-    <form id="questionForm">
-        <h2>Posez votre question</h2>
-        
-        <div class="form-group">
-            <label>Votre Prénom</label>
-            <input type="text" name="Prénom" required>
-        </div>
+  <div class="info-box">
+    L'envoi de ce formulaire déclenche une demande de tirage personnalisée de mon côté.<br><br>
+    <b>Deux options s'offrent à vous :</b><br>
+    1. <b>Par Email :</b> Cochez la case en bas pour recevoir l'interprétation directement.<br>
+    2. <b>Espace Privé :</b> Ne cochez rien si vous souhaitez préserver la confidentialité. Vos résultats seront consultables uniquement via votre ID et Code Secret personnels.
+  </div>
 
-        <div class="flex-row form-group">
-            <div>
-                <label>Votre Date de naissance</label>
-                <input type="date" name="Date_Naissance" id="date_client" required onchange="calculerAge('date_client', 'age_client')">
-            </div>
-            <div>
-                <label>Âge</label>
-                <input type="text" name="Age" id="age_client" readonly>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label>Votre Email</label>
-            <input type="email" name="Email" required>
-        </div>
+  <form id="tirageForm">
+    <div class="form-group">
+      <label>Votre Prénom</label>
+      <input type="text" name="Prénom" required>
+    </div>
 
-        <div class="form-group">
-            <label>Prénom personne tierce (facultatif)</label>
-            <input type="text" name="Prénom_Partenaire">
-        </div>
+    <div class="form-group">
+      <label>Votre Email</label>
+      <input type="email" name="Email" required>
+    </div>
 
-        <div class="flex-row form-group">
-            <div>
-                <label>Date de naissance tierce (facultatif)</label>
-                <input type="date" name="Date_Naissance_Partenaire" id="date_tierce" onchange="calculerAge('date_tierce', 'age_tierce')">
-            </div>
-            <div>
-                <label>Âge</label>
-                <input type="text" name="Age_Partenaire" id="age_tierce" readonly>
-            </div>
-        </div>
+    <div class="form-group">
+      <label>Votre Date de Naissance</label>
+      <input type="date" name="Date_Naissance" required>
+    </div>
 
-        <div class="form-group">
-            <label>Votre Question</label>
-            <textarea name="Question" required style="height: 120px;"></textarea>
-        </div>
+    <div class="form-group">
+      <label>Votre Question</label>
+      <textarea name="Question" placeholder="Détaillez votre situation ici..." required></textarea>
+    </div>
 
-        <div class="form-group">
-            <label>Temporalité souhaitée</label>
-            <select name="Temporalité" required>
-                <option value="" disabled selected>-- Choisissez --</option>
-                <option value="3 mois">3 mois</option>
-                <option value="1 an">1 an</option>
-                <option value="2 ans">2 ans</option>
-                <option value="non concerné">Non concerné</option>
-            </select>
-        </div>
+    <div class="form-group">
+      <label>Temporalité</label>
+      <select name="Temporalité">
+        <option value="Court terme">Court terme (1-3 mois)</option>
+        <option value="Moyen terme">Moyen terme (6 mois)</option>
+        <option value="Long terme">Long terme (1 an)</option>
+      </select>
+    </div>
 
-        <div class="checkbox-container" id="div_copie">
-            <input type="checkbox" id="copie_mail" name="copie_mail">
-            <label for="copie_mail">Recevoir une copie de la réponse directement par e-mail.</label>
-        </div>
+    <div class="checkbox-group">
+      <input type="checkbox" name="copie_mail" id="copie_mail">
+      <label for="copie_mail">Je souhaite recevoir l'interprétation complète par email.</label>
+    </div>
 
-        <button type="submit" id="submitBtn">Transmettre ma demande</button>
-    </form>
-    <div id="status"></div>
+    <p style="font-size: 0.75em; opacity: 0.7; text-align: center; margin: 15px 0;">
+      * Vos données sont traitées avec le plus grand respect du secret professionnel.
+    </p>
+
+    <button type="submit" id="submitBtn">Transmettre ma demande</button>
+  </form>
+
+  <div id="loader">✨ Murmure aux étoiles en cours...</div>
 </div>
 
 <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
+  const form = document.getElementById('tirageForm');
+  const btn = document.getElementById('submitBtn');
+  const loader = document.getElementById('loader');
+  const container = document.getElementById('mainContainer');
 
-    function calculerAge(idDate, idAge) {
-        const val = document.getElementById(idDate).value;
-        if (!val) return;
-        const naissance = new Date(val);
-        const aujourdhui = new Date();
-        let age = aujourdhui.getFullYear() - naissance.getFullYear();
-        const m = aujourdhui.getMonth() - naissance.getMonth();
-        if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) age--;
-        document.getElementById(idAge).value = age; // On envoie juste le chiffre
-    }
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+    loader.style.display = 'block';
 
-    const form = document.getElementById('questionForm');
-    const statusDiv = document.getElementById('status');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Envoi en cours...";
-        
-        const formData = new FormData(form);
-
-        fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Réponse reçue :", data);
-            if (data.result === 'success') {
-                form.style.display = "none"; // Cache le formulaire pour montrer le succès
-                statusDiv.innerHTML = `
-                    <div class="success-box">
-                        <h2 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h2>
-                        <p>Notez bien vos codes d'accès (reçus aussi par mail) :</p>
-                        <div style="background:#000; padding:15px; border-radius:10px; margin:20px 0; border:1px dashed #444;">
-                            <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
-                            <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>
-                        </div>
-                        <p><a href="Suivi.html" style="color:#aaa;">Accéder à la page de suivi</a></p>
-                    </div>`;
-            } else {
-                alert("Erreur du serveur : " + data.message);
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Réessayer";
-            }
-        })
-        .catch(err => {
-            console.error("Erreur Fetch :", err);
-            alert("Erreur de connexion au script.");
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Réessayer";
-        });
+    const formData = new FormData(form);
+    
+    fetch('https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec', {
+      method: 'POST',
+      body: new URLSearchParams(formData)
+    })
+    .then(res => res.json())
+    .then(result => {
+      container.innerHTML = `
+        <div style="text-align:center; padding:10px;">
+          <h2 style="color:var(--gold)">Demande Reçue</h2>
+          <p>Votre tirage a été mis en attente.</p>
+          <div style="background:rgba(212,175,55,0.1); padding:15px; border:1px solid var(--gold); margin: 20px 0; text-align: left; font-size: 0.9em;">
+            <b>🔑 Vos accès personnels :</b><br>
+            Votre ID et votre Code Secret viennent de vous être envoyés par email.<br><br>
+            ⚠️ <b>IMPORTANT :</b> Pensez à vérifier votre dossier <b>Courriers Indésirables (Spams)</b>. Nos messages s'y glissent parfois !
+          </div>
+          <button onclick="window.location.reload()">Retour au formulaire</button>
+        </div>
+      `;
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      loader.style.display = 'none';
     });
-
-    // Permet de cliquer sur le texte de la checkbox
-    document.getElementById('div_copie').addEventListener('click', function(e) {
-        if (e.target.tagName !== 'INPUT') {
-            const cb = document.getElementById('copie_mail');
-            cb.checked = !cb.checked;
-        }
-    });
+  };
 </script>
+
 </body>
 </html>
