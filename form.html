@@ -4,34 +4,22 @@
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 15px; background-color: #f4f4f4; }
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
     .container { 
-      max-width: 450px; 
+      max-width: 400px; 
       margin: auto; 
       background: white; 
       padding: 20px; 
       border-radius: 8px; 
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); 
       box-sizing: border-box;
     }
-    h2 { text-align: center; color: #333; margin-top: 0; }
+    h2 { text-align: center; color: #333; }
     
-    input, select, textarea { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border: 1px solid #ccc; 
-      border-radius: 4px; 
-      box-sizing: border-box;
-      font-size: 16px; /* Empêche le zoom forcé sur mobile */
-    }
-    textarea { height: 100px; resize: none; }
-    
-    label { font-size: 0.9em; font-weight: bold; color: #555; display: block; margin-top: 10px; }
-    
+    /* Style pour les petits textes explicatifs sous le menu */
     .info-box { 
       font-size: 0.85em; 
-      padding: 12px; 
+      padding: 10px; 
       border-radius: 4px; 
       display: none; 
       margin: 10px 0; 
@@ -41,30 +29,43 @@
       color: #0c5460; 
     }
 
+    input, select, textarea { 
+      width: 100%; 
+      padding: 10px; 
+      margin: 10px 0; 
+      border: 1px solid #ccc; 
+      border-radius: 4px; 
+      box-sizing: border-box;
+      font-size: 16px; /* Taille idéale pour mobile */
+    }
+    
+    label { font-size: 0.9em; font-weight: bold; color: #555; display: block; margin-top: 10px; }
+
     button { 
       width: 100%; 
-      padding: 15px; 
+      padding: 10px; 
       background-color: #28a745; 
       color: white; 
       border: none; 
       border-radius: 4px; 
       cursor: pointer; 
       font-size: 16px; 
-      font-weight: bold;
-      margin-top: 15px; 
+      margin-top: 10px;
     }
     button:hover { background-color: #218838; }
-    #loader { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #555; }
+    #loader { display: none; text-align: center; margin-top: 10px; }
   </style>
 </head>
 <body>
 
 <div class="container" id="formContainer">
   <h2>Demande de Tirage</h2>
+
   <form id="tirageForm">
     <input type="text" name="Prénom" placeholder="Votre Prénom" required>
     <input type="email" name="Email" placeholder="Votre Email" required>
     <input type="date" name="Date_Naissance" title="Votre Date de Naissance" required>
+    
     <textarea name="Question" placeholder="Votre Question / Thématique" required></textarea>
     
     <select name="Temporalité">
@@ -83,9 +84,11 @@
     <div id="infoTexte" class="info-box"></div>
 
     <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
+
     <button type="submit" id="submitBtn">Envoyer ma demande</button>
   </form>
-  <div id="loader">Transmission en cours...</div>
+
+  <div id="loader">Chargement...</div>
 </div>
 
 <script>
@@ -104,26 +107,42 @@
     }
   }
 
-  document.getElementById('tirageForm').onsubmit = function(e) {
+  const form = document.getElementById('tirageForm');
+  const btn = document.getElementById('submitBtn');
+  const loader = document.getElementById('loader');
+  const container = document.getElementById('formContainer');
+
+  form.onsubmit = function(e) {
     e.preventDefault();
-    document.getElementById('submitBtn').style.display = 'none';
-    document.getElementById('loader').style.display = 'block';
+    btn.style.display = 'none';
+    loader.style.display = 'block';
+
+    const formData = new FormData(form);
+    
     fetch('https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec', {
       method: 'POST',
-      body: new URLSearchParams(new FormData(this))
+      body: new URLSearchParams(formData)
     })
     .then(() => {
-      document.getElementById('formContainer').innerHTML = `
+      // Message de succès avec le rappel important sur les spams
+      container.innerHTML = `
         <div style="text-align:center;">
-          <h2 style="color: #28a745;">Demande Reçue</h2>
+          <h2 style="color: #28a745;">Demande Envoyée !</h2>
           <p>Un e-mail de confirmation vient de vous être envoyé.</p>
-          <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 4px; border: 1px solid #ffeeba; font-size: 0.9em; margin-bottom: 20px;">
-            ⚠️ <b>IMPORTANT :</b> Pensez à vérifier vos <b>SPAMS</b>.
-          </div>
-          <button onclick="window.location.reload()" style="background:#007bff;">Retour</button>
-        </div>`;
+          <p style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; border: 1px solid #f5c6cb; font-size: 0.9em;">
+            ⚠️ <b>IMPORTANT :</b> Pensez à vérifier vos <b>SPAMS</b>, les mails s'y glissent souvent !
+          </p>
+          <button onclick="window.location.reload()" style="background:#007bff; color:white; border:none; padding:10px; border-radius:4px; cursor:pointer;">Retour</button>
+        </div>
+      `;
+    })
+    .catch(err => {
+      alert("Erreur de connexion");
+      btn.style.display = 'block';
+      loader.style.display = 'none';
     });
   };
 </script>
+
 </body>
 </html>
