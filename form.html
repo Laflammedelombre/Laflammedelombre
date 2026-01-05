@@ -173,7 +173,7 @@
         const naissance = new Date(val);
         const aujourdhui = new Date();
         let age = aujourdhui.getFullYear() - naissance.getFullYear();
-        const m = aujourdhui.getMonth() - naissance.getMonth();
+        const m = window.m = aujourdhui.getMonth() - naissance.getMonth();
         if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) age--;
         document.getElementById(idAge).value = age;
     }
@@ -187,6 +187,7 @@
         submitBtn.disabled = true;
         submitBtn.innerText = "Envoi en cours...";
         
+        const choixMethode = document.getElementById('methode_reception').value;
         const formData = new FormData(form);
 
         fetch(APPS_SCRIPT_URL, { method: 'POST', body: new URLSearchParams(formData) })
@@ -194,13 +195,28 @@
         .then(data => {
             if (data.result === 'success') {
                 form.style.display = "none";
+                
+                let cadreContenu = "";
+                
+                if (choixMethode === 'email') {
+                    // Format pour réponse par EMAIL
+                    cadreContenu = `
+                        <p style="font-size:1.4em; color:#fff; margin:10px 0; font-weight:bold;">
+                            Un e-mail de confirmation vient de vous être envoyé.
+                        </p>`;
+                } else {
+                    // Format pour consultation sur SITE (ID + CODE)
+                    cadreContenu = `
+                        <p style="color:#ccc; margin-bottom:15px;">Vos codes d'accès (également envoyés par mail) :</p>
+                        <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
+                        <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>`;
+                }
+
                 statusDiv.innerHTML = `
                     <div class="success-box">
                         <h2 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h2>
-                        <p>Un e-mail de confirmation vient de vous être envoyé.</p>
-                        <div style="background:#000; padding:15px; border-radius:10px; margin:20px 0; border:1px dashed #444;">
-                            <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
-                            <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>
+                        <div style="background:#000; padding:25px; border-radius:10px; margin:20px 0; border:1px dashed #444; display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100px;">
+                            ${cadreContenu}
                         </div>
                         <p style="color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; border-radius: 8px;">
                           ⚠️ PENSEZ À VÉRIFIER VOS SPAMS ! Nos emails s'y glissent souvent.
