@@ -2,195 +2,124 @@
 <html lang="fr">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-PMTZHZKR');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Flamme de l'Ombre - Formulaire</title>
+    <title>La Flamme de l'Ombre - Posez votre question</title>
     <style>
-        /* Styles CSS */
-        body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        header { padding: 20px; }
-        h1 { font-size: 3em; margin: 0.2em 0; }
-        p { font-size: 1.5em; margin-top: 10px; }
+        body { background-color: black; color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 30px; }
+        h1 { font-size: 2.5em; margin: 0; color: #fff; }
+        p.subtitle { font-size: 1.2em; color: #888; margin-top: 5px; }
+        
         nav ul { list-style-type: none; padding: 0; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; }
         nav ul li { margin: 10px 15px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
-        nav ul li a:hover { text-decoration: underline; }
-        
-        .suivi-button-container { text-align: center; margin: 30px auto; max-width: 600px; }
-        .suivi-button {
-            display: inline-block;
-            background-color: #8B0000; 
-            color: white !important;
-            padding: 12px 25px;
-            border-radius: 6px;
-            text-decoration: none !important;
-            font-weight: bold;
-            font-size: 1.1em;
-            letter-spacing: 1px;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            border: none;
-            cursor: pointer;
-        }
-        .suivi-button:hover { background-color: #A52A2A !important; transform: translateY(-2px); }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav ul li a:hover { color: white; }
 
-        .page-image { width: 80%; max-width: 600px; margin: 20px auto 40px auto; display: block; border-radius: 8px; }
-        .form-container { max-width: 700px; margin: 40px auto; background: #111; padding: 20px 30px; border-radius: 10px; text-align: left; }
-        .form-container h2 { text-align: center; color: #fff; margin-bottom: 25px; }
-        .info-box { background: #222; border-left: 4px solid #007bff; padding: 10px; margin-bottom: 15px; border-radius: 6px; color: #fff; font-size: 1em; text-align: center; }
-        .disclaimer-message { background-color: #202010; border-left: 5px solid #ffcc00; padding: 15px; margin-bottom: 30px; border-radius: 6px; color: #ccc; font-size: 1em; line-height: 1.5; }
+        .container { max-width: 700px; margin: 20px auto; padding: 0 20px; }
         
-        /* BANDEAU ANONYME */
-        .anonymous-box {
-            background: #1a0000;
-            border: 2px dashed #8B0000;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-        }
-        .anonymous-box h3 { color: #ff4444; margin-top: 0; font-size: 1.1em; }
-        .anonymous-box p { font-size: 0.8em; color: #bbb; line-height: 1.4; margin: 10px 0; }
-        .toggle-container {
+        .info-box {
+            background: #111;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            text-align: left;
             display: flex;
             align-items: center;
-            cursor: pointer;
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            color: white;
-            transition: background 0.3s;
+            gap: 15px;
         }
-        .toggle-container:hover { background: #444; }
-        .toggle-container input { width: auto !important; margin-right: 12px !important; margin-top: 0 !important; cursor: pointer; }
+        .info-box i { color: #8B0000; font-size: 1.5em; }
+        .info-box p { margin: 0; font-size: 0.9em; color: #bbb; line-height: 1.5; }
 
-        .form-container label { display: block; margin-top: 15px; font-weight: bold; }
-        .facultatif { font-size: 0.8em; font-weight: normal; color: #aaa; margin-left: 4px; }
+        form { background: #111; padding: 30px; border-radius: 15px; text-align: left; border: 1px solid #222; }
+        h2 { margin-top: 0; font-size: 1.5em; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
 
-        .form-container input, .form-container textarea, .form-container select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; transition: border 0.3s ease; }
-        .form-container .input-error { border: 1px solid #ff6666 !important; }
-        .date-input-group { display: flex; align-items: center; gap: 15px; }
-        .date-input-group input[type="date"] { flex-grow: 1; width: auto; }
-        .age-display { font-weight: normal; font-size: 0.9em; color: #aaa; white-space: nowrap; }
-        .form-container button[type="submit"] { margin-top: 25px; padding: 12px 18px; border: none; border-radius: 66px; background: #007bff; color: white; cursor: pointer; width: 100%; font-weight: bold; letter-spacing: 1px; transition: background 0.3s; }
-        .form-container button[type="submit"]:hover { background: #0056b3; }
-        
-        .status-message { margin-top: 12px; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
-        .success { background: #3c5244; border: 1px solid #7ad6a7; color: #d4edda; }
-        .error { background: #5c3434; border: 1px solid #f1a0a0; color: #f8d7da; }
-        .sending { background: #2a3e5c; border: 1px solid #5c7fbf; color: #c9e6ff; }
-        
-        .support-section { text-align: center; margin-top: 40px; padding: 15px; background-color: #151515; border-top: 1px solid #333; color: #aaa; font-size: 0.85em; border-radius: 0 0 10px 10px; margin: 40px -30px -30px -30px; }
-        .highlight { font-weight: bold; color: white; }
-        .paypal-button { display: inline-block; padding: 8px 18px; background-color: #0070ba; color: white; text-decoration: none; border-radius: 20px; font-weight: bold; font-size: 0.9em; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 0 5px rgba(0,0,0,0.5); border: none; cursor: pointer; }
-        @media (max-width: 768px) { .form-container { margin: 20px; padding: 20px; } }
+        label { display: block; margin-top: 20px; font-weight: bold; color: #ccc; font-size: 0.9em; }
+        .facultatif { font-weight: normal; color: #666; font-size: 0.8em; margin-left: 5px; }
+
+        input, textarea, select { 
+            width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; 
+            border: 1px solid #333; background: #222; color: #fff; 
+            box-sizing: border-box; font-size: 1em; 
+        }
+        input:focus, textarea:focus { border-color: #8B0000; outline: none; }
+
+        button[type="submit"] { 
+            margin-top: 30px; padding: 15px; border: none; border-radius: 8px; 
+            background: #8B0000; color: white; cursor: pointer; width: 100%; 
+            font-weight: bold; font-size: 1.1em; transition: transform 0.2s, background 0.3s; 
+        }
+        button[type="submit"]:hover { background: #A52A2A; transform: translateY(-2px); }
+        button[type="submit"]:disabled { background: #444; cursor: not-allowed; }
+
+        .status-message { margin-top: 20px; padding: 20px; border-radius: 10px; line-height: 1.6; }
+        .success-box { background: #0c1a0c; border: 1px solid #28a745; color: #fff; }
+        .error-box { background: #1a0c0c; border: 1px solid #a72828; color: #fff; }
+
+        .footer-note { margin-top: 40px; color: #555; font-size: 0.8em; padding-bottom: 50px; }
     </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PMTZHZKR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 <header>
     <h1>La Flamme de l'Ombre</h1>
-    <p>Cartomancien, créateur</p>
+    <p class="subtitle">Tirages & Interprétations</p>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="Suivi.html">Consulter un tirage</a></li>
+            <li><a href="avis.html">Avis</a></li>
+        </ul>
+    </nav>
 </header>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="avis.html">Avis</a></li>
-        <li><a href="carte.html">Carte du jour</a></li>
-    </ul>
-</nav>
-
-<img src="images/Tirage.webp" alt="Tirage de Cartes" class="page-image">
-
-<div class="suivi-button-container">
-    <a href="Suivi.html" class="suivi-button">Vérifier le Statut de ma Demande</a>
-</div>
-
-<div class="form-container">
-    <h2>Pose ta question (Gratuite)</h2>
+<div class="container">
     
-    <div class="anonymous-box">
-        <h3>🤫 Mode Anonyme disponible</h3>
+    <div class="info-box">
+        <i class="fas fa-envelope-open-text"></i>
         <p>
-            Vous souhaitez rester discret ? C'est possible !<br>
-            1. Activez le bouton ci-dessous.<br>
-            2. Utilisez un <strong>Pseudo</strong> à la place de votre prénom.<br>
-            3. <strong>IMPORTANT :</strong> Précisez dans votre question comment vous contacter (TikTok, Instagram, etc.) car vous ne recevrez pas d'e-mail.
+            <strong>Note sur l'adresse e-mail :</strong> Elle est utilisée exclusivement pour vous envoyer votre <b>ID de suivi</b> et votre <b>Code Secret</b>. Aucun message publicitaire ne vous sera envoyé.
         </p>
-        <label class="toggle-container">
-            <input type="checkbox" id="anonymousToggle"> 
-            <span>ACTIVER LE MODE ANONYME</span>
-        </label>
     </div>
 
-    <div class="disclaimer-message">
-        **✨ Conseil de lecture :** Ces consultations vous sont offertes. Pour que chaque lecture garde son sens, utilisez-les avec intention.
-    </div>
-    
-    <form id="questionForm" method="POST">
+    <form id="questionForm">
+        <h2>Votre demande</h2>
         
-        <label for="nom">Nom <span class="facultatif">(facultatif)</span></label>
-        <input type="text" id="nom" name="Nom">
+        <label for="prenom">Votre Prénom (ou Pseudo)</label>
+        <input type="text" id="prenom" name="Prénom" required placeholder="Ex: Julie">
 
-        <label for="prenom">Prénom ou Pseudo *</label>
-        <input type="text" id="prenom" name="Prénom" required aria-required="true">
-
-        <label for="date_naissance">Date de naissance *</label>
-        <div class="date-input-group">
-            <input type="date" id="date_naissance" name="Date_Naissance" required aria-required="true" onchange="calculateAge('date_naissance', 'age_display', 'age_client')">
-            <span id="age_display" class="age-display">Âge : --</span>
-        </div>
-        <input type="hidden" id="age_client" name="Age"> 
+        <label for="date_naissance">Votre Date de naissance</label>
+        <input type="date" id="date_naissance" name="Date_Naissance" required>
         
-        <label for="email">Adresse email *</label>
-        <input type="email" id="email" name="Email" placeholder="exemple@domaine.com" required aria-required="true">
+        <label for="email">Votre Email (pour recevoir vos accès)</label>
+        <input type="email" id="email" name="Email" placeholder="Indispensable pour la réponse" required>
 
-        <label for="nom_tiers">Nom personne tierce <span class="facultatif">(facultatif)</span></label>
-        <input type="text" id="nom_tiers" name="Nom_Partenaire">
+        <label for="prenom_tiers">Prénom d'une personne tierce <span class="facultatif">(si concernée par la question)</span></label>
+        <input type="text" id="prenom_tiers" name="Prénom_Partenaire" placeholder="Ex: Marc">
 
-        <label for="prenom_tiers">Prénom personne tierce</label>
-        <input type="text" id="prenom_tiers" name="Prénom_Partenaire">
+        <label for="date_naissance_tiers">Date de naissance de cette personne <span class="facultatif">(facultatif)</span></label>
+        <input type="date" id="date_naissance_tiers" name="Date_Naissance_Partenaire">
 
-        <label for="date_naissance_tiers">Date de naissance personne tierce</label>
-        <div class="date-input-group">
-            <input type="date" id="date_naissance_tiers" name="Date_Naissance_Partenaire" onchange="calculateAge('date_naissance_tiers', 'age_display_tiers', 'age_tiers')">
-            <span id="age_display_tiers" class="age-display">Âge : --</span>
-        </div>
-        <input type="hidden" id="age_tiers" name="Age_Partenaire">
+        <label for="question">Votre Question</label>
+        <textarea id="question" name="Question" required placeholder="Posez votre question le plus précisément possible..." style="height: 120px;"></textarea>
 
-        <label for="question">Question précise *</label>
-        <textarea id="question" name="Question" required aria-required="true" placeholder="Si anonyme, indiquez ici votre TikTok/Insta pour la réponse..."></textarea>
-
-        <label for="temporalite">Temporalité *</label>
-        <select id="temporalite" name="Temporalité" required aria-required="true">
-            <option value="">-- Choisissez --</option>
+        <label for="temporalite">Temporalité souhaitée</label>
+        <select id="temporalite" name="Temporalité" required>
+            <option value="">-- Sélectionner --</option>
             <option value="3 mois">Dans les 3 mois</option>
             <option value="1 an">Dans l'année</option>
-            <option value="année en cours">Dans l’année en cours</option>
             <option value="2 ans">Dans les 2 ans</option>
-            <option value="3 ans">Dans les 3 ans</option>
-            <option value="non concerné">Non concerné par la temporalité</option>
+            <option value="non concerné">Non concerné</option>
         </select>
 
-        <button type="submit">Envoyer la question</button>
+        <button type="submit" id="submitBtn">Envoyer ma demande</button>
     </form>
+
     <div id="status"></div>
 
-    <div class="support-section">
-        <p>Ce service vous est utile ? <span class="highlight">Faire un Tips</span> (montant libre).</p>
-        <a href="https://www.paypal.com/ncp/payment/LQX3W8VBMFQTQ" target="_blank" class="paypal-button">Faire un Tips</a>
+    <div class="footer-note">
+        <p>Service gratuit. Vos données sont traitées avec respect et supprimées après traitement.</p>
     </div>
 </div>
 
@@ -199,72 +128,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const form = document.getElementById('questionForm');
     const statusDiv = document.getElementById('status');
-    const anonToggle = document.getElementById('anonymousToggle');
-    const emailInput = document.getElementById('email');
+    const submitBtn = document.getElementById('submitBtn');
 
-    // LOGIQUE MODE ANONYME
-    anonToggle.addEventListener('change', function() {
-        if (this.checked) {
-            emailInput.value = "laflammedelombre@gmail.com";
-            emailInput.readOnly = true;
-            emailInput.style.backgroundColor = "#333";
-            emailInput.style.color = "#888";
-        } else {
-            emailInput.value = "";
-            emailInput.readOnly = false;
-            emailInput.style.backgroundColor = "#222";
-            emailInput.style.color = "#fff";
-        }
-    });
-
-    function calculateAge(dateInputId, ageDisplayId, ageHiddenId) {
-        const dateInput = document.getElementById(dateInputId);
-        const ageDisplay = document.getElementById(ageDisplayId);
-        const ageHidden = document.getElementById(ageHiddenId);
-        if (!dateInput.value) return;
-        const today = new Date();
-        const birthDate = new Date(dateInput.value);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) age--;
-        ageDisplay.textContent = `Âge : ${age} ans`;
-        ageHidden.value = age; 
-    }
-
-    function validateForm() {
-        let isValid = true;
-        const requiredFields = form.querySelectorAll('[required]');
-        requiredFields.forEach(field => field.classList.remove('input-error'));
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) { field.classList.add('input-error'); isValid = false; }
-        });
-        return isValid;
-    }
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        if (!validateForm()) {
-            statusDiv.innerHTML = '<div class="status-message error">❌ Champs obligatoires manquants.</div>';
-            return;
-        }
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        statusDiv.innerHTML = '<div class="status-message sending">⚙️ Envoi en cours...</div>';
-        
-        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new FormData(form) })
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Traitement en cours...";
+        statusDiv.innerHTML = "";
+
+        const formData = new FormData(form);
+
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        })
         .then(res => res.json())
         .then(data => {
             if (data.result === 'success') {
-                statusDiv.innerHTML = `<div class="status-message success">✅ Envoyé ! ID de suivi : <strong>${data.id}</strong></div>`;
+                statusDiv.innerHTML = `
+                    <div class="status-message success-box">
+                        <h3 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h3>
+                        <p>Merci <b>${document.getElementById('prenom').value}</b>. Votre demande est enregistrée.</p>
+                        <p>Vérifiez votre boîte mail : vous allez recevoir <b>deux messages</b> (un pour votre ID, un pour votre Code Secret).</p>
+                        <div style="background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; margin-top:10px; border: 1px dashed #444;">
+                            <p style="margin:5px 0; font-size:0.9em;">ID : <b>${data.id}</b></p>
+                            <p style="margin:5px 0; font-size:0.9em;">CODE : <b style="color:#ffcc00;">${data.code}</b></p>
+                        </div>
+                    </div>`;
                 form.reset();
-                if(anonToggle.checked) anonToggle.click(); // Reset le mode anonyme
+                submitBtn.innerText = "Demande envoyée";
             } else {
-                statusDiv.innerHTML = `<div class="status-message error">❌ Erreur : ${data.message}</div>`;
+                throw new Error(data.message);
             }
         })
-        .catch(() => { statusDiv.innerHTML = '<div class="status-message error">❌ Erreur de connexion.</div>'; })
-        .finally(() => { submitButton.disabled = false; });
+        .catch(error => {
+            statusDiv.innerHTML = `<div class="status-message error-box">❌ Une erreur est survenue : ${error.message}</div>`;
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Réessayer l'envoi";
+        });
     });
 </script>
+
 </body>
 </html>
