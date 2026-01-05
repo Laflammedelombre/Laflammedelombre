@@ -1,127 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    :root { --gold: #d4af37; --dark-red: #8B0000; --parchment: #f4e4bc; }
-    body { font-family: 'Raleway', sans-serif; background-color: #0a0a0a; color: var(--parchment); display: flex; justify-content: center; padding: 15px; margin: 0; }
-    .container { background: rgba(20, 20, 20, 0.95); padding: 25px; border: 1px solid var(--gold); border-radius: 8px; max-width: 500px; width: 100%; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); box-sizing: border-box; }
-    
-    /* Navigation */
-    .nav-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
-    .nav-tabs a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8em; padding: 5px 10px; border: 1px solid transparent; }
-    .nav-tabs a.active { border: 1px solid var(--gold); border-radius: 4px; }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Flamme de l'Ombre - Posez votre question</title>
+    <style>
+        :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { padding: 40px 20px; }
+        h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav ul li a:hover { color: white; text-decoration: underline; }
 
-    h2 { font-family: 'Cinzel', serif; color: var(--gold); text-align: center; margin-bottom: 20px; }
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; color: var(--gold); font-weight: bold; font-size: 0.9em; }
-    
-    input, select, textarea { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; font-size: 16px; font-family: 'Raleway', sans-serif; }
-    textarea { height: 100px; resize: vertical; }
-    
-    /* Bloc info dynamique */
-    .info-box { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold); padding: 12px; margin: 10px 0; font-size: 0.85em; line-height: 1.4; display: none; }
+        .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
+        form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); box-sizing: border-box; }
+        h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
 
-    button { width: 100%; padding: 15px; background: var(--dark-red); color: white; border: 1px solid var(--gold); font-family: 'Cinzel', serif; font-size: 1.1em; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-    button:hover { background: #b00000; box-shadow: 0 0 10px var(--gold); }
-    #loader { display: none; text-align: center; margin-top: 15px; color: var(--gold); font-family: 'Cinzel', serif; }
-  </style>
+        .form-group { margin-bottom: 20px; }
+        .flex-row { display: flex; gap: 15px; align-items: flex-end; }
+        .flex-row div:first-child { flex: 3; }
+        .flex-row div:last-child { flex: 1; }
+
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; } /* 16px pour mobile */
+        input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
+
+        /* Style pour les textes descriptifs sous le menu */
+        .info-box { 
+          font-size: 0.85em; 
+          padding: 12px; 
+          border-radius: 8px; 
+          display: none; 
+          margin-top: 10px; 
+          line-height: 1.4; 
+          border: 1px solid #333; 
+          background: #0a0a0a; 
+          color: #aaa; 
+        }
+
+        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
+        button[type="submit"]:hover { background: #A52A2A; }
+
+        #status { margin-top: 25px; }
+        .success-box { background: #0c1a0c; border: 2px solid #28a745; padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
-  <div class="nav-tabs">
-    <a href="#" class="active">FORMULAIRE</a>
-    <a href="https://www.laflammedelombre.com/Suivi.html">SUIVI</a>
-  </div>
+<header>
+    <h1>La Flamme de l'Ombre</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="avis.html">Avis</a></li>
+            <li><a href="carte.html">Carte du jour</a></li>
+            <li><a href="Suivi.html">Suivi</a></li>
+        </ul>
+    </nav>
+</header>
 
-  <h2>Demande de Tirage</h2>
+<div class="container">
+    <form id="questionForm">
+        <h2>Posez votre question</h2>
+        
+        <div class="form-group">
+            <label>Votre Prénom</label>
+            <input type="text" name="Prénom" required>
+        </div>
 
-  <form id="tirageForm">
-    <div class="form-group">
-      <label>Votre Prénom</label>
-      <input type="text" name="Prénom" required>
-    </div>
+        <div class="flex-row form-group">
+            <div>
+                <label>Votre Date de naissance</label>
+                <input type="date" name="Date_Naissance" id="date_client" required onchange="calculerAge('date_client', 'age_client')">
+            </div>
+            <div>
+                <label>Âge</label>
+                <input type="text" name="Age" id="age_client" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Votre Email</label>
+            <input type="email" name="Email" required>
+        </div>
 
-    <div class="form-group">
-      <label>Votre Email</label>
-      <input type="email" name="Email" required>
-    </div>
+        <div class="form-group">
+            <label>Prénom personne tierce (facultatif)</label>
+            <input type="text" name="Prénom_Partenaire">
+        </div>
 
-    <div class="form-group">
-      <label>Votre Date de Naissance</label>
-      <input type="date" name="Date_Naissance" required>
-    </div>
+        <div class="flex-row form-group">
+            <div>
+                <label>Date de naissance tierce (facultatif)</label>
+                <input type="date" name="Date_Naissance_Partenaire" id="date_tierce" onchange="calculerAge('date_tierce', 'age_tierce')">
+            </div>
+            <div>
+                <label>Âge</label>
+                <input type="text" name="Age_Partenaire" id="age_tierce" readonly>
+            </div>
+        </div>
 
-    <div class="form-group">
-      <label>Votre Question / Thématique</label>
-      <textarea name="Question" required></textarea>
-    </div>
+        <div class="form-group">
+            <label>Votre Question</label>
+            <textarea name="Question" required style="height: 120px;"></textarea>
+        </div>
 
-    <div class="form-group">
-      <label>Temporalité souhaitée</label>
-      <select name="Temporalité">
-        <option value="Court terme (1-3 mois)">Court terme (1-3 mois)</option>
-        <option value="Moyen terme (6 mois)">Moyen terme (6 mois)</option>
-        <option value="Long terme (1 an)">Long terme (1 an)</option>
-      </select>
-    </div>
+        <div class="form-group">
+            <label>Temporalité souhaitée</label>
+            <select name="Temporalité" required>
+                <option value="" disabled selected>-- Choisissez --</option>
+                <option value="3 mois">3 mois</option>
+                <option value="1 an">1 an</option>
+                <option value="2 ans">2 ans</option>
+                <option value="non concerné">Non concerné</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-      <label>Méthode de consultation :</label>
-      <select name="methode" id="methode" required onchange="updateView()">
-        <option value="" disabled selected>-- Choisir une option --</option>
-        <option value="email">Par réponse e-mail directe</option>
-        <option value="site">Via mon espace privé sécurisé</option>
-      </select>
-    </div>
+        <div class="form-group">
+            <label>Méthode de réception de la réponse</label>
+            <select name="methode_reception" id="methode_reception" required onchange="updateView()">
+                <option value="" disabled selected>-- Choisissez --</option>
+                <option value="email">Directement par réponse email</option>
+                <option value="site">Via le site avec code et ID</option>
+            </select>
+            
+            <div id="descMail" class="info-box">
+              Vous allez recevoir un code secret et un ID, mais ils ne seront pas nécessairement utiles puisque la réponse sera envoyée directement par email.
+            </div>
+            <div id="descSite" class="info-box">
+              Vous allez recevoir par email un ID et un code secret nécessaires pour consulter la réponse sur le site. Vérifiez bien vos spams.
+            </div>
+        </div>
 
-    <div id="infoTexte" class="info-box"></div>
-    <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
+        <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
 
-    <button type="submit" id="submitBtn">Transmettre ma demande</button>
-  </form>
-
-  <div id="loader">✨ Murmure aux étoiles...</div>
+        <button type="submit" id="submitBtn">Transmettre ma demande</button>
+    </form>
+    <div id="status"></div>
 </div>
 
 <script>
-  function updateView() {
-    const choix = document.getElementById('methode').value;
-    const info = document.getElementById('infoTexte');
-    const hidden = document.getElementById('copie_mail_hidden');
-    info.style.display = 'block';
-    if (choix === 'email') {
-      info.innerHTML = "Vous recevrez une confirmation immédiate, puis votre interprétation directement par e-mail dès qu'elle sera prête.";
-      hidden.value = 'on';
-    } else {
-      info.innerHTML = "Vous recevrez par e-mail vos codes d'accès personnels pour consulter votre réponse sur le site en toute confidentialité.";
-      hidden.value = 'off';
-    }
-  }
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
 
-  document.getElementById('tirageForm').onsubmit = function(e) {
-    e.preventDefault();
-    document.getElementById('submitBtn').style.display = 'none';
-    document.getElementById('loader').style.display = 'block';
-    fetch('https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec', {
-      method: 'POST',
-      body: new URLSearchParams(new FormData(this))
-    })
-    .then(() => {
-      document.getElementById('mainContainer').innerHTML = `
-        <div style="text-align:center; padding:20px;">
-          <h2 style="color:var(--gold)">Demande Reçue</h2>
-          <p>Un e-mail de confirmation vient de vous être envoyé.</p>
-          <div style="background:rgba(212,175,55,0.1); padding:15px; border:1px solid var(--gold); margin: 20px 0; font-size: 0.9em; color:var(--parchment);">
-            ⚠️ <b>IMPORTANT :</b> Pensez à vérifier vos <b>SPAMS</b>, les mails s'y glissent souvent !
-          </div>
-          <button onclick="window.location.reload()">Retour</button>
-        </div>`;
+    function updateView() {
+        const choix = document.getElementById('methode_reception').value;
+        const descMail = document.getElementById('descMail');
+        const descSite = document.getElementById('descSite');
+        const hiddenInput = document.getElementById('copie_mail_hidden');
+
+        descMail.style.display = 'none';
+        descSite.style.display = 'none';
+
+        if (choix === 'email') {
+            descMail.style.display = 'block';
+            hiddenInput.value = 'on';
+        } else {
+            descSite.style.display = 'block';
+            hiddenInput.value = 'off';
+        }
+    }
+
+    function calculerAge(idDate, idAge) {
+        const val = document.getElementById(idDate).value;
+        if (!val) return;
+        const naissance = new Date(val);
+        const aujourdhui = new Date();
+        let age = aujourdhui.getFullYear() - naissance.getFullYear();
+        const m = aujourdhui.getMonth() - naissance.getMonth();
+        if (m < 0 || (m === 0 && aujourdhui.getDate() < naissance.getDate())) age--;
+        document.getElementById(idAge).value = age;
+    }
+
+    const form = document.getElementById('questionForm');
+    const statusDiv = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Envoi en cours...";
+        
+        const formData = new FormData(form);
+
+        fetch(APPS_SCRIPT_URL, { method: 'POST', body: new URLSearchParams(formData) })
+        .then(res => res.json())
+        .then(data => {
+            if (data.result === 'success') {
+                form.style.display = "none";
+                statusDiv.innerHTML = `
+                    <div class="success-box">
+                        <h2 style="color:#28a745; margin-top:0;">✨ Demande transmise !</h2>
+                        <p>Vos codes ont été envoyés par email.</p>
+                        <div style="background:#000; padding:15px; border-radius:10px; margin:20px 0; border:1px dashed #444;">
+                            <p>ID : <strong style="font-size:1.2em; color:#fff;">${data.id}</strong></p>
+                            <p>CODE : <strong style="font-size:1.2em; color:#ffcc00;">${data.code}</strong></p>
+                        </div>
+                        <p style="color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; border-radius: 8px;">
+                          ⚠️ PENSEZ À VÉRIFIER VOS SPAMS ! Nos emails s'y glissent souvent.
+                        </p>
+                        <p><a href="Suivi.html" style="color:#aaa; text-decoration: underline;">Accéder à la page de suivi</a></p>
+                    </div>`;
+            } else {
+                alert("Erreur : " + data.message);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Réessayer";
+            }
+        })
+        .catch(err => {
+            alert("Erreur de connexion.");
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Réessayer";
+        });
     });
-  };
 </script>
 </body>
 </html>
