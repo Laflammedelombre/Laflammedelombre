@@ -17,17 +17,21 @@
         .container { max-width: 600px; margin: 0 auto 60px; padding: 0 20px; }
         .search-box { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: left; }
         label { display: block; margin-bottom: 8px; color: #ccc; font-size: 0.9em; }
-        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; }
+        input, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; }
+        
         button { width: 100%; padding: 15px; border: none; border-radius: 10px; background: var(--primary-color); color: white; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1.1em; text-transform: uppercase; }
+        button:hover { background: #A52A2A; }
 
         #resultArea { margin-top: 10px; text-align: left; display: none; }
         .result-card { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #222; border-left: 5px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .status-badge { display: inline-block; padding: 6px 15px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
         
-        /* Styles pour les retours (Note et Commentaire) */
-        .feedback-section { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #333; }
-        .note-display { color: #ffcc00; font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
-        .comment-display { font-style: italic; color: #aaa; background: #0a0a0a; padding: 15px; border-radius: 8px; border: 1px solid #222; }
+        /* Formulaire de retour (Feedback) */
+        .feedback-section { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #333; }
+        .stars { display: flex; gap: 10px; margin-bottom: 15px; justify-content: center; }
+        .stars i { font-size: 1.5em; cursor: pointer; color: #444; transition: 0.2s; }
+        .stars i.active { color: #ffcc00; }
+        
         .cta-avis { display: block; margin-top: 20px; background: #fffaf0; color: #555; padding: 15px; border-radius: 10px; text-decoration: none; font-size: 0.9em; border: 1px solid #ffe4b5; text-align: center; }
 
         .error-msg { color: #ff4444; background: rgba(255, 68, 68, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #ff4444; margin-top: 20px; display: none; }
@@ -66,20 +70,34 @@
     <div id="resultArea">
         <div class="result-card">
             <div id="statusBadge" class="status-badge"></div>
-            <h2 id="resPrenom" style="margin: 5px 0 15px 0;"></h2>
+            <h2 id="resPrenom" style="margin: 5px 0 15px 0; color: #fff;"></h2>
             <p style="color:#888; font-size:0.8em; text-transform: uppercase;">Votre question :</p>
             <p id="resQuestion" style="font-style:italic; margin-bottom:25px; color: #ccc;"></p>
             <hr style="border:0; border-top:1px solid #333; margin:25px 0;">
-            <p style="color:var(--primary-color); font-weight:bold;">Réponse de Jimmy :</p>
-            <div id="resReponse" style="line-height:1.7; margin-bottom: 20px;"></div>
+            <p style="color:var(--primary-color); font-weight:bold;">Interprétation de Jimmy :</p>
+            <div id="resReponse" style="line-height:1.7; margin-bottom: 20px; color: #eee;"></div>
 
-            <div id="feedbackArea" class="feedback-section" style="display:none;">
-                <div class="note-display" id="resNote"></div>
-                <div class="comment-display" id="resCommentaire"></div>
+            <div id="feedbackForm" class="feedback-section" style="display:none;">
+                <p style="text-align:center; font-weight:bold; color: #ffcc00;">Notez ce tirage :</p>
+                <div class="stars" id="starContainer">
+                    <i class="fas fa-star" data-value="1"></i>
+                    <i class="fas fa-star" data-value="2"></i>
+                    <i class="fas fa-star" data-value="3"></i>
+                    <i class="fas fa-star" data-value="4"></i>
+                    <i class="fas fa-star" data-value="5"></i>
+                </div>
+                <label>Un petit mot pour Jimmy ? (Retour/Commentaire)</label>
+                <textarea id="feedbackComment" rows="3" placeholder="Votre ressenti ici..."></textarea>
+                <button onclick="envoyerFeedback()" id="feedbackBtn">Envoyer mon retour</button>
+                
                 <a href="avis.html" class="cta-avis">
-                    ✨ <b>Ce tirage vous a parlé ?</b><br>
-                    Laissez un message public sur la page Avis pour m'aider !
+                    ✨ <b>Voulez-vous aussi laisser un avis public ?</b><br>
+                    Cela m'aide énormément à gagner en visibilité !
                 </a>
+            </div>
+            
+            <div id="feedbackSuccess" style="display:none; text-align:center; color:#28a745; margin-top:20px;">
+                <i class="fas fa-check-circle"></i> Merci pour votre retour !
             </div>
         </div>
         <a href="javascript:void(0)" onclick="retourRecherche()" class="back-btn"><i class="fas fa-arrow-left"></i> Autre recherche</a>
@@ -88,6 +106,18 @@
 
 <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec';
+    let currentId = "";
+    let selectedNote = 0;
+
+    // Gestion des étoiles
+    document.querySelectorAll('.stars i').forEach(star => {
+        star.onclick = function() {
+            selectedNote = this.getAttribute('data-value');
+            document.querySelectorAll('.stars i').forEach(s => {
+                s.classList.toggle('active', s.getAttribute('data-value') <= selectedNote);
+            });
+        };
+    });
 
     function chercherTirage() {
         const id = document.getElementById('idInput').value.trim();
@@ -97,6 +127,7 @@
         const loader = document.getElementById('loader');
 
         if (!id || !code) { afficherErreur("Identifiants requis."); return; }
+        currentId = id;
         errorArea.style.display = "none";
         loader.style.display = "block";
         btn.disabled = true;
@@ -116,38 +147,53 @@
         });
     }
 
-    function afficherErreur(msg) {
-        const errorArea = document.getElementById('errorArea');
-        errorArea.innerText = msg;
-        errorArea.style.display = "block";
-    }
-
     function afficherResultat(data) {
         document.getElementById('searchBox').style.display = "none";
         document.getElementById('resPrenom').innerText = "Bonjour " + data.prenom;
         document.getElementById('resQuestion').innerText = data.question;
         
         const badge = document.getElementById('statusBadge');
-        const feedback = document.getElementById('feedbackArea');
+        const fForm = document.getElementById('feedbackForm');
 
         if (data.statut === "TRAITÉE") {
             badge.innerText = "Tirage Terminé";
             badge.style.background = "#28a745";
             document.getElementById('resReponse').innerHTML = data.reponse.replace(/\n/g, '<br>');
-            
-            // Affichage des notes et commentaires si présents
-            if (data.note || data.commentaire) {
-                feedback.style.display = "block";
-                document.getElementById('resNote').innerText = data.note ? "Votre note : " + data.note + " / 5" : "";
-                document.getElementById('resCommentaire').innerText = data.commentaire || "Pas de commentaire laissé.";
-            }
+            // On affiche le formulaire de retour si pas déjà rempli (optionnel)
+            fForm.style.display = "block";
         } else {
             badge.innerText = "En cours";
             badge.style.background = "#f39c12";
-            document.getElementById('resReponse').innerHTML = "<i>En attente de traitement...</i>";
-            feedback.style.display = "none";
+            document.getElementById('resReponse').innerHTML = "<i>Votre tirage n'est pas encore prêt...</i>";
+            fForm.style.display = "none";
         }
         document.getElementById('resultArea').style.display = "block";
+    }
+
+    function envoyerFeedback() {
+        const comment = document.getElementById('feedbackComment').value.trim();
+        const btn = document.getElementById('feedbackBtn');
+        
+        if (selectedNote === 0) { alert("Merci de sélectionner une note."); return; }
+        
+        btn.disabled = true;
+        btn.innerText = "Envoi...";
+
+        fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `action=feedback&id=${encodeURIComponent(currentId)}&note=${selectedNote}&commentaire=${encodeURIComponent(comment)}`
+        }).then(() => {
+            document.getElementById('feedbackForm').style.display = "none";
+            document.getElementById('feedbackSuccess').style.display = "block";
+        });
+    }
+
+    function afficherErreur(msg) {
+        const errorArea = document.getElementById('errorArea');
+        errorArea.innerText = msg;
+        errorArea.style.display = "block";
     }
 
     function retourRecherche() {
