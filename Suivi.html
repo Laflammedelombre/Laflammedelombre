@@ -8,8 +8,6 @@
     <style>
         :root { --primary-color: #8B0000; --bg-dark: #000; --card-bg: #111; }
         body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
-        
-        /* HEADER & NAVIGATION REAJUSTÉS */
         header { padding: 40px 20px; }
         h1 { font-size: 2.5em; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
         nav ul { list-style-type: none; padding: 0; margin: 25px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
@@ -17,26 +15,24 @@
         nav ul li a:hover { color: white; text-decoration: underline; }
 
         .container { max-width: 600px; margin: 0 auto 60px; padding: 0 20px; }
-        
-        /* BOITE DE RECHERCHE */
         .search-box { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: left; }
         label { display: block; margin-bottom: 8px; color: #ccc; font-size: 0.9em; }
         input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; margin-bottom: 20px; font-size: 16px; }
-        
         button { width: 100%; padding: 15px; border: none; border-radius: 10px; background: var(--primary-color); color: white; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1.1em; text-transform: uppercase; }
-        button:hover { background: #A52A2A; }
-        button:disabled { background: #444; cursor: not-allowed; }
 
-        /* ZONE DE RESULTAT */
         #resultArea { margin-top: 10px; text-align: left; display: none; }
         .result-card { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #222; border-left: 5px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .status-badge { display: inline-block; padding: 6px 15px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
         
+        /* Styles pour les retours (Note et Commentaire) */
+        .feedback-section { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #333; }
+        .note-display { color: #ffcc00; font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
+        .comment-display { font-style: italic; color: #aaa; background: #0a0a0a; padding: 15px; border-radius: 8px; border: 1px solid #222; }
+        .cta-avis { display: block; margin-top: 20px; background: #fffaf0; color: #555; padding: 15px; border-radius: 10px; text-decoration: none; font-size: 0.9em; border: 1px solid #ffe4b5; text-align: center; }
+
         .error-msg { color: #ff4444; background: rgba(255, 68, 68, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #ff4444; margin-top: 20px; display: none; }
         .loading { display: none; margin: 20px 0; color: #aaa; }
-
         .back-btn { display: inline-block; margin-top: 25px; color: #aaa; text-decoration: none; font-size: 0.9em; transition: 0.3s; }
-        .back-btn:hover { color: #fff; }
     </style>
 </head>
 <body>
@@ -50,7 +46,7 @@
             <li><a href="contact.html">Contact</a></li>
             <li><a href="avis.html">Avis</a></li>
             <li><a href="carte.html">Carte du jour</a></li>
-            <li><a href="form.html">Formulaire de Question (Gratuit)</a></li>
+            <li><a href="Suivi.html" style="color: white; text-decoration: underline;">Suivi</a></li>
         </ul>
     </nav>
 </header>
@@ -58,30 +54,35 @@
 <div class="container">
     <div id="searchBox" class="search-box">
         <h2 style="margin-top:0;">Consulter mon tirage</h2>
-        <label>Identifiant (ex: LFO-123456)</label>
-        <input type="text" id="idInput" placeholder="Entrez votre ID">
-        
+        <label>Identifiant</label>
+        <input type="text" id="idInput" placeholder="Ex: LFO-123456">
         <label>Code Secret</label>
-        <input type="password" id="codeInput" placeholder="Entrez votre code">
-        
+        <input type="password" id="codeInput" placeholder="Votre code secret">
         <button id="searchBtn" onclick="chercherTirage()">Voir ma réponse</button>
-        
-        <div id="loader" class="loading"><i class="fas fa-spinner fa-spin"></i> Connexion sécurisée...</div>
+        <div id="loader" class="loading"><i class="fas fa-spinner fa-spin"></i> Connexion au grimoire...</div>
         <div id="errorArea" class="error-msg"></div>
     </div>
 
     <div id="resultArea">
         <div class="result-card">
             <div id="statusBadge" class="status-badge"></div>
-            <h2 id="resPrenom" style="margin: 5px 0 15px 0; color: #fff;"></h2>
-            <p style="color:#888; font-size:0.8em; text-transform: uppercase; letter-spacing: 1px;">Votre question posée :</p>
+            <h2 id="resPrenom" style="margin: 5px 0 15px 0;"></h2>
+            <p style="color:#888; font-size:0.8em; text-transform: uppercase;">Votre question :</p>
             <p id="resQuestion" style="font-style:italic; margin-bottom:25px; color: #ccc;"></p>
             <hr style="border:0; border-top:1px solid #333; margin:25px 0;">
-            <p style="color:var(--primary-color); font-weight:bold; font-size: 1.1em; margin-bottom: 10px;">L'interprétation de Jimmy :</p>
-            <div id="resReponse" style="line-height:1.7; color:#eee; font-size: 1.05em;"></div>
+            <p style="color:var(--primary-color); font-weight:bold;">Réponse de Jimmy :</p>
+            <div id="resReponse" style="line-height:1.7; margin-bottom: 20px;"></div>
+
+            <div id="feedbackArea" class="feedback-section" style="display:none;">
+                <div class="note-display" id="resNote"></div>
+                <div class="comment-display" id="resCommentaire"></div>
+                <a href="avis.html" class="cta-avis">
+                    ✨ <b>Ce tirage vous a parlé ?</b><br>
+                    Laissez un message public sur la page Avis pour m'aider !
+                </a>
+            </div>
         </div>
-        
-        <a href="javascript:void(0)" onclick="retourRecherche()" class="back-btn"><i class="fas fa-arrow-left"></i> Retour à la recherche</a>
+        <a href="javascript:void(0)" onclick="retourRecherche()" class="back-btn"><i class="fas fa-arrow-left"></i> Autre recherche</a>
     </div>
 </div>
 
@@ -95,11 +96,7 @@
         const errorArea = document.getElementById('errorArea');
         const loader = document.getElementById('loader');
 
-        if (!id || !code) {
-            afficherErreur("Veuillez saisir vos identifiants.");
-            return;
-        }
-
+        if (!id || !code) { afficherErreur("Identifiants requis."); return; }
         errorArea.style.display = "none";
         loader.style.display = "block";
         btn.disabled = true;
@@ -109,17 +106,13 @@
         .then(data => {
             loader.style.display = "none";
             btn.disabled = false;
-
-            if (data.result === "success") {
-                afficherResultat(data);
-            } else {
-                afficherErreur(data.message);
-            }
+            if (data.result === "success") { afficherResultat(data); } 
+            else { afficherErreur(data.message); }
         })
         .catch(err => {
             loader.style.display = "none";
             btn.disabled = false;
-            afficherErreur("Serveur injoignable. Réessayez plus tard.");
+            afficherErreur("Erreur de connexion.");
         });
     }
 
@@ -135,28 +128,31 @@
         document.getElementById('resQuestion').innerText = data.question;
         
         const badge = document.getElementById('statusBadge');
-        const reponseDiv = document.getElementById('resReponse');
+        const feedback = document.getElementById('feedbackArea');
 
         if (data.statut === "TRAITÉE") {
             badge.innerText = "Tirage Terminé";
             badge.style.background = "#28a745";
-            badge.style.color = "#fff";
-            reponseDiv.innerHTML = data.reponse.replace(/\n/g, '<br>');
+            document.getElementById('resReponse').innerHTML = data.reponse.replace(/\n/g, '<br>');
+            
+            // Affichage des notes et commentaires si présents
+            if (data.note || data.commentaire) {
+                feedback.style.display = "block";
+                document.getElementById('resNote').innerText = data.note ? "Votre note : " + data.note + " / 5" : "";
+                document.getElementById('resCommentaire').innerText = data.commentaire || "Pas de commentaire laissé.";
+            }
         } else {
-            badge.innerText = "En attente de traitement";
+            badge.innerText = "En cours";
             badge.style.background = "#f39c12";
-            badge.style.color = "#000";
-            reponseDiv.innerHTML = "<i style='color: #888;'>Jimmy n'a pas encore validé votre tirage. Revenez d'ici quelques heures.</i>";
+            document.getElementById('resReponse').innerHTML = "<i>En attente de traitement...</i>";
+            feedback.style.display = "none";
         }
-
         document.getElementById('resultArea').style.display = "block";
     }
 
     function retourRecherche() {
         document.getElementById('resultArea').style.display = "none";
         document.getElementById('searchBox').style.display = "block";
-        document.getElementById('idInput').value = "";
-        document.getElementById('codeInput').value = "";
     }
 </script>
 </body>
