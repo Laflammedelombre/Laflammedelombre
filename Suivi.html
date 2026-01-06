@@ -21,13 +21,15 @@
         button:hover { background: #A52A2A; }
         button:disabled { background: #444; cursor: not-allowed; }
 
-        #resultArea { margin-top: 30px; text-align: left; display: none; }
-        .result-card { background: #1a1a1a; padding: 25px; border-radius: 15px; border-left: 5px solid var(--primary-color); }
-        .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; }
+        #resultArea { margin-top: 10px; text-align: left; display: none; }
+        .result-card { background: #111; padding: 30px; border-radius: 20px; border: 1px solid #222; border-left: 5px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .status-badge { display: inline-block; padding: 6px 15px; border-radius: 20px; font-size: 0.8em; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
         
-        /* Styles pour les messages d'erreur ou d'info */
         .error-msg { color: #ff4444; background: rgba(255, 68, 68, 0.1); padding: 15px; border-radius: 8px; border: 1px solid #ff4444; margin-top: 20px; display: none; }
         .loading { display: none; margin: 20px 0; color: #aaa; }
+
+        .back-btn { display: inline-block; margin-top: 25px; color: #aaa; text-decoration: none; font-size: 0.9em; transition: 0.3s; }
+        .back-btn:hover { color: #fff; }
     </style>
 </head>
 <body>
@@ -37,7 +39,7 @@
 </header>
 
 <div class="container">
-    <div class="search-box">
+    <div id="searchBox" class="search-box">
         <h2 style="margin-top:0;">Suivre ma demande</h2>
         <label>Identifiant (ex: LFO-123456)</label>
         <input type="text" id="idInput" placeholder="Entrez votre ID">
@@ -54,13 +56,15 @@
     <div id="resultArea">
         <div class="result-card">
             <div id="statusBadge" class="status-badge"></div>
-            <h3 id="resPrenom" style="margin: 5px 0 15px 0;"></h3>
-            <p style="color:#888; font-size:0.9em;">Votre question :</p>
-            <p id="resQuestion" style="font-style:italic; margin-bottom:20px;"></p>
-            <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
-            <p style="color:#ccc; font-weight:bold;">Réponse de Jimmy :</p>
-            <div id="resReponse" style="line-height:1.6; color:#fff;"></div>
+            <h2 id="resPrenom" style="margin: 5px 0 15px 0; color: #fff;"></h2>
+            <p style="color:#888; font-size:0.9em; text-transform: uppercase; letter-spacing: 1px;">Votre question :</p>
+            <p id="resQuestion" style="font-style:italic; margin-bottom:25px; color: #ccc;"></p>
+            <hr style="border:0; border-top:1px solid #333; margin:25px 0;">
+            <p style="color:var(--primary-color); font-weight:bold; font-size: 1.1em; margin-bottom: 15px;">Réponse de Jimmy :</p>
+            <div id="resReponse" style="line-height:1.7; color:#eee; font-size: 1.05em;"></div>
         </div>
+        
+        <a href="javascript:void(0)" onclick="retourRecherche()" class="back-btn"><i class="fas fa-arrow-left"></i> Faire une autre recherche</a>
     </div>
 </div>
 
@@ -72,7 +76,6 @@
         const code = document.getElementById('codeInput').value.trim();
         const btn = document.getElementById('searchBtn');
         const errorArea = document.getElementById('errorArea');
-        const resultArea = document.getElementById('resultArea');
         const loader = document.getElementById('loader');
 
         if (!id || !code) {
@@ -80,13 +83,10 @@
             return;
         }
 
-        // Reset
         errorArea.style.display = "none";
-        resultArea.style.display = "none";
         loader.style.display = "block";
         btn.disabled = true;
 
-        // Appel au script avec les paramètres GET
         fetch(`${APPS_SCRIPT_URL}?action=suivi&id=${encodeURIComponent(id)}&code=${encodeURIComponent(code)}`)
         .then(response => response.json())
         .then(data => {
@@ -103,7 +103,6 @@
             loader.style.display = "none";
             btn.disabled = false;
             afficherErreur("Erreur de connexion au serveur.");
-            console.error(err);
         });
     }
 
@@ -114,6 +113,9 @@
     }
 
     function afficherResultat(data) {
+        // On masque la boîte de recherche
+        document.getElementById('searchBox').style.display = "none";
+        
         document.getElementById('resPrenom').innerText = "Bonjour " + data.prenom;
         document.getElementById('resQuestion').innerText = data.question;
         
@@ -121,16 +123,26 @@
         const reponseDiv = document.getElementById('resReponse');
 
         if (data.statut === "TRAITÉE") {
-            badge.innerText = "TIRAGE PRÊT";
+            badge.innerText = "Tirage Prêt";
             badge.style.background = "#28a745";
+            badge.style.color = "#fff";
             reponseDiv.innerHTML = data.reponse.replace(/\n/g, '<br>');
         } else {
-            badge.innerText = "EN COURS DE TRAITEMENT";
+            badge.innerText = "En cours de traitement";
             badge.style.background = "#f39c12";
-            reponseDiv.innerHTML = "<i>Votre tirage n'est pas encore prêt. Jimmy s'en occupe bientôt !</i>";
+            badge.style.color = "#000";
+            reponseDiv.innerHTML = "<i style='color: #888;'>Votre tirage n'est pas encore prêt. Jimmy s'en occupe bientôt !</i>";
         }
 
         document.getElementById('resultArea').style.display = "block";
+    }
+
+    function retourRecherche() {
+        // On réaffiche la recherche et on masque le résultat
+        document.getElementById('resultArea').style.display = "none";
+        document.getElementById('searchBox').style.display = "block";
+        document.getElementById('idInput').value = "";
+        document.getElementById('codeInput').value = "";
     }
 </script>
 </body>
