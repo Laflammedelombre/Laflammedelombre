@@ -3,165 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Grimoire des Murmures - La Flamme de l'Ombre</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Le Murmure - La Flamme de l'Ombre</title>
     <style>
-        :root { --gold: #d4af37; --primary: #8B0000; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: 'Cinzel', serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        :root { --primary: #8B0000; --bg: #000; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         
-        .container { text-align: center; width: 90%; max-width: 500px; padding: 20px; }
-        h1 { color: var(--gold); font-size: 1.5em; letter-spacing: 2px; margin-bottom: 10px; }
-        .instruction { color: #888; font-style: italic; font-size: 0.9em; margin-bottom: 30px; }
+        .container { text-align: center; width: 85%; max-width: 400px; }
+        h1 { font-size: 1.2em; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; color: #fff; }
 
-        /* Grimoire et Aura */
-        .book-container { position: relative; width: 200px; height: 200px; margin: auto; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+        /* Cercle de concentration */
+        .trigger-zone { 
+            position: relative; width: 120px; height: 120px; margin: auto; 
+            border: 1px solid #333; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s;
+        }
+        .flame-core { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); }
         
-        #aura { position: absolute; width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, var(--primary) 0%, transparent 70%); opacity: 0; transition: transform 0.1s, opacity 0.3s; z-index: 1; }
-        
-        #bookIcon { font-size: 5em; color: var(--gold); position: relative; z-index: 2; transition: transform 0.2s; }
+        #progress-ring {
+            position: absolute; top: 0; left: 0; width: 120px; height: 120px;
+            transform: rotate(-90deg);
+        }
+        #progress-ring circle {
+            fill: transparent; stroke: var(--primary); stroke-width: 2;
+            stroke-dasharray: 377; stroke-dashoffset: 377; transition: stroke-dashoffset 0.1s;
+        }
 
-        /* Affichage du Murmure */
-        #murmurWrapper { display: none; margin-top: 40px; animation: fadeIn 2s ease-in-out; }
-        #murmurText { font-size: 1.2em; line-height: 1.6; color: #eee; font-style: italic; min-height: 80px; }
-        
-        .cta-btn { display: inline-block; margin-top: 30px; padding: 12px 25px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
-        .cta-btn:hover { background: var(--gold); color: black; }
+        /* Message */
+        #result { display: none; animation: fadeIn 1.5s; }
+        #text { font-size: 1.4em; font-weight: 300; line-height: 1.5; margin-bottom: 40px; }
+        .btn { color: var(--primary); text-decoration: none; border: 1px solid var(--primary); padding: 10px 20px; font-size: 0.8em; letter-spacing: 1px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div id="setup">
-        <h1>Le Grimoire des Murmures</h1>
-        <p class="instruction">Posez votre question en silence...<br>Maintenez le grimoire enfoncé pour charger votre énergie.</p>
-
-        <div class="book-container" id="bookTrigger">
-            <div id="aura"></div>
-            <i class="fas fa-book-dead" id="bookIcon"></i>
-        </div>
+<div class="container" id="main-ui">
+    <h1>Posez votre question</h1>
+    <div class="trigger-zone" id="btn">
+        <svg id="progress-ring"><circle id="circle" cx="60" cy="60" r="58"></circle></svg>
+        <div class="flame-core"></div>
     </div>
+    <p id="hint" style="margin-top: 30px; color: #555; font-size: 0.8em;">Maintenez le centre</p>
+</div>
 
-    <div id="murmurWrapper">
-        <div id="murmurText"></div>
-        <a href="index.html" class="cta-btn">ALLER PLUS LOIN AVEC JIMMY</a>
-    </div>
+<div class="container" id="result">
+    <div id="text"></div>
+    <a href="index.html" class="btn">APPROFONDIR AVEC UN TIRAGE</a>
 </div>
 
 <script>
-    const murmures = [
-        "Le silence que vous craignez contient la réponse que vous cherchez.",
-        "N'avancez pas par force, mais par fluidité. La rivière contourne le rocher.",
-        "Une ombre du passé s'étire encore. Il est temps de rallumer votre propre lumière.",
-        "Ce que vous croyez être une fin est simplement une terre qui se repose avant le printemps.",
-        "Écoutez votre corps, il sait avant votre esprit. Si la gorge se serre, ne dites rien.",
-        "L'impatience est un vent qui éteint les bougies. Laissez le temps faire son œuvre.",
-        "Vous n'avez pas besoin de tout contrôler pour être en sécurité.",
-        "Un message arrive par une voie détournée. Restez attentif aux signes répétitifs.",
-        "Faites confiance à ce frisson. C'est votre âme qui reconnaît une vérité.",
-        "Le chaos actuel n'est que le tri nécessaire avant un nouvel ordre.",
-        "Ne donnez pas votre pouvoir à ceux qui ne connaissent pas votre histoire.",
-        "La porte est ouverte, mais vous regardez encore le mur.",
-        "Simplifiez. Vous portez trop de bagages qui ne vous appartiennent pas.",
-        "Le risque que vous redoutez est le pont vers votre liberté.",
-        "Prenez soin de votre ancrage. Sans racines, vous ne pourrez pas toucher le ciel.",
-        "Ce n'est pas de la chance, c'est le fruit de votre alignement.",
-        "Regardez derrière l'apparence. Le loup se déguise parfois en agneau, et inversement.",
-        "La solitude actuelle est un sanctuaire, pas une punition. Profitez-en.",
-        "Dites 'non' à ce qui éteint votre joie, même si cela semble logique.",
-        "Votre intuition est un muscle. Utilisez-la aujourd'hui, même pour un détail.",
-        "L'abondance ne viendra pas tant que vous ne croyez pas la mériter.",
-        "Observez les oiseaux. Ils ne sèment ni ne moissonnent, pourtant ils sont nourris.",
-        "Un changement de perspective transformera votre obstacle en marchepied.",
-        "Arrêtez de chercher la validation à l'extérieur. Le miroir ne ment jamais.",
-        "L'eau qui stagne se trouble. Mettez vos projets en mouvement, même un peu.",
-        "Le pardon n'est pas pour l'autre, il est pour libérer votre propre cœur.",
-        "Une rencontre prochaine éveillera une ancienne connaissance en vous.",
-        "C'est dans l'obscurité la plus totale que l'on voit le mieux les étoiles.",
-        "Ne confondez pas la vitesse et le progrès. Marchez à votre propre rythme.",
-        "Le secret réside dans l'acceptation de ce qui est, ici et maintenant.",
-        "Une vérité cachée va refaire surface. Ne la fuyez pas, elle est libératrice.",
-        "Votre créativité est votre meilleure protection contre la mélancolie.",
-        "Osez demander de l'aide. L'univers attend votre signal pour agir.",
-        "La réponse n'est pas 'oui' ou 'non', elle est 'plus tard'.",
-        "Protégez votre énergie. Tout le monde n'a pas accès à votre jardin intérieur.",
-        "Un rêve oublié va vous donner la clé d'un problème actuel.",
-        "Le doute est une illusion de l'ego. Votre cœur, lui, n'a jamais douté.",
-        "Soyez doux avec vous-même. Vous faites du mieux que vous pouvez.",
-        "L'ombre ne disparaît pas, elle s'apprivoise pour devenir une force.",
-        "Riez. Le rire est la fréquence la plus proche de la source divine.",
-        "Une opportunité se déguise en difficulté. Ouvrez l'œil.",
-        "Le passé est une bibliothèque, pas une prison. Prenez la leçon et sortez.",
-        "Votre plus grande force réside dans votre vulnérabilité.",
-        "Laissez tomber les masques. On vous aimera pour votre vérité, pas pour votre rôle.",
-        "Le vent tourne en votre faveur. Ajustez simplement vos voiles.",
-        "Écoutez la musique de votre intuition, pas le bruit du monde.",
-        "Rien n'est permanent. Cette tempête aussi finira par s'apaiser.",
-        "La gratitude attire la magie. Remerciez déjà pour ce qui arrive.",
-        "Prenez une grande inspiration. Vous êtes exactement là où vous devez être.",
-        "Le grimoire se ferme sur cette certitude : vous êtes protégé(e)."
+    const messages = [
+        "La réponse est oui.",
+        "Ce n'est pas le bon moment.",
+        "Lâchez prise sur ce détail.",
+        "Faites confiance à votre instinct.",
+        "Une surprise arrive.",
+        "Prenez du recul.",
+        "Agissez maintenant.",
+        "Attendez encore un peu.",
+        "Le danger est ailleurs.",
+        "Vous avez déjà la solution.",
+        "Osez dire non.",
+        "Regardez la vérité en face.",
+        "Changez de direction.",
+        "La peur vous bloque.",
+        "Tout va bien se passer.",
+        "Restez discret.",
+        "Parlez-en autour de vous.",
+        "Écoutez votre intuition.",
+        "Le passé revient.",
+        "Une porte s'ouvre enfin."
     ];
 
-    let pressTimer;
-    let progress = 0;
-    const trigger = document.getElementById('bookTrigger');
-    const aura = document.getElementById('aura');
-    const bookIcon = document.getElementById('bookIcon');
+    let timer;
+    let offset = 377;
+    const btn = document.getElementById('btn');
+    const circle = document.getElementById('circle');
 
-    function startPress(e) {
-        e.preventDefault();
-        progress = 0;
-        aura.style.opacity = "0.6";
-        pressTimer = setInterval(() => {
-            progress += 2;
-            aura.style.transform = `scale(${progress / 10})`;
-            bookIcon.style.transform = `scale(${1 + progress/500})`;
-            
-            if (progress >= 100) {
-                clearInterval(pressTimer);
-                revelerMurmure();
+    function start() {
+        timer = setInterval(() => {
+            offset -= 5;
+            circle.style.strokeDashoffset = offset;
+            if (offset <= 0) {
+                clearInterval(timer);
+                showResult();
             }
         }, 30);
     }
 
-    function stopPress() {
-        clearInterval(pressTimer);
-        if (progress < 100) {
-            aura.style.opacity = "0";
-            aura.style.transform = `scale(0)`;
-            bookIcon.style.transform = `scale(1)`;
+    function stop() {
+        clearInterval(timer);
+        if (offset > 0) {
+            offset = 377;
+            circle.style.strokeDashoffset = offset;
         }
     }
 
-    function revelerMurmure() {
-        document.getElementById('setup').style.display = "none";
-        const wrapper = document.getElementById('murmurWrapper');
-        const text = document.getElementById('murmurText');
-        const index = Math.floor(Math.random() * murmures.length);
-        
-        wrapper.style.display = "block";
-        
-        // Effet d'écriture progressive
-        let i = 0;
-        const sentence = murmures[index];
-        text.innerHTML = "";
-        function typeWriter() {
-            if (i < sentence.length) {
-                text.innerHTML += sentence.charAt(i);
-                i++;
-                setTimeout(typeWriter, 40);
-            }
-        }
-        typeWriter();
+    function showResult() {
+        document.getElementById('main-ui').style.display = "none";
+        document.getElementById('result').style.display = "block";
+        document.getElementById('text').innerText = messages[Math.floor(Math.random() * messages.length)];
     }
 
-    trigger.addEventListener('mousedown', startPress);
-    trigger.addEventListener('touchstart', startPress);
-    window.addEventListener('mouseup', stopPress);
-    window.addEventListener('touchend', stopPress);
-
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('touchstart', start);
+    window.addEventListener('mouseup', stop);
+    window.addEventListener('touchend', stop);
 </script>
-
 </body>
 </html>
