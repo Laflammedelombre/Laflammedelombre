@@ -3,54 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Murmure - La Flamme de l'Ombre</title>
+    <title>L'Empreinte Mystique - La Flamme de l'Ombre</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root { --primary: #8B0000; --bg: #000; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        :root { --primary: #8B0000; --gold: #d4af37; --bg: #000; }
         
-        .container { text-align: center; width: 85%; max-width: 400px; }
-        h1 { font-size: 1.2em; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; color: #fff; }
-
-        /* Cercle de concentration */
-        .trigger-zone { 
-            position: relative; width: 120px; height: 120px; margin: auto; 
-            border: 1px solid #333; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.3s;
+        body { 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Georgia', serif; 
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
-        .flame-core { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); }
         
-        #progress-ring {
-            position: absolute; top: 0; left: 0; width: 120px; height: 120px;
-            transform: rotate(-90deg);
-        }
-        #progress-ring circle {
-            fill: transparent; stroke: var(--primary); stroke-width: 2;
-            stroke-dasharray: 377; stroke-dashoffset: 377; transition: stroke-dashoffset 0.1s;
+        .container { text-align: center; width: 85%; max-width: 400px; z-index: 2; }
+        
+        h1 { font-size: 1.1em; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 50px; color: #fff; font-weight: 300; }
+
+        /* Zone de l'empreinte */
+        .scan-zone {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
 
-        /* Message */
-        #result { display: none; animation: fadeIn 1.5s; }
-        #text { font-size: 1.4em; font-weight: 300; line-height: 1.5; margin-bottom: 40px; }
-        .btn { color: var(--primary); text-decoration: none; border: 1px solid var(--primary); padding: 10px 20px; font-size: 0.8em; letter-spacing: 1px; }
+        .fingerprint-icon {
+            font-size: 5em;
+            color: #222; /* Très sombre au début */
+            transition: color 0.5s, transform 0.2s;
+            z-index: 10;
+        }
+
+        /* Aura magique */
+        .aura {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s, transform 0.1s;
+            filter: blur(10px);
+        }
+
+        /* Particules de fumée (animation subtile) */
+        .smoke {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            box-shadow: 0 0 15px transparent;
+            transition: box-shadow 0.5s;
+        }
+
+        /* Affichage du message */
+        #result-screen { display: none; animation: fadeIn 2s ease-in; }
+        #message-text { 
+            font-size: 1.5em; 
+            font-style: italic; 
+            line-height: 1.6; 
+            margin-bottom: 50px;
+            color: #f0f0f0;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .btn-link { 
+            color: var(--gold); 
+            text-decoration: none; 
+            border: 1px solid var(--gold); 
+            padding: 12px 25px; 
+            font-size: 0.8em; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.4s;
+        }
+        .btn-link:hover { background: var(--gold); color: black; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* État "En cours de lecture" */
+        .active .fingerprint-icon { color: var(--primary); transform: scale(0.95); }
+        .active .aura { opacity: 0.8; }
+        .active .smoke { box-shadow: 0 0 30px var(--primary); }
+
     </style>
 </head>
 <body>
 
-<div class="container" id="main-ui">
-    <h1>Posez votre question</h1>
-    <div class="trigger-zone" id="btn">
-        <svg id="progress-ring"><circle id="circle" cx="60" cy="60" r="58"></circle></svg>
-        <div class="flame-core"></div>
+<div class="container" id="init-screen">
+    <h1>Laissez l'empreinte <br> de votre intention</h1>
+    
+    <div class="scan-zone" id="trigger">
+        <div class="smoke"></div>
+        <div class="aura" id="aura-glow"></div>
+        <i class="fas fa-fingerprint fingerprint-icon"></i>
     </div>
-    <p id="hint" style="margin-top: 30px; color: #555; font-size: 0.8em;">Maintenez le centre</p>
+    
+    <p style="margin-top: 40px; color: #444; font-size: 0.7em; letter-spacing: 1px;">MAINTENEZ VOTRE DOIGT APPUIÉ</p>
 </div>
 
-<div class="container" id="result">
-    <div id="text"></div>
-    <a href="index.html" class="btn">APPROFONDIR AVEC UN TIRAGE</a>
+<div class="container" id="result-screen">
+    <div id="message-text"></div>
+    <a href="index.html" class="btn-link">Aller plus loin avec Jimmy</a>
 </div>
 
 <script>
@@ -71,46 +138,59 @@
         "La peur vous bloque.",
         "Tout va bien se passer.",
         "Restez discret.",
-        "Parlez-en autour de vous.",
         "Écoutez votre intuition.",
         "Le passé revient.",
-        "Une porte s'ouvre enfin."
+        "Une porte s'ouvre enfin.",
+        "La réponse est en vous."
     ];
 
-    let timer;
-    let offset = 377;
-    const btn = document.getElementById('btn');
-    const circle = document.getElementById('circle');
+    let pressTimer;
+    let charge = 0;
+    const trigger = document.getElementById('trigger');
+    const aura = document.getElementById('aura-glow');
 
-    function start() {
-        timer = setInterval(() => {
-            offset -= 5;
-            circle.style.strokeDashoffset = offset;
-            if (offset <= 0) {
-                clearInterval(timer);
-                showResult();
+    function startPress(e) {
+        e.preventDefault();
+        charge = 0;
+        trigger.classList.add('active');
+        
+        pressTimer = setInterval(() => {
+            charge += 2;
+            aura.style.transform = `scale(${0.5 + charge/50})`;
+            
+            if (charge >= 100) {
+                clearInterval(pressTimer);
+                revealMessage();
             }
-        }, 30);
+        }, 40);
     }
 
-    function stop() {
-        clearInterval(timer);
-        if (offset > 0) {
-            offset = 377;
-            circle.style.strokeDashoffset = offset;
+    function stopPress() {
+        clearInterval(pressTimer);
+        if (charge < 100) {
+            trigger.classList.remove('active');
+            aura.style.transform = `scale(0.5)`;
         }
     }
 
-    function showResult() {
-        document.getElementById('main-ui').style.display = "none";
-        document.getElementById('result').style.display = "block";
-        document.getElementById('text').innerText = messages[Math.floor(Math.random() * messages.length)];
+    function revealMessage() {
+        document.getElementById('init-screen').style.display = "none";
+        document.getElementById('result-screen').style.display = "block";
+        
+        const textElement = document.getElementById('message-text');
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        
+        // Petit effet de délai pour le côté "lecture de l'âme"
+        textElement.innerText = randomMsg;
     }
 
-    btn.addEventListener('mousedown', start);
-    btn.addEventListener('touchstart', start);
-    window.addEventListener('mouseup', stop);
-    window.addEventListener('touchend', stop);
+    // Événements Souris et Tactile
+    trigger.addEventListener('mousedown', startPress);
+    trigger.addEventListener('touchstart', startPress);
+    window.addEventListener('mouseup', stopPress);
+    window.addEventListener('touchend', stopPress);
+
 </script>
+
 </body>
 </html>
