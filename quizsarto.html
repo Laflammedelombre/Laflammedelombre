@@ -486,9 +486,8 @@ const QUESTIONS = [
       "Pharmacie Saint-Jean à La Ciotat",
       "Pharmacie Des Vignes à Saint-Cyr-sur-Mer"
     ],
-    ans: [null], // à renseigner
-    singleCol: true,
-    answerTBC: true
+    ans: [3],
+    singleCol: true
   },
   {
     partie: 1,
@@ -998,34 +997,54 @@ function continueDouble() {
 // ─────────────────────────────────────────────
 function loadLibre(q) {
   document.getElementById('q-text').textContent = q.text;
+  if (q.hasTimer) startTimer(q.timerSeconds);
+  showBuzzerPanel(q.points.correct, q.points.wrong);
+}
 
-  if (q.hasTimer) {
-    startTimer(q.timerSeconds);
-  }
+// Buzzer panel : Vrai/Faux par équipe — réponse cachée jusqu'à Vrai
+function showBuzzerPanel(pointsGood, pointsBad) {
+  const panel = document.getElementById('attr-panel');
+  const na = teamNames.a, nb = teamNames.b;
+  panel.className = 'attr-panel visible';
+  document.getElementById('attr-title').innerHTML = `Quelle équipe a buzzé ?`;
+  document.getElementById('attr-btns').innerHTML = `
+    <button class="attr-btn" style="border-color:#e57373;color:#8b2020;" onclick="buzzWrong('a')">${na} — ✗ Faux &nbsp;<strong style="color:#c0392b;">${pointsBad}</strong></button>
+    <button class="attr-btn" style="border-color:#e57373;color:#8b2020;" onclick="buzzWrong('b')">${nb} — ✗ Faux &nbsp;<strong style="color:#c0392b;">${pointsBad}</strong></button>
+    <button class="attr-btn" style="border-color:#52b77a;color:#1a5c33;" onclick="buzzCorrect('a')">${na} — ✓ Vrai &nbsp;<strong style="color:#1a5c33;">+${pointsGood}</strong></button>
+    <button class="attr-btn" style="border-color:#52b77a;color:#1a5c33;" onclick="buzzCorrect('b')">${nb} — ✓ Vrai &nbsp;<strong style="color:#1a5c33;">+${pointsGood}</strong></button>
+    <button class="attr-btn attr-btn-skip" onclick="skipFree()">Personne — passer</button>`;
+}
 
+function buzzWrong(team) {
+  const q = QUESTIONS[current];
+  scores[team] += q.points.wrong;
+  updateScore(team);
+  // Reste sur le buzzer, réponse toujours cachée
+  showBuzzerPanel(q.points.correct, q.points.wrong);
+}
+
+function buzzCorrect(team) {
+  stopTimer();
+  const q = QUESTIONS[current];
+  scores[team] += q.points.correct;
+  updateScore(team);
+
+  // Révéler la réponse maintenant
   const wrap = document.getElementById('free-answer-wrap');
   wrap.classList.remove('hidden');
   wrap.innerHTML = `
-    <div class="free-answer-box">
-      <div class="free-answer-label">Réponse</div>
-      <div class="free-answer-text" id="free-answer-text">${q.answer}</div>
-      <button class="reveal-answer-btn" id="reveal-btn-libre" onclick="revealLibre()">Révéler la réponse</button>
+    <div class="free-answer-box" style="border-color:#52b77a;background:#f6fff9;">
+      <div class="free-answer-label" style="color:#52b77a;">✓ Bonne réponse</div>
+      <div class="free-answer-text visible">${q.answer}</div>
     </div>`;
-}
 
-function revealLibre() {
-  stopTimer();
-  document.getElementById('free-answer-text').classList.add('visible');
-  document.getElementById('reveal-btn-libre').style.display = 'none';
-
-  // Photo réponse si question photo (libre avec photo)
-  const q = QUESTIONS[current];
+  // Photo réponse si photo
   if (q.type === 'photo' && q.photoA) {
-    document.getElementById('q-photo-reveal').src = q.photoA;
-    document.getElementById('q-photo-reveal').classList.add('visible');
+    wrap.innerHTML += `<img class="q-photo-reveal visible" src="${q.photoA}" alt="Réponse" style="margin-top:12px;" />`;
   }
 
-  showAttrFreePanel(q.points.correct, q.points.wrong);
+  document.getElementById('attr-panel').className = 'attr-panel';
+  document.getElementById('next-btn').classList.remove('hidden');
 }
 
 // ─────────────────────────────────────────────
@@ -1034,21 +1053,12 @@ function revealLibre() {
 function loadPhoto(q) {
   document.getElementById('q-text').textContent = q.text;
 
-  // Afficher la photo question
   const photoEl = document.getElementById('q-photo');
   photoEl.src = q.photoQ;
   photoEl.classList.remove('hidden');
 
-  // Ajouter la zone reveal photo sous la photo principale
-  const wrap = document.getElementById('free-answer-wrap');
-  wrap.classList.remove('hidden');
-  wrap.innerHTML = `
-    <img class="q-photo-reveal" id="q-photo-reveal" src="" alt="Réponse" />
-    <div class="free-answer-box" style="margin-top:12px;">
-      <div class="free-answer-label">Réponse</div>
-      <div class="free-answer-text" id="free-answer-text">${q.answer}</div>
-      <button class="reveal-answer-btn" id="reveal-btn-libre" onclick="revealLibre()">Révéler la réponse</button>
-    </div>`;
+  // Buzzer panel — réponse et photo réponse cachées jusqu'à Vrai
+  showBuzzerPanel(q.points.correct, q.points.wrong);
 }
 
 // ─────────────────────────────────────────────
@@ -1104,19 +1114,6 @@ function showAttrPanel(isCorrect, pointsGood, pointsBad, isDoubleMiddle = false)
   }
 }
 
-function showAttrFreePanel(pointsGood, pointsBad) {
-  const panel = document.getElementById('attr-panel');
-  const na = teamNames.a, nb = teamNames.b;
-  panel.classList.add('visible');
-
-  document.getElementById('attr-title').innerHTML = `Quelle équipe a trouvé ? <span class="points-good">+${pointsGood} pts</span> si bonne réponse, <span class="points-bad">${pointsBad} pt</span> si fausse.`;
-  document.getElementById('attr-btns').innerHTML = `
-    <button class="attr-btn" onclick="assignTeam('a', ${pointsGood}, false)">${na} &nbsp;✓ +${pointsGood}</button>
-    <button class="attr-btn" onclick="assignTeam('b', ${pointsGood}, false)">${nb} &nbsp;✓ +${pointsGood}</button>
-    <button class="attr-btn" onclick="assignTeamWrong('a', ${pointsBad})">${na} &nbsp;✗ ${pointsBad}</button>
-    <button class="attr-btn" onclick="assignTeamWrong('b', ${pointsBad})">${nb} &nbsp;✗ ${pointsBad}</button>
-    <button class="attr-btn attr-btn-skip" onclick="skipFree()">Personne — passer</button>`;
-}
 
 function assignTeam(team, pts, isDoubleMiddle) {
   scores[team] += pts;
