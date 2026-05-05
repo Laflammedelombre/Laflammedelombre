@@ -1,498 +1,365 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Soirée</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+const QUESTIONS = [
 
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f5f5f0;
-      color: #1a1a1a;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem 1rem;
-    }
+  // ═══════════ PARTIE 1 ═══════════
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "À côté de quelle personnalité Angélique a-t-elle passé tout un mariage ?",
+    opts: ["Lady Gaga", "Cyprien", "Jamel Debbouze", "D, la réponse D"],
+    ans: [1]
+  },
 
-    .container {
-      background: #fff;
-      border-radius: 16px;
-      border: 1px solid #e0e0d8;
-      padding: 2rem;
-      width: 100%;
-      max-width: 680px;
-    }
-
-    h1 { font-size: 22px; font-weight: 500; text-align: center; margin-bottom: 0.5rem; }
-    .subtitle { font-size: 14px; color: #888; text-align: center; margin-bottom: 2rem; }
-
-    /* Écran d'accueil */
-    .setup-screen { }
-
-    .setup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.5rem; }
-
-    .field-group { display: flex; flex-direction: column; gap: 8px; }
-
-    .field-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #666;
-    }
-
-    .field-label .dot {
-      display: inline-block;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-
-    .dot-a { background: #185FA5; }
-    .dot-b { background: #993C1D; }
-
-    .team-input {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 15px;
-      color: #1a1a1a;
-      outline: none;
-      transition: border-color 0.15s;
-      width: 100%;
-    }
-
-    .team-input:focus { border-color: #888; }
-    .team-input-a:focus { border-color: #185FA5; }
-    .team-input-b:focus { border-color: #993C1D; }
-
-    .start-btn {
-      width: 100%;
-      background: #1a1a1a;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: opacity 0.15s;
-    }
-
-    .start-btn:hover { opacity: 0.85; }
-
-    /* Quiz */
-    .scoreboard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-    .team-card { background: #f5f5f0; border-radius: 12px; padding: 1rem; text-align: center; }
-    .team-name { font-size: 13px; color: #666; margin-bottom: 4px; }
-    .team-score { font-size: 40px; font-weight: 500; transition: transform 0.15s; }
-    .team-score.bump { transform: scale(1.3); }
-    .team-a .team-score { color: #185FA5; }
-    .team-b .team-score { color: #993C1D; }
-
-    .progress { display: flex; gap: 6px; margin-bottom: 1.25rem; }
-    .prog-dot { height: 5px; flex: 1; border-radius: 3px; background: #ddd; transition: background 0.3s; }
-    .prog-dot.done { background: #378ADD; }
-    .prog-dot.current { background: #185FA5; }
-
-    .question-box { background: #f5f5f0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
-    .q-meta { font-size: 12px; color: #999; margin-bottom: 6px; }
-    .q-text { font-size: 18px; font-weight: 500; line-height: 1.5; }
-
-    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
-
-    .opt-btn {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-size: 15px;
-      color: #1a1a1a;
-      cursor: pointer;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      transition: all 0.15s;
-    }
-
-    .opt-btn:hover:not(:disabled) { background: #f5f5f0; border-color: #aaa; }
-    .opt-btn:disabled { cursor: default; opacity: 0.6; }
-
-    .opt-tag {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 20px;
-      white-space: nowrap;
-      display: none;
-    }
-
-    .opt-btn.correct { background: #EAF3DE; border-color: #3B6D11; color: #27500A; opacity: 1; }
-    .opt-btn.correct .opt-tag { display: inline-block; background: #3B6D11; color: #fff; }
-    .opt-btn.wrong { background: #FCEBEB; border-color: #A32D2D; color: #791F1F; opacity: 1; }
-    .opt-btn.wrong .opt-tag { display: inline-block; background: #A32D2D; color: #fff; }
-
-    .attr-panel {
-      display: none;
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ddd;
-    }
-
-    .attr-panel.visible { display: block; }
-    .attr-panel.is-wrong { border-color: #A32D2D; background: #fff8f8; }
-    .attr-panel.is-correct { border-color: #3B6D11; background: #f8fff5; }
-
-    .attr-title { font-size: 14px; color: #555; margin-bottom: 12px; line-height: 1.6; }
-    .attr-title .result-correct { color: #27500A; font-weight: 500; }
-    .attr-title .result-wrong { color: #791F1F; font-weight: 500; }
-    .attr-title .points-good { color: #27500A; font-weight: 600; }
-    .attr-title .points-bad { color: #A32D2D; font-weight: 600; }
-
-    .attr-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .attr-btn {
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid;
-      text-align: center;
-      transition: all 0.15s;
-    }
-
-    .attr-btn:hover { filter: brightness(0.95); }
-    .attr-btn-a { background: #E6F1FB; border-color: #378ADD; color: #185FA5; }
-    .attr-btn-b { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
-    .attr-btn-skip {
-      grid-column: span 2;
-      background: #f5f5f0;
-      border-color: #ccc;
-      color: #666;
-      font-size: 13px;
-      padding: 10px;
-    }
-
-    .nav-row { display: flex; justify-content: flex-end; }
-    .nav-btn {
-      border-radius: 10px;
-      padding: 10px 22px;
-      font-size: 14px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      background: #fff;
-      color: #1a1a1a;
-      transition: all 0.15s;
-    }
-    .nav-btn:hover { background: #f5f5f0; }
-    .nav-btn.primary { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-    .nav-btn.primary:hover { opacity: 0.85; }
-    .hidden { display: none !important; }
-
-    .final-screen { text-align: center; padding: 1rem 0 0; }
-    .final-title { font-size: 24px; font-weight: 500; margin-bottom: 1.5rem; }
-    .final-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-    .replay-row { display: flex; gap: 10px; justify-content: center; }
-  </style>
-</head>
-<body>
-<div class="container">
-
-  <!-- Écran d'accueil -->
-  <div id="setup-screen">
-    <h1>Quiz Soirée 🎉</h1>
-    <p class="subtitle">Entrez les noms des deux équipes pour commencer</p>
-
-    <div class="setup-fields">
-      <div class="field-group">
-        <label class="field-label">
-          <span class="dot dot-a"></span>Équipe 1
-        </label>
-        <input class="team-input team-input-a" id="input-a" type="text" placeholder="Ex : Les Rockets" maxlength="20" />
-      </div>
-      <div class="field-group">
-        <label class="field-label">
-          <span class="dot dot-b"></span>Équipe 2
-        </label>
-        <input class="team-input team-input-b" id="input-b" type="text" placeholder="Ex : Les Legends" maxlength="20" />
-      </div>
-    </div>
-
-    <button class="start-btn" onclick="startGame()">C'est parti !</button>
-  </div>
-
-  <!-- Quiz -->
-  <div id="quiz-screen" class="hidden">
-    <h1>Quiz Soirée 🎉</h1>
-
-    <div class="scoreboard">
-      <div class="team-card team-a">
-        <div class="team-name" id="name-a">Équipe A</div>
-        <div class="team-score" id="score-a">0</div>
-      </div>
-      <div class="team-card team-b">
-        <div class="team-name" id="name-b">Équipe B</div>
-        <div class="team-score" id="score-b">0</div>
-      </div>
-    </div>
-
-    <div id="quiz-main">
-      <div class="progress" id="progress"></div>
-
-      <div class="question-box">
-        <div class="q-meta" id="q-meta"></div>
-        <div class="q-text" id="q-text"></div>
-      </div>
-
-      <div class="options" id="options"></div>
-
-      <div class="attr-panel" id="attr-panel">
-        <div class="attr-title" id="attr-title"></div>
-        <div class="attr-btns" id="attr-btns"></div>
-      </div>
-
-      <div class="nav-row">
-        <button class="nav-btn primary hidden" id="next-btn" onclick="next()">Question suivante →</button>
-      </div>
-    </div>
-
-    <!-- Final -->
-    <div id="final-screen" class="final-screen hidden">
-      <div class="final-title" id="final-title"></div>
-      <div class="final-scores" id="final-scores"></div>
-      <div class="replay-row">
-        <button class="nav-btn primary" onclick="restartQuiz()">Rejouer</button>
-        <button class="nav-btn" onclick="backToSetup()">Changer les équipes</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  const questions = [
-    {
-      q: "Quelle est la capitale de l'Australie ?",
-      opts: ["Sydney", "Melbourne", "Canberra", "Brisbane"],
-      ans: 2,
-      cat: "Géographie"
-    },
-    {
-      q: "En quelle année a été fondée Apple ?",
-      opts: ["1972", "1976", "1980", "1984"],
-      ans: 1,
-      cat: "Tech & Histoire"
-    },
-    {
-      q: "Quel élément chimique a le symbole 'Au' ?",
-      opts: ["Argent", "Aluminium", "Or", "Cuivre"],
-      ans: 2,
-      cat: "Sciences"
-    },
-    {
-      q: "Qui a peint La Nuit étoilée ?",
-      opts: ["Monet", "Picasso", "Van Gogh", "Dali"],
-      ans: 2,
-      cat: "Art"
-    }
-  ];
-
-  let current = 0;
-  let scores = { a: 0, b: 0 };
-  let state = null;
-  let teamNames = { a: 'Équipe A', b: 'Équipe B' };
-
-  function startGame() {
-    const nameA = document.getElementById('input-a').value.trim();
-    const nameB = document.getElementById('input-b').value.trim();
-
-    teamNames.a = nameA || 'Équipe A';
-    teamNames.b = nameB || 'Équipe B';
-
-    document.getElementById('name-a').textContent = teamNames.a;
-    document.getElementById('name-b').textContent = teamNames.b;
-
-    document.getElementById('setup-screen').classList.add('hidden');
-    document.getElementById('quiz-screen').classList.remove('hidden');
-
-    scores = { a: 0, b: 0 };
-    current = 0;
-    initQuiz();
-  }
-
-  // Lancer avec Entrée depuis les champs
-  document.getElementById('input-a').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('input-b').focus(); });
-  document.getElementById('input-b').addEventListener('keydown', e => { if (e.key === 'Enter') startGame(); });
-
-  function initQuiz() {
-    document.getElementById('progress').innerHTML =
-      questions.map((_, i) => `<div class="prog-dot" id="dot-${i}"></div>`).join('');
-    document.getElementById('quiz-main').classList.remove('hidden');
-    document.getElementById('final-screen').classList.add('hidden');
-    document.getElementById('score-a').textContent = 0;
-    document.getElementById('score-b').textContent = 0;
-    load();
-  }
-
-  function load() {
-    state = null;
-    const q = questions[current];
-
-    document.getElementById('q-meta').textContent =
-      `Question ${current + 1} / ${questions.length} — ${q.cat}`;
-    document.getElementById('q-text').textContent = q.q;
-
-    document.getElementById('options').innerHTML = q.opts.map((o, i) =>
-      `<button class="opt-btn" id="opt-${i}" onclick="pickAnswer(${i})">
-        <span>${o}</span><span class="opt-tag" id="tag-${i}"></span>
-      </button>`
-    ).join('');
-
-    document.getElementById('attr-panel').className = 'attr-panel';
-    document.getElementById('next-btn').classList.add('hidden');
-
-    for (let i = 0; i < questions.length; i++) {
-      document.getElementById('dot-' + i).className =
-        'prog-dot' + (i < current ? ' done' : i === current ? ' current' : '');
-    }
-  }
-
-  function pickAnswer(i) {
-    if (document.getElementById('opt-' + i).classList.contains('wrong')) return;
-    if (state === 'wrong' || state === 'correct') return;
-
-    const q = questions[current];
-    const isCorrect = (i === q.ans);
-
-    const btn = document.getElementById('opt-' + i);
-    const tag = document.getElementById('tag-' + i);
-
-    if (isCorrect) {
-      state = 'correct';
-      revealAll();
-      showPanel(true);
-    } else {
-      state = 'wrong';
-      btn.classList.add('wrong');
-      btn.disabled = true;
-      tag.textContent = '✗ Faux';
-      showPanel(false);
-    }
-  }
-
-  function revealAll() {
-    const q = questions[current];
-    document.querySelectorAll('.opt-btn').forEach((btn, idx) => {
-      btn.disabled = true;
-      if (!btn.classList.contains('wrong')) {
-        if (idx === q.ans) {
-          btn.classList.add('correct');
-          document.getElementById('tag-' + idx).textContent = '✓ Bonne réponse';
-        }
+  {
+    partie: 1,
+    type: 'double',
+    points: { correct: 1, wrong: -1 },
+    parts: [
+      {
+        text: "Parmi ces propositions, il y a un scénario de film/série réel chez Sartorius, lequel ?",
+        opts: [
+          "Un dîner de con : maquettes en allumettes exposées à Paris",
+          "Les Tuches : gain d’argent puis ruine",
+          "Dikkenek : photographe érotique amateur (vérifiable)",
+          "Breaking Bad : production de 'Buddha Blue'"
+        ],
+        ans: [2]
+      },
+      {
+        text: "C’est qui ?",
+        opts: [
+          "Jéjé (Jérôme Mangin)",
+          "Olivier Potet",
+          "Sir Panayotis",
+          "Gilles Remacle"
+        ],
+        ans: [3]
       }
-    });
+    ]
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Quel est le nombre de followers de Valolik sur X ?",
+    opts: ["9k", "27k", "32k", "44k", "90k", "106k"],
+    ans: [2],
+    singleCol: true
+  },
+
+  {
+    partie: 1,
+    type: 'double',
+    points: { correct: 1, wrong: -1 },
+    parts: [
+      {
+        text: "Denis a retrouvé quelque chose sur Magali, c’était :",
+        opts: [
+          "Chaussures de sécurité",
+          "Cotillon dans l’oreille",
+          "Masque de nuit autour du cou",
+          "Feuille dans les cheveux"
+        ],
+        ans: [3]
+      },
+      {
+        text: "Pourquoi ?",
+        opts: [
+          "Soirée + cache-cache au Red Lion",
+          "Bricolage toute la nuit",
+          "Chute dans l’herbe",
+          "Escalade"
+        ],
+        ans: [0]
+      }
+    ]
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Quand Caro boit un café, elle :",
+    opts: [
+      "Le noie de lait",
+      "Met 4 sucres",
+      "Ajoute une goutte d’eau",
+      "Dit un mantra"
+    ],
+    ans: [2]
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Quelle N’EST PAS une passion de Kevin ?",
+    opts: [
+      "La conduite",
+      "Le sport",
+      "Embêter Jimmy-Lee",
+      "Les serial killers"
+    ],
+    ans: [2]
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Activité favorite de l’open space ?",
+    opts: [
+      "Cafés",
+      "Ragots",
+      "Rigoler",
+      "Les 3"
+    ],
+    ans: [3]
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Johan travaille dans quelle pharmacie ?",
+    opts: [
+      "Pharmacie du village",
+      "Pharmacie l’Olivier",
+      "Pharmacie du Pas de Graine",
+      "Pharmacie des 4 chemins",
+      "Pharmacie Saint-Jean",
+      "Pharmacie des Vignes"
+    ],
+    ans: [null],
+    singleCol: true
+  },
+
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Combien de bébés girafes soulève Romain ?",
+    opts: [
+      "0,5",
+      "1,5",
+      "1,9",
+      "2,7",
+      "3,1"
+    ],
+    ans: [2],
+    singleCol: true
+  },
+
+  // ═══════════ PARTIE 2 ═══════════
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Effet du paracétamol ?",
+    opts: [
+      "COX périphérique",
+      "Action centrale",
+      "Opioïdes",
+      "Anti-inflammatoire fort"
+    ],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Bullwhip effect ?",
+    opts: [
+      "Réduction délais",
+      "Amplification demande",
+      "IA",
+      "Rupture locale"
+    ],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Facteur prix immobilier ?",
+    opts: ["Âge", "DPE", "Localisation", "Pièces"],
+    ans: [2]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Pourquoi 42,195 km ?",
+    opts: [
+      "Arbitraire",
+      "JO Londres 1908",
+      "Miles",
+      "Grèce"
+    ],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Succès de Ninho ?",
+    opts: ["CD", "Streaming", "Concerts", "Moins concurrence"],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Population la plus élevée ?",
+    opts: ["Chine", "Inde", "USA", "Indonésie"],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Hausse des taux ?",
+    opts: ["Inflation ↑", "Inflation ↓", "Salaires ↑", "Conso ↑"],
+    ans: [1]
+  },
+
+  {
+    partie: 2,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Élément le plus abondant ?",
+    opts: ["Oxygène", "Hydrogène", "Carbone", "Azote"],
+    ans: [1]
+  },
+
+  // LIBRE
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Procès 2022 avec Amber Heard ?",
+    answer: "Johnny Depp"
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Signification de 'peuchère' ?",
+    answer: "Expression de compassion"
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Origine L2 Marseille ?",
+    answer: "Années 1930-1950"
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Fill rate vs service level ?",
+    answer: "Quantité vs fréquence"
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Pourquoi prix diffèrent ?",
+    answer: "Étage, vue, etc."
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Secondes dans une journée ?",
+    answer: "86400"
+  },
+  {
+    partie: 2,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Pourquoi avions volent haut ?",
+    answer: "Moins de frottements"
+  },
+
+  // ═══════════ PARTIE 3 ═══════════
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Phrase de Lucie ?",
+    answer: "oh wooooooooow"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Passion Val & Jimmy ?",
+    answer: "Les échecs"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Relation cachée ?",
+    answer: "12 mois"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Valeurs Sartorius ?",
+    answer: "Persévérance, ouverture, joie"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Groupe Valentin ?",
+    answer: "Angine de poitrine"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Partie du corps ?",
+    answer: "Marco"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    hasTimer: true,
+    timerSeconds: 10,
+    text: "Toujours en retard ?",
+    answer: "Jimmy-Lee"
+  },
+
+  // PHOTOS
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "Moustache ?",
+    photoQ: "Raffi_1.png",
+    answer: "Raffi",
+    photoA: "Raffi_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "Tiroir ?",
+    photoQ: "Matthieu_1.png",
+    answer: "Matthieu",
+    photoA: null
   }
-
-  function showPanel(isCorrect) {
-    const panel = document.getElementById('attr-panel');
-    const title = document.getElementById('attr-title');
-    const btns = document.getElementById('attr-btns');
-    const na = teamNames.a, nb = teamNames.b;
-
-    panel.classList.add('visible');
-    panel.classList.toggle('is-correct', isCorrect);
-    panel.classList.toggle('is-wrong', !isCorrect);
-
-    if (isCorrect) {
-      title.innerHTML = `<span class="result-correct">Bonne réponse !</span> → Quelle équipe a répondu ? Elle gagne <span class="points-good">+1 point</span>.`;
-      btns.innerHTML = `
-        <button class="attr-btn attr-btn-a" onclick="assignTeam('a')">${na} &nbsp;+1</button>
-        <button class="attr-btn attr-btn-b" onclick="assignTeam('b')">${nb} &nbsp;+1</button>
-      `;
-    } else {
-      const q = questions[current];
-      title.innerHTML = `<span class="result-wrong">Mauvaise réponse !</span> → Quelle équipe a buzzé ? Elle prend <span class="points-bad">−1 point</span>. Les autres peuvent encore buzzer.`;
-      btns.innerHTML = `
-        <button class="attr-btn attr-btn-a" onclick="assignTeamAndContinue('a')">${na} &nbsp;−1</button>
-        <button class="attr-btn attr-btn-b" onclick="assignTeamAndContinue('b')">${nb} &nbsp;−1</button>
-        <button class="attr-btn attr-btn-skip" onclick="assignTeamAndContinue(null)">Passer sans attribuer</button>
-      `;
-    }
-  }
-
-  function assignTeamAndContinue(team) {
-    if (team !== null) {
-      scores[team] -= 1;
-      updateScore(team);
-    }
-    state = null;
-    document.getElementById('attr-panel').className = 'attr-panel';
-    document.querySelectorAll('.opt-btn').forEach(btn => {
-      if (!btn.classList.contains('wrong')) btn.disabled = false;
-    });
-  }
-
-  function assignTeam(team) {
-    if (team !== null) {
-      scores[team] += 1;
-      updateScore(team);
-    }
-    document.getElementById('attr-panel').className = 'attr-panel';
-    document.getElementById('next-btn').classList.remove('hidden');
-  }
-
-  function updateScore(team) {
-    const el = document.getElementById('score-' + team);
-    el.textContent = scores[team];
-    el.classList.add('bump');
-    setTimeout(() => el.classList.remove('bump'), 200);
-  }
-
-  function next() {
-    current++;
-    if (current >= questions.length) { showFinal(); return; }
-    load();
-  }
-
-  function showFinal() {
-    document.getElementById('quiz-main').classList.add('hidden');
-    document.getElementById('final-screen').classList.remove('hidden');
-    const a = scores.a, b = scores.b;
-    const na = teamNames.a, nb = teamNames.b;
-    const title = a > b ? `Victoire de ${na} ! 🏆`
-                : b > a ? `Victoire de ${nb} ! 🏆`
-                : 'Égalité parfaite ! 🤝';
-    document.getElementById('final-title').textContent = title;
-    document.getElementById('final-scores').innerHTML = `
-      <div class="team-card team-a">
-        <div class="team-name">${na}</div>
-        <div class="team-score" style="color:#185FA5">${a}</div>
-      </div>
-      <div class="team-card team-b">
-        <div class="team-name">${nb}</div>
-        <div class="team-score" style="color:#993C1D">${b}</div>
-      </div>
-    `;
-  }
-
-  function restartQuiz() {
-    current = 0;
-    scores = { a: 0, b: 0 };
-    initQuiz();
-  }
-
-  function backToSetup() {
-    document.getElementById('quiz-screen').classList.add('hidden');
-    document.getElementById('setup-screen').classList.remove('hidden');
-    document.getElementById('input-a').value = '';
-    document.getElementById('input-b').value = '';
-  }
-</script>
-</body>
-</html>
+];
