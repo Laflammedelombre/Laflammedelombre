@@ -252,6 +252,93 @@
     .final-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem; }
     .replay-row { display: flex; gap: 10px; justify-content: center; }
 
+    /* ───── STATS FINAL ───── */
+    .stats-section { margin-top: 2rem; text-align: left; }
+    .stats-section-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .stats-section-title::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #FFED00; border-radius: 2px; }
+
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+
+    .stat-card {
+      background: #fafafa; border: 1.5px solid #f0f0f0;
+      border-radius: 12px; padding: 1rem 1.25rem;
+    }
+    .stat-card-name { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+    .stat-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; color: #555; }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row strong { font-weight: 700; color: #111; }
+    .stat-val-good { color: #1a5c33; font-weight: 700; }
+    .stat-val-bad { color: #c0392b; font-weight: 700; }
+
+    .partie-stats { margin-bottom: 1.25rem; }
+    .partie-stat-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px;
+    }
+    .partie-stat-row:last-child { border-bottom: none; }
+    .partie-stat-label { flex: 1; color: #555; font-weight: 500; }
+    .partie-bar-wrap { flex: 2; display: flex; gap: 6px; align-items: center; }
+    .partie-bar { height: 6px; border-radius: 3px; background: #FFED00; min-width: 4px; transition: width 0.4s; }
+    .partie-bar.bad { background: #ffd0d0; }
+    .partie-bar-val { font-size: 12px; font-weight: 600; color: #888; white-space: nowrap; }
+
+    .fun-stat {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 12px;
+      padding: 1rem 1.25rem; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: #444;
+    }
+    .fun-stat-emoji { font-size: 22px; flex-shrink: 0; }
+    .fun-stat strong { color: #111; }
+
+    /* ───── MODAL CORRECTION ───── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal-box {
+      background: #fff; border-radius: 16px; border: 1.5px solid #ebebeb;
+      padding: 1.75rem; width: 100%; max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .modal-sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+    .modal-team { margin-bottom: 1.25rem; }
+    .modal-team-name { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+    .modal-score-row { display: flex; align-items: center; gap: 10px; }
+    .modal-score-display {
+      font-size: 32px; font-weight: 700; letter-spacing: -2px;
+      min-width: 60px; text-align: center; color: #111;
+    }
+    .modal-adj-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid #ebebeb;
+      background: #fafafa; font-size: 18px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; flex-shrink: 0; color: #111;
+    }
+    .modal-adj-btn:hover { background: #FFED00; border-color: #111; }
+    .modal-close-btn {
+      width: 100%; background: #111; color: #fff; border: none;
+      border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 600;
+      font-family: inherit; cursor: pointer; margin-top: 0.5rem;
+    }
+    .modal-close-btn:hover { background: #333; }
+
+    /* Bouton correction discret sous scoreboard */
+    .correction-btn {
+      display: block; margin: -1.25rem auto 1.75rem;
+      background: none; border: none; font-size: 12px; font-weight: 500;
+      color: #ccc; cursor: pointer; font-family: inherit;
+      letter-spacing: 0.04em; transition: color 0.15s;
+    }
+    .correction-btn:hover { color: #888; }
+
     /* Double question */
     .sub-question-box {
       background: #fffde6; border: 1.5px solid #FFED00; border-radius: 12px;
@@ -299,14 +386,14 @@
     <div class="oath-card">
       <p class="oath-intro">s'engagent solennellement à respecter les articles suivants</p>
       <ul class="oath-articles">
-        <li data-n="I.">Ce qui se passe à La Ciotat, <strong>reste à La Ciotat.</strong> Sans exception. Sans screenshot. Sans story. Ce qui signifie, rangez vos téléphones!</li>
+        <li data-n="I.">Ce qui se passe à La Ciotat, <strong>reste à La Ciotat.</strong> Sans exception. Sans screenshot. Sans story.</li>
         <li data-n="II.">Toute mauvaise réponse sera assumée avec dignité. <strong>Les excuses sont interdites.</strong></li>
         <li data-n="III.">Le score final est <strong>incontestable</strong> et ne pourra faire l'objet d'aucun recours RH.</li>
-        <li data-n="IV.">Les perdants offriront des tournées à l'atelier. <strong>C'est écrit, c'est dit.</strong></li>
+        <li data-n="IV.">Les perdants offriront une tournée. <strong>C'est écrit, c'est dit.</strong></li>
       </ul>
       <p class="oath-footer">* Ce document n'a aucune valeur juridique. Mais moralement, vous êtes engagés.</p>
     </div>
-    <button class="primary-btn" onclick="startQuiz()">Je le jure sur l'honneur — Commencer le quiz ✊</button>
+    <button class="primary-btn" onclick="startQuiz()">Je jure sur l'honneur — Commencer le quiz ✊</button>
   </div>
 
   <!-- ③ QUIZ -->
@@ -321,6 +408,7 @@
         <div class="team-score" id="score-b">0</div>
       </div>
     </div>
+    <button class="correction-btn" onclick="openCorrection()">✏️ correction de points</button>
 
     <div id="quiz-main">
       <div class="progress" id="progress"></div>
@@ -362,7 +450,8 @@
       <div class="final-title" id="final-title"></div>
       <p class="final-sub" id="final-sub"></p>
       <div class="final-scores" id="final-scores"></div>
-      <div class="replay-row">
+      <div id="final-stats"></div>
+      <div class="replay-row" style="margin-top:1.5rem;">
         <button class="nav-btn primary" onclick="restartQuiz()">Rejouer</button>
         <button class="nav-btn" onclick="backToSetup()">Changer les équipes</button>
       </div>
@@ -370,6 +459,31 @@
   </div>
 
 </div>
+
+  <!-- Modal correction -->
+  <div class="modal-overlay hidden" id="correction-modal">
+    <div class="modal-box">
+      <div class="modal-title">✏️ Correction de points</div>
+      <div class="modal-sub">Ajuste manuellement les scores</div>
+      <div class="modal-team">
+        <div class="modal-team-name" id="modal-name-a">Équipe A</div>
+        <div class="modal-score-row">
+          <button class="modal-adj-btn" onclick="adjustScore('a', -1)">−</button>
+          <div class="modal-score-display" id="modal-score-a">0</div>
+          <button class="modal-adj-btn" onclick="adjustScore('a', 1)">+</button>
+        </div>
+      </div>
+      <div class="modal-team">
+        <div class="modal-team-name" id="modal-name-b">Équipe B</div>
+        <div class="modal-score-row">
+          <button class="modal-adj-btn" onclick="adjustScore('b', -1)">−</button>
+          <div class="modal-score-display" id="modal-score-b">0</div>
+          <button class="modal-adj-btn" onclick="adjustScore('b', 1)">+</button>
+        </div>
+      </div>
+      <button class="modal-close-btn" onclick="closeCorrection()">Valider ✓</button>
+    </div>
+  </div>
 
 <script>
 // ─────────────────────────────────────────────
@@ -790,8 +904,14 @@ let scores = { a: 0, b: 0 };
 let state = null;
 let teamNames = { a: 'Équipe A', b: 'Équipe B' };
 let timerInterval = null;
-let currentDoubleStep = 0; // pour les questions doubles
-let currentDoubleAns = []; // réponses trouvées pour la question double
+let currentDoubleStep = 0;
+let currentDoubleAns = [];
+
+// Stats par équipe : { correct, wrong } par partie
+let stats = {
+  a: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } },
+  b: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } }
+};
 
 // ─────────────────────────────────────────────
 // NAVIGATION ÉCRANS
@@ -1018,8 +1138,9 @@ function showBuzzerPanel(pointsGood, pointsBad) {
 function buzzWrong(team) {
   const q = QUESTIONS[current];
   scores[team] += q.points.wrong;
+  stats[team].wrong++;
+  stats[team].byPartie[q.partie].wrong++;
   updateScore(team);
-  // Reste sur le buzzer, réponse toujours cachée
   showBuzzerPanel(q.points.correct, q.points.wrong);
 }
 
@@ -1027,6 +1148,8 @@ function buzzCorrect(team) {
   stopTimer();
   const q = QUESTIONS[current];
   scores[team] += q.points.correct;
+  stats[team].correct++;
+  stats[team].byPartie[q.partie].correct++;
   updateScore(team);
 
   // Révéler la réponse maintenant
@@ -1117,6 +1240,9 @@ function showAttrPanel(isCorrect, pointsGood, pointsBad, isDoubleMiddle = false)
 
 function assignTeam(team, pts, isDoubleMiddle) {
   scores[team] += pts;
+  const partie = QUESTIONS[current].partie;
+  stats[team].correct++;
+  stats[team].byPartie[partie].correct++;
   updateScore(team);
   document.getElementById('attr-panel').className = 'attr-panel';
   if (isDoubleMiddle) {
@@ -1127,10 +1253,15 @@ function assignTeam(team, pts, isDoubleMiddle) {
 }
 
 function assignTeamWrong(team, pts) {
-  if (team !== null) { scores[team] += pts; updateScore(team); }
+  if (team !== null) {
+    scores[team] += pts;
+    const partie = QUESTIONS[current].partie;
+    stats[team].wrong++;
+    stats[team].byPartie[partie].wrong++;
+    updateScore(team);
+  }
   state = null;
   document.getElementById('attr-panel').className = 'attr-panel';
-  // Réactiver les options non-fausses pour QCM
   document.querySelectorAll('.opt-btn').forEach(btn => { if (!btn.classList.contains('wrong')) btn.disabled = false; });
 }
 
@@ -1185,15 +1316,117 @@ function showFinal() {
   showQuizPanel('final-screen');
   const a = scores.a, b = scores.b;
   const na = teamNames.a, nb = teamNames.b;
+
   document.getElementById('final-title').textContent = a > b ? `${na} remporte la victoire !` : b > a ? `${nb} remporte la victoire !` : `Égalité parfaite !`;
   document.getElementById('final-sub').textContent = (a !== b) ? `Bien joué à toute l'équipe 🎉` : `Match serré jusqu'au bout !`;
   document.getElementById('final-scores').innerHTML = `
     <div class="team-card"><div class="team-name">${na}</div><div class="team-score">${a % 1 === 0 ? a : a.toFixed(1)}</div></div>
     <div class="team-card"><div class="team-name">${nb}</div><div class="team-score">${b % 1 === 0 ? b : b.toFixed(1)}</div></div>`;
+
+  // ── STATS ──
+  const sa = stats.a, sb = stats.b;
+  const totalA = sa.correct + sa.wrong || 1;
+  const totalB = sb.correct + sb.wrong || 1;
+  const pctA = Math.round(sa.correct / totalA * 100);
+  const pctB = Math.round(sb.correct / totalB * 100);
+
+  const partieLabels = { 1: '🧑‍🤝‍🧑 Connaissance', 2: '🧠 Culture Générale', 3: '👀 On se connaît' };
+
+  function barWidth(val, max) { return max === 0 ? 0 : Math.round(val / max * 80); }
+
+  function teamStatCard(team, sdata, name) {
+    const total = sdata.correct + sdata.wrong;
+    const pct = total === 0 ? 0 : Math.round(sdata.correct / total * 100);
+    let partieRows = '';
+    [1,2,3].forEach(p => {
+      const pd = sdata.byPartie[p];
+      const ptotal = pd.correct + pd.wrong;
+      const maxBar = 80;
+      const goodW = barWidth(pd.correct, ptotal || 1);
+      const badW = barWidth(pd.wrong, ptotal || 1);
+      partieRows += `
+        <div class="partie-stat-row">
+          <div class="partie-stat-label">${partieLabels[p]}</div>
+          <div class="partie-bar-wrap">
+            <div class="partie-bar" style="width:${goodW}px"></div>
+            <div class="partie-bar bad" style="width:${badW}px"></div>
+            <span class="partie-bar-val">${pd.correct}✓ ${pd.wrong}✗</span>
+          </div>
+        </div>`;
+    });
+    return `
+      <div class="stat-card">
+        <div class="stat-card-name">${name}</div>
+        <div class="stat-row"><span>Bonnes réponses</span><span class="stat-val-good">${sdata.correct} ✓</span></div>
+        <div class="stat-row"><span>Mauvaises réponses</span><span class="stat-val-bad">${sdata.wrong} ✗</span></div>
+        <div class="stat-row"><span>Total buzzés</span><strong>${total}</strong></div>
+        <div class="stat-row"><span>Taux de réussite</span><strong>${pct}%</strong></div>
+      </div>`;
+  }
+
+  // Stats fun
+  const bestTeam = sa.correct > sb.correct ? na : sb.correct > sa.correct ? nb : null;
+  const mostWrong = sa.wrong > sb.wrong ? na : sb.wrong > sa.wrong ? nb : null;
+  const bestP1 = sa.byPartie[1].correct > sb.byPartie[1].correct ? na : sb.byPartie[1].correct > sa.byPartie[1].correct ? nb : null;
+  const bestP2 = sa.byPartie[2].correct > sb.byPartie[2].correct ? na : sb.byPartie[2].correct > sa.byPartie[2].correct ? nb : null;
+  const bestP3 = sa.byPartie[3].correct > sb.byPartie[3].correct ? na : sb.byPartie[3].correct > sa.byPartie[3].correct ? nb : null;
+
+  let funStats = '';
+  if (bestTeam) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🎯</span><div>La plus précise : <strong>${bestTeam}</strong> avec le plus de bonnes réponses</div></div>`;
+  if (mostWrong) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">💥</span><div>La plus téméraire (qui buzze quand même) : <strong>${mostWrong}</strong></div></div>`;
+  if (bestP1) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧑‍🤝‍🧑</span><div>Mieux intégrée dans l'équipe Sartorius : <strong>${bestP1}</strong></div></div>`;
+  if (bestP2) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧠</span><div>La plus cultivée : <strong>${bestP2}</strong></div></div>`;
+  if (bestP3) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">👀</span><div>La meilleure pour reconnaître les collègues : <strong>${bestP3}</strong></div></div>`;
+  if (!funStats) funStats = `<div class="fun-stat"><span class="fun-stat-emoji">🤝</span><div>Parfaite égalité sur tous les tableaux — deux équipes au poil !</div></div>`;
+
+  // Partie par partie
+  let partieByPartieHTML = '';
+  [1,2,3].forEach(p => {
+    const pa = sa.byPartie[p], pb = sb.byPartie[p];
+    const maxVal = Math.max(pa.correct, pb.correct, pa.wrong, pb.wrong, 1);
+    partieByPartieHTML += `
+      <div class="partie-stat-row">
+        <div class="partie-stat-label">${partieLabels[p]}</div>
+        <div class="partie-bar-wrap">
+          <span style="font-size:12px;color:#aaa;min-width:60px;">${na}</span>
+          <div class="partie-bar" style="width:${barWidth(pa.correct, maxVal)}px" title="${pa.correct} bonnes"></div>
+          <div class="partie-bar bad" style="width:${barWidth(pa.wrong, maxVal)}px" title="${pa.wrong} mauvaises"></div>
+          <span class="partie-bar-val">${pa.correct}✓ ${pa.wrong}✗</span>
+        </div>
+      </div>
+      <div class="partie-stat-row" style="border-bottom:1.5px solid #f0f0f0;margin-bottom:6px;">
+        <div class="partie-stat-label"></div>
+        <div class="partie-bar-wrap">
+          <span style="font-size:12px;color:#aaa;min-width:60px;">${nb}</span>
+          <div class="partie-bar" style="width:${barWidth(pb.correct, maxVal)}px;background:#111;" title="${pb.correct} bonnes"></div>
+          <div class="partie-bar bad" style="width:${barWidth(pb.wrong, maxVal)}px;" title="${pb.wrong} mauvaises"></div>
+          <span class="partie-bar-val">${pb.correct}✓ ${pb.wrong}✗</span>
+        </div>
+      </div>`;
+  });
+
+  document.getElementById('final-stats').innerHTML = `
+    <div class="stats-section">
+      <div class="stats-section-title">Tableau de bord</div>
+      <div class="stats-grid">
+        ${teamStatCard('a', sa, na)}
+        ${teamStatCard('b', sb, nb)}
+      </div>
+
+      <div class="stats-section-title">Par partie</div>
+      <div class="partie-stats">${partieByPartieHTML}</div>
+
+      <div class="stats-section-title">Distinctions</div>
+      ${funStats}
+    </div>`;
 }
 
 function restartQuiz() {
   current = 0; scores = { a: 0, b: 0 };
+  stats = {
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
+  };
   showQuizPanel('quiz-main');
   initQuiz();
 }
@@ -1202,6 +1435,33 @@ function backToSetup() {
   show('setup-screen');
   document.getElementById('input-a').value = '';
   document.getElementById('input-b').value = '';
+}
+
+// ─────────────────────────────────────────────
+// CORRECTION MANUELLE DES POINTS
+// ─────────────────────────────────────────────
+function openCorrection() {
+  document.getElementById('modal-name-a').textContent = teamNames.a;
+  document.getElementById('modal-name-b').textContent = teamNames.b;
+  document.getElementById('modal-score-a').textContent = scores.a % 1 === 0 ? scores.a : scores.a.toFixed(1);
+  document.getElementById('modal-score-b').textContent = scores.b % 1 === 0 ? scores.b : scores.b.toFixed(1);
+  document.getElementById('correction-modal').classList.remove('hidden');
+}
+
+function adjustScore(team, delta) {
+  scores[team] = Math.round((scores[team] + delta) * 10) / 10;
+  document.getElementById('modal-score-' + team).textContent = scores[team] % 1 === 0 ? scores[team] : scores[team].toFixed(1);
+}
+
+function closeCorrection() {
+  document.getElementById('correction-modal').classList.add('hidden');
+  // Mettre à jour l'affichage des scores dans le quiz
+  ['a','b'].forEach(t => {
+    const el = document.getElementById('score-' + t);
+    el.textContent = scores[t] % 1 === 0 ? scores[t] : scores[t].toFixed(1);
+    el.classList.add('bump');
+    setTimeout(() => el.classList.remove('bump'), 180);
+  });
 }
 </script>
 </body>
