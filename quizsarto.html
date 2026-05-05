@@ -1,3 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz – La Ciotat bébé</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #ffffff;
+      color: #111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 5rem;
+      overflow-x: hidden;
+    }
+
+    .top-bar { width: 100%; height: 4px; background: #FFED00; flex-shrink: 0; }
+
+    .watermark {
+      position: fixed; bottom: 1.75rem; right: 2rem;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #ddd;
+      pointer-events: none; z-index: 0; user-select: none;
+    }
+
+    .header {
+      width: 100%; max-width: 640px;
+      padding: 2rem 1rem 0; margin-bottom: 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .sartorius-logo {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.5px;
+      color: #111; line-height: 1; position: relative; display: inline-block;
+    }
+    .sartorius-logo::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 3px; background: #FFED00; border-radius: 2px;
+    }
+
+    .event-badge {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #888;
+      background: #f5f5f5; padding: 5px 12px; border-radius: 20px;
+    }
+
+    .container { width: 100%; max-width: 640px; padding: 0 1rem; position: relative; z-index: 1; }
+
+    /* ───── SETUP ───── */
+    .setup-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .setup-sub { font-size: 14px; color: #888; margin-bottom: 2.5rem; }
+    .setup-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 2rem; }
+    .field-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+    .team-input {
+      width: 100%; border: 1.5px solid #ebebeb; border-radius: 10px;
+      padding: 13px 16px; font-size: 15px; font-family: inherit; color: #111;
+      outline: none; background: #fafafa; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .team-input:focus { border-color: #111; background: #fff; box-shadow: 0 0 0 3px rgba(255,237,0,0.3); }
+
+    /* ───── SERMENT ───── */
+    .oath-screen { text-align: center; padding: 1rem 0; }
+    .oath-emoji { font-size: 52px; margin-bottom: 1.5rem; line-height: 1; }
+    .oath-title { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1rem; line-height: 1.3; }
+    .oath-title span { background: #FFED00; padding: 0 4px; border-radius: 3px; }
+    .oath-names { font-size: 18px; font-weight: 600; color: #111; margin: 0.25rem 0 1.75rem; letter-spacing: -0.3px; }
+    .oath-card {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 16px;
+      padding: 1.75rem 2rem; margin: 1.75rem 0; text-align: left; position: relative;
+    }
+    .oath-card::before {
+      content: '§'; position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      font-size: 28px; font-weight: 700; color: #111; background: #fff; padding: 0 8px;
+    }
+    .oath-intro { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 1.25rem; text-align: center; }
+    .oath-articles { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .oath-articles li { font-size: 14px; color: #444; line-height: 1.6; padding-left: 1.5rem; position: relative; }
+    .oath-articles li::before { content: attr(data-n); position: absolute; left: 0; font-weight: 700; color: #111; font-size: 13px; }
+    .oath-footer { font-size: 12px; color: #bbb; text-align: center; margin-top: 1.25rem; font-style: italic; }
+
+    /* ───── BOUTONS GÉNÉRIQUES ───── */
+    .primary-btn {
+      width: 100%; background: #111; color: #fff; border: none; border-radius: 10px;
+      padding: 15px; font-size: 15px; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background 0.2s; position: relative; overflow: hidden;
+    }
+    .primary-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: #FFED00; transition: width 0.35s ease; }
+    .primary-btn:hover { background: #222; }
+    .primary-btn:hover::after { width: 100%; }
+
+    .nav-btn {
+      border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; font-family: inherit;
+      cursor: pointer; border: 1.5px solid #ebebeb; background: #fff; color: #111; transition: all 0.15s;
+    }
+    .nav-btn:hover { background: #f5f5f5; }
+    .nav-btn.primary { background: #111; color: #fff; border-color: #111; position: relative; overflow: hidden; }
+    .nav-btn.primary::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: #FFED00; transition: width 0.35s ease; }
+    .nav-btn.primary:hover { background: #222; }
+    .nav-btn.primary:hover::after { width: 100%; }
+
+    /* ───── PARTIE HEADER ───── */
+    .partie-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 1.75rem; padding-bottom: 1.25rem;
+      border-bottom: 1.5px solid #f0f0f0;
+    }
+    .partie-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      background: #FFED00; color: #111; padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .partie-title { font-size: 15px; font-weight: 600; color: #666; }
+
+    /* ───── SCOREBOARD ───── */
+    .scoreboard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem; }
+    .team-card {
+      border-radius: 14px; padding: 1.25rem 1.5rem 1.5rem;
+      background: #fafafa; border: 1.5px solid #f0f0f0; position: relative; overflow: hidden;
+    }
+    .team-card::after {
+      content: ''; position: absolute; bottom: 0; left: 1.5rem; right: 1.5rem;
+      height: 2px; background: #FFED00; border-radius: 2px;
+    }
+    .team-name { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 6px; }
+    .team-score { font-size: 48px; font-weight: 700; color: #111; letter-spacing: -3px; line-height: 1; transition: transform 0.12s; }
+    .team-score.bump { transform: scale(1.15); }
+
+    /* ───── PROGRESS ───── */
+    .progress { display: flex; gap: 5px; margin-bottom: 1.75rem; }
+    .prog-dot { height: 3px; flex: 1; border-radius: 2px; background: #efefef; transition: background 0.3s; }
+    .prog-dot.done { background: #111; }
+    .prog-dot.current { background: #FFED00; }
+
+    /* ───── QUESTION ───── */
+    .q-meta {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #ccc; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .q-meta::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #FFED00; border-radius: 2px; flex-shrink: 0; }
+    .q-text { font-size: 20px; font-weight: 600; line-height: 1.45; color: #111; letter-spacing: -0.3px; margin-bottom: 1.25rem; }
+    .q-points-badge {
+      display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; background: #f5f5f5; color: #888; padding: 4px 10px;
+      border-radius: 20px; margin-bottom: 1.25rem;
+    }
+
+    /* Photo question */
+    .q-photo { width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; margin-bottom: 1.25rem; border: 1.5px solid #ebebeb; }
+    .q-photo-reveal { width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; margin-top: 12px; border: 1.5px solid #52b77a; display: none; }
+    .q-photo-reveal.visible { display: block; }
+
+    /* ───── OPTIONS QCM ───── */
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+    .options.single-col { grid-template-columns: 1fr; }
+
+    .opt-btn {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 12px;
+      padding: 13px 16px; font-size: 14px; font-family: inherit; font-weight: 500; color: #111;
+      cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; transition: all 0.15s; line-height: 1.45;
+    }
+    .opt-btn:hover:not(:disabled) { background: #fff; border-color: #111; }
+    .opt-btn:disabled { cursor: default; opacity: 0.6; }
+    .opt-tag { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; white-space: nowrap; display: none; flex-shrink: 0; }
+    .opt-btn.correct { background: #f0faf3; border-color: #52b77a; color: #1a5c33; opacity: 1; }
+    .opt-btn.correct .opt-tag { display: inline-block; background: #52b77a; color: #fff; }
+    .opt-btn.wrong { background: #fff4f4; border-color: #e57373; color: #8b2020; opacity: 1; }
+    .opt-btn.wrong .opt-tag { display: inline-block; background: #e57373; color: #fff; }
+
+    /* ───── QUESTION LIBRE ───── */
+    .free-answer-box {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 12px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+    }
+    .free-answer-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 10px; }
+    .free-answer-text { font-size: 15px; color: #111; font-weight: 500; line-height: 1.6; display: none; }
+    .free-answer-text.visible { display: block; }
+    .reveal-answer-btn {
+      background: #111; color: #fff; border: none; border-radius: 8px;
+      padding: 10px 20px; font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .reveal-answer-btn:hover { background: #333; }
+    .reveal-answer-btn.hidden-btn { display: none; }
+
+    /* ───── ATTRIBUTION ───── */
+    .attr-panel {
+      display: none; border-radius: 14px; padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem; border: 1.5px solid #ebebeb; background: #fafafa;
+    }
+    .attr-panel.visible { display: block; }
+    .attr-panel.is-wrong { background: #fff8f8; border-color: #ffd0d0; }
+    .attr-panel.is-correct { background: #f6fff9; border-color: #b8e8c8; }
+    .attr-title { font-size: 14px; color: #555; margin-bottom: 14px; line-height: 1.6; }
+    .result-correct { color: #1a5c33; font-weight: 600; }
+    .result-wrong { color: #8b2020; font-weight: 600; }
+    .points-good { color: #1a5c33; font-weight: 700; }
+    .points-bad { color: #c0392b; font-weight: 700; }
+    .attr-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .attr-btn {
+      border-radius: 10px; padding: 13px 16px; font-size: 14px; font-weight: 600; font-family: inherit;
+      cursor: pointer; border: 1.5px solid #ebebeb; text-align: center; background: #fff; color: #111; transition: all 0.15s;
+    }
+    .attr-btn:hover { border-color: #111; background: #FFED00; }
+    .attr-btn-skip { grid-column: span 2; background: transparent; border-color: #f0f0f0; color: #ccc; font-size: 12px; font-weight: 500; padding: 10px; }
+    .attr-btn-skip:hover { background: #f5f5f5; border-color: #ddd; color: #999; }
+
+    /* ───── TIMER ───── */
+    .timer-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+    .timer-circle {
+      width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 700;
+      border: 4px solid #FFED00; color: #111;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .timer-circle.urgent { border-color: #e57373; color: #e57373; }
+    .timer-label { font-size: 13px; color: #888; line-height: 1.5; }
+
+    /* ───── NAV ROW ───── */
+    .nav-row { display: flex; justify-content: flex-end; gap: 10px; }
+
+    .hidden { display: none !important; }
+
+    /* ───── TRANSITION PARTIE ───── */
+    .partie-transition {
+      text-align: center; padding: 2rem 0;
+    }
+    .partie-transition .big-emoji { font-size: 56px; margin-bottom: 1.25rem; }
+    .partie-transition h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+    .partie-transition p { font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 0.5rem; }
+    .points-rules {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 14px;
+      padding: 1.25rem 1.5rem; margin: 1.5rem 0; text-align: left;
+    }
+    .points-rules h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+    .points-rule-item { font-size: 14px; color: #444; padding: 6px 0; border-bottom: 1px solid #f0f0f0; line-height: 1.5; }
+    .points-rule-item:last-child { border-bottom: none; }
+    .points-rule-item strong { color: #111; }
+
+    /* ───── FINAL ───── */
+    .final-screen { text-align: center; padding: 1.5rem 0 0; }
+    .final-emoji { font-size: 52px; margin-bottom: 1rem; }
+    .final-title { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .final-sub { font-size: 14px; color: #aaa; margin-bottom: 2rem; }
+    .final-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem; }
+    .replay-row { display: flex; gap: 10px; justify-content: center; }
+
+    /* Double question */
+    .sub-question-box {
+      background: #fffde6; border: 1.5px solid #FFED00; border-radius: 12px;
+      padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+    }
+    .sub-question-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+    .sub-question-text { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 1rem; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+<div class="watermark">La Ciotat bébé</div>
+
+<div class="header">
+  <div class="sartorius-logo">sartorius</div>
+  <span class="event-badge">La Ciotat bébé</span>
+</div>
+
+<div class="container">
+
+  <!-- ① SETUP -->
+  <div id="setup-screen">
+    <h1 class="setup-title">Quiz de la soirée</h1>
+    <p class="setup-sub">Entrez les noms des deux équipes pour commencer</p>
+    <div class="setup-fields">
+      <div>
+        <div class="field-label">Équipe 1</div>
+        <input class="team-input" id="input-a" type="text" placeholder="Les Rockets" maxlength="20" />
+      </div>
+      <div>
+        <div class="field-label">Équipe 2</div>
+        <input class="team-input" id="input-b" type="text" placeholder="Les Legends" maxlength="20" />
+      </div>
+    </div>
+    <button class="primary-btn" onclick="goToOath()">Suivant →</button>
+  </div>
+
+  <!-- ② SERMENT -->
+  <div id="oath-screen" class="hidden oath-screen">
+    <div class="oath-emoji">🤝</div>
+    <h2 class="oath-title">Le <span>Code de La Ciotat</span></h2>
+    <p style="font-size:14px;color:#888;margin-bottom:0.5rem;">Avant de commencer, les équipes</p>
+    <p class="oath-names" id="oath-names">Équipe A & Équipe B</p>
+    <div class="oath-card">
+      <p class="oath-intro">s'engagent solennellement à respecter les articles suivants</p>
+      <ul class="oath-articles">
+        <li data-n="I.">Ce qui se passe à La Ciotat, <strong>reste à La Ciotat.</strong> Sans exception. Sans screenshot. Sans story.</li>
+        <li data-n="II.">Toute mauvaise réponse sera assumée avec dignité. <strong>Les excuses sont interdites.</strong></li>
+        <li data-n="III.">Le score final est <strong>incontestable</strong> et ne pourra faire l'objet d'aucun recours RH.</li>
+        <li data-n="IV.">Les perdants offriront une tournée. <strong>C'est écrit, c'est dit.</strong></li>
+      </ul>
+      <p class="oath-footer">* Ce document n'a aucune valeur juridique. Mais moralement, vous êtes engagés.</p>
+    </div>
+    <button class="primary-btn" onclick="startQuiz()">Je jure sur l'honneur — Commencer le quiz ✊</button>
+  </div>
+
+  <!-- ③ QUIZ -->
+  <div id="quiz-screen" class="hidden">
+    <div class="scoreboard">
+      <div class="team-card">
+        <div class="team-name" id="name-a">Équipe A</div>
+        <div class="team-score" id="score-a">0</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name" id="name-b">Équipe B</div>
+        <div class="team-score" id="score-b">0</div>
+      </div>
+    </div>
+
+    <div id="quiz-main">
+      <div class="progress" id="progress"></div>
+      <div class="partie-header" id="partie-header">
+        <span class="partie-badge" id="partie-badge">Partie 1</span>
+        <span class="partie-title" id="partie-title">Apprenons à faire connaissance</span>
+      </div>
+      <div class="q-meta" id="q-meta"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-points-badge" id="q-points-badge"></div>
+      <img class="q-photo hidden" id="q-photo" src="" alt="Question photo" />
+
+      <div id="options-wrap"></div>
+      <div id="timer-wrap-el" class="hidden"></div>
+      <div id="free-answer-wrap" class="hidden"></div>
+
+      <div class="attr-panel" id="attr-panel">
+        <div class="attr-title" id="attr-title"></div>
+        <div class="attr-btns" id="attr-btns"></div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn primary hidden" id="next-btn" onclick="next()">Question suivante →</button>
+      </div>
+    </div>
+
+    <!-- Transition entre parties -->
+    <div id="transition-screen" class="hidden partie-transition">
+      <div class="big-emoji" id="tr-emoji"></div>
+      <h2 id="tr-title"></h2>
+      <p id="tr-sub"></p>
+      <div class="points-rules" id="tr-rules"></div>
+      <button class="primary-btn" onclick="continueAfterTransition()">Continuer →</button>
+    </div>
+
+    <!-- Final -->
+    <div id="final-screen" class="final-screen hidden">
+      <div class="final-emoji">🏆</div>
+      <div class="final-title" id="final-title"></div>
+      <p class="final-sub" id="final-sub"></p>
+      <div class="final-scores" id="final-scores"></div>
+      <div class="replay-row">
+        <button class="nav-btn primary" onclick="restartQuiz()">Rejouer</button>
+        <button class="nav-btn" onclick="backToSetup()">Changer les équipes</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DONNÉES DU QUIZ
+// ─────────────────────────────────────────────
 const QUESTIONS = [
 
   // ═══════════ PARTIE 1 ═══════════
@@ -9,7 +386,6 @@ const QUESTIONS = [
     opts: ["Lady Gaga", "Cyprien", "Jamel Debbouze", "D, la réponse D"],
     ans: [1]
   },
-
   {
     partie: 1,
     type: 'double',
@@ -18,26 +394,25 @@ const QUESTIONS = [
       {
         text: "Parmi ces propositions, il y a un scénario de film/série réel chez Sartorius, lequel ?",
         opts: [
-          "Un dîner de con : maquettes en allumettes exposées à Paris",
-          "Les Tuches : gain d’argent puis ruine",
-          "Dikkenek : photographe érotique amateur (vérifiable)",
-          "Breaking Bad : production de 'Buddha Blue'"
+          "Un dîner de cons : une personne fabrique des maquettes avec des allumettes et les expose lors du congrès annuel des arts décalés à Paris.",
+          "Les Tuches 1 : une personne a gagné une grosse somme aux jeux de hasard mais a tout dépensé et du coup travaille chez Sartorius, et ça se voit !",
+          "Dikkenek : une personne est photographe érotique amateur et utilise des jeunes femmes comme modèle pour son site internet. Vérifiable en quelques clics.",
+          "Breaking bad : une personne synthétise de manière amatrice des petites pilules appelées « Buddha Blue ». Disponibles sur demande… surtout sur le quart de nuit…"
         ],
         ans: [2]
       },
       {
-        text: "C’est qui ?",
+        text: "C'est qui ?",
         opts: [
-          "Jéjé (Jérôme Mangin)",
-          "Olivier Potet",
-          "Sir Panayotis",
-          "Gilles Remacle"
+          "Jéjé le BG du HSE (Jérôme Mangin, souvent dispo dans le club gay)",
+          "Le cloch*** des services généraux (Olivier Potet, souvent visible sur le parking)",
+          "L'étalon du service pré-retraite mais toujours en forme (Sir Panayotis)",
+          "Le coquin du local engineering (Gilles Remacle — eh non, c'est pas celui à qui tu pensais)"
         ],
         ans: [3]
       }
     ]
   },
-
   {
     partie: 1,
     type: 'qcm',
@@ -47,290 +422,257 @@ const QUESTIONS = [
     ans: [2],
     singleCol: true
   },
-
   {
     partie: 1,
     type: 'double',
     points: { correct: 1, wrong: -1 },
     parts: [
       {
-        text: "Denis a retrouvé quelque chose sur Magali, c’était :",
+        text: "Lors d'un beau matin de printemps, notre très cher collègue Allemand Denis a retrouvé quelque chose sur Magali, c'était :",
         opts: [
-          "Chaussures de sécurité",
-          "Cotillon dans l’oreille",
-          "Masque de nuit autour du cou",
-          "Feuille dans les cheveux"
+          "Des chaussures de sécurité tunisiennes à la place de ses chaussures",
+          "Un morceau de cotillon dans son oreille",
+          "Un masque de nuit autour du cou qu'elle avait oublié de retirer",
+          "Une feuille en décomposition dans les cheveux"
         ],
         ans: [3]
       },
       {
         text: "Pourquoi ?",
         opts: [
-          "Soirée + cache-cache au Red Lion",
-          "Bricolage toute la nuit",
-          "Chute dans l’herbe",
-          "Escalade"
+          "Une soirée bien arrosée qui a fini en cache-cache géant dans le parc en face du Red Lion",
+          "Elle a bricolé dans sa maison et son jardin toute la soirée jusqu'à pas d'heure",
+          "Elle est tombée dans l'herbe en allant de la voiture au bureau (personne ne l'a vu… mais la feuille a tout trahi)",
+          "Elle a fait de l'escalade dans la nature avant le travail"
         ],
         ans: [0]
       }
     ]
   },
-
   {
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Quand Caro boit un café, elle :",
-    opts: [
-      "Le noie de lait",
-      "Met 4 sucres",
-      "Ajoute une goutte d’eau",
-      "Dit un mantra"
-    ],
+    text: "Quand Caro boit un café, il faut toujours qu'elle :",
+    opts: ["Le noie de lait", "Mette au moins 4 sucres", "Mette une goutte d'eau dedans", "Dise le mantra « que la force du café soit avec moi »"],
     ans: [2]
   },
-
   {
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Quelle N’EST PAS une passion de Kevin ?",
-    opts: [
-      "La conduite",
-      "Le sport",
-      "Embêter Jimmy-Lee",
-      "Les serial killers"
-    ],
+    text: "Laquelle de ces propositions N'EST PAS une passion officielle de Kevin ?",
+    opts: ["La conduite", "Le sport", "Engueuler et embêter Jimmy-Lee", "Les serial killers"],
     ans: [2]
   },
-
   {
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Activité favorite de l’open space ?",
-    opts: [
-      "Cafés",
-      "Ragots",
-      "Rigoler",
-      "Les 3"
-    ],
+    text: "Quelle est l'activité favorite de l'open space ?",
+    opts: ["Boire des cafés", "Les ragots et les potins", "Rigoler", "Les 3 en même temps"],
     ans: [3]
   },
-
   {
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Johan travaille dans quelle pharmacie ?",
+    text: "Johan est pharmacien — quelle est la pharmacie où il travaille ?",
     opts: [
-      "Pharmacie du village",
-      "Pharmacie l’Olivier",
-      "Pharmacie du Pas de Graine",
-      "Pharmacie des 4 chemins",
-      "Pharmacie Saint-Jean",
-      "Pharmacie des Vignes"
+      "Pharmacie du village à Roquefort-la-Bédoule",
+      "Pharmacie l'Olivier à La Ciotat",
+      "Pharmacie Du Pas de Graine à Saint-Cyr-sur-Mer",
+      "Pharmacie des 4 chemins à Roquefort-la-Bédoule",
+      "Pharmacie Saint-Jean à La Ciotat",
+      "Pharmacie Des Vignes à Saint-Cyr-sur-Mer"
     ],
-    ans: [null],
-    singleCol: true
+    ans: [null], // à renseigner
+    singleCol: true,
+    answerTBC: true
   },
-
   {
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Combien de bébés girafes soulève Romain ?",
-    opts: [
-      "0,5",
-      "1,5",
-      "1,9",
-      "2,7",
-      "3,1"
-    ],
+    text: "Quel est le max en nombre de bébés girafes que soulève Romain en front squat ?",
+    opts: ["0,5 bébé girafe", "1,5 bébés girafes", "1,9 bébés girafes", "2,7 bébés girafes", "3,1 bébés girafes"],
     ans: [2],
     singleCol: true
   },
 
-  // ═══════════ PARTIE 2 ═══════════
+  // ═══════════ PARTIE 2 — QCM ═══════════
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Effet du paracétamol ?",
-    opts: [
-      "COX périphérique",
-      "Action centrale",
-      "Opioïdes",
-      "Anti-inflammatoire fort"
-    ],
+    cat: 'Médecine',
+    text: "Quel mécanisme est le plus probable pour expliquer l'effet du paracétamol ?",
+    opts: ["Inhibition périphérique forte des COX", "Action centrale sur les prostaglandines", "Blocage des récepteurs opioïdes", "Effet anti-inflammatoire majeur"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Bullwhip effect ?",
-    opts: [
-      "Réduction délais",
-      "Amplification demande",
-      "IA",
-      "Rupture locale"
-    ],
+    cat: 'Supply chain',
+    text: "Le « bullwhip effect » correspond à :",
+    opts: ["Une réduction des délais", "Une amplification des variations de la demande le long de la chaîne", "Une meilleure prévision grâce à l'IA", "Une rupture de stock locale"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Facteur prix immobilier ?",
-    opts: ["Âge", "DPE", "Localisation", "Pièces"],
+    cat: 'Immobilier / raisonnement',
+    text: "Dans une grande ville française, quel facteur influence le plus directement le prix au m² ?",
+    opts: ["L'âge du bâtiment", "Le DPE", "La localisation", "Le nombre de pièces"],
     ans: [2]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Pourquoi 42,195 km ?",
-    opts: [
-      "Arbitraire",
-      "JO Londres 1908",
-      "Miles",
-      "Grèce"
-    ],
+    cat: 'Sport / logique',
+    text: "Pourquoi un marathon fait-il précisément 42,195 km ?",
+    opts: ["Distance choisie arbitrairement", "Adaptation aux JO de Londres 1908", "Conversion depuis les miles modernes", "Distance historique grecque exacte"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Succès de Ninho ?",
-    opts: ["CD", "Streaming", "Concerts", "Moins concurrence"],
+    cat: 'Musique actuelle',
+    text: "Quel facteur explique le mieux l'explosion des certifications d'artistes comme Ninho ?",
+    opts: ["Hausse des ventes CD", "Streaming massif comptabilisé", "Plus de concerts", "Moins de concurrence"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Population la plus élevée ?",
-    opts: ["Chine", "Inde", "USA", "Indonésie"],
+    cat: 'Géopolitique',
+    text: "Quel pays a la population la plus élevée aujourd'hui ?",
+    opts: ["Chine", "Inde", "États-Unis", "Indonésie"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Hausse des taux ?",
-    opts: ["Inflation ↑", "Inflation ↓", "Salaires ↑", "Conso ↑"],
+    cat: 'Économie / logique',
+    text: "Si une banque centrale augmente fortement ses taux, quel effet est le plus probable à court terme ?",
+    opts: ["Hausse de l'inflation", "Baisse de l'inflation", "Hausse immédiate des salaires", "Explosion de la consommation"],
     ans: [1]
   },
-
   {
     partie: 2,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Élément le plus abondant ?",
+    cat: 'Culture générale / piège',
+    text: "Quel est l'élément le plus abondant dans l'univers ?",
     opts: ["Oxygène", "Hydrogène", "Carbone", "Azote"],
     ans: [1]
   },
 
-  // LIBRE
+  // ═══════════ PARTIE 2 — RÉPONSES LIBRES ═══════════
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Procès 2022 avec Amber Heard ?",
+    cat: 'Faits people',
+    text: "Quel acteur a été au centre d'un procès ultra-médiatisé en 2022 face à Amber Heard ?",
     answer: "Johnny Depp"
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Signification de 'peuchère' ?",
-    answer: "Expression de compassion"
+    cat: 'Marseille / expression locale',
+    text: "Que signifie « peuchère » dans le parler marseillais ? (nuance attendue)",
+    answer: "Expression de compassion / attendrissement, proche de « le pauvre », souvent avec une nuance affectueuse ou ironique."
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Origine L2 Marseille ?",
-    answer: "Années 1930-1950"
+    cat: 'Marseille / anecdote urbaine',
+    text: "La L2 à Marseille a été inaugurée en 2018, mais les premières réflexions datent de quelle période approximative ?",
+    answer: "Années 1930–1950 (projets très anciens, relancés ensuite)"
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Fill rate vs service level ?",
-    answer: "Quantité vs fréquence"
+    cat: 'Supply / KPI avancé',
+    text: "Quelle différence entre « fill rate » et « service level » ?",
+    answer: "Fill rate = % de la demande effectivement servie (quantités). Service level = % de commandes livrées sans rupture (fréquence)."
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Pourquoi prix diffèrent ?",
-    answer: "Étage, vue, etc."
+    cat: 'Immobilier / réflexion',
+    text: "Pourquoi deux appartements identiques peuvent avoir un prix très différent dans le même immeuble ?",
+    answer: "Étage, luminosité, vue, bruit, exposition, présence d'ascenseur → micro-localisation."
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Secondes dans une journée ?",
-    answer: "86400"
+    cat: 'Culture / estimation',
+    text: "Combien de secondes environ dure une journée ?",
+    answer: "≈ 86 400 secondes"
   },
   {
     partie: 2,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Pourquoi avions volent haut ?",
-    answer: "Moins de frottements"
+    cat: 'Logique / réflexion',
+    text: "Pourquoi les avions volent-ils souvent à ~10–12 km d'altitude ?",
+    answer: "Air moins dense → moins de frottements → meilleure efficacité carburant + conditions atmosphériques plus stables."
   },
 
-  // ═══════════ PARTIE 3 ═══════════
+  // ═══════════ PARTIE 3 — PROPOSITIONS LIBRES ═══════════
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Phrase de Lucie ?",
-    answer: "oh wooooooooow"
+    text: "Quelle est la phrase favorite de Lucie quand quelqu'un rentre dans le bureau ? (Que si elle aime bien la personne)",
+    answer: "oh wooooooooow. 😄"
   },
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Passion Val & Jimmy ?",
-    answer: "Les échecs"
+    text: "Quelle est la nouvelle « passion » de Val et Jimmy ? (Val a mis Jimmy dedans)",
+    answer: "Les échecs ♟️"
   },
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Relation cachée ?",
+    text: "Pendant combien de mois de leur relation Magali et Matthieu nous ont fait la cachotterie ?",
     answer: "12 mois"
   },
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Valeurs Sartorius ?",
-    answer: "Persévérance, ouverture, joie"
+    text: "Quelles sont les 3 grandes valeurs Sartorius ?",
+    answer: "Persévérance, Ouverture d'esprit et Joie"
   },
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Groupe Valentin ?",
-    answer: "Angine de poitrine"
+    text: "Quel est le nouveau groupe fétiche de Valentin ?",
+    answer: "Angine de poitrine 🎸"
   },
   {
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Partie du corps ?",
+    text: "À qui appartient ces parties de corps ? (photo)",
     answer: "Marco"
   },
   {
@@ -339,16 +681,16 @@ const QUESTIONS = [
     points: { correct: 2, wrong: -0.5 },
     hasTimer: true,
     timerSeconds: 10,
-    text: "Toujours en retard ?",
-    answer: "Jimmy-Lee"
+    text: "Si je vous dis : tout le temps en retard… vous me dites ? ⏱️",
+    answer: "Jimmy-Lee 😅"
   },
 
-  // PHOTOS
+  // ═══════════ PARTIE 3 — PHOTOS (3 pts) ═══════════
   {
     partie: 3,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
-    text: "Moustache ?",
+    text: "À qui appartient cette belle moustache ?",
     photoQ: "Raffi_1.png",
     answer: "Raffi",
     photoA: "Raffi_2.png"
@@ -357,9 +699,513 @@ const QUESTIONS = [
     partie: 3,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
-    text: "Tiroir ?",
+    text: "À qui appartient ce tiroir ?",
     photoQ: "Matthieu_1.png",
     answer: "Matthieu",
     photoA: null
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui appartient ces sublimes cheveux ?",
+    photoQ: "Oceane_1.png",
+    answer: "Océane",
+    photoA: "Oceane_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui fait référence ce t-shirt ?",
+    photoQ: "Bastien_1.png",
+    answer: "Bastien",
+    photoA: "Bastien_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui appartient cette partie du visage ?",
+    photoQ: "Hugo_1.png",
+    answer: "Hugo",
+    photoA: "Hugo_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui appartient cet œil ?",
+    photoQ: "Torsten_1.png",
+    answer: "Torsten alias Toto",
+    photoA: "Torsten_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui ce personnage fait-il référence ?",
+    photoQ: "Sylvie_1.png",
+    answer: "Sylvie",
+    photoA: "Sylvie_2.png"
+  },
+  {
+    partie: 3,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui fait penser cette image ?",
+    photoQ: "Felicien_1.png",
+    answer: "Don Perrriiiigggooottt 😄",
+    photoA: "Felicien_2.png"
   }
 ];
+
+const TRANSITIONS = {
+  2: {
+    emoji: '🧠',
+    title: 'Partie 2 — Culture Générale',
+    sub: 'On passe aux choses sérieuses. QCM + réponses libres.',
+    rules: `
+      <h4>Règles du jeu</h4>
+      <div class="points-rule-item">🟡 QCM — <strong>+1</strong> bonne réponse / <strong>−1</strong> mauvaise</div>
+      <div class="points-rule-item">✍️ Réponses libres — <strong>+2</strong> bonne réponse / <strong>−0,5</strong> mauvaise</div>
+    `
+  },
+  3: {
+    emoji: '👀',
+    title: 'Partie 3 — On se connaît bien ?',
+    sub: 'Propositions libres et reconnaissance de photos. Chaque bonne réponse rapporte gros !',
+    rules: `
+      <h4>Règles du jeu</h4>
+      <div class="points-rule-item">✍️ Propositions libres — <strong>+2</strong> bonne / <strong>−0,5</strong> mauvaise</div>
+      <div class="points-rule-item">📸 Questions photos — <strong>+3</strong> bonne / <strong>−0,5</strong> mauvaise</div>
+    `
+  }
+};
+
+// ─────────────────────────────────────────────
+// ÉTAT
+// ─────────────────────────────────────────────
+let current = 0;
+let scores = { a: 0, b: 0 };
+let state = null;
+let teamNames = { a: 'Équipe A', b: 'Équipe B' };
+let timerInterval = null;
+let currentDoubleStep = 0; // pour les questions doubles
+let currentDoubleAns = []; // réponses trouvées pour la question double
+
+// ─────────────────────────────────────────────
+// NAVIGATION ÉCRANS
+// ─────────────────────────────────────────────
+document.getElementById('input-a').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('input-b').focus(); });
+document.getElementById('input-b').addEventListener('keydown', e => { if (e.key === 'Enter') goToOath(); });
+
+function show(id) {
+  ['setup-screen','oath-screen','quiz-screen'].forEach(s => document.getElementById(s).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showQuizPanel(id) {
+  ['quiz-main','transition-screen','final-screen'].forEach(s => document.getElementById(s).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToOath() {
+  const na = document.getElementById('input-a').value.trim();
+  const nb = document.getElementById('input-b').value.trim();
+  teamNames.a = na || 'Équipe A';
+  teamNames.b = nb || 'Équipe B';
+  document.getElementById('oath-names').textContent = `${teamNames.a} & ${teamNames.b}`;
+  show('oath-screen');
+}
+
+function startQuiz() {
+  document.getElementById('name-a').textContent = teamNames.a;
+  document.getElementById('name-b').textContent = teamNames.b;
+  scores = { a: 0, b: 0 };
+  current = 0;
+  show('quiz-screen');
+  initQuiz();
+}
+
+function initQuiz() {
+  const total = QUESTIONS.length;
+  document.getElementById('progress').innerHTML = QUESTIONS.map((_, i) => `<div class="prog-dot" id="dot-${i}"></div>`).join('');
+  document.getElementById('score-a').textContent = 0;
+  document.getElementById('score-b').textContent = 0;
+  showQuizPanel('quiz-main');
+  load();
+}
+
+// ─────────────────────────────────────────────
+// CHARGEMENT QUESTION
+// ─────────────────────────────────────────────
+function load() {
+  stopTimer();
+  state = null;
+  currentDoubleStep = 0;
+  currentDoubleAns = [];
+
+  const q = QUESTIONS[current];
+
+  // Progress dots
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (dot) dot.className = 'prog-dot' + (i < current ? ' done' : i === current ? ' current' : '');
+  }
+
+  // Partie header
+  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !' };
+  document.getElementById('partie-badge').textContent = `Partie ${q.partie}`;
+  document.getElementById('partie-title').textContent = partieNames[q.partie];
+
+  // Meta
+  const total = QUESTIONS.filter(x => x.partie === q.partie).length;
+  const partieIdx = QUESTIONS.filter((x, i) => x.partie === q.partie && i <= current).length;
+  document.getElementById('q-meta').textContent = `Q${partieIdx} / ${total}${q.cat ? '  ·  ' + q.cat : ''}`;
+
+  // Points badge
+  const pb = document.getElementById('q-points-badge');
+  if (q.type === 'photo') {
+    pb.textContent = `+${q.points.correct} pts · −${Math.abs(q.points.wrong)} pt par mauvaise réponse`;
+  } else {
+    pb.textContent = `+${q.points.correct} pt${q.points.correct > 1 ? 's' : ''} · −${Math.abs(q.points.wrong)} pt par mauvaise réponse`;
+  }
+
+  // Reset attr panel
+  document.getElementById('attr-panel').className = 'attr-panel';
+  document.getElementById('next-btn').classList.add('hidden');
+  document.getElementById('options-wrap').innerHTML = '';
+  document.getElementById('free-answer-wrap').classList.add('hidden');
+  document.getElementById('free-answer-wrap').innerHTML = '';
+  document.getElementById('timer-wrap-el').classList.add('hidden');
+
+  // Photo question
+  const photoEl = document.getElementById('q-photo');
+  photoEl.classList.add('hidden');
+
+  if (q.type === 'double') {
+    loadDoubleStep(q, 0);
+  } else if (q.type === 'qcm') {
+    loadQCM(q);
+  } else if (q.type === 'libre') {
+    loadLibre(q);
+  } else if (q.type === 'photo') {
+    loadPhoto(q);
+  }
+}
+
+// ─────────────────────────────────────────────
+// QCM
+// ─────────────────────────────────────────────
+function loadQCM(q) {
+  document.getElementById('q-text').textContent = q.text;
+  const wrap = document.getElementById('options-wrap');
+  const cols = q.singleCol ? 'options single-col' : 'options';
+  wrap.innerHTML = `<div class="${cols}" id="options">${q.opts.map((o, i) =>
+    `<button class="opt-btn" id="opt-${i}" onclick="pickQCM(${i})"><span>${o}</span><span class="opt-tag" id="tag-${i}"></span></button>`
+  ).join('')}</div>`;
+}
+
+function pickQCM(i) {
+  if (document.getElementById('opt-' + i).classList.contains('wrong')) return;
+  if (state === 'wrong' || state === 'correct') return;
+  const q = QUESTIONS[current];
+  const isCorrect = q.ans.includes(i);
+  if (isCorrect) {
+    state = 'correct';
+    revealQCM(q);
+    showAttrPanel(true, q.points.correct, q.points.wrong);
+  } else {
+    state = 'wrong';
+    const btn = document.getElementById('opt-' + i);
+    btn.classList.add('wrong'); btn.disabled = true;
+    document.getElementById('tag-' + i).textContent = '✗ Faux';
+    showAttrPanel(false, q.points.correct, q.points.wrong);
+  }
+}
+
+function revealQCM(q) {
+  document.querySelectorAll('.opt-btn').forEach((btn, idx) => {
+    btn.disabled = true;
+    if (!btn.classList.contains('wrong') && q.ans.includes(idx)) {
+      btn.classList.add('correct');
+      document.getElementById('tag-' + idx).textContent = '✓ Correct';
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+// DOUBLE QUESTION
+// ─────────────────────────────────────────────
+function loadDoubleStep(q, step) {
+  currentDoubleStep = step;
+  const part = q.parts[step];
+  const prefix = step === 0 ? '' : '↳ ';
+
+  document.getElementById('q-text').textContent = prefix + part.text;
+
+  const wrap = document.getElementById('options-wrap');
+  wrap.innerHTML = `<div class="options single-col" id="options">${part.opts.map((o, i) =>
+    `<button class="opt-btn" id="opt-${i}" onclick="pickDouble(${i})"><span>${o}</span><span class="opt-tag" id="tag-${i}"></span></button>`
+  ).join('')}</div>`;
+}
+
+function pickDouble(i) {
+  if (document.getElementById('opt-' + i).classList.contains('wrong')) return;
+  if (state === 'wrong' || state === 'correct') return;
+  const q = QUESTIONS[current];
+  const part = q.parts[currentDoubleStep];
+  const isCorrect = part.ans.includes(i);
+
+  if (isCorrect) {
+    state = 'correct';
+    // Révéler
+    document.querySelectorAll('.opt-btn').forEach((btn, idx) => {
+      btn.disabled = true;
+      if (!btn.classList.contains('wrong') && part.ans.includes(idx)) {
+        btn.classList.add('correct');
+        document.getElementById('tag-' + idx).textContent = '✓ Correct';
+      }
+    });
+    currentDoubleAns.push(i);
+    showAttrPanel(true, q.points.correct, q.points.wrong, currentDoubleStep < q.parts.length - 1);
+  } else {
+    state = 'wrong';
+    const btn = document.getElementById('opt-' + i);
+    btn.classList.add('wrong'); btn.disabled = true;
+    document.getElementById('tag-' + i).textContent = '✗ Faux';
+    showAttrPanel(false, q.points.correct, q.points.wrong, currentDoubleStep < q.parts.length - 1);
+  }
+}
+
+// appelé après attribution sur une double question
+function continueDouble() {
+  const q = QUESTIONS[current];
+  document.getElementById('attr-panel').className = 'attr-panel';
+  state = null;
+  if (currentDoubleStep < q.parts.length - 1) {
+    loadDoubleStep(q, currentDoubleStep + 1);
+  } else {
+    document.getElementById('next-btn').classList.remove('hidden');
+  }
+}
+
+// ─────────────────────────────────────────────
+// LIBRE
+// ─────────────────────────────────────────────
+function loadLibre(q) {
+  document.getElementById('q-text').textContent = q.text;
+
+  if (q.hasTimer) {
+    startTimer(q.timerSeconds);
+  }
+
+  const wrap = document.getElementById('free-answer-wrap');
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = `
+    <div class="free-answer-box">
+      <div class="free-answer-label">Réponse</div>
+      <div class="free-answer-text" id="free-answer-text">${q.answer}</div>
+      <button class="reveal-answer-btn" id="reveal-btn-libre" onclick="revealLibre()">Révéler la réponse</button>
+    </div>`;
+}
+
+function revealLibre() {
+  stopTimer();
+  document.getElementById('free-answer-text').classList.add('visible');
+  document.getElementById('reveal-btn-libre').style.display = 'none';
+
+  // Photo réponse si question photo (libre avec photo)
+  const q = QUESTIONS[current];
+  if (q.type === 'photo' && q.photoA) {
+    document.getElementById('q-photo-reveal').src = q.photoA;
+    document.getElementById('q-photo-reveal').classList.add('visible');
+  }
+
+  showAttrFreePanel(q.points.correct, q.points.wrong);
+}
+
+// ─────────────────────────────────────────────
+// PHOTO
+// ─────────────────────────────────────────────
+function loadPhoto(q) {
+  document.getElementById('q-text').textContent = q.text;
+
+  // Afficher la photo question
+  const photoEl = document.getElementById('q-photo');
+  photoEl.src = q.photoQ;
+  photoEl.classList.remove('hidden');
+
+  // Ajouter la zone reveal photo sous la photo principale
+  const wrap = document.getElementById('free-answer-wrap');
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = `
+    <img class="q-photo-reveal" id="q-photo-reveal" src="" alt="Réponse" />
+    <div class="free-answer-box" style="margin-top:12px;">
+      <div class="free-answer-label">Réponse</div>
+      <div class="free-answer-text" id="free-answer-text">${q.answer}</div>
+      <button class="reveal-answer-btn" id="reveal-btn-libre" onclick="revealLibre()">Révéler la réponse</button>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
+// TIMER
+// ─────────────────────────────────────────────
+function startTimer(seconds) {
+  stopTimer();
+  const timerEl = document.getElementById('timer-wrap-el');
+  timerEl.classList.remove('hidden');
+  timerEl.innerHTML = `
+    <div class="timer-wrap">
+      <div class="timer-circle" id="timer-circle">${seconds}</div>
+      <div class="timer-label">Vous avez <strong>${seconds} secondes</strong> pour répondre !</div>
+    </div>`;
+  let remaining = seconds;
+  timerInterval = setInterval(() => {
+    remaining--;
+    const circle = document.getElementById('timer-circle');
+    if (circle) {
+      circle.textContent = remaining;
+      if (remaining <= 3) circle.classList.add('urgent');
+    }
+    if (remaining <= 0) stopTimer();
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+// ─────────────────────────────────────────────
+// PANELS ATTRIBUTION
+// ─────────────────────────────────────────────
+function showAttrPanel(isCorrect, pointsGood, pointsBad, isDoubleMiddle = false) {
+  const panel = document.getElementById('attr-panel');
+  const na = teamNames.a, nb = teamNames.b;
+  panel.classList.add('visible', isCorrect ? 'is-correct' : 'is-wrong');
+
+  const continueCallback = isDoubleMiddle ? 'continueDouble()' : null;
+
+  if (isCorrect) {
+    document.getElementById('attr-title').innerHTML = `<span class="result-correct">Bonne réponse !</span> — Quelle équipe a répondu ? Elle gagne <span class="points-good">+${pointsGood} pt${pointsGood > 1 ? 's' : ''}</span>.`;
+    document.getElementById('attr-btns').innerHTML = `
+      <button class="attr-btn" onclick="assignTeam('a', ${pointsGood}, ${continueCallback ? 'true' : 'false'})">${na} &nbsp;+${pointsGood}</button>
+      <button class="attr-btn" onclick="assignTeam('b', ${pointsGood}, ${continueCallback ? 'true' : 'false'})">${nb} &nbsp;+${pointsGood}</button>
+      ${isDoubleMiddle ? `<button class="attr-btn attr-btn-skip" onclick="continueDouble()">Continuer sans attribuer →</button>` : ''}`;
+  } else {
+    document.getElementById('attr-title').innerHTML = `<span class="result-wrong">Mauvaise réponse !</span> — Quelle équipe a buzzé ? Elle prend <span class="points-bad">${pointsBad} pt</span>. Les autres peuvent rebuzzer.`;
+    document.getElementById('attr-btns').innerHTML = `
+      <button class="attr-btn" onclick="assignTeamWrong('a', ${pointsBad})">${na} &nbsp;${pointsBad}</button>
+      <button class="attr-btn" onclick="assignTeamWrong('b', ${pointsBad})">${nb} &nbsp;${pointsBad}</button>
+      <button class="attr-btn attr-btn-skip" onclick="assignTeamWrong(null, 0)">Passer sans attribuer</button>`;
+  }
+}
+
+function showAttrFreePanel(pointsGood, pointsBad) {
+  const panel = document.getElementById('attr-panel');
+  const na = teamNames.a, nb = teamNames.b;
+  panel.classList.add('visible');
+
+  document.getElementById('attr-title').innerHTML = `Quelle équipe a trouvé ? <span class="points-good">+${pointsGood} pts</span> si bonne réponse, <span class="points-bad">${pointsBad} pt</span> si fausse.`;
+  document.getElementById('attr-btns').innerHTML = `
+    <button class="attr-btn" onclick="assignTeam('a', ${pointsGood}, false)">${na} &nbsp;✓ +${pointsGood}</button>
+    <button class="attr-btn" onclick="assignTeam('b', ${pointsGood}, false)">${nb} &nbsp;✓ +${pointsGood}</button>
+    <button class="attr-btn" onclick="assignTeamWrong('a', ${pointsBad})">${na} &nbsp;✗ ${pointsBad}</button>
+    <button class="attr-btn" onclick="assignTeamWrong('b', ${pointsBad})">${nb} &nbsp;✗ ${pointsBad}</button>
+    <button class="attr-btn attr-btn-skip" onclick="skipFree()">Personne — passer</button>`;
+}
+
+function assignTeam(team, pts, isDoubleMiddle) {
+  scores[team] += pts;
+  updateScore(team);
+  document.getElementById('attr-panel').className = 'attr-panel';
+  if (isDoubleMiddle) {
+    continueDouble();
+  } else {
+    document.getElementById('next-btn').classList.remove('hidden');
+  }
+}
+
+function assignTeamWrong(team, pts) {
+  if (team !== null) { scores[team] += pts; updateScore(team); }
+  state = null;
+  document.getElementById('attr-panel').className = 'attr-panel';
+  // Réactiver les options non-fausses pour QCM
+  document.querySelectorAll('.opt-btn').forEach(btn => { if (!btn.classList.contains('wrong')) btn.disabled = false; });
+}
+
+function skipFree() {
+  document.getElementById('attr-panel').className = 'attr-panel';
+  document.getElementById('next-btn').classList.remove('hidden');
+}
+
+function updateScore(team) {
+  const el = document.getElementById('score-' + team);
+  el.textContent = scores[team] % 1 === 0 ? scores[team] : scores[team].toFixed(1);
+  el.classList.add('bump');
+  setTimeout(() => el.classList.remove('bump'), 180);
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function next() {
+  stopTimer();
+  const currentPartie = QUESTIONS[current].partie;
+  current++;
+
+  if (current >= QUESTIONS.length) {
+    showFinal();
+    return;
+  }
+
+  const nextPartie = QUESTIONS[current].partie;
+  if (nextPartie !== currentPartie && TRANSITIONS[nextPartie]) {
+    showTransition(nextPartie);
+  } else {
+    load();
+  }
+}
+
+function showTransition(partie) {
+  const tr = TRANSITIONS[partie];
+  document.getElementById('tr-emoji').textContent = tr.emoji;
+  document.getElementById('tr-title').textContent = tr.title;
+  document.getElementById('tr-sub').textContent = tr.sub;
+  document.getElementById('tr-rules').innerHTML = tr.rules;
+  showQuizPanel('transition-screen');
+}
+
+function continueAfterTransition() {
+  showQuizPanel('quiz-main');
+  load();
+}
+
+function showFinal() {
+  showQuizPanel('final-screen');
+  const a = scores.a, b = scores.b;
+  const na = teamNames.a, nb = teamNames.b;
+  document.getElementById('final-title').textContent = a > b ? `${na} remporte la victoire !` : b > a ? `${nb} remporte la victoire !` : `Égalité parfaite !`;
+  document.getElementById('final-sub').textContent = (a !== b) ? `Bien joué à toute l'équipe 🎉` : `Match serré jusqu'au bout !`;
+  document.getElementById('final-scores').innerHTML = `
+    <div class="team-card"><div class="team-name">${na}</div><div class="team-score">${a % 1 === 0 ? a : a.toFixed(1)}</div></div>
+    <div class="team-card"><div class="team-name">${nb}</div><div class="team-score">${b % 1 === 0 ? b : b.toFixed(1)}</div></div>`;
+}
+
+function restartQuiz() {
+  current = 0; scores = { a: 0, b: 0 };
+  showQuizPanel('quiz-main');
+  initQuiz();
+}
+
+function backToSetup() {
+  show('setup-screen');
+  document.getElementById('input-a').value = '';
+  document.getElementById('input-b').value = '';
+}
+</script>
+</body>
+</html>
