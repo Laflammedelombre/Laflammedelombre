@@ -339,6 +339,22 @@
     }
     .correction-btn:hover { color: #888; }
 
+    /* Boutons reprise rapide sur le serment */
+    .resume-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 1.25rem;
+    }
+    .resume-label {
+      width: 100%; font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #bbb; text-align: center; margin-bottom: 2px;
+    }
+    .resume-btn {
+      background: #fafafa; border: 1.5px solid #ebebeb; border-radius: 10px;
+      padding: 10px 18px; font-size: 13px; font-weight: 600; font-family: inherit;
+      color: #555; cursor: pointer; transition: all 0.15s;
+    }
+    .resume-btn:hover { background: #FFED00; border-color: #111; color: #111; }
+
     /* Double question */
     .sub-question-box {
       background: #fffde6; border: 1.5px solid #FFED00; border-radius: 12px;
@@ -386,14 +402,21 @@
     <div class="oath-card">
       <p class="oath-intro">s'engagent solennellement à respecter les articles suivants</p>
       <ul class="oath-articles">
-        <li data-n="I.">Ce qui se passe à La Ciotat, <strong>reste à La Ciotat.</strong> Sans exception. Sans screenshot. Sans story.</li>
+        <li data-n="I.">Ce qui se passe à La Ciotat, <strong>reste à La Ciotat.</strong> Sans exception. Sans screenshot. Sans story. ce qui veut dire : <strong>Rangez vos téléphones</strong></li>
         <li data-n="II.">Toute mauvaise réponse sera assumée avec dignité. <strong>Les excuses sont interdites.</strong></li>
         <li data-n="III.">Le score final est <strong>incontestable</strong> et ne pourra faire l'objet d'aucun recours RH.</li>
-        <li data-n="IV.">Les perdants offriront une tournée. <strong>C'est écrit, c'est dit.</strong></li>
+        <li data-n="IV.">Les perdants offriront <strong>des</strong> tournée<strong>s</strong> à l'atelier. <strong>C'est écrit, c'est dit.</strong></li>
       </ul>
       <p class="oath-footer">* Ce document n'a aucune valeur juridique. Mais moralement, vous êtes engagés.</p>
     </div>
     <button class="primary-btn" onclick="startQuiz()">Je jure sur l'honneur — Commencer le quiz ✊</button>
+
+    <div class="resume-row">
+      <div class="resume-label">⚡ Reprise rapide en cas de bug</div>
+      <button class="resume-btn" onclick="jumpToPartie(1)">▶ Depuis le début</button>
+      <button class="resume-btn" onclick="jumpToPartie(2)">▶ Partie 2</button>
+      <button class="resume-btn" onclick="jumpToPartie(3)">▶ Partie 3</button>
+    </div>
   </div>
 
   <!-- ③ QUIZ -->
@@ -1434,6 +1457,35 @@ function backToSetup() {
   show('setup-screen');
   document.getElementById('input-a').value = '';
   document.getElementById('input-b').value = '';
+}
+
+function jumpToPartie(partie) {
+  // Récupérer les noms saisis
+  const na = document.getElementById('input-a').value.trim();
+  const nb = document.getElementById('input-b').value.trim();
+  teamNames.a = na || 'Équipe A';
+  teamNames.b = nb || 'Équipe B';
+  document.getElementById('name-a').textContent = teamNames.a;
+  document.getElementById('name-b').textContent = teamNames.b;
+
+  // Reset scores et stats
+  scores = { a: 0, b: 0 };
+  stats = {
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
+  };
+
+  // Trouver la première question de la partie demandée
+  current = QUESTIONS.findIndex(q => q.partie === partie);
+  if (current === -1) current = 0;
+
+  show('quiz-screen');
+  document.getElementById('progress').innerHTML = QUESTIONS.map((_, i) => `<div class="prog-dot" id="dot-${i}"></div>`).join('');
+  document.getElementById('quiz-main').classList.remove('hidden');
+  document.getElementById('final-screen').classList.add('hidden');
+  document.getElementById('score-a').textContent = 0;
+  document.getElementById('score-b').textContent = 0;
+  load();
 }
 
 // ─────────────────────────────────────────────
