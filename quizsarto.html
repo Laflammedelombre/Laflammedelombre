@@ -429,7 +429,6 @@
       <button class="resume-btn" onclick="jumpToPartie(1)">▶ Depuis le début</button>
       <button class="resume-btn" onclick="jumpToPartie(2)">▶ Partie 2</button>
       <button class="resume-btn" onclick="jumpToPartie(3)">▶ Partie 3</button>
-      <button class="resume-btn" onclick="jumpToPartie(4)">▶ Partie 4</button>
     </div>
   </div>
 
@@ -851,7 +850,7 @@ const QUESTIONS = [
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient ce tiroir ?",
-    photoQ: "Matthieu_1.png",
+    photoQ: "Matthieu_1.jpg",
     answer: "Matthieu",
     photoA: null
   },
@@ -910,16 +909,6 @@ const QUESTIONS = [
     photoA: "Felicien_2.png"
   },
 
-  // ═══════════ PARTIE 4 — QUIZ PHOTO ═══════════
-  {
-    partie: 4,
-    type: 'photo',
-    points: { correct: 3, wrong: -0.5 },
-    text: "📸 À toi de jouer — qui est-ce ?",
-    photoQ: "photo4_1.png",
-    answer: "???",
-    photoA: "photo4_2.png"
-  }
 ];
 
 const TRANSITIONS = {
@@ -943,15 +932,6 @@ const TRANSITIONS = {
       <div class="points-rule-item">📸 Questions photos — <strong>+3</strong> bonne / <strong>−0,5</strong> mauvaise</div>
     `
   },
-  4: {
-    emoji: '📸',
-    title: 'Partie 4 — Quiz Photo',
-    sub: 'Reconnaissez-vous ces têtes ? Réponses libres — vrai ou faux.',
-    rules: `
-      <h4>Règles du jeu</h4>
-      <div class="points-rule-item">📸 Chaque photo — <strong>+3</strong> bonne réponse / <strong>−0,5</strong> mauvaise</div>
-    `
-  }
 };
 
 // ─────────────────────────────────────────────
@@ -967,8 +947,8 @@ let currentDoubleAns = [];
 
 // Stats par équipe : { correct, wrong } par partie
 let stats = {
-  a: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 }, 4: { correct:0, wrong:0 } } },
-  b: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 }, 4: { correct:0, wrong:0 } } }
+  a: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } },
+  b: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } }
 };
 
 // ─────────────────────────────────────────────
@@ -1034,7 +1014,7 @@ function load() {
   }
 
   // Partie header
-  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !', 4: 'Quiz Photo' };
+  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !' };
   document.getElementById('partie-badge').textContent = `Partie ${q.partie}`;
   document.getElementById('partie-title').textContent = partieNames[q.partie];
 
@@ -1392,7 +1372,7 @@ function showFinal() {
   const pctA = Math.round(sa.correct / totalA * 100);
   const pctB = Math.round(sb.correct / totalB * 100);
 
-  const partieLabels = { 1: '🧑‍🤝‍🧑 Connaissance', 2: '🧠 Culture Générale', 3: '👀 On se connaît', 4: '📸 Quiz Photo' };
+  const partieLabels = { 1: '🧑‍🤝‍🧑 Connaissance', 2: '🧠 Culture Générale', 3: '👀 On se connaît' };
 
   function barWidth(val, max) { return max === 0 ? 0 : Math.round(val / max * 80); }
 
@@ -1400,7 +1380,7 @@ function showFinal() {
     const total = sdata.correct + sdata.wrong;
     const pct = total === 0 ? 0 : Math.round(sdata.correct / total * 100);
     let partieRows = '';
-  [1,2,3,4].forEach(p => {
+  [1,2,3].forEach(p => {
     const pd = sdata.byPartie[p];
     const ptotal = pd.correct + pd.wrong;
     const maxBar = 80;
@@ -1432,7 +1412,6 @@ function showFinal() {
   const bestP1 = sa.byPartie[1].correct > sb.byPartie[1].correct ? na : sb.byPartie[1].correct > sa.byPartie[1].correct ? nb : null;
   const bestP2 = sa.byPartie[2].correct > sb.byPartie[2].correct ? na : sb.byPartie[2].correct > sa.byPartie[2].correct ? nb : null;
   const bestP3 = sa.byPartie[3].correct > sb.byPartie[3].correct ? na : sb.byPartie[3].correct > sa.byPartie[3].correct ? nb : null;
-  const bestP4 = sa.byPartie[4].correct > sb.byPartie[4].correct ? na : sb.byPartie[4].correct > sa.byPartie[4].correct ? nb : null;
 
   let funStats = '';
   if (bestTeam) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🎯</span><div>La plus précise : <strong>${bestTeam}</strong> avec le plus de bonnes réponses</div></div>`;
@@ -1440,12 +1419,11 @@ function showFinal() {
   if (bestP1) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧑‍🤝‍🧑</span><div>Mieux intégrée dans l'équipe Sartorius : <strong>${bestP1}</strong></div></div>`;
   if (bestP2) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧠</span><div>La plus cultivée : <strong>${bestP2}</strong></div></div>`;
   if (bestP3) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">👀</span><div>La meilleure pour reconnaître les collègues : <strong>${bestP3}</strong></div></div>`;
-  if (bestP4) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">📸</span><div>La meilleure en Quiz Photo : <strong>${bestP4}</strong></div></div>`;
   if (!funStats) funStats = `<div class="fun-stat"><span class="fun-stat-emoji">🤝</span><div>Parfaite égalité sur tous les tableaux — deux équipes au poil !</div></div>`;
 
   // Partie par partie
   let partieByPartieHTML = '';
-  [1,2,3,4].forEach(p => {
+  [1,2,3].forEach(p => {
     const pa = sa.byPartie[p], pb = sb.byPartie[p];
     const maxVal = Math.max(pa.correct, pb.correct, pa.wrong, pb.wrong, 1);
     partieByPartieHTML += `
@@ -1488,8 +1466,8 @@ function showFinal() {
 function restartQuiz() {
   current = 0; scores = { a: 0, b: 0 };
   stats = {
-    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } },
-    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } }
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
   };
   showQuizPanel('quiz-main');
   initQuiz();
@@ -1513,8 +1491,8 @@ function jumpToPartie(partie) {
   // Reset scores et stats
   scores = { a: 0, b: 0 };
   stats = {
-    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } },
-    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } }
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
   };
 
   // Trouver la première question de la partie demandée
