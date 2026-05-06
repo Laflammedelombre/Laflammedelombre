@@ -265,6 +265,15 @@
     .final-scores { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem; }
     .replay-row { display: flex; gap: 10px; justify-content: center; }
 
+    /* Fun fact */
+    .funfact-box {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: #fffde6; border: 1.5px solid #FFED00;
+      border-radius: 12px; padding: 12px 14px;
+      margin-top: 12px; font-size: 13px; color: #555; line-height: 1.6;
+    }
+    .funfact-emoji { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
     /* ───── STATS FINAL ───── */
     .stats-section { margin-top: 2rem; text-align: left; }
     .stats-section-title {
@@ -429,6 +438,7 @@
       <button class="resume-btn" onclick="jumpToPartie(1)">▶ Depuis le début</button>
       <button class="resume-btn" onclick="jumpToPartie(2)">▶ Partie 2</button>
       <button class="resume-btn" onclick="jumpToPartie(3)">▶ Partie 3</button>
+      <button class="resume-btn" onclick="jumpToPartie(4)">▶ Partie 4</button>
     </div>
   </div>
 
@@ -649,136 +659,121 @@ const QUESTIONS = [
     singleCol: true
   },
 
-  // ═══════════ PARTIE 2 — QCM ═══════════
+  // ═══════════ PARTIE 2 — QCM CULTURE G ═══════════
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Médecine',
-    text: "Quel mécanisme est le plus probable pour expliquer l'effet du paracétamol ?",
-    opts: ["Inhibition périphérique forte des COX", "Action centrale sur les prostaglandines", "Blocage des récepteurs opioïdes", "Effet anti-inflammatoire majeur"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Histoire',
+    text: "Quel pays a utilisé la guillotine pour la dernière fois en 1977 ?",
+    opts: ["Belgique", "France", "Espagne", "Italie"],
+    ans: [1],
+    funfact: "🔪 Hamida Djandoubi a été le dernier guillotiné en France, à Marseille. La peine de mort a été abolie en France en 1981 par Robert Badinter. Star Wars sortait l'année d'avant."
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Supply chain',
-    text: "Le « bullwhip effect » correspond à :",
-    opts: ["Une réduction des délais", "Une amplification des variations de la demande le long de la chaîne", "Une meilleure prévision grâce à l'IA", "Une rupture de stock locale"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Géographie / La Ciotat',
+    text: "La Ciotat est mondialement connue pour être le lieu de tournage du tout premier film de l'histoire du cinéma. Comment s'appelait-il ?",
+    opts: ["Le Voyage dans la lune", "L'Arrivée d'un train en gare de La Ciotat", "La Sortie de l'usine Lumière", "Les Frères Lumière à la mer"],
+    ans: [1],
+    funfact: "🎬 Le film dure 50 secondes. La légende dit que les spectateurs ont fui en croyant que le train allait les écraser — mais c'est probablement un mythe inventé pour faire parler du cinéma !"
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Immobilier / raisonnement',
-    text: "Dans une grande ville française, quel facteur influence le plus directement le prix au m² ?",
-    opts: ["L'âge du bâtiment", "Le DPE", "La localisation", "Le nombre de pièces"],
-    ans: [2]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Sciences',
+    text: "Quel organe du corps humain peut se régénérer presque entièrement même après en avoir perdu 75% ?",
+    opts: ["Le rein", "Le poumon", "Le foie", "Le cœur"],
+    ans: [2],
+    funfact: "🫁 Le foie est le seul organe interne capable de se régénérer complètement. C'est pour ça qu'on peut faire des dons de foie entre vivants — le donneur récupère la quasi-totalité de son foie en quelques mois."
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Sport / logique',
-    text: "Pourquoi un marathon fait-il précisément 42,195 km ?",
-    opts: ["Distance choisie arbitrairement", "Adaptation aux JO de Londres 1908", "Conversion depuis les miles modernes", "Distance historique grecque exacte"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Médecine / corps humain',
+    text: "Combien d'os compte le corps humain adulte ?",
+    opts: ["156", "196", "206", "256"],
+    ans: [2],
+    funfact: "🦴 Les bébés naissent avec environ 270 os. Certains fusionnent en grandissant pour arriver à 206 chez l'adulte. L'os le plus petit est l'étrier dans l'oreille — il fait à peine 3 mm."
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Musique actuelle',
-    text: "Quel facteur explique le mieux l'explosion des certifications d'artistes comme Ninho ?",
-    opts: ["Hausse des ventes CD", "Streaming massif comptabilisé", "Plus de concerts", "Moins de concurrence"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Culture / Musique',
+    text: "Quel artiste français a vendu le plus d'albums dans le monde toutes catégories confondues ?",
+    opts: ["Johnny Hallyday", "Charles Aznavour", "Céline Dion", "Édith Piaf"],
+    ans: [0],
+    funfact: "🎸 Johnny Hallyday a vendu plus de 110 millions d'albums. Étonnamment, il n'a jamais vraiment percé aux États-Unis malgré de nombreuses tentatives. Il reste « the biggest rock star you've never heard of » pour les Américains."
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Géopolitique',
-    text: "Quel pays a la population la plus élevée aujourd'hui ?",
-    opts: ["Chine", "Inde", "États-Unis", "Indonésie"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Géopolitique / piège',
+    text: "Quelle est la capitale de l'Australie ?",
+    opts: ["Sydney", "Melbourne", "Brisbane", "Canberra"],
+    ans: [3],
+    funfact: "🦘 Sydney vs Melbourne se disputaient si férocement le titre de capitale qu'on a choisi Canberra — une ville construite de toutes pièces entre les deux, comme un compromis diplomatique. La décision date de 1908 !"
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Économie / logique',
-    text: "Si une banque centrale augmente fortement ses taux, quel effet est le plus probable à court terme ?",
-    opts: ["Hausse de l'inflation", "Baisse de l'inflation", "Hausse immédiate des salaires", "Explosion de la consommation"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Science / espace',
+    text: "Combien de temps la lumière met-elle environ pour aller du Soleil à la Terre ?",
+    opts: ["8 secondes", "8 minutes", "8 heures", "8 jours"],
+    ans: [1],
+    funfact: "☀️ Exactement 8 minutes et 20 secondes. Ça veut dire que quand vous regardez le soleil, vous le voyez tel qu'il était il y a 8 min. Si le soleil disparaissait là maintenant, on ne le saurait que dans 8 minutes."
   },
   {
-    partie: 2,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
-    cat: 'Culture générale / piège',
-    text: "Quel est l'élément le plus abondant dans l'univers ?",
-    opts: ["Oxygène", "Hydrogène", "Carbone", "Azote"],
-    ans: [1]
+    partie: 2, type: 'qcm', points: { correct: 1, wrong: -1 },
+    cat: 'Langue française / piège',
+    text: "Que signifie « faire le gabian » dans l'argot marseillais et du bord de mer ?",
+    opts: ["Faire la sieste au soleil", "Se plaindre sans arrêt", "Voler de la nourriture à quelqu'un", "Regarder les autres travailler sans rien faire"],
+    ans: [3],
+    funfact: "🐦 Le gabian, c'est le goéland — la mouette marseillaise. L'oiseau observe tout le monde depuis les toits sans jamais rien faire... sauf quand il y a une pizza à piquer. Un vrai symbole local."
   },
 
   // ═══════════ PARTIE 2 — RÉPONSES LIBRES ═══════════
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Faits people',
-    text: "Quel acteur a été au centre d'un procès ultra-médiatisé en 2022 face à Amber Heard ?",
-    answer: "Johnny Depp"
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: '🎵 Paroles — Chanson française',
+    text: "Complétez ces paroles de Stromae : « Alors on danse, alors on danse… » — quelle est la suite exacte ?",
+    answer: "« …et puis on chante, et puis on chante » (Alors on danse — Stromae, 2009)",
+    funfact: "🎤 Alors on danse est sorti en 2009 et a été n°1 dans 17 pays européens. Stromae l'a composée à 24 ans dans sa chambre. Kanye West en a fait un remix — classe."
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Marseille / expression locale',
-    text: "Que signifie « peuchère » dans le parler marseillais ? (nuance attendue)",
-    answer: "Expression de compassion / attendrissement, proche de « le pauvre », souvent avec une nuance affectueuse ou ironique."
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: '🎵 Paroles — Chanson anglaise',
+    text: "Complétez ces paroles : « Is this the real life? Is this just fantasy? Caught in a landslide… » — suite ?",
+    answer: "« …no escape from reality » — Bohemian Rhapsody, Queen (1975)",
+    funfact: "🎭 Bohemian Rhapsody dure presque 6 minutes — invendable selon les maisons de disques de l'époque. Freddie Mercury a refusé de la couper. Elle est restée n°1 au Royaume-Uni pendant 9 semaines."
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Marseille / anecdote urbaine',
-    text: "La L2 à Marseille a été inaugurée en 2018, mais les premières réflexions datent de quelle période approximative ?",
-    answer: "Années 1930–1950 (projets très anciens, relancés ensuite)"
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: 'La Ciotat / histoire locale',
+    text: "La Ciotat abrite l'un des plus vieux cinémas encore en activité au monde. Comment s'appelle-t-il ?",
+    answer: "L'Eden Cinéma — ouvert en 1889, classé monument historique",
+    funfact: "🎟️ L'Eden a failli être démoli plusieurs fois. Des passionnés se sont battus pendant des années pour le sauver. Il a été rénové et rouvert en 2013 — et il passe encore des films aujourd'hui à deux pas d'ici !"
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Supply / KPI avancé',
-    text: "Quelle différence entre « fill rate » et « service level » ?",
-    answer: "Fill rate = % de la demande effectivement servie (quantités). Service level = % de commandes livrées sans rupture (fréquence)."
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: 'Expression du sud / difficile',
+    text: "Que signifie « aquò es parier » en provençal / occitan du coin ?",
+    answer: "Ça ne fait rien / c'est pareil / peu importe — expression d'indifférence tranquille",
+    funfact: "🌿 L'occitan provençal compte encore plusieurs centaines de milliers de locuteurs dans le sud. « Parier » vient du latin « pariare » (égaliser). Une façon élégante de dire que la vie est trop courte pour s'énerver."
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Immobilier / réflexion',
-    text: "Pourquoi deux appartements identiques peuvent avoir un prix très différent dans le même immeuble ?",
-    answer: "Étage, luminosité, vue, bruit, exposition, présence d'ascenseur → micro-localisation."
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: 'Corps humain / médecine',
+    text: "Qu'est-ce que le nerf vague et quel est son rôle principal ?",
+    answer: "Le nerf crânien le plus long — relie le cerveau aux organes (cœur, poumons, intestins). Régule le système nerveux parasympathique : calme, digestion, rythme cardiaque.",
+    funfact: "🧠 Le nerf vague est la raison pour laquelle vous vous sentez calme après avoir mangé, ou pourquoi respirer lentement réduit le stress. C'est aussi lui qui cause les évanouissements quand on a trop peur — il ralentit le cœur d'un coup."
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Culture / estimation',
-    text: "Combien de secondes environ dure une journée ?",
-    answer: "≈ 86 400 secondes"
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: 'Culture générale / estimation',
+    text: "En quelle année approximative le mur de Berlin est-il tombé, et quel événement symbolique l'a précédé de peu ?",
+    answer: "1989 — précédé par l'ouverture des frontières hongroises (été 1989) et les manifestations de Leipzig",
+    funfact: "🧱 Le mur est tombé en partie à cause d'une erreur ! Un porte-parole du gouvernement est-allemand a annoncé en direct à la télé que les frontières étaient ouvertes « immédiatement, sans délai » — ce n'était pas prévu. Les gens sont descendus dans la rue et les gardes n'ont pas osé tirer."
   },
   {
-    partie: 2,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
-    cat: 'Logique / réflexion',
-    text: "Pourquoi les avions volent-ils souvent à ~10–12 km d'altitude ?",
-    answer: "Air moins dense → moins de frottements → meilleure efficacité carburant + conditions atmosphériques plus stables."
+    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
+    cat: 'Sciences / logique',
+    text: "Pourquoi nos doigts plissent-ils dans l'eau ? (la vraie réponse scientifique récente)",
+    answer: "Ce n'est pas de l'osmose — c'est une réponse active du système nerveux. Les plissures améliorent la prise en main sous l'eau, comme des rainures de pneu.",
+    funfact: "💧 On a longtemps cru que c'était juste de l'eau qui gonflait la peau. En réalité, ça ne se produit pas si le nerf est coupé — preuve que c'est volontaire. Des études montrent qu'on attrape mieux les objets mouillés avec des doigts plissés. L'évolution est maligne."
   },
 
   // ═══════════ PARTIE 3 — PROPOSITIONS LIBRES ═══════════
@@ -821,22 +816,15 @@ const QUESTIONS = [
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "À qui appartient ces parties de corps ? (photo)",
-    answer: "Marco"
-  },
-  {
-    partie: 3,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
     hasTimer: true,
     timerSeconds: 10,
     text: "Si je vous dis : tout le temps en retard… vous me dites ? ⏱️",
     answer: "Jimmy-Lee 😅"
   },
 
-  // ═══════════ PARTIE 3 — PHOTOS (3 pts) ═══════════
+  // ═══════════ PARTIE 4 — QUI EST-CE ? 📸 ═══════════
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient cette belle moustache ?",
@@ -846,7 +834,7 @@ const QUESTIONS = [
     photoA: "Raffi_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient ce tiroir ?",
@@ -855,7 +843,7 @@ const QUESTIONS = [
     photoA: null
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient ces sublimes cheveux ?",
@@ -864,7 +852,7 @@ const QUESTIONS = [
     photoA: "Oceane_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui fait référence ce t-shirt ?",
@@ -873,7 +861,7 @@ const QUESTIONS = [
     photoA: "Bastien_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient cette partie du visage ?",
@@ -882,7 +870,7 @@ const QUESTIONS = [
     photoA: "Hugo_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui appartient cet œil ?",
@@ -891,7 +879,7 @@ const QUESTIONS = [
     photoA: "Torsten_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui ce personnage fait-il référence ?",
@@ -900,14 +888,14 @@ const QUESTIONS = [
     photoA: "Sylvie_2.png"
   },
   {
-    partie: 3,
+    partie: 4,
     type: 'photo',
     points: { correct: 3, wrong: -0.5 },
     text: "À qui fait penser cette image ?",
     photoQ: "Felicien_1.png",
     answer: "Don Perrriiiigggooottt 😄",
     photoA: "Felicien_2.png"
-  },
+  }
 
 ];
 
@@ -925,11 +913,19 @@ const TRANSITIONS = {
   3: {
     emoji: '👀',
     title: 'Partie 3 — On se connaît bien ?',
-    sub: 'Propositions libres et reconnaissance de photos.',
+    sub: 'Petites anecdotes, secrets de bureau… tout ce qui se passe à La Ciotat reste à La Ciotat.',
     rules: `
       <h4>Règles du jeu</h4>
       <div class="points-rule-item">✍️ Propositions libres — <strong>+2</strong> bonne / <strong>−0,5</strong> mauvaise</div>
-      <div class="points-rule-item">📸 Questions photos — <strong>+3</strong> bonne / <strong>−0,5</strong> mauvaise</div>
+    `
+  },
+  4: {
+    emoji: '📸',
+    title: 'Partie 4 — Reconnaissez-vous ces têtes ?',
+    sub: 'Photos mystères — indices, détails, déguisements… Saurez-vous qui se cache derrière ?',
+    rules: `
+      <h4>Règles du jeu</h4>
+      <div class="points-rule-item">📸 Chaque photo — <strong>+3</strong> bonne réponse / <strong>−0,5</strong> mauvaise</div>
     `
   },
 };
@@ -947,8 +943,8 @@ let currentDoubleAns = [];
 
 // Stats par équipe : { correct, wrong } par partie
 let stats = {
-  a: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } },
-  b: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 } } }
+  a: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 }, 4: { correct:0, wrong:0 } } },
+  b: { correct: 0, wrong: 0, byPartie: { 1: { correct:0, wrong:0 }, 2: { correct:0, wrong:0 }, 3: { correct:0, wrong:0 }, 4: { correct:0, wrong:0 } } }
 };
 
 // ─────────────────────────────────────────────
@@ -1014,7 +1010,7 @@ function load() {
   }
 
   // Partie header
-  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !' };
+  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !', 4: 'Reconnaissez-vous ces têtes ?' };
   document.getElementById('partie-badge').textContent = `Partie ${q.partie}`;
   document.getElementById('partie-title').textContent = partieNames[q.partie];
 
@@ -1092,6 +1088,7 @@ function revealQCM(q) {
       document.getElementById('tag-' + idx).textContent = '✓ Correct';
     }
   });
+  if (q.funfact) showFunfact(q.funfact);
 }
 
 // ─────────────────────────────────────────────
@@ -1197,7 +1194,8 @@ function buzzCorrect(team) {
     <div class="free-answer-box" style="border-color:#52b77a;background:#f6fff9;">
       <div class="free-answer-label" style="color:#52b77a;">✓ Bonne réponse</div>
       <div class="free-answer-text visible">${q.answer}</div>
-    </div>`;
+    </div>
+    ${q.funfact ? `<div class="funfact-box"><span class="funfact-emoji">💡</span><span>${q.funfact}</span></div>` : ''}`;
 
   // Photo réponse si photo
   if (q.type === 'photo' && q.photoA) {
@@ -1206,6 +1204,12 @@ function buzzCorrect(team) {
 
   document.getElementById('attr-panel').className = 'attr-panel';
   document.getElementById('next-btn').classList.remove('hidden');
+}
+
+function showFunfact(text) {
+  const wrap = document.getElementById('free-answer-wrap');
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = `<div class="funfact-box"><span class="funfact-emoji">💡</span><span>${text}</span></div>`;
 }
 
 // ─────────────────────────────────────────────
@@ -1372,7 +1376,7 @@ function showFinal() {
   const pctA = Math.round(sa.correct / totalA * 100);
   const pctB = Math.round(sb.correct / totalB * 100);
 
-  const partieLabels = { 1: '🧑‍🤝‍🧑 Connaissance', 2: '🧠 Culture Générale', 3: '👀 On se connaît' };
+  const partieLabels = { 1: '🧑‍🤝‍🧑 Connaissance', 2: '🧠 Culture Générale', 3: '👀 On se connaît', 4: '📸 Quiz Photo' };
 
   function barWidth(val, max) { return max === 0 ? 0 : Math.round(val / max * 80); }
 
@@ -1380,7 +1384,7 @@ function showFinal() {
     const total = sdata.correct + sdata.wrong;
     const pct = total === 0 ? 0 : Math.round(sdata.correct / total * 100);
     let partieRows = '';
-  [1,2,3].forEach(p => {
+  [1,2,3,4].forEach(p => {
     const pd = sdata.byPartie[p];
     const ptotal = pd.correct + pd.wrong;
     const maxBar = 80;
@@ -1412,6 +1416,7 @@ function showFinal() {
   const bestP1 = sa.byPartie[1].correct > sb.byPartie[1].correct ? na : sb.byPartie[1].correct > sa.byPartie[1].correct ? nb : null;
   const bestP2 = sa.byPartie[2].correct > sb.byPartie[2].correct ? na : sb.byPartie[2].correct > sa.byPartie[2].correct ? nb : null;
   const bestP3 = sa.byPartie[3].correct > sb.byPartie[3].correct ? na : sb.byPartie[3].correct > sa.byPartie[3].correct ? nb : null;
+  const bestP4 = sa.byPartie[4].correct > sb.byPartie[4].correct ? na : sb.byPartie[4].correct > sa.byPartie[4].correct ? nb : null;
 
   let funStats = '';
   if (bestTeam) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🎯</span><div>La plus précise : <strong>${bestTeam}</strong> avec le plus de bonnes réponses</div></div>`;
@@ -1419,11 +1424,12 @@ function showFinal() {
   if (bestP1) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧑‍🤝‍🧑</span><div>Mieux intégrée dans l'équipe Sartorius : <strong>${bestP1}</strong></div></div>`;
   if (bestP2) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">🧠</span><div>La plus cultivée : <strong>${bestP2}</strong></div></div>`;
   if (bestP3) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">👀</span><div>La meilleure pour reconnaître les collègues : <strong>${bestP3}</strong></div></div>`;
+  if (bestP4) funStats += `<div class="fun-stat"><span class="fun-stat-emoji">📸</span><div>La meilleure en Quiz Photo : <strong>${bestP4}</strong></div></div>`;
   if (!funStats) funStats = `<div class="fun-stat"><span class="fun-stat-emoji">🤝</span><div>Parfaite égalité sur tous les tableaux — deux équipes au poil !</div></div>`;
 
   // Partie par partie
   let partieByPartieHTML = '';
-  [1,2,3].forEach(p => {
+  [1,2,3,4].forEach(p => {
     const pa = sa.byPartie[p], pb = sb.byPartie[p];
     const maxVal = Math.max(pa.correct, pb.correct, pa.wrong, pb.wrong, 1);
     partieByPartieHTML += `
@@ -1466,8 +1472,8 @@ function showFinal() {
 function restartQuiz() {
   current = 0; scores = { a: 0, b: 0 };
   stats = {
-    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
-    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } }
   };
   showQuizPanel('quiz-main');
   initQuiz();
@@ -1491,8 +1497,8 @@ function jumpToPartie(partie) {
   // Reset scores et stats
   scores = { a: 0, b: 0 };
   stats = {
-    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } },
-    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0} } }
+    a: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } },
+    b: { correct: 0, wrong: 0, byPartie: { 1:{correct:0,wrong:0}, 2:{correct:0,wrong:0}, 3:{correct:0,wrong:0}, 4:{correct:0,wrong:0} } }
   };
 
   // Trouver la première question de la partie demandée
