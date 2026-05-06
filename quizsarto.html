@@ -653,6 +653,19 @@ const QUESTIONS = [
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
+    text: "Lors de la réalisation du mur d'enceinte de la maison à Pourrières, un arbre aux grosses branches entravait la construction. Selon vous, qu'est-ce qu'Alice voulait ?",
+    opts: [
+      "Qu'on coupe l'arbre",
+      "Que la branche passe à travers le mur",
+      "Qu'on annule la construction du mur",
+      "Qu'on fasse un mur qui contourne l'arbre"
+    ],
+    ans: [1]
+  },
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
     text: "Quel est le max en nombre de bébés girafes que soulève Romain en front squat ?",
     opts: ["0,5 bébé girafe", "1,5 bébés girafes", "1,9 bébés girafes", "2,7 bébés girafes", "3,1 bébés girafes"],
     ans: [2],
@@ -722,7 +735,7 @@ const QUESTIONS = [
     text: "Que signifie « faire le gabian » dans l'argot marseillais et du bord de mer ?",
     opts: ["Faire la sieste au soleil", "Se plaindre sans arrêt", "Voler de la nourriture à quelqu'un", "Regarder les autres travailler sans rien faire"],
     ans: [3],
-    funfact: "🐦 Le gabian, c'est le goéland — la mouette marseillaise. L'oiseau observe tout le monde depuis les toits sans jamais rien faire... sauf quand il y a une pizza à piquer. Un vrai symbole local."
+    funfact: "🐦 Un gabian, c'est un goéland — ce grand oiseau de mer blanc et gris qu'on voit partout sur les ports du sud. « Faire le gabian » signifie donc rester perché à observer les autres bosser sans jamais mettre la main à la pâte. Une expression bien de chez nous, qui s'applique à certains collègues qu'on ne citera pas."
   },
 
   // ═══════════ PARTIE 2 — RÉPONSES LIBRES ═══════════
@@ -766,7 +779,7 @@ const QUESTIONS = [
     cat: 'Culture générale / estimation',
     text: "En quelle année approximative le mur de Berlin est-il tombé, et quel événement symbolique l'a précédé de peu ?",
     answer: "1989 — précédé par l'ouverture des frontières hongroises (été 1989) et les manifestations de Leipzig",
-    funfact: "🧱 Le mur est tombé en partie à cause d'une erreur ! Un porte-parole du gouvernement est-allemand a annoncé en direct à la télé que les frontières étaient ouvertes « immédiatement, sans délai » — ce n'était pas prévu. Les gens sont descendus dans la rue et les gardes n'ont pas osé tirer."
+    funfact: "🧱 Le mur est tombé à cause d'une erreur en direct ! Le 9 novembre 1989, le porte-parole Günter Schabowski lit une note en conférence de presse annonçant l'ouverture des frontières. Un journaliste lui demande « À partir de quand ? » — Schabowski, qui n'avait pas lu la note en entier, répond : « Immédiatement, sans délai. » C'était censé entrer en vigueur le lendemain matin avec des conditions strictes. Des milliers d'Allemands de l'Est se sont précipités aux checkpoints, les gardes dépassés ont fini par lever les barrières, et le reste appartient à l'histoire."
   },
   {
     partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
@@ -788,13 +801,6 @@ const QUESTIONS = [
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Quelle est la nouvelle « passion » de Val et Jimmy ? (Val a mis Jimmy dedans)",
-    answer: "Les échecs ♟️"
-  },
-  {
-    partie: 3,
-    type: 'libre',
-    points: { correct: 2, wrong: -0.5 },
     text: "Pendant combien de mois de leur relation Magali et Matthieu nous ont fait la cachotterie ?",
     answer: "12 mois"
   },
@@ -809,7 +815,10 @@ const QUESTIONS = [
     partie: 3,
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
-    text: "Quel est le nouveau groupe fétiche de Valentin ?",
+    text: "Pourquoi Arya, la fille de Caro, s'appelle Arya ?",
+    answer: "Car Sylvain adore Game of Thrones et Caro Pretty Little Liars"
+  },
+  {
     answer: "Angine de poitrine 🎸"
   },
   {
