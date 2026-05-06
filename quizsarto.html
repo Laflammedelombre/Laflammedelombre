@@ -429,7 +429,12 @@
         <li data-n="III.">Le score final est <strong>incontestable</strong> et ne pourra faire l'objet d'aucun recours RH.</li>
         <li data-n="IV.">Les perdants offriront une tournée. <strong>C'est écrit, c'est dit.</strong> Des tournées à l'atelier.</li>
       </ul>
-      <p class="oath-footer">* Ce document n'a aucune valeur juridique. Mais moralement, vous êtes engagés.</p>
+      <div style="margin-top:1.25rem;background:#FFED00;border-radius:10px;padding:14px 16px;position:relative;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;margin-bottom:6px;">⭐ Article V — Clause Spéciale</div>
+        <p style="font-size:14px;color:#111;line-height:1.6;font-weight:500;">Si l'équipe dans laquelle se trouve <strong>Valentin</strong> perd ce soir, il s'engage solennellement à faire tirer au sort ses places pour <strong>Céline Dion</strong> parmi l'ensemble des participants. 🎤</p>
+        <p style="font-size:11px;color:#666;margin-top:6px;font-style:italic;">* Cet article, lui, a une valeur morale absolue.</p>
+      </div>
+      <p class="oath-footer" style="margin-top:1rem;">* Le reste de ce document n'a aucune valeur juridique. Mais moralement, vous êtes tous engagés.</p>
     </div>
     <button class="primary-btn" onclick="startQuiz()">Je jure sur l'honneur — Commencer le quiz ✊</button>
 
@@ -543,8 +548,9 @@ const QUESTIONS = [
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
     text: "À côté de quelle personnalité Angélique a-t-elle passé tout un mariage ?",
-    opts: ["Lady Gaga", "Cyprien", "Jamel Debbouze", "D, la réponse D"],
-    ans: [1]
+    opts: ["Cyprien", "Freddy Gladieux", "Jamel Debbouze", "Squeezie"],
+    ans: [1],
+    optPhotos: ["Cyprien.png", "Freddy.png", "Jamel.png", "squeezie.png"]
   },
   {
     partie: 1,
@@ -578,9 +584,8 @@ const QUESTIONS = [
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
     text: "Quel est le nombre de followers de Valolik sur X ?",
-    opts: ["9k", "27k", "32k", "44k", "90k", "106k"],
-    ans: [2],
-    singleCol: true
+    opts: ["9k", "27k", "32k", "44k"],
+    ans: [2]
   },
   {
     partie: 1,
@@ -613,14 +618,6 @@ const QUESTIONS = [
     partie: 1,
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
-    text: "Quand Caro boit un café, il faut toujours qu'elle :",
-    opts: ["Le noie de lait", "Mette au moins 4 sucres", "Mette une goutte d'eau dedans", "Dise le mantra « que la force du café soit avec moi »"],
-    ans: [2]
-  },
-  {
-    partie: 1,
-    type: 'qcm',
-    points: { correct: 1, wrong: -1 },
     text: "Laquelle de ces propositions N'EST PAS une passion officielle de Kevin ?",
     opts: ["La conduite", "Le sport", "Engueuler et embêter Jimmy-Lee", "Les serial killers"],
     ans: [2]
@@ -630,7 +627,7 @@ const QUESTIONS = [
     type: 'qcm',
     points: { correct: 1, wrong: -1 },
     text: "Quelle est l'activité favorite de l'open space ?",
-    opts: ["Boire des cafés", "Les ragots et les potins", "Rigoler", "Les 3 en même temps"],
+    opts: ["Boire des cafés", "Les ragots et les potins", "Rigoler", "A+B+C", "Travailler"],
     ans: [3]
   },
   {
@@ -669,7 +666,37 @@ const QUESTIONS = [
     text: "Quel est le max en nombre de bébés girafes que soulève Romain en front squat ?",
     opts: ["0,5 bébé girafe", "1,5 bébés girafes", "1,9 bébés girafes", "2,7 bébés girafes", "3,1 bébés girafes"],
     ans: [2],
+    singleCol: true,
+    funfact: "🦒 1,9 bébés girafes = environ 115 kg ! Un girafon pèse en moyenne 60 kg à la naissance. Respect Romain."
+  },
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Quelle épreuve piquante a vécu Lilou la semaine dernière (cette guerrière plus forte que Romy) ?",
+    opts: [
+      "Elle est tombée dans un cactus en trottinette",
+      "Elle a goûté du piment pour cracher du feu comme les dragons (350 000 sur l'échelle de Scoville)",
+      "Elle s'est plantée une fourchette dans la main pour montrer qu'elle a même pas mal"
+    ],
+    ans: [0],
     singleCol: true
+  },
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Quelle activité Milo n'a jamais pratiquée ?",
+    opts: ["Échecs", "Club de dessin", "Tennis", "Taekwondo"],
+    ans: [3]
+  },
+  {
+    partie: 1,
+    type: 'qcm',
+    points: { correct: 1, wrong: -1 },
+    text: "Devant combien de personnes Linoa a-t-elle déjà dansé (lors d'un gala) ?",
+    opts: ["200", "600", "1000", "1500"],
+    ans: [2]
   },
 
   // ═══════════ PARTIE 2 — QCM CULTURE G ═══════════
@@ -742,14 +769,14 @@ const QUESTIONS = [
   {
     partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
     cat: '🎵 Paroles — Chanson française',
-    text: "Complétez ces paroles de Stromae : « Alors on danse, alors on danse… » — quelle est la suite exacte ?",
-    answer: "« …et puis on chante, et puis on chante » (Alors on danse — Stromae, 2009)",
-    funfact: "🎤 Alors on danse est sorti en 2009 et a été n°1 dans 17 pays européens. Stromae l'a composée à 24 ans dans sa chambre. Kanye West en a fait un remix — classe."
+    text: "🎵 Édith Piaf — Non, je ne regrette rien. Complétez ce couplet : « Avec mes souvenirs, j'ai allumé le feu. Mes chagrins, mes plaisirs… ___ ___ ___ ___ ___ »",
+    answer: "« …je n'ai plus besoin d'eux ! » (Non, je ne regrette rien — Édith Piaf, 1960)",
+    funfact: "🎤 Cette chanson a été écrite en une nuit par Charles Dumont et Michel Vaucaire. Piaf l'a adoptée comme son hymne personnel après une période difficile. Elle est aussi connue mondialement grâce au film Inception — la musique ralentie qui précède le réveil des personnages est directement inspirée de ce morceau."
   },
   {
     partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
     cat: '🎵 Paroles — Chanson anglaise',
-    text: "Complétez ces paroles : « Is this the real life? Is this just fantasy? Caught in a landslide… » — suite ?",
+    text: "🎵 Queen — Bohemian Rhapsody. Complétez : « Is this the real life? Is this just fantasy? Caught in a landslide… ___ ___ ___ ___ »",
     answer: "« …no escape from reality » — Bohemian Rhapsody, Queen (1975)",
     funfact: "🎭 Bohemian Rhapsody dure presque 6 minutes — invendable selon les maisons de disques de l'époque. Freddie Mercury a refusé de la couper. Elle est restée n°1 au Royaume-Uni pendant 9 semaines."
   },
@@ -770,23 +797,16 @@ const QUESTIONS = [
   {
     partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
     cat: 'Corps humain / médecine',
-    text: "Qu'est-ce que le nerf vague et quel est son rôle principal ?",
-    answer: "Le nerf crânien le plus long — relie le cerveau aux organes (cœur, poumons, intestins). Régule le système nerveux parasympathique : calme, digestion, rythme cardiaque.",
-    funfact: "🧠 Le nerf vague est la raison pour laquelle vous vous sentez calme après avoir mangé, ou pourquoi respirer lentement réduit le stress. C'est aussi lui qui cause les évanouissements quand on a trop peur — il ralentit le cœur d'un coup."
+    text: "Qu'est-ce que le nerf vague ?",
+    answer: "Le nerf crânien le plus long — relie le cerveau aux organes. Régule le calme, la digestion, le rythme cardiaque.",
+    funfact: "🧠 Le nerf vague est la raison pour laquelle respirer lentement réduit le stress. C'est aussi lui qui cause les évanouissements quand on a trop peur — il ralentit le cœur d'un coup."
   },
   {
     partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
-    cat: 'Culture générale / estimation',
-    text: "En quelle année approximative le mur de Berlin est-il tombé, et quel événement symbolique l'a précédé de peu ?",
-    answer: "1989 — précédé par l'ouverture des frontières hongroises (été 1989) et les manifestations de Leipzig",
-    funfact: "🧱 Le mur est tombé à cause d'une erreur en direct ! Le 9 novembre 1989, le porte-parole Günter Schabowski lit une note en conférence de presse annonçant l'ouverture des frontières. Un journaliste lui demande « À partir de quand ? » — Schabowski, qui n'avait pas lu la note en entier, répond : « Immédiatement, sans délai. » C'était censé entrer en vigueur le lendemain matin avec des conditions strictes. Des milliers d'Allemands de l'Est se sont précipités aux checkpoints, les gardes dépassés ont fini par lever les barrières, et le reste appartient à l'histoire."
-  },
-  {
-    partie: 2, type: 'libre', points: { correct: 2, wrong: -0.5 },
-    cat: 'Sciences / logique',
-    text: "Pourquoi nos doigts plissent-ils dans l'eau ? (la vraie réponse scientifique récente)",
-    answer: "Ce n'est pas de l'osmose — c'est une réponse active du système nerveux. Les plissures améliorent la prise en main sous l'eau, comme des rainures de pneu.",
-    funfact: "💧 On a longtemps cru que c'était juste de l'eau qui gonflait la peau. En réalité, ça ne se produit pas si le nerf est coupé — preuve que c'est volontaire. Des études montrent qu'on attrape mieux les objets mouillés avec des doigts plissés. L'évolution est maligne."
+    cat: 'Culture générale',
+    text: "En quelle année le mur de Berlin est-il tombé ?",
+    answer: "1989",
+    funfact: "🧱 Le mur est tombé à cause d'une erreur en direct ! Le 9 novembre 1989, le porte-parole Günter Schabowski annonce l'ouverture des frontières. Un journaliste demande « À partir de quand ? » — Schabowski répond : « Immédiatement, sans délai. » C'était censé entrer en vigueur le lendemain. Des milliers d'Allemands de l'Est se précipitent aux checkpoints, les gardes dépassés lèvent les barrières, et le reste appartient à l'histoire."
   },
 
   // ═══════════ PARTIE 3 — PROPOSITIONS LIBRES ═══════════
@@ -802,7 +822,7 @@ const QUESTIONS = [
     type: 'libre',
     points: { correct: 2, wrong: -0.5 },
     text: "Pendant combien de mois de leur relation Magali et Matthieu nous ont fait la cachotterie ?",
-    answer: "12 mois"
+    answer: "11 mois"
   },
   {
     partie: 3,
@@ -819,6 +839,10 @@ const QUESTIONS = [
     answer: "Car Sylvain adore Game of Thrones et Caro Pretty Little Liars"
   },
   {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Quel est le nouveau groupe fétiche de Valentin ?",
     answer: "Angine de poitrine 🎸"
   },
   {
@@ -830,8 +854,50 @@ const QUESTIONS = [
     text: "Si je vous dis : tout le temps en retard… vous me dites ? ⏱️",
     answer: "Jimmy-Lee 😅"
   },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Quel sport Val et Niel pratiquent-ils en duo ?",
+    answer: "Tennis 🎾"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Citez avec précision le sport que Lili pratique ?",
+    answer: "Hip-Hop 💃"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "De quel pays est originaire Daniela ?",
+    answer: "Colombie 🇨🇴"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Quel niveau de plongée a Étienne et à quoi correspond ce niveau ?",
+    answer: "Niveau 3 — plonger en autonomie jusqu'à 60 m 🤿"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Quel est le réflexe de Caro après manger ?",
+    answer: "Checker ses dents dans son téléphone ou un miroir 😄"
+  },
+  {
+    partie: 3,
+    type: 'libre',
+    points: { correct: 2, wrong: -0.5 },
+    text: "Lequel de ces papas parmi nous a failli vomir sur sa fille quand il l'a changée pour la 1ère fois à l'hôpital à sa naissance ?",
+    answer: "Florent 🤢"
+  },
 
-  // ═══════════ PARTIE 4 — QUI EST-CE ? 📸 ═══════════
+  // ═══════════ PARTIE 4 — RECONNAISSEZ-VOUS CES IMAGES ? 📸 ═══════════
   {
     partie: 4,
     type: 'photo',
@@ -904,6 +970,24 @@ const QUESTIONS = [
     photoQ: "Felicien_1.png",
     answer: "Don Perrriiiigggooottt 😄",
     photoA: "Felicien_2.png"
+  },
+  {
+    partie: 4,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui appartient cette raie ?",
+    photoQ: "Marco_1.png",
+    answer: "Marco !",
+    photoA: "Marco_2.png"
+  },
+  {
+    partie: 4,
+    type: 'photo',
+    points: { correct: 3, wrong: -0.5 },
+    text: "À qui appartient ce cou ?",
+    photoQ: "Lucie_1.png",
+    answer: "Lucie !",
+    photoA: "Lucie_2.png"
   }
 
 ];
@@ -930,7 +1014,7 @@ const TRANSITIONS = {
   },
   4: {
     emoji: '📸',
-    title: 'Partie 4 — Reconnaissez-vous ces têtes ?',
+    title: 'Partie 4 — Reconnaissez-vous ces images ?',
     sub: 'Photos mystères — indices, détails, déguisements… Saurez-vous qui se cache derrière ?',
     rules: `
       <h4>Règles du jeu</h4>
@@ -1019,7 +1103,7 @@ function load() {
   }
 
   // Partie header
-  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !', 4: 'Reconnaissez-vous ces têtes ?' };
+  const partieNames = { 1: 'Apprenons à faire connaissance', 2: 'Culture Générale', 3: 'On se connaît bien !', 4: 'Reconnaissez-vous ces images ?' };
   document.getElementById('partie-badge').textContent = `Partie ${q.partie}`;
   document.getElementById('partie-title').textContent = partieNames[q.partie];
 
@@ -1066,9 +1150,19 @@ function loadQCM(q) {
   document.getElementById('q-text').textContent = q.text;
   const wrap = document.getElementById('options-wrap');
   const cols = q.singleCol ? 'options single-col' : 'options';
-  wrap.innerHTML = `<div class="${cols}" id="options">${q.opts.map((o, i) =>
-    `<button class="opt-btn" id="opt-${i}" onclick="pickQCM(${i})"><span>${o}</span><span class="opt-tag" id="tag-${i}"></span></button>`
-  ).join('')}</div>`;
+  if (q.optPhotos) {
+    wrap.innerHTML = `<div class="${cols}" id="options">${q.opts.map((o, i) =>
+      `<button class="opt-btn" id="opt-${i}" onclick="pickQCM(${i})" style="flex-direction:column;align-items:center;text-align:center;gap:6px;">
+        <img src="images/${q.optPhotos[i]}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.style.display='none'" />
+        <span style="font-size:13px;">${o}</span>
+        <span class="opt-tag" id="tag-${i}"></span>
+      </button>`
+    ).join('')}</div>`;
+  } else {
+    wrap.innerHTML = `<div class="${cols}" id="options">${q.opts.map((o, i) =>
+      `<button class="opt-btn" id="opt-${i}" onclick="pickQCM(${i})"><span>${o}</span><span class="opt-tag" id="tag-${i}"></span></button>`
+    ).join('')}</div>`;
+  }
 }
 
 function pickQCM(i) {
