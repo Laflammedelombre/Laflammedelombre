@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17121d">
-<title>Ma Bibliothèque — V4</title>
+<title>Ma Bibliothèque — V5</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
@@ -25,7 +25,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 </style>
 </head>
 <body>
-<div class="mobile-header"><button onclick="toggleMenu()">☰</button><div style="margin-left:15px;font-family:Cinzel">📚 Ma Bibliothèque</div></div>
+<div class="mobile-header"><button id="menuToggle" aria-label="Ouvrir le menu" onclick="toggleMenu()">☰</button><div style="margin-left:15px;font-family:Cinzel">📚 Ma Bibliothèque</div></div>
 <aside class="sidebar" id="sidebar">
 <div class="logo"><div class="logo-symbol">🔮</div><h1>MA BIBLIOTHÈQUE</h1><p>MON UNIVERS DE LECTURE</p></div>
 <div class="menu-title">Bibliothèque</div>
@@ -143,8 +143,13 @@ function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
 function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
-function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
-function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sidebar').classList.remove('open');render();window.scrollTo({top:0,behavior:'smooth'})}
+function toggleMenu(){
+ const sidebar=document.getElementById('sidebar'),btn=document.getElementById('menuToggle');
+ const open=sidebar.classList.toggle('open');
+ btn.textContent=open?'✕':'☰';
+ btn.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sidebar').classList.remove('open');document.getElementById('menuToggle').textContent='☰';document.getElementById('menuToggle').setAttribute('aria-label','Ouvrir le menu');render();window.scrollTo({top:0,behavior:'smooth'})}
 function showPageName(id){const b=[...document.querySelectorAll('.nav-btn')].find(x=>(x.getAttribute('onclick')||'').includes("'"+id+"'"));showPage(id,b)}
 function getBook(id){return state.books.find(b=>b.id===id)}
 function currentBook(){return state.books.find(b=>b.status==='En cours')||null}
@@ -207,6 +212,18 @@ function openBook(id){
   }).join(''):'<p class="muted">Aucune lecture enregistrée.</p>'}
  </div>
  <div class="card" style="margin-top:18px">
+  <h3 class="card-title">📬 Prêt du livre</h3>
+  ${state.loans.filter(l=>l.bookId===id).length?state.loans.filter(l=>l.bookId===id).map(l=>`
+    <div style="padding:10px 0;border-bottom:1px solid #fff1">
+      ${l.returned
+        ? `<strong>↩️ Rendu</strong> · prêté à ${esc(l.person)} le ${dateFr(l.date)} · rendu le ${dateFr(l.returned)}`
+        : `<strong>📬 Actuellement prêté à ${esc(l.person)}</strong><br><span class="muted">Prêté le ${dateFr(l.date)}${l.due?' · retour prévu le '+dateFr(l.due):''}</span>
+           <br><br><button class="secondary" onclick="returnLoan('${l.id}');closeModal('bookModal')">↩️ Marquer comme rendu</button>`
+      }
+    </div>`).join(''):'<p class="muted">Ce livre n\'a jamais été prêté.</p>'}
+  <br><button class="primary" onclick="openLoanFor('${id}');closeModal('bookModal')">📬 Prêter ce livre</button>
+</div>
+<div class="card" style="margin-top:18px">
   <h3 class="card-title">💭 Mon avis</h3>
   <p class="muted">${b.review?esc(b.review):'Aucun avis enregistré pour le moment. Après ta lecture, tu pourras écrire ton avis en vrac et Gemini pourra le transformer en note et critères.'}</p>
  </div>`;
