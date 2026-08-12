@@ -166,16 +166,23 @@ function renderHome(){
  el.innerHTML=`<h3 class="card-title">📖 Mes lectures du moment</h3><div class="grid grid-3">${books.map(b=>{const r=currentReadForBook(b.id),ss=state.sessions.filter(s=>s.readId===r?.id),last=ss.at(-1),page=last?.endPage||b.currentPage||1,total=b.pages||0,pct=total?Math.min(100,Math.round(page/total*100)):0;return `<div class="card"><div style="font-size:26px">📕</div><h3 style="font-family:Cinzel">${esc(b.title)}</h3><div class="muted">${r?.number||1}ème lecture</div><div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div><div class="muted">${pct}% · page ${page}/${total||'?'}</div><br><button class="primary" onclick="showPageName('current')">📖 Ouvrir</button></div>`}).join('')}</div>`;
 }
 function renderShelf(){
- const all=state.books,groups=[
+ const el=document.getElementById('shelf');
+ if(!el)return;
+ const all=Array.isArray(state.books)?state.books:[];
+ const groups=[
   ['📖 LECTURES EN COURS',all.filter(b=>b.status==='En cours')],
   ['📋 MA PAL',all.filter(b=>b.status==='À lire')],
   ['📬 PRÊTÉS',all.filter(b=>b.status==='Prêté')],
   ['🥀 ABANDONNÉS',all.filter(b=>b.status==='Abandonné')]
  ];
  const genres=[...new Set(all.filter(b=>!['En cours','À lire','Prêté','Abandonné'].includes(b.status)).map(b=>b.genre||'Autres'))];
- genres.forEach(g=>groups.push([`📚 ${g.toUpperCase()}`,all.filter(b=>(b.genre||'Autres')===g&&!['En cours','À lire','Prêté','Abandonné'].includes(b.status))]));
+ genres.forEach(g=>groups.push([`📚 ${String(g).toUpperCase()}`,all.filter(b=>(b.genre||'Autres')===g&&!['En cours','À lire','Prêté','Abandonné'].includes(b.status))]));
  const visible=groups.filter(x=>x[1].length);
- document.getElementById('shelf').innerHTML=visible.length?visible.map(([label,books])=>`<div class="shelf-section"><div class="shelf-label">${label} <span class="muted">· ${books.length}</span></div><div class="shelf-track">${books.map(bookHtml).join('')}</div></div>`).join(''):'<div class="muted" style="padding:30px">Ta bibliothèque est vide. Ajoute ton premier livre. 📕</div>';
+ el.innerHTML=visible.length?visible.map(([label,books])=>`
+  <div class="shelf-section">
+   <div class="shelf-label">${label} <span class="muted">· ${books.length}</span></div>
+   <div class="shelf-track">${books.map((b,i)=>bookHtml(b,i)).join('')}</div>
+  </div>`).join(''):'<div class="muted" style="padding:30px">Aucun livre à afficher dans la bibliothèque. Ajoute ton premier livre. 📕</div>';
 }
 function filterLibrary(){renderShelf()}
 function renderPal(){const physical=state.books.filter(b=>b.status==='À lire'),wishes=state.palWishes.map(w=>({wish:true,...w})),all=[...physical,...wishes],pile=document.getElementById('palPile');pile.innerHTML=all.length?all.slice(0,8).map((b,i)=>`<div class="pile-book" style="z-index:${20-i}" onclick="${b.wish?`toast('✨ ${esc(b.title)} est une envie de relecture / découverte.')`:`openBook('${b.id}')`}"><span>${esc(b.title)}</span></div>`).join(''):'<div class="muted">Ta table est vide. Pour le moment. 😏</div>';document.getElementById('palList').innerHTML=all.length?`<h3 class="card-title">📚 Ce qui attend</h3><table><thead><tr><th>Livre</th><th>Origine</th><th>Action</th></tr></thead><tbody>${all.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${b.wish?'🔄 Envie de relecture':'🏠 Déjà dans ta bibliothèque'}</td><td>${b.wish?'<span class="tag">À programmer</span>':`<button class="primary" onclick="startBook('${b.id}')">📖 Commencer</button>`}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Aucun livre dans ta PAL.</p>'}
@@ -273,13 +280,22 @@ function renderLoans(){const a=state.loans,el=document.getElementById('loanTable
 function renderSuggestions(){const p=state.books.filter(b=>b.status==='À lire'),el=document.getElementById('suggestionPal');if(!p.length){el.innerHTML='<p class="muted">Ta PAL est vide.</p>';return}const b=p[0];el.innerHTML=`<h2 style="font-family:Cinzel">${esc(b.title)}</h2><p class="muted">Aujourd'hui, c'est le premier livre de ta PAL. Plus tard Gemini fera une recommandation basée sur ton historique et ton dernier avis.</p><button class="primary" onclick="startBook('${b.id}')">📖 Commencer</button>`}
 function renderStats(){document.getElementById('statsDetail').innerHTML=state.books.map(b=>{const ss=state.sessions.filter(s=>s.bookId===b.id),time=ss.reduce((a,s)=>a+s.duration,0),pages=ss.reduce((a,s)=>a+Math.max(0,(s.endPage||0)-(s.startPage||0)),0);return`<div style="padding:14px 0;border-bottom:1px solid #fff1"><strong>${esc(b.title)}</strong> · ${b.totalReads||0} lecture(s) · ${ss.length} session(s) · ${durationHuman(time)} · ${pages} pages suivies</div>`}).join('')}
 function normalizeBooks(){
+ if(!state || typeof state!=='object') state={books:[],reads:[],sessions:[],loans:[],palWishes:[]};
+ if(!Array.isArray(state.books))state.books=[];
+ if(!Array.isArray(state.reads))state.reads=[];
+ if(!Array.isArray(state.sessions))state.sessions=[];
+ if(!Array.isArray(state.loans))state.loans=[];
+ if(!Array.isArray(state.palWishes))state.palWishes=[];
  state.books.forEach(b=>{
+  if(!b.status)b.status='À lire';
   if(b.summary===undefined)b.summary='';
-  if(b.review===undefined)b.review='';if(b.favorite===undefined)b.favorite=false;
+  if(b.review===undefined)b.review='';
+  if(b.favorite===undefined)b.favorite=false;
+  if(b.totalReads===undefined)b.totalReads=state.reads.filter(r=>r.bookId===b.id).length;
  });
- if(!state.palWishes)state.palWishes=[];
 }
 normalizeBooks();
+save();
 render();
 </script>
 </body>
