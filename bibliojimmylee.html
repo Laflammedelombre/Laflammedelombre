@@ -1,1 +1,1916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#17121d">
 
+<title>Ma Bibliothèque</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    --bg: #110e14;
+    --bg2: #19131d;
+    --panel: rgba(38, 27, 43, 0.88);
+    --panel-light: rgba(54, 39, 60, 0.85);
+    --gold: #c9a96e;
+    --gold-light: #e7d2a0;
+    --purple: #8d6ba8;
+    --purple-dark: #4e3a5c;
+    --text: #eee8ef;
+    --muted: #a89eaa;
+    --green: #769c87;
+    --red: #9d6262;
+    --border: rgba(201,169,110,.22);
+    --shadow: 0 15px 50px rgba(0,0,0,.45);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: Inter, sans-serif;
+
+    background:
+        radial-gradient(circle at 20% 10%, rgba(112,73,137,.18), transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(201,169,110,.08), transparent 30%),
+        linear-gradient(135deg, #0e0b11, #19131d 55%, #100c13);
+
+    background-attachment: fixed;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+
+    padding: 28px 18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(22,16,27,.97),
+            rgba(14,11,17,.97)
+        );
+
+    border-right: 1px solid var(--border);
+    box-shadow: 10px 0 40px rgba(0,0,0,.3);
+
+    z-index: 20;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-symbol {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+.logo h1 {
+    font-family: Cinzel, serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.logo p {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+}
+
+.menu-title {
+    color: #766b78;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 22px 12px 8px;
+}
+
+.nav-btn {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+
+    text-align: left;
+    padding: 11px 14px;
+    margin: 2px 0;
+
+    border-radius: 9px;
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: .2s;
+}
+
+.nav-btn:hover {
+    background: rgba(141,107,168,.12);
+    color: var(--text);
+}
+
+.nav-btn.active {
+    background: linear-gradient(
+        90deg,
+        rgba(141,107,168,.22),
+        rgba(141,107,168,.05)
+    );
+
+    color: var(--gold-light);
+    border-left: 2px solid var(--gold);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 250px;
+    padding: 35px;
+    max-width: 1500px;
+}
+
+.page {
+    display: none;
+    animation: fadeIn .35s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-header h2 {
+    font-family: Cinzel, serif;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0 0 7px;
+}
+
+.page-header p {
+    color: var(--muted);
+    margin: 0;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(55,40,61,.85),
+            rgba(28,21,32,.9)
+        );
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+
+    padding: 24px;
+}
+
+.card-title {
+    font-family: Cinzel, serif;
+    color: var(--gold-light);
+    font-size: 17px;
+    margin: 0 0 18px;
+}
+
+.grid {
+    display: grid;
+    gap: 18px;
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* =========================
+   HOME
+========================= */
+
+.hero {
+    min-height: 260px;
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 45px;
+
+    background:
+        radial-gradient(
+            circle at 80% 40%,
+            rgba(201,169,110,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            120deg,
+            rgba(55,40,63,.95),
+            rgba(24,18,29,.95)
+        );
+
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "✦";
+    position: absolute;
+    right: 80px;
+    top: 40px;
+
+    font-size: 90px;
+    color: rgba(201,169,110,.07);
+}
+
+.hero h2 {
+    font-family: Cinzel, serif;
+    font-size: 38px;
+    font-weight: 500;
+    margin: 0 0 12px;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.7;
+}
+
+.stats {
+    margin-top: 22px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: Cinzel, serif;
+    color: var(--gold-light);
+    font-size: 28px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* =========================
+   BOOKSHELF
+========================= */
+
+.bookshelf {
+    margin-top: 22px;
+
+    padding: 35px 25px 25px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #251914,
+            #39271c 50%,
+            #241811
+        );
+
+    border: 10px solid #21150f;
+    border-radius: 8px;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.5),
+        0 20px 50px rgba(0,0,0,.5);
+}
+
+.shelf {
+    min-height: 150px;
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+
+    padding: 10px 15px 12px;
+
+    border-bottom: 13px solid #60422c;
+
+    box-shadow:
+        0 7px 10px rgba(0,0,0,.35);
+
+    margin-bottom: 35px;
+}
+
+.book {
+    width: 48px;
+    height: 115px;
+
+    border-radius: 3px 6px 4px 2px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset -6px 0 8px rgba(0,0,0,.25),
+        3px 4px 8px rgba(0,0,0,.45);
+
+    transition: .25s;
+
+    position: relative;
+}
+
+.book:hover {
+    transform: translateY(-12px) rotate(-1deg);
+    box-shadow:
+        0 15px 25px rgba(0,0,0,.55);
+}
+
+.book span {
+    font-family: Cinzel, serif;
+    font-size: 9px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    max-height: 100px;
+}
+
+.book.gold {
+    background: linear-gradient(90deg, #735432, #b28a4d, #664925);
+}
+
+.book.purple {
+    background: linear-gradient(90deg, #47304f, #806093, #3d2944);
+}
+
+.book.green {
+    background: linear-gradient(90deg, #31473b, #607f6c, #293c32);
+}
+
+.book.red {
+    background: linear-gradient(90deg, #4e2929, #885252, #432323);
+}
+
+.book.thin {
+    width: 30px;
+}
+
+.book.tall {
+    height: 135px;
+}
+
+.shelf-decoration {
+    margin-left: auto;
+    font-size: 30px;
+    opacity: .75;
+}
+
+/* =========================
+   CURRENT READING
+========================= */
+
+.current-book {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.book-cover {
+    height: 260px;
+    border-radius: 5px 10px 10px 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #4c335a,
+            #251a2d
+        );
+
+    border: 2px solid #9c7aab;
+
+    box-shadow:
+        15px 20px 35px rgba(0,0,0,.5);
+}
+
+.book-cover .cover-title {
+    font-family: Cinzel, serif;
+    font-size: 20px;
+    color: var(--gold-light);
+}
+
+.book-cover .cover-author {
+    font-size: 11px;
+    color: #c8bccb;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 9px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.08);
+
+    overflow: hidden;
+
+    margin: 15px 0;
+}
+
+.progress {
+    height: 100%;
+    width: 65%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--gold)
+        );
+
+    border-radius: inherit;
+}
+
+.current-percent {
+    color: var(--gold-light);
+    font-family: Cinzel, serif;
+    font-size: 26px;
+}
+
+.session-time {
+    font-family: Cinzel, serif;
+    font-size: 35px;
+    color: var(--gold-light);
+    margin: 15px 0;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button.primary {
+    background: linear-gradient(
+        135deg,
+        #806092,
+        #594067
+    );
+
+    border: 1px solid #a586b7;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 500;
+
+    transition: .2s;
+}
+
+button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(120,85,145,.3);
+}
+
+button.gold {
+    background: linear-gradient(
+        135deg,
+        #a98550,
+        #76552f
+    );
+
+    border: 1px solid #c6a86f;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+button.secondary {
+    background: rgba(255,255,255,.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button.danger {
+    background: rgba(157,98,98,.12);
+    border: 1px solid rgba(157,98,98,.4);
+    color: #d99a9a;
+
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    background: rgba(0,0,0,.22);
+
+    border: 1px solid rgba(201,169,110,.18);
+
+    color: var(--text);
+
+    border-radius: 8px;
+
+    padding: 12px;
+
+    font-family: inherit;
+
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--gold);
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    color: var(--gold-light);
+    font-family: Cinzel, serif;
+    font-size: 12px;
+    padding: 13px;
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+td strong {
+    color: var(--text);
+}
+
+/* =========================
+   TAGS
+========================= */
+
+.tag {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    background: rgba(141,107,168,.14);
+    border: 1px solid rgba(141,107,168,.25);
+
+    color: #cbb7d5;
+
+    margin: 2px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+        transition: .3s;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 20px;
+        padding-top: 75px;
+    }
+
+    .mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 60px;
+
+        background: rgba(17,14,20,.94);
+        backdrop-filter: blur(12px);
+
+        border-bottom: 1px solid var(--border);
+
+        align-items: center;
+        padding: 0 18px;
+
+        z-index: 15;
+    }
+
+    .mobile-header button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 25px;
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 30px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .current-book {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover {
+        max-width: 190px;
+        margin: auto;
+    }
+
+    .bookshelf {
+        overflow-x: auto;
+    }
+
+    .shelf {
+        min-width: 700px;
+    }
+
+    table {
+        min-width: 700px;
+    }
+
+    .card {
+        overflow-x: auto;
+    }
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    bottom: 25px;
+    right: 25px;
+
+    background: #29202f;
+
+    border: 1px solid var(--gold);
+
+    color: var(--text);
+
+    padding: 14px 20px;
+
+    border-radius: 9px;
+
+    box-shadow: var(--shadow);
+
+    transform: translateY(100px);
+
+    opacity: 0;
+
+    transition: .3s;
+
+    z-index: 100;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+    <button onclick="toggleMenu()">☰</button>
+    <div style="margin-left:15px;font-family:Cinzel,serif;">
+        📚 Ma Bibliothèque
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logo-symbol">🔮</div>
+        <h1>MA BIBLIOTHÈQUE</h1>
+        <p>MON UNIVERS DE LECTURE</p>
+    </div>
+
+    <div class="menu-title">Bibliothèque</div>
+
+    <button class="nav-btn active" onclick="showPage('home', this)">
+        🏠 Accueil
+    </button>
+
+    <button class="nav-btn" onclick="showPage('library', this)">
+        📚 Ma bibliothèque
+    </button>
+
+    <button class="nav-btn" onclick="showPage('pal', this)">
+        📋 Ma PAL
+    </button>
+
+    <button class="nav-btn" onclick="showPage('current', this)">
+        📖 Lecture en cours
+    </button>
+
+    <button class="nav-btn" onclick="showPage('favorites', this)">
+        ❤️ Coups de cœur
+    </button>
+
+    <div class="menu-title">Gestion</div>
+
+    <button class="nav-btn" onclick="showPage('add', this)">
+        ➕ Ajouter un livre
+    </button>
+
+    <button class="nav-btn" onclick="showPage('loans', this)">
+        📬 Mes prêts
+    </button>
+
+    <div class="menu-title">Intelligence</div>
+
+    <button class="nav-btn" onclick="showPage('suggestions', this)">
+        ✨ Suggestions
+    </button>
+
+    <button class="nav-btn" onclick="showPage('stats', this)">
+        📊 Statistiques
+    </button>
+
+</aside>
+
+
+<main class="main">
+
+<!-- =========================
+     ACCUEIL
+========================= -->
+
+<section class="page active" id="home">
+
+    <div class="hero">
+
+        <h2>Bienvenue dans ta bibliothèque</h2>
+
+        <p>
+            Un petit refuge pour tes lectures, tes grimoires,
+            tes coups de cœur et toutes les histoires qui
+            ont croisé ton chemin.
+        </p>
+
+        <div>
+            <span class="tag">🕯️ Lecture</span>
+            <span class="tag">🔮 Magie</span>
+            <span class="tag">📚 Grimoires</span>
+        </div>
+
+    </div>
+
+    <div class="grid grid-4 stats">
+
+        <div class="card stat">
+            <div class="stat-number" id="statBooks">4</div>
+            <div class="stat-label">Livres</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Livres lus</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Dans ma PAL</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">4.3</div>
+            <div class="stat-label">Note moyenne</div>
+        </div>
+
+    </div>
+
+    <div style="margin-top:22px" class="card">
+
+        <h3 class="card-title">📖 Lecture actuelle</h3>
+
+        <div class="current-book">
+
+            <div class="book-cover">
+                <div style="font-size:28px;margin-bottom:15px;">🌙</div>
+                <div class="cover-title">
+                    Neuvième<br>Maison
+                </div>
+                <div class="cover-author">
+                    Leigh Bardugo
+                </div>
+            </div>
+
+            <div>
+
+                <div style="color:var(--muted)">
+                    3ème lecture
+                </div>
+
+                <h2 style="font-family:Cinzel,serif;margin:5px 0;">
+                    Neuvième Maison
+                </h2>
+
+                <div class="current-percent">
+                    65 %
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+
+                <div style="color:var(--muted);">
+                    Page 342 / 528
+                </div>
+
+                <br>
+
+                <button class="primary"
+                        onclick="showPageByName('current')">
+                    📖 Continuer ma lecture
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BIBLIOTHEQUE
+========================= -->
+
+<section class="page" id="library">
+
+    <div class="page-header">
+        <h2>📚 Ma bibliothèque</h2>
+        <p>Ta collection de grimoires.</p>
+    </div>
+
+    <div class="bookshelf">
+
+        <div class="shelf">
+
+            <div class="book purple tall"
+                 onclick="bookInfo('Verity')">
+                <span>VERITY</span>
+            </div>
+
+            <div class="book gold"
+                 onclick="bookInfo('Starling House')">
+                <span>STARLING HOUSE</span>
+            </div>
+
+            <div class="book green thin"
+                 onclick="bookInfo('Noël au café des oracles')">
+                <span>NOËL AU CAFÉ DES ORACLES</span>
+            </div>
+
+            <div class="book red"
+                 onclick="bookInfo('Ils étaient dix')">
+                <span>ILS ÉTAIENT DIX</span>
+            </div>
+
+            <div class="book purple tall">
+                <span>NEUVIÈME MAISON</span>
+            </div>
+
+            <div class="shelf-decoration">
+                🕯️
+            </div>
+
+        </div>
+
+
+        <div class="shelf">
+
+            <div class="book gold">
+                <span>GRIMOIRE I</span>
+            </div>
+
+            <div class="book purple">
+                <span>LES SORCIÈRES</span>
+            </div>
+
+            <div class="book green">
+                <span>LE CAFÉ DES ORACLES</span>
+            </div>
+
+            <div class="book red thin">
+                <span>THRILLER</span>
+            </div>
+
+            <div class="book gold tall">
+                <span>LECTURE FUTURE</span>
+            </div>
+
+            <div class="shelf-decoration">
+                🌿
+            </div>
+
+        </div>
+
+
+        <div class="shelf">
+
+            <div class="book purple tall">
+                <span>À VENIR</span>
+            </div>
+
+            <div class="book green">
+                <span>MAGIE</span>
+            </div>
+
+            <div class="book gold">
+                <span>GRIMOIRE</span>
+            </div>
+
+            <div class="book red">
+                <span>OMBRE</span>
+            </div>
+
+            <div class="shelf-decoration">
+                🔮
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PAL
+========================= -->
+
+<section class="page" id="pal">
+
+    <div class="page-header">
+        <h2>📋 Ma PAL</h2>
+        <p>Les livres qui attendent leur tour.</p>
+    </div>
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Livre</th>
+                    <th>Auteur</th>
+                    <th>Genre</th>
+                    <th>Envie</th>
+                    <th>Pages</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><strong>Noël au café des oracles</strong></td>
+                    <td>—</td>
+                    <td>✨ Cozy / Magie</td>
+                    <td>🔥 Très envie</td>
+                    <td>—</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Comment tenir une boutique de sorcière</strong></td>
+                    <td>—</td>
+                    <td>🔮 Sorcière</td>
+                    <td>✨ Envie</td>
+                    <td>—</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Ils étaient dix</strong></td>
+                    <td>Agatha Christie</td>
+                    <td>🔪 Thriller</td>
+                    <td>🔥 Très envie</td>
+                    <td>—</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CURRENT READING
+========================= -->
+
+<section class="page" id="current">
+
+    <div class="page-header">
+        <h2>📖 Lecture en cours</h2>
+        <p>Ton moment de lecture actuel.</p>
+    </div>
+
+    <div class="card">
+
+        <div class="current-book">
+
+            <div class="book-cover">
+
+                <div style="font-size:32px">
+                    🌙
+                </div>
+
+                <div class="cover-title">
+                    Neuvième<br>Maison
+                </div>
+
+                <div class="cover-author">
+                    Leigh Bardugo
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div style="color:var(--muted)">
+                    3ème lecture
+                </div>
+
+                <h2 style="font-family:Cinzel,serif">
+                    Neuvième Maison
+                </h2>
+
+                <div class="current-percent">
+                    65 %
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+
+                <div>
+                    Page <strong>342</strong> / 528
+                </div>
+
+
+                <div class="session-time"
+                     id="timer">
+                    00:00:00
+                </div>
+
+                <div style="color:var(--muted);margin-bottom:15px;">
+                    Session actuelle
+                </div>
+
+
+                <button
+                    class="primary"
+                    id="startButton"
+                    onclick="startSession()">
+
+                    ▶️ Démarrer la lecture
+
+                </button>
+
+                <button
+                    class="gold"
+                    id="finishButton"
+                    onclick="finishSession()"
+                    style="display:none">
+
+                    ✓ Finir la session
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid grid-3" style="margin-top:20px">
+
+        <div class="card stat">
+
+            <div class="stat-number">
+                7
+            </div>
+
+            <div class="stat-label">
+                Sessions
+            </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+            <div class="stat-number">
+                3h18
+            </div>
+
+            <div class="stat-label">
+                Temps total
+            </div>
+
+        </div>
+
+
+        <div class="card stat">
+
+            <div class="stat-number">
+                342
+            </div>
+
+            <div class="stat-label">
+                Pages lues
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FAVORITES
+========================= -->
+
+<section class="page" id="favorites">
+
+    <div class="page-header">
+
+        <h2>❤️ Coups de cœur</h2>
+
+        <p>
+            Les livres qui ont laissé une petite trace.
+        </p>
+
+    </div>
+
+    <div class="grid grid-3">
+
+        <div class="card">
+            <div style="font-size:35px">📕</div>
+            <h3>Verity</h3>
+            <div>⭐⭐⭐⭐⭐</div>
+            <p style="color:var(--muted)">
+                Un vrai coup de cœur.
+            </p>
+        </div>
+
+        <div class="card">
+            <div style="font-size:35px">📗</div>
+            <h3>Starling House</h3>
+            <div>⭐⭐⭐⭐⭐</div>
+            <p style="color:var(--muted)">
+                Ambiance gothique.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ADD BOOK
+========================= -->
+
+<section class="page" id="add">
+
+    <div class="page-header">
+
+        <h2>➕ Ajouter un livre</h2>
+
+        <p>
+            Ajoute un nouveau grimoire à ta collection.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="grid grid-2">
+
+            <div>
+
+                <label>
+                    Titre
+                </label>
+
+                <input
+                    id="newTitle"
+                    placeholder="Ex : Starling House">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Auteur
+                </label>
+
+                <input
+                    id="newAuthor"
+                    placeholder="Ex : Alix E. Harrow">
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Genre
+                </label>
+
+                <select id="newGenre">
+
+                    <option>Fantasy</option>
+                    <option>Fantastique</option>
+                    <option>Thriller</option>
+                    <option>Romance</option>
+                    <option>Gothique</option>
+                    <option>Contemporain</option>
+                    <option>Autre</option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Statut
+                </label>
+
+                <select id="newStatus">
+
+                    <option>À lire</option>
+                    <option>En cours</option>
+                    <option>Terminé</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+        <button
+            class="primary"
+            onclick="addBook()">
+
+            📚 Ajouter à ma bibliothèque
+
+        </button>
+
+        <p style="color:var(--muted);font-size:12px;margin-top:15px;">
+            ✨ Plus tard, Gemini pourra remplir automatiquement
+            les informations manquantes.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LOANS
+========================= -->
+
+<section class="page" id="loans">
+
+    <div class="page-header">
+
+        <h2>📬 Mes prêts</h2>
+
+        <p>
+            Garde toujours une trace de tes livres.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Livre</th>
+                    <th>Prêté à</th>
+                    <th>Date</th>
+                    <th>Retour prévu</th>
+                    <th>Statut</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        <strong>Verity</strong>
+                    </td>
+
+                    <td>
+                        Camille
+                    </td>
+
+                    <td>
+                        03/08/2026
+                    </td>
+
+                    <td>
+                        20/08/2026
+                    </td>
+
+                    <td>
+                        <span class="tag">
+                            🟠 Prêté
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SUGGESTIONS
+========================= -->
+
+<section class="page" id="suggestions">
+
+    <div class="page-header">
+
+        <h2>✨ Suggestions</h2>
+
+        <p>
+            Ton petit conseiller de lecture.
+        </p>
+
+    </div>
+
+
+    <div class="grid grid-2">
+
+        <div class="card">
+
+            <h3 class="card-title">
+                🔮 Que lire maintenant ?
+            </h3>
+
+            <h2 style="font-family:Cinzel,serif;">
+                Noël au café des oracles
+            </h2>
+
+            <div style="color:var(--gold-light)">
+                Compatibilité : 89 %
+            </div>
+
+            <p style="color:var(--muted);line-height:1.7">
+
+                Tu l'as déjà dans ta PAL et il pourrait
+                constituer une bonne transition après
+                une lecture plus sombre.
+
+            </p>
+
+            <button class="primary">
+                📖 Choisir ce livre
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3 class="card-title">
+                🔄 Continuer ma série ?
+            </h3>
+
+            <h2 style="font-family:Cinzel,serif;">
+                Une pause pourrait être bénéfique
+            </h2>
+
+            <p style="color:var(--muted);line-height:1.7">
+
+                Ton dernier avis montre que tu as aimé
+                l'univers mais que tu ressens une petite
+                saturation. Je te conseille un livre
+                différent avant de commencer le tome 2.
+
+            </p>
+
+            <button class="gold">
+                ✨ Voir ma suggestion
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="page" id="stats">
+
+    <div class="page-header">
+
+        <h2>📊 Mes statistiques</h2>
+
+        <p>
+            Ton année de lecture en quelques chiffres.
+        </p>
+
+    </div>
+
+
+    <div class="grid grid-4">
+
+        <div class="card stat">
+            <div class="stat-number">14</div>
+            <div class="stat-label">
+                Livres lus
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">4 821</div>
+            <div class="stat-label">
+                Pages
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">37h42</div>
+            <div class="stat-label">
+                Temps de lecture
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-number">4.2</div>
+            <div class="stat-label">
+                Note moyenne
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card" style="margin-top:20px">
+
+        <h3 class="card-title">
+            🌙 Ton profil de lecteur
+        </h3>
+
+        <p>
+            🖤 Ambiances sombres
+        </p>
+
+        <div class="progress-bar">
+            <div class="progress" style="width:92%"></div>
+        </div>
+
+        <p>
+            🔮 Magie
+        </p>
+
+        <div class="progress-bar">
+            <div class="progress" style="width:87%"></div>
+        </div>
+
+        <p>
+            🏚️ Mystère
+        </p>
+
+        <div class="progress-bar">
+            <div class="progress" style="width:82%"></div>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+function showPage(pageId, button) {
+
+    document.querySelectorAll(".page")
+        .forEach(page => page.classList.remove("active"));
+
+    document.getElementById(pageId)
+        .classList.add("active");
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    document.getElementById("sidebar")
+        .classList.remove("open");
+}
+
+
+function showPageByName(pageId) {
+
+    const button = [...document.querySelectorAll(".nav-btn")]
+        .find(btn => btn.getAttribute("onclick")?.includes(`'${pageId}'`));
+
+    showPage(pageId, button);
+}
+
+
+function toggleMenu() {
+
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* ==========================================
+   READING SESSION
+========================================== */
+
+let timerInterval = null;
+
+let sessionSeconds = 0;
+
+let sessionRunning = false;
+
+
+function startSession() {
+
+    if (sessionRunning) return;
+
+    sessionRunning = true;
+
+    document.getElementById("startButton")
+        .style.display = "none";
+
+    document.getElementById("finishButton")
+        .style.display = "inline-block";
+
+    timerInterval = setInterval(() => {
+
+        sessionSeconds++;
+
+        document.getElementById("timer")
+            .textContent = formatTime(sessionSeconds);
+
+    }, 1000);
+
+    showToast("📖 Session de lecture démarrée");
+
+}
+
+
+function finishSession() {
+
+    clearInterval(timerInterval);
+
+    sessionRunning = false;
+
+    document.getElementById("startButton")
+        .style.display = "inline-block";
+
+    document.getElementById("finishButton")
+        .style.display = "none";
+
+    showToast(
+        "✨ Session terminée — " +
+        formatTime(sessionSeconds)
+    );
+
+    sessionSeconds = 0;
+
+    document.getElementById("timer")
+        .textContent = "00:00:00";
+
+}
+
+
+function formatTime(seconds) {
+
+    const hours = Math.floor(seconds / 3600);
+
+    const minutes =
+        Math.floor((seconds % 3600) / 60);
+
+    const secs =
+        seconds % 60;
+
+    return [
+        hours,
+        minutes,
+        secs
+    ]
+    .map(value =>
+        String(value).padStart(2, "0")
+    )
+    .join(":");
+
+}
+
+
+/* ==========================================
+   ADD BOOK
+========================================== */
+
+function addBook() {
+
+    const title =
+        document.getElementById("newTitle").value.trim();
+
+    const author =
+        document.getElementById("newAuthor").value.trim();
+
+    const genre =
+        document.getElementById("newGenre").value;
+
+    const status =
+        document.getElementById("newStatus").value;
+
+
+    if (!title) {
+
+        showToast("📕 Il faut au moins donner un titre.");
+
+        return;
+
+    }
+
+
+    const books =
+        JSON.parse(
+            localStorage.getItem("books") || "[]"
+        );
+
+
+    books.push({
+
+        id: Date.now(),
+
+        title,
+
+        author,
+
+        genre,
+
+        status,
+
+        dateAdded:
+            new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "books",
+        JSON.stringify(books)
+    );
+
+
+    document.getElementById("newTitle").value = "";
+
+    document.getElementById("newAuthor").value = "";
+
+
+    showToast(
+        "📚 " + title + " a rejoint ta bibliothèque !"
+    );
+
+}
+
+
+/* ==========================================
+   BOOK INFO
+========================================== */
+
+function bookInfo(title) {
+
+    showToast(
+        "📖 " + title +
+        " — la fiche détaillée arrivera bientôt."
+    );
+
+}
+
+
+/* ==========================================
+   TOAST
+========================================== */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 3000);
+
+}
+
+
+/* ==========================================
+   INITIALISATION
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        console.log(
+            "🔮 Bibliothèque chargée."
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
