@@ -141,30 +141,29 @@ function closeModal(id){document.getElementById(id).classList.remove('show')}
 function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
 function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sidebar').classList.remove('open');render();window.scrollTo({top:0,behavior:'smooth'})}
 function showPageName(id){const b=[...document.querySelectorAll('.nav-btn')].find(x=>(x.getAttribute('onclick')||'').includes("'"+id+"'"));showPage(id,b)}
-function getBook(id){return state.books.find(b=>b.Livre_ID===id||b.id===id)}
-function currentBook(){return state.books.find(b=>b.Statut==='En cours'||b.status==='En cours')||null}
+function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
+function currentBook(){return state.books.find(b=>b.status==='En cours')||null}
 function durationHuman(sec){sec=Math.max(0,Math.floor(sec));let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60);return h?`${h}h ${m}min`:`${m} min`}
 function formatTime(sec){sec=Math.floor(sec);return [Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60].map(x=>String(x).padStart(2,'0')).join(':')}
 
-// Chargement initial depuis Google Sheets
 async function loadFromSheets() {
   toast('⏳ Chargement de tes livres depuis Google Sheets...');
   try {
     const res = await fetch(WEBHOOK_URL);
     const data = await res.json();
     state = {
-      books: data.books.map(b => ({
-        id: b.Livre_ID,
-        title: b.Titre,
-        author: b["Auteur(s)"],
-        format: b.Format,
-        genre: b.Genre,
-        pages: b.Pages,
-        summary: b["Résumé / 4ème de couverture"],
-        status: b.Statut,
-        favorite: b["Coup de cœur"] === "Oui",
+      books: (data.books || []).map(b => ({
+        id: String(b.Livre_ID || b.id || ''),
+        title: b.Titre || b.title || '',
+        author: b["Auteur(s)"] || b.author || '',
+        format: b.Format || b.format || 'Poche',
+        genre: b.Genre || b.genre || '',
+        pages: b.Pages || b.pages || '',
+        summary: b["Résumé / 4ème de couverture"] || b.summary || '',
+        status: b.Statut || b.status || 'À lire',
+        favorite: b["Coup de cœur"] === "Oui" || b.favorite === true,
         abandonReason: b["Notes perso"] || ""
-      })),
+      })).filter(b => b.id !== ''),
       reads: data.reads || [],
       sessions: data.sessions || [],
       loans: data.loans || [],
@@ -269,7 +268,7 @@ async function saveFinishedSession(){
   toast('⏳ Enregistrement de la session dans Google Sheets...');
   await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
   toast('✅ Session enregistrée !');
-  loadFromSheets();
+  setTimeout(loadFromSheets, 1500);
 }
 
 function openStatus(id){
@@ -306,7 +305,7 @@ async function updateStatus(id, newStatus, reason = ""){
     body: JSON.stringify({ action: "UPDATE_STATUS", id: id, status: newStatus, abandonReason: reason })
   });
   toast('✅ Statut mis à jour !');
-  loadFromSheets();
+  setTimeout(loadFromSheets, 1500);
 }
 
 function openBook(id){
@@ -345,20 +344,28 @@ async function addBook() {
     pages: Number(document.getElementById('newPages').value) || null,
     summary: document.getElementById('newSummary').value.trim(),
     status: document.getElementById('newAlreadyRead').value === 'yes' ? 'Terminé' : 'À lire',
-    favorite: document.getElementById('newFavorite').value === 'yes'
+    favorite: document.getElementById('newFavorite').value === 'yes',
+    alreadyRead: document.getElementById('newAlreadyRead').value === 'yes'
   };
 
   toast('⏳ Ajout dans ton Google Sheet...');
-  await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newBook) });
+  await fetch(WEBHOOK_URL, { 
+    method: 'POST', 
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/json' }, 
+    body: JSON.stringify(newBook) 
+  });
+  
   toast('✅ Livre enregistré !');
   
   document.getElementById('newTitle').value = '';
   document.getElementById('newAuthor').value = '';
   document.getElementById('newSummary').value = '';
-  loadFromSheets();
+  document.getElementById('newPages').value = '';
+  
+  setTimeout(loadFromSheets, 1500);
 }
 
-// Premier chargement des données au lancement
 loadFromSheets();
 </script>
 </body>
