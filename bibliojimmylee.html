@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17121d">
-<title>Ma Bibliothèque — 100% Google Sheets</title>
+<title>La Bibliothèque de Jimmy-Lee</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
@@ -12,16 +12,17 @@
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;padding:28px 18px;background:#160f1bf5;border-right:1px solid var(--border);box-shadow:10px 0 40px #0005;z-index:20;display:flex;flex-direction:column;justify-content:space-between}.logo{text-align:center;margin-bottom:30px}.logo-symbol{font-size:36px}.logo h1{font:500 18px Cinzel;margin:4px 0;letter-spacing:2px}.logo p{color:#766b78;font-size:10px;letter-spacing:2px}.menu-title{color:#766b78;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin:20px 12px 8px}.nav-btn{width:100%;border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 14px;margin:2px 0;border-radius:9px;cursor:pointer;font-size:13px}.nav-btn:hover{background:#8d6ba81f;color:var(--text)}.nav-btn.active{background:linear-gradient(90deg,#8d6ba838,#8d6ba80d);color:var(--gold2);border-left:2px solid var(--gold)}
 .main{margin-left:250px;padding:35px;max-width:1500px}.page{display:none;animation:fade .25s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.page-header{margin-bottom:26px}.page-header h2{font:500 30px Cinzel;margin:0 0 7px}.page-header p{color:var(--muted);margin:0}
 .card{background:linear-gradient(145deg,#37283dd9,#1c1520e6);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:24px}.card-title{font:17px Cinzel;color:var(--gold2);margin:0 0 18px}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
-.hero{min-height:250px;border-radius:18px;padding:42px;background:radial-gradient(circle at 80% 40%,#c9a96e1f,transparent 30%),linear-gradient(120deg,#37283df2,#18121df5);border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h2{font:500 36px Cinzel;margin:0 0 8px}.quote{font:italic 17px Georgia,serif;line-height:1.7;color:#e5d7bd;max-width:800px}.quote-credit{font-size:11px;color:var(--muted);margin-top:8px}.tag{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;background:#8d6ba824;border:1px solid #8d6ba840;color:#cbb7d5;margin:2px}.stat{text-align:center}.stat-number{font:28px Cinzel;color:var(--gold2)}.stat-label{color:var(--muted);font-size:11px;margin-top:5px}
+.hero{min-height:250px;border-radius:18px;padding:42px;background:radial-gradient(circle at 80% 40%,#c9a96e1f,transparent 30%),linear-gradient(120deg,#37283df2,#18121df5);border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h2{font:500 36px Cinzel;margin:0 0 8px}.quote{font:italic 17px Georgia,serif;line-height:1.7;color:#e5d7bd;max-width:800px}.stat{text-align:center}.stat-number{font:28px Cinzel;color:var(--gold2)}.stat-label{color:var(--muted);font-size:11px;margin-top:5px}
 
 /* Tranches fines des livres */
 .bookshelf{margin-top:22px;padding:35px 25px 25px;background:linear-gradient(90deg,#251914,#39271c 50%,#241811);border:10px solid #21150f;border-radius:8px;box-shadow:inset 0 0 30px #0008,0 20px 50px #0008;overflow:auto}.shelf{min-height:150px;display:flex;align-items:flex-end;gap:9px;padding:10px 15px 12px;border-bottom:13px solid #60422c;box-shadow:0 7px 10px #0006;margin-bottom:35px;min-width:680px}
 .book{width:48px;height:115px;border-radius:3px 6px 4px 2px;border:1px solid #fff2;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset -6px 0 8px #0004,3px 4px 8px #0007;transition:.25s;position:relative}.book:hover{transform:translateY(-12px) rotate(-1deg);box-shadow:0 15px 25px #0009}.book span{font:9px Cinzel;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;max-height:100px}
 .gold{background:linear-gradient(90deg,#735432,#b28a4d,#664925)}.purple{background:linear-gradient(90deg,#47304f,#806093,#3d2944)}.green{background:linear-gradient(90deg,#31473b,#607f6c,#293c32)}.red{background:linear-gradient(90deg,#4e2929,#885252,#432323)}
 
-/* Pile de livres fine */
+/* Pile de livres */
 .pal-room{margin-top:22px;min-height:600px;padding:34px;background:linear-gradient(145deg,#3b271b,#21150f);border:12px solid #24170f;border-radius:10px;box-shadow:inset 0 0 45px #0009,0 20px 50px #0008;position:relative;overflow:hidden}.table-edge{position:absolute;left:0;right:0;bottom:0;height:55px;background:linear-gradient(#4b2d1b,#2c180f);border-top:8px solid #69452a}.pile{position:relative;min-height:470px;display:flex;align-items:center;justify-content:center}.pile-book{position:absolute;width:230px;height:54px;border-radius:5px 9px 7px 3px;display:flex;align-items:center;padding:0 18px;box-shadow:0 10px 20px #0008;border:1px solid #fff2;cursor:pointer;transition:.2s}.pile-book:hover{filter:brightness(1.08);box-shadow:0 12px 24px #0009}.pile-book span{font:13px Cinzel;color:#f4e5c4}.pile-book:nth-child(1){transform:rotate(-8deg) translate(-20px,-120px);background:linear-gradient(90deg,#47304f,#806093)}.pile-book:nth-child(2){transform:rotate(6deg) translate(20px,-60px);background:linear-gradient(90deg,#31473b,#607f6c)}.pile-book:nth-child(3){transform:rotate(-3deg) translate(-5px,5px);background:linear-gradient(90deg,#704e31,#b28a4d)}.pile-book:nth-child(4){transform:rotate(8deg) translate(20px,70px);background:linear-gradient(90deg,#4e2929,#885252)}.pile-book:nth-child(5){transform:rotate(-5deg) translate(-25px,135px);background:linear-gradient(90deg,#3e2a49,#6f4b7e)}.pile-book:nth-child(n+6){display:none}
 
+.progress-bar{width:100%;height:10px;border-radius:20px;background:#fff1;overflow:hidden;margin:12px 0}.progress{height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));border-radius:inherit;transition:width .3s}
 .session-time{font:35px Cinzel;color:var(--gold2);margin:15px 0}
 button{font-family:inherit}.primary,.gold,.secondary,.danger{padding:11px 18px;border-radius:8px;cursor:pointer}.primary{background:linear-gradient(135deg,#806092,#594067);border:1px solid #a586b7;color:white}.gold{background:linear-gradient(135deg,#a98550,#76552f);border:1px solid #c6a86f;color:white}.secondary{background:#fff0;border:1px solid var(--border);color:var(--text)}.danger{background:#9d62621f;border:1px solid #9d626266;color:#d99a9a}.primary:hover,.gold:hover,.secondary:hover,.danger:hover{transform:translateY(-1px)}
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,select,textarea{width:100%;background:#0004;border:1px solid #c9a96e2e;color:var(--text);border-radius:8px;padding:12px;font-family:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{min-height:120px;resize:vertical}
@@ -44,7 +45,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
   <button class="nav-btn active" onclick="showPage('home',this)">🏠 Accueil</button>
   <button class="nav-btn" onclick="showPage('library',this)">📚 Ma bibliothèque</button>
   <button class="nav-btn" onclick="showPage('pal',this)">📋 Ma PAL</button>
-  <button class="nav-btn" onclick="showPage('current',this)">📖 Lecture en cours</button>
+  <button class="nav-btn" onclick="showPage('current',this)">📖 Lectures en cours</button>
   <button class="nav-btn" onclick="showPage('favorites',this)">❤️ Coups de cœur</button>
   <div class="menu-title">Gestion</div>
   <button class="nav-btn" onclick="showPage('add',this)">➕ Ajouter un livre</button>
@@ -52,7 +53,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
   <button class="nav-btn" onclick="showPage('stats',this)">📊 Statistiques</button>
 </div>
 <div style="border-top:1px solid var(--border);padding-top:15px;margin-top:15px">
-  <button class="secondary" style="width:100%;font-size:11px" onclick="loadFromSheets()">🔄 Recharger depuis Sheet</button>
+  <button class="secondary" style="width:100%;font-size:11px" onclick="loadFromSheets()">🔄 Actualiser la bibliothèque</button>
 </div>
 </aside>
 
@@ -62,19 +63,18 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 <h2>Bonjour Jimmy ✦</h2>
 <div class="quote">« Chaque livre attend le moment précis où quelqu'un aura besoin de son histoire. »</div>
 <div class="quote-credit">— Ta bibliothèque, pour toi aujourd'hui</div>
-<br><span class="tag">🕯️ Lecture</span><span class="tag">🔮 Magie</span><span class="tag">📚 Grimoires</span>
 </div>
 <div class="grid grid-4" style="margin-top:22px">
-<div class="card stat"><div class="stat-number" id="kpiBooks">0</div><div class="stat-label">Livres</div></div>
+<div class="card stat"><div class="stat-number" id="kpiBooks">0</div><div class="stat-label">Livres au total</div></div>
 <div class="card stat"><div class="stat-number" id="kpiRead">0</div><div class="stat-label">Livres lus</div></div>
 <div class="card stat"><div class="stat-number" id="kpiPal">0</div><div class="stat-label">Dans ma PAL</div></div>
-<div class="card stat"><div class="stat-number" id="kpiHours">0h</div><div class="stat-label">Temps de lecture</div></div>
+<div class="card stat"><div class="stat-number" id="kpiCurrent">0</div><div class="stat-label">En cours</div></div>
 </div>
 <div class="card" style="margin-top:22px" id="homeCurrent"></div>
 </section>
 
 <section class="page" id="library">
-<div class="page-header"><h2>📚 Ma bibliothèque</h2><p>Les livres stockés directement dans ton Google Sheet.</p></div>
+<div class="page-header"><h2>📚 Ma bibliothèque</h2><p>Tous tes livres enregistrés.</p></div>
 <div class="card" style="margin-bottom:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
 <input type="text" id="librarySearch" placeholder="🔍 Rechercher..." style="max-width:250px" oninput="filterLibrary()">
 <button class="secondary" onclick="setLibraryFilter('Tous')">Tous</button>
@@ -87,23 +87,23 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 </section>
 
 <section class="page" id="pal">
-<div class="page-header"><h2>📋 Ma PAL</h2><p>Ta pile de livres en attente.</p></div>
+<div class="page-header"><h2>📋 Ma PAL</h2><p>Ta pile de livres à lire.</p></div>
 <div class="pal-room"><div class="pile" id="palPile"></div><div class="table-edge"></div></div>
 <div class="card" style="margin-top:18px" id="palList"></div>
 </section>
 
 <section class="page" id="current">
-<div class="page-header"><h2>📖 Lecture en cours</h2><p>Ta session actuelle et ton suivi.</p></div>
+<div class="page-header"><h2>📖 Lectures en cours</h2><p>Suivi de tes lectures actuelles et ta progression.</p></div>
 <div id="currentPanel"></div>
 </section>
 
 <section class="page" id="favorites">
-<div class="page-header"><h2>❤️ Coups de cœur</h2><p>Tes coups de cœur synchronisés.</p></div>
+<div class="page-header"><h2>❤️ Coups de cœur</h2><p>Tes lectures coups de cœur.</p></div>
 <div class="grid grid-3" id="favoritesGrid"></div>
 </section>
 
 <section class="page" id="add">
-<div class="page-header"><h2>➕ Ajouter un livre</h2><p>Remplis les infos pour envoyer dans Google Sheets.</p></div>
+<div class="page-header"><h2>➕ Ajouter un livre</h2><p>Remplis les infos pour l'ajouter à ta bibliothèque.</p></div>
 <div class="card">
 
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { onBookSubmitted(); }"></iframe>
@@ -115,28 +115,29 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 <div><label>Auteur</label><input name="author" id="newAuthor" placeholder="Ex : Alix E. Harrow"></div>
 <div><label>Format</label><select name="format" id="newFormat"><option>Poche</option><option>Broché</option><option>Relié</option><option>Ebook</option><option>Livre Audio</option></select></div>
 <div><label>Genre</label><select name="genre" id="newGenre"><option>Fantasy</option><option>Fantastique</option><option>Thriller</option><option>Romance</option><option>Gothique</option><option>Contemporain</option><option>Autre</option></select></div>
-<div><label>Nombre de pages</label><input name="pages" id="newPages" type="number" placeholder="Ex : 320"></div>
+<div><label>Nombre de pages total</label><input name="pages" id="newPages" type="number" placeholder="Ex : 320"></div>
+<div><label>Page actuelle (si déjà commencé)</label><input name="currentPage" id="newCurrentPage" type="number" value="0"></div>
 <div><label>Je l'ai déjà lu ?</label><select name="alreadyRead" id="newAlreadyRead"><option value="false">Non — il ira dans ma PAL</option><option value="true">Oui — déjà lu</option></select></div>
 <div><label>Coup de cœur ?</label><select name="favorite" id="newFavorite"><option value="false">Non</option><option value="true">Oui ❤️</option></select></div>
 <div style="grid-column:1/-1"><label>URL de la couverture (facultatif)</label><input name="cover" id="newCover" placeholder="https://exemple.com/image.jpg"></div>
 <div style="grid-column:1/-1"><label>Résumé / 4ème de couverture</label><textarea name="summary" id="newSummary" placeholder="Résumé ou extrait..."></textarea></div>
 </div><br>
-<button type="submit" class="primary">📚 Enregistrer dans Google Sheets</button>
+<button type="submit" class="primary">📚 Enregistrer dans la bibliothèque</button>
 </form>
 
 </div></section>
 
 <section class="page" id="loans">
-<div class="page-header"><h2>📬 Mes prêts</h2><p>Suivi de tes prêts.</p></div>
+<div class="page-header"><h2>📬 Mes prêts</h2><p>Historique et suivi des prêts.</p></div>
 <div class="card"><div id="loanTable"><p class="muted">Aucun prêt enregistré.</p></div></div>
 </section>
 
 <section class="page" id="stats">
-<div class="page-header"><h2>📊 Mes statistiques</h2><p>Statistiques calculées en direct depuis Google Sheets.</p></div>
+<div class="page-header"><h2>📊 Mes statistiques</h2><p>Statistiques calculées en direct.</p></div>
 <div class="grid grid-4">
 <div class="card stat"><div class="stat-number" id="statSessions">0</div><div class="stat-label">Sessions</div></div>
 <div class="card stat"><div class="stat-number" id="statHours">0h</div><div class="stat-label">Temps lu</div></div>
-<div class="card stat"><div class="stat-number" id="statPages">0</div><div class="stat-label">Pages suivies</div></div>
+<div class="card stat"><div class="stat-number" id="statPages">0</div><div class="stat-label">Pages lues</div></div>
 <div class="card stat"><div class="stat-number" id="statReReads">0</div><div class="stat-label">Relectures</div></div>
 </div>
 <div class="card" style="margin-top:18px"><h3 class="card-title">📚 Historique par livre</h3><div id="statsDetail"></div></div>
@@ -145,9 +146,8 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 
 <!-- Modales -->
 <div class="modal-backdrop" id="bookModal"><div class="modal"><div class="modal-head"><div><h3 id="modalBookTitle"></h3><div class="muted" id="modalBookAuthor"></div></div><button class="close" onclick="closeModal('bookModal')">×</button></div><div id="modalBookBody" style="margin-top:20px"></div></div></div>
-<div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Modifier le statut</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
-<div class="modal-backdrop" id="deleteModal"><div class="modal"><div class="modal-head"><h3>🗑️ Supprimer le livre</h3><button class="close" onclick="closeModal('deleteModal')">×</button></div><p>Es-tu sûr(e) de vouloir supprimer définitivement ce livre de ton Google Sheet ?</p><div style="display:flex;gap:10px;margin-top:20px"><button class="danger" onclick="confirmDelete()">🗑️ Oui, supprimer définitivement</button><button class="secondary" onclick="closeModal('deleteModal')">Annuler</button></div></div></div>
-<div class="modal-backdrop" id="finishModal"><div class="modal"><div class="modal-head"><h3>✓ Finir la session</h3><button class="close" onclick="closeModal('finishModal')">×</button></div><div class="grid grid-2"><div><label>Page de départ</label><input id="sessionStartPage" type="number" min="1"></div><div><label>Page de fin</label><input id="sessionEndPage" type="number" min="1"></div></div><br><label>Note facultative</label><textarea id="sessionNote" style="min-height:90px"></textarea><br><button class="gold" onclick="saveFinishedSession()">✓ Enregistrer la session</button></div></div>
+<div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Modifier le statut / Progression</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
+<div class="modal-backdrop" id="deleteModal"><div class="modal"><div class="modal-head"><h3>🗑️ Supprimer le livre</h3><button class="close" onclick="closeModal('deleteModal')">×</button></div><p>Es-tu sûr(e) de vouloir supprimer définitivement ce livre de ta bibliothèque ?</p><div style="display:flex;gap:10px;margin-top:20px"><button class="danger" onclick="confirmDelete()">🗑️ Oui, supprimer</button><button class="secondary" onclick="closeModal('deleteModal')">Annuler</button></div></div></div>
 
 <div class="toast" id="toast"></div>
 
@@ -157,8 +157,8 @@ const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwF6cp428LAnPwidrEH
 let submitted = false;
 let currentFilter = 'Tous';
 let pendingDeleteId = null;
+let selectedCurrentBookId = null;
 let state = { books: [], reads: [], sessions: [], loans: [], palWishes: [] };
-let activeSession = null, timer = null;
 
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -167,12 +167,10 @@ function toggleMenu(){document.getElementById('sidebar').classList.toggle('open'
 function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sidebar').classList.remove('open');render();window.scrollTo({top:0,behavior:'smooth'})}
 function showPageName(id){const b=[...document.querySelectorAll('.nav-btn')].find(x=>(x.getAttribute('onclick')||'').includes("'"+id+"'"));showPage(id,b)}
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
-function currentBook(){return state.books.find(b=>b.status==='En cours')||null}
-function durationHuman(sec){sec=Math.max(0,Math.floor(sec));let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60);return h?`${h}h ${m}min`:`${m} min`}
-function formatTime(sec){sec=Math.floor(sec);return [Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60].map(x=>String(x).padStart(2,'0')).join(':')}
+function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
 async function loadFromSheets() {
-  toast('⏳ Chargement de tes livres depuis Google Sheets...');
+  toast('⏳ Synchronisation de ta bibliothèque...');
   try {
     const res = await fetch(WEBHOOK_URL);
     const data = await res.json();
@@ -183,7 +181,8 @@ async function loadFromSheets() {
         author: b["Auteur(s)"] || b.author || '',
         format: b.Format || b.format || 'Poche',
         genre: b.Genre || b.genre || '',
-        pages: b.Pages || b.pages || '',
+        pages: Number(b.Pages || b.pages) || 0,
+        currentPage: Number(b["Dernière lecture"] || b.currentPage) || 0,
         summary: b["Résumé / 4ème de couverture"] || b.summary || '',
         status: b.Statut || b.status || 'À lire',
         favorite: b["Coup de cœur"] === "Oui",
@@ -195,20 +194,19 @@ async function loadFromSheets() {
       loans: data.loans || [],
       palWishes: data.palWishes || []
     };
-    toast('✅ Bibliothèque synchronisée !');
+    toast('✅ Bibliothèque à jour !');
     render();
   } catch(err) {
     toast('⚠️ Erreur lors du chargement.');
-    console.error('Erreur loadFromSheets:', err);
   }
 }
 
 function render(){
-  const secs = state.sessions.reduce((a,s)=>a+(Number(s["Durée (min)"])*60||0),0);
+  const currentList = currentBooks();
   document.getElementById('kpiBooks').textContent = state.books.length;
   document.getElementById('kpiRead').textContent = state.books.filter(b=>b.status==='Terminé').length;
   document.getElementById('kpiPal').textContent = state.books.filter(b=>b.status==='À lire').length;
-  document.getElementById('kpiHours').textContent = durationHuman(secs);
+  document.getElementById('kpiCurrent').textContent = currentList.length;
   
   renderHome();
   renderShelf();
@@ -219,14 +217,21 @@ function render(){
 }
 
 function renderHome(){
-  const b = currentBook(), el = document.getElementById('homeCurrent');
-  if(!b){el.innerHTML='<h3 class="card-title">📖 Lecture actuelle</h3><p class="muted">Aucune lecture en cours.</p>';return}
-  el.innerHTML=`<h3 class="card-title">📖 Lecture actuelle</h3>
-  <div>
-    <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
-    <p class="muted">${esc(b.author||'')}</p>
-    <button class="primary" onclick="showPageName('current')">📖 Ouvrir ma lecture</button>
-  </div>`;
+  const list = currentBooks(), el = document.getElementById('homeCurrent');
+  if(!list.length){el.innerHTML='<h3 class="card-title">📖 En cours de lecture</h3><p class="muted">Aucun livre en cours actuellement.</p>';return}
+  el.innerHTML=`<h3 class="card-title">📖 En cours de lecture (${list.length})</h3>
+  <div style="display:flex;gap:15px;flex-wrap:wrap">
+    ${list.map(b => {
+      const pct = b.pages ? Math.min(100, Math.round((b.currentPage / b.pages) * 100)) : 0;
+      return `<div style="background:#0003;padding:15px;border-radius:10px;border:1px solid var(--border);flex:1;min-width:200px">
+        <strong style="font-family:Cinzel;color:var(--gold2)">${esc(b.title)}</strong>
+        <p class="muted" style="margin:4px 0">${esc(b.author||'')}</p>
+        <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
+        <small class="muted">Page ${b.currentPage} / ${b.pages || '?'}</small>
+      </div>`;
+    }).join('')}
+  </div>
+  <br><button class="primary" onclick="showPageName('current')">📖 Voir mes lectures en cours</button>`;
 }
 
 function setLibraryFilter(f){ currentFilter = f; renderShelf(); }
@@ -250,63 +255,77 @@ function renderShelf(){
 
 function renderPal(){
   const physical = state.books.filter(b=>b.status==='À lire');
-  
   document.getElementById('palPile').innerHTML = physical.length ? 
     physical.slice(0,5).map((b,i)=>`<div class="pile-book" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : 
     '<div class="muted">Ta PAL est vide !</div>';
     
-  document.getElementById('palList').innerHTML = physical.length ? `<table><thead><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr></thead><tbody>${physical.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${esc(b.author||'')}</td><td><button class="primary" onclick="openStatus('${b.id}')">⚙️ Statut</button></td></tr>`).join('')}</tbody></table>` : '';
+  document.getElementById('palList').innerHTML = physical.length ? `<table><thead><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr></thead><tbody>${physical.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${esc(b.author||'')}</td><td><button class="primary" onclick="openStatus('${b.id}')">⚙️ Gérer</button></td></tr>`).join('')}</tbody></table>` : '';
 }
 
 function renderCurrent(){
-  const el = document.getElementById('currentPanel'), b = currentBook();
-  if(!b){el.innerHTML='<div class="card"><p class="muted">Aucune lecture en cours.</p></div>';return}
-  const running = !!activeSession;
-  el.innerHTML=`<div class="card">
-    <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
+  const el = document.getElementById('currentPanel'), list = currentBooks();
+  if(!list.length){el.innerHTML='<div class="card"><p class="muted">Aucune lecture en cours. Choisis un livre dans ta PAL ou ta bibliothèque pour la commencer !</p></div>';return}
+  
+  if(!selectedCurrentBookId || !list.find(b=>b.id === selectedCurrentBookId)){
+    selectedCurrentBookId = list[0].id;
+  }
+  
+  const b = getBook(selectedCurrentBookId);
+  const pct = b.pages ? Math.min(100, Math.round((b.currentPage / b.pages) * 100)) : 0;
+
+  el.innerHTML=`
+  <div class="card">
+    ${list.length > 1 ? `
+      <label>Sélectionner le livre en cours :</label>
+      <select onchange="changeSelectedCurrent(this.value)" style="margin-bottom:20px;max-width:350px">
+        ${list.map(x=>`<option value="${x.id}" ${x.id===selectedCurrentBookId?'selected':''}>${esc(x.title)}</option>`).join('')}
+      </select>
+    ` : ''}
+
+    <h2 style="font-family:Cinzel;color:var(--gold2);margin:0">${esc(b.title)}</h2>
     <p class="muted">${esc(b.author||'')}</p>
-    <div class="session-time" id="liveTimer">${running ? formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000)) : '00:00:00'}</div>
-    ${running ? `<button class="gold" onclick="openFinish()">✓ Finir la session</button>` : `<button class="primary" onclick="startSession()">▶️ Démarrer la session</button>`}
-    <button class="secondary" onclick="openStatus('${b.id}')">⚙️ Changer le statut</button>
+    
+    <div style="margin:20px 0;background:#0003;padding:18px;border-radius:10px;border:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong>Progression : Page ${b.currentPage} / ${b.pages || 'Total inconnu'}</strong>
+        <span style="color:var(--gold2);font-family:Cinzel;font-weight:bold">${pct}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
+      <br>
+      <div style="display:flex;gap:10px;align-items:center">
+        <input type="number" id="updatePageInput" value="${b.currentPage}" placeholder="Page lue" style="max-width:130px">
+        <button class="gold" onclick="savePageProgress('${b.id}')">💾 Mettre à jour la page</button>
+      </div>
+    </div>
+
+    <button class="secondary" onclick="openStatus('${b.id}')">⚙️ Changer le statut du livre</button>
   </div>`;
 }
 
-function startSession(){
-  const b = currentBook(); if(!b) return;
-  activeSession = { id: 's'+Date.now(), bookId: b.id, startedAt: Date.now(), startPage: 1 };
+function changeSelectedCurrent(id){
+  selectedCurrentBookId = id;
   renderCurrent();
-  timer = setInterval(()=>{
-    const e = document.getElementById('liveTimer');
-    if(e) e.textContent = formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000));
-  }, 1000);
 }
 
-function openFinish(){
-  if(!activeSession) return;
-  document.getElementById('sessionStartPage').value = 1;
-  document.getElementById('sessionEndPage').value = 1;
-  document.getElementById('finishModal').classList.add('show');
-}
-
-async function saveFinishedSession(){
-  if(!activeSession) return;
-  activeSession = null; clearInterval(timer); closeModal('finishModal');
-  toast('⏳ Session terminée !');
-  setTimeout(loadFromSheets, 1000);
-}
-
-function renderFavorites(){
-  const a = state.books.filter(b=>b.favorite);
-  document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur pour l\'instant.</p></div>';
-}
-
-function renderStats(){
-  document.getElementById('statSessions').textContent = state.sessions.length;
-  document.getElementById('statHours').textContent = durationHuman(state.sessions.reduce((a,s)=>a+(Number(s["Durée (min)"])*60||0),0));
-  document.getElementById('statsDetail').innerHTML = state.books.map(b => `<div style="padding:6px 0;border-bottom:1px solid #fff1"><strong>${esc(b.title)}</strong> — Statut: ${b.status}</div>`).join('');
+async function savePageProgress(id){
+  const pageVal = Number(document.getElementById('updatePageInput').value) || 0;
+  toast('⏳ Mise à jour de la progression...');
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({ action: "UPDATE_STATUS", id: id, currentPage: pageVal })
+    });
+    toast('✅ Page enregistrée !');
+    setTimeout(loadFromSheets, 1500);
+  } catch(err) {
+    toast('⚠️ Erreur lors de l\'enregistrement.');
+  }
 }
 
 function openStatus(id){
+  const b = getBook(id);
   document.getElementById('statusModalBody').innerHTML = `
     <button class="primary" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','En cours')">📖 Passer "En cours"</button>
     <button class="gold" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','Terminé')">✓ Passer "Terminé"</button>
@@ -317,7 +336,7 @@ function openStatus(id){
 
 async function updateStatus(id, newStatus){
   closeModal('statusModal');
-  toast('⏳ Synchronisation du statut...');
+  toast('⏳ Mise à jour du statut...');
   try {
     await fetch(WEBHOOK_URL, {
       method: 'POST',
@@ -334,6 +353,7 @@ async function updateStatus(id, newStatus){
 
 function openBook(id){
   const b = getBook(id);
+  const pct = b.pages ? Math.min(100, Math.round((b.currentPage / b.pages) * 100)) : 0;
   document.getElementById('modalBookTitle').textContent = b.title;
   document.getElementById('modalBookAuthor').textContent = b.author || '';
   
@@ -345,13 +365,13 @@ function openBook(id){
       <div>
         <p><strong>Statut :</strong> ${b.status}</p>
         <p><strong>Format :</strong> ${b.format || '—'} | <strong>Genre :</strong> ${b.genre || '—'}</p>
-        <p><strong>Pages :</strong> ${b.pages || '—'}</p>
+        <p><strong>Progression :</strong> Page ${b.currentPage} / ${b.pages || '—'} (${pct}%)</p>
         ${b.notes ? `<p style="color:var(--gold2)"><strong>Notes / Historique :</strong><br>${esc(b.notes)}</p>` : ''}
         <p><strong>Résumé :</strong> ${esc(b.summary || 'Aucun résumé.')}</p>
         <br>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="primary" onclick="openStatus('${id}');closeModal('bookModal')">⚙️ Modifier le statut</button>
-          <button class="danger" onclick="askDeleteBook('${id}')">🗑️ Supprimer du Google Sheet</button>
+          <button class="primary" onclick="openStatus('${id}');closeModal('bookModal')">⚙️ Gérer le statut</button>
+          <button class="danger" onclick="askDeleteBook('${id}')">🗑️ Supprimer de la bibliothèque</button>
         </div>
       </div>
     </div>`;
@@ -367,7 +387,7 @@ function askDeleteBook(id){
 async function confirmDelete(){
   if(!pendingDeleteId) return;
   closeModal('deleteModal');
-  toast('⏳ Suppression dans Google Sheets...');
+  toast('⏳ Suppression du livre...');
   try {
     await fetch(WEBHOOK_URL, {
       method: 'POST',
@@ -383,13 +403,24 @@ async function confirmDelete(){
   }
 }
 
+function renderFavorites(){
+  const a = state.books.filter(b=>b.favorite);
+  document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur pour l\'instant.</p></div>';
+}
+
+function renderStats(){
+  document.getElementById('statSessions').textContent = state.sessions.length;
+  document.getElementById('statPages').textContent = state.books.reduce((a,b)=>a+(b.currentPage||0),0);
+  document.getElementById('statsDetail').innerHTML = state.books.map(b => `<div style="padding:6px 0;border-bottom:1px solid #fff1"><strong>${esc(b.title)}</strong> — Statut: ${b.status} (${b.currentPage}/${b.pages||'?'})</div>`).join('');
+}
+
 document.getElementById('bookForm').addEventListener('submit', function() {
   document.getElementById('hidden_id').value = 'b' + Date.now();
-  toast('⏳ Ajout dans Google Sheets...');
+  toast('⏳ Enregistrement du livre...');
 });
 
 function onBookSubmitted() {
-  toast('✅ Livre écrit dans Google Sheets !');
+  toast('✅ Livre enregistré !');
   document.getElementById('bookForm').reset();
   submitted = false;
   setTimeout(loadFromSheets, 2000);
