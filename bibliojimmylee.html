@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17121d">
-<title>Ma Bibliothèque — V4 (Hybrid Sheets)</title>
+<title>Ma Bibliothèque — 100% Google Sheets</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
@@ -20,7 +20,7 @@ button{font-family:inherit}.primary,.gold,.secondary,.danger{padding:11px 18px;b
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,select,textarea{width:100%;background:#0004;border:1px solid #c9a96e2e;color:var(--text);border-radius:8px;padding:12px;font-family:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{min-height:120px;resize:vertical}
 table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);font:12px Cinzel;padding:13px;border-bottom:1px solid var(--border)}td{padding:13px;border-bottom:1px solid #fff1;color:var(--muted);font-size:13px}td strong{color:var(--text)}
 .mobile-header{display:none}.toast{position:fixed;bottom:25px;right:25px;background:#29202f;border:1px solid var(--gold);padding:14px 20px;border-radius:9px;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.3s;z-index:100}.toast.show{transform:none;opacity:1}
-.modal-backdrop{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:80;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(820px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#37283d,#19131e);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 30px 100px #000c}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.modal h3{font:22px Cinzel;margin:0;color:var(--gold2)}.close{border:0;background:none;color:var(--muted);font-size:25px;cursor:pointer}.session-row{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr .8fr;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #fff1;font-size:12px}.muted{color:var(--muted)}.status{display:inline-block;border-radius:15px;padding:5px 9px;font-size:10px}.status-read{background:#769c8730;color:#a9d0b8}.status-current{background:#8d6ba830;color:#d9bfe7}.status-pal{background:#c9a96e24;color:#e7c98c}.status-loan{background:#9d626230;color:#d99a9a}
+.modal-backdrop{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:80;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(820px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#37283d,#19131e);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 30px 100px #000c}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.modal h3{font:22px Cinzel;margin:0;color:var(--gold2)}.close{border:0;background:none;color:var(--muted);font-size:25px;cursor:pointer}.session-row{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr .8fr;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #fff1;font-size:12px}.muted{color:var(--muted)}.status{display:inline-block;border-radius:15px;padding:5px 9px;font-size:10px}.status-read{background:#769c8730;color:#a9d0b8}.status-current{background:#8d6ba830;color:#d9bfe7}.status-pal{background:#c9a96e24;color:#e7c98c}.status-loan{background:#9d626230;color:#d99a9a}.status-abandoned{background:#9d626230;color:#d99a9a}
 @media(max-width:900px){.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:none}.main{margin-left:0;padding:20px;padding-top:75px}.mobile-header{display:flex;position:fixed;top:0;left:0;right:0;height:60px;background:#110e14ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);align-items:center;padding:0 18px;z-index:15}.mobile-header button{background:none;border:0;color:white;font-size:25px}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3,.grid-2{grid-template-columns:1fr}.hero{padding:30px}.hero h2{font-size:28px}.current-book{grid-template-columns:1fr}.book-cover{max-width:190px;margin:auto}.session-row{grid-template-columns:1fr 1fr}.session-row>*:last-child{grid-column:1/-1}.pile-book{width:190px}}
 </style>
 </head>
@@ -41,9 +41,7 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
   <button class="nav-btn" onclick="showPage('stats',this)">📊 Statistiques</button>
 </div>
 <div style="border-top:1px solid var(--border);padding-top:15px;margin-top:15px">
-  <button class="secondary" style="width:100%;font-size:11px;margin-bottom:6px" onclick="exportData()">💾 Sauvegarder (JSON)</button>
-  <button class="secondary" style="width:100%;font-size:11px" onclick="document.getElementById('importFile').click()">📂 Importer JSON</button>
-  <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+  <button class="secondary" style="width:100%;font-size:11px" onclick="loadFromSheets()">🔄 Recharger depuis Sheet</button>
 </div>
 </aside>
 
@@ -65,36 +63,36 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 </section>
 
 <section class="page" id="library">
-<div class="page-header"><h2>📚 Ma bibliothèque</h2><p>Les livres que tu possèdes. Renseigne un filtre ou recherche un titre.</p></div>
+<div class="page-header"><h2>📚 Ma bibliothèque</h2><p>Les livres stockés directement dans ton Google Sheet.</p></div>
 <div class="card" style="margin-bottom:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-<input type="text" id="librarySearch" placeholder="🔍 Rechercher un titre, un auteur..." style="max-width:250px" oninput="filterLibrary()">
+<input type="text" id="librarySearch" placeholder="🔍 Rechercher..." style="max-width:250px" oninput="filterLibrary()">
 <button class="secondary" onclick="setLibraryFilter('Tous')">Tous</button>
-<button class="secondary" onclick="setLibraryFilter('À lire')">📋 Jamais lus / PAL</button>
+<button class="secondary" onclick="setLibraryFilter('À lire')">📋 PAL</button>
 <button class="secondary" onclick="setLibraryFilter('En cours')">📖 En cours</button>
 <button class="secondary" onclick="setLibraryFilter('Terminé')">✓ Lus</button>
-<button class="secondary" onclick="setLibraryFilter('Prêté')">📬 Prêtés</button>
+<button class="secondary" onclick="setLibraryFilter('Abandonné')">🚫 Abandonnés</button>
 </div>
 <div class="bookshelf" id="shelf"></div>
 </section>
 
 <section class="page" id="pal">
-<div class="page-header"><h2>📋 Ma PAL</h2><p>Pas une bibliothèque. Une vraie pile de livres qui attendent leur tour. 😂</p></div>
-<div class="card" style="margin-bottom:18px"><button class="primary" onclick="openPalAdd()">➕ Ajouter un livre à ma PAL</button><span class="muted" style="margin-left:12px">Tu peux y mettre un livre que tu possèdes déjà, ou une envie de relecture.</span></div>
+<div class="page-header"><h2>📋 Ma PAL</h2><p>Ta pile de livres en attente.</p></div>
 <div class="pal-room"><div class="pile" id="palPile"></div><div class="table-edge"></div></div>
 <div class="card" style="margin-top:18px" id="palList"></div>
 </section>
 
 <section class="page" id="current">
-<div class="page-header"><h2>📖 Lecture en cours</h2><p>Ta session actuelle, ton avancement et l'histoire complète de cette lecture.</p></div>
+<div class="page-header"><h2>📖 Lecture en cours</h2><p>Ta session actuelle et ton suivi.</p></div>
 <div id="currentPanel"></div>
 </section>
 
 <section class="page" id="favorites">
-<div class="page-header"><h2>❤️ Coups de cœur</h2><p>Les livres qui ont laissé une petite trace.</p></div><div class="grid grid-3" id="favoritesGrid"></div>
+<div class="page-header"><h2>❤️ Coups de cœur</h2><p>Tes coups de cœur synchronisés.</p></div>
+<div class="grid grid-3" id="favoritesGrid"></div>
 </section>
 
 <section class="page" id="add">
-<div class="page-header"><h2>➕ Ajouter un livre</h2><p>Si tu le possèdes mais ne l'as jamais lu, il ira automatiquement dans ta PAL.</p></div>
+<div class="page-header"><h2>➕ Ajouter un livre</h2><p>Remplis les infos : elles seront sauvegardées directement dans Google Sheets.</p></div>
 <div class="card">
 <div class="grid grid-2">
 <div><label>Titre *</label><input id="newTitle" placeholder="Ex : Starling House"></div>
@@ -106,16 +104,16 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 <div><label>Coup de cœur ?</label><select id="newFavorite"><option value="no">Non</option><option value="yes">Oui ❤️</option></select></div>
 <div style="grid-column:1/-1"><label>URL de la couverture (facultatif)</label><input id="newCover" placeholder="https://exemple.com/image.jpg"></div>
 <div style="grid-column:1/-1"><label>Résumé / 4ème de couverture</label><textarea id="newSummary" placeholder="Résumé ou extrait..."></textarea></div>
-</div><br><button class="primary" onclick="addBook()">📚 Ajouter à ma bibliothèque & Synchro Sheet</button>
+</div><br><button class="primary" onclick="addBook()">📚 Ajouter dans mon Google Sheet</button>
 </div></section>
 
 <section class="page" id="loans">
-<div class="page-header"><h2>📬 Mes prêts</h2><p>Qui a tes livres, depuis quand, et lesquels sont revenus.</p></div>
-<div class="card"><button class="primary" onclick="openLoanModal()">📬 Enregistrer un prêt</button><div id="loanTable" style="margin-top:20px"></div></div>
+<div class="page-header"><h2>📬 Mes prêts</h2><p>Suivi de tes prêts.</p></div>
+<div class="card"><div id="loanTable"></div></div>
 </section>
 
 <section class="page" id="stats">
-<div class="page-header"><h2>📊 Mes statistiques</h2><p>Tout ce que ton historique de lecture permet de mesurer.</p></div>
+<div class="page-header"><h2>📊 Mes statistiques</h2><p>Statistiques calculées en direct depuis Google Sheets.</p></div>
 <div class="grid grid-4"><div class="card stat"><div class="stat-number" id="statSessions">0</div><div class="stat-label">Sessions</div></div><div class="card stat"><div class="stat-number" id="statHours">0h</div><div class="stat-label">Temps lu</div></div><div class="card stat"><div class="stat-number" id="statPages">0</div><div class="stat-label">Pages suivies</div></div><div class="card stat"><div class="stat-number" id="statReReads">0</div><div class="stat-label">Relectures</div></div></div>
 <div class="card" style="margin-top:18px"><h3 class="card-title">📚 Historique par livre</h3><div id="statsDetail"></div></div>
 </section>
@@ -123,473 +121,245 @@ table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--gold2);
 
 <!-- Modales -->
 <div class="modal-backdrop" id="bookModal"><div class="modal"><div class="modal-head"><div><h3 id="modalBookTitle"></h3><div class="muted" id="modalBookAuthor"></div></div><button class="close" onclick="closeModal('bookModal')">×</button></div><div id="modalBookBody" style="margin-top:20px"></div></div></div>
-<div class="modal-backdrop" id="editModal"><div class="modal"><div class="modal-head"><h3>✏️ Modifier le livre</h3><button class="close" onclick="closeModal('editModal')">×</button></div><div id="editModalBody" style="margin-top:20px"></div></div></div>
-<div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Que veux-tu faire ?</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
-<div class="modal-backdrop" id="loanModal"><div class="modal"><div class="modal-head"><h3>📬 Prêter un livre</h3><button class="close" onclick="closeModal('loanModal')">×</button></div><div class="grid grid-2" style="margin-top:20px"><div><label>Livre</label><select id="loanBook"></select></div><div><label>Prêté à</label><input id="loanPerson" placeholder="Ex : Camille"></div><div><label>Date du prêt</label><input id="loanDate" type="date"></div><div><label>Retour prévu</label><input id="loanDue" type="date"></div></div><br><button class="primary" onclick="saveLoan()">📬 Confirmer le prêt</button></div></div>
-<div class="modal-backdrop" id="finishModal"><div class="modal"><div class="modal-head"><h3>✓ Finir la session</h3><button class="close" onclick="closeModal('finishModal')">×</button></div><p class="muted">Enregistre où tu t'es arrêté.</p><div class="grid grid-2"><div><label>Page de départ</label><input id="sessionStartPage" type="number" min="1"></div><div><label>Page de fin</label><input id="sessionEndPage" type="number" min="1"></div></div><br><label>Note facultative</label><textarea id="sessionNote" style="min-height:90px" placeholder="Quelques mots sur cette session..."></textarea><br><button class="gold" onclick="saveFinishedSession()">✓ Enregistrer la session</button></div></div>
-<div class="modal-backdrop" id="palAddModal"><div class="modal"><div class="modal-head"><h3>📋 Ajouter à ma PAL</h3><button class="close" onclick="closeModal('palAddModal')">×</button></div><p class="muted">Même si tu as déjà lu ce livre, tu peux créer une nouvelle envie de relecture.</p><div><label>Choisis un livre déjà dans ta bibliothèque</label><select id="palExisting"></select></div><br><button class="primary" onclick="addExistingToPal()">📋 Ajouter à ma PAL</button><hr style="border-color:#fff1;margin:25px 0"><div class="grid grid-2"><div><label>Nouveau titre</label><input id="palNewTitle" placeholder="Ex : un livre à acheter"></div><div><label>Auteur</label><input id="palNewAuthor"></div></div><br><button class="secondary" onclick="addNewPalBook()">➕ Créer ce livre dans ma PAL</button></div></div>
+<div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Modifier le statut</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
+<div class="modal-backdrop" id="abandonModal"><div class="modal"><div class="modal-head"><h3>🚫 Abandonner le livre</h3><button class="close" onclick="closeModal('abandonModal')">×</button></div><label>Motif d'abandon</label><textarea id="abandonReason" placeholder="Raison de l'abandon..."></textarea><br><button class="danger" onclick="confirmAbandon()">🚫 Confirmer l'abandon</button></div></div>
+<div class="modal-backdrop" id="finishModal"><div class="modal"><div class="modal-head"><h3>✓ Finir la session</h3><button class="close" onclick="closeModal('finishModal')">×</button></div><div class="grid grid-2"><div><label>Page de départ</label><input id="sessionStartPage" type="number" min="1"></div><div><label>Page de fin</label><input id="sessionEndPage" type="number" min="1"></div></div><br><label>Note facultative</label><textarea id="sessionNote" style="min-height:90px"></textarea><br><button class="gold" onclick="saveFinishedSession()">✓ Enregistrer la session</button></div></div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzK4C46EtrMVXZU8P6G2YbQNg6AD0vxqDfM1NXCb4Pl6MrYwGKnwtpOnmJH2JTqQbSUvg/exec';
-const STORAGE = 'bibliotheque_v2_final';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyyOHlXa9XYiEUlmyr7WlrLL8ubqIFIXlj1KofSAZFWeHhlt3rzoeSeGvpDtsJbEcONrw/exec';
+
 let currentFilter = 'Tous';
-let state = JSON.parse(localStorage.getItem(STORAGE) || 'null') || {
-  books: [
-    {id:'b1',title:'Verity',author:'Colleen Hoover',format:'Poche',genre:'Thriller',status:'Terminé',favorite:true,rating:5,pages:330,totalReads:1,cover:'',review:'Un roman saisissant !',summary:'Verity Crawford est une auteure à succès dont la carrière est interrompue après un accident. Engagée pour poursuivre une série de romans, une jeune écrivaine découvre un manuscrit troublant.'},
-    {id:'b2',title:'Starling House',author:'Alix E. Harrow',format:'Broché',genre:'Gothique',status:'À lire',favorite:false,rating:null,pages:320,totalReads:0,cover:'',review:'',summary:'À Eden, une maison inquiétante domine la ville depuis des générations.'},
-    {id:'b3',title:'Noël au café des oracles',author:'',format:'Poche',genre:'Fantastique',status:'À lire',favorite:false,rating:null,pages:280,totalReads:0,cover:'',review:'',summary:''},
-    {id:'b4',title:'Ils étaient dix',author:'Agatha Christie',format:'Poche',genre:'Thriller',status:'À lire',favorite:false,rating:null,pages:224,totalReads:0,cover:'',review:'',summary:''},
-    {id:'b5',title:'Neuvième Maison',author:'Leigh Bardugo',format:'Relié',genre:'Fantasy',status:'En cours',favorite:false,rating:null,pages:528,totalReads:2,currentReadId:'r3',cover:'',review:'',summary:''}
-  ],
-  reads: [
-    {id:'r1',bookId:'b5',number:1,start:'2026-06-01',end:'2026-06-09',status:'Terminée',rating:4},
-    {id:'r2',bookId:'b5',number:2,start:'2026-07-01',end:'2026-07-10',status:'Terminée',rating:4.5},
-    {id:'r3',bookId:'b5',number:3,start:'2026-08-08',end:null,status:'En cours',rating:null}
-  ],
-  sessions: [],
-  loans: [],
-  palWishes: []
-};
+let pendingAbandonBookId = null;
+let state = { books: [], reads: [], sessions: [], loans: [], palWishes: [] };
 let activeSession = null, timer = null;
 
-function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
 function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('sidebar').classList.remove('open');render();window.scrollTo({top:0,behavior:'smooth'})}
 function showPageName(id){const b=[...document.querySelectorAll('.nav-btn')].find(x=>(x.getAttribute('onclick')||'').includes("'"+id+"'"));showPage(id,b)}
-function getBook(id){return state.books.find(b=>b.id===id)}
-function currentBook(){return state.books.find(b=>b.status==='En cours')||null}
-function currentRead(){const b=currentBook();return b?state.reads.find(r=>r.id===b.currentReadId&&r.status==='En cours'):null}
+function getBook(id){return state.books.find(b=>b.Livre_ID===id||b.id===id)}
+function currentBook(){return state.books.find(b=>b.Statut==='En cours'||b.status==='En cours')||null}
 function durationHuman(sec){sec=Math.max(0,Math.floor(sec));let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60);return h?`${h}h ${m}min`:`${m} min`}
 function formatTime(sec){sec=Math.floor(sec);return [Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60].map(x=>String(x).padStart(2,'0')).join(':')}
-function dateFr(d){return d?new Date(d+'T12:00:00').toLocaleDateString('fr-FR'):'—'}
-function stars(n){return n?('★'.repeat(Math.floor(n))+(n%1?'½':'')+'☆'.repeat(Math.max(0,5-Math.ceil(n)))):'—'}
-function quote(){const q=['« Jimmy, certains livres ne demandent pas à être lus. Ils attendent simplement le moment où tu seras prêt à les ouvrir. »','« Une bibliothèque est une collection de portes. Jimmy, il suffit parfois d’en pousser une. »','« Jimmy, même une petite session de lecture peut changer la couleur d’une journée. »','« Les histoires que tu gardes deviennent peu à peu une partie de ton propre grimoire, Jimmy. »'];return q[new Date().getDate()%q.length]}
 
-function render(){
-  document.getElementById('dailyQuote').textContent=quote();
-  const secs=state.sessions.reduce((a,s)=>a+s.duration,0);
-  document.getElementById('kpiBooks').textContent=state.books.length;
-  document.getElementById('kpiRead').textContent=state.books.filter(b=>b.status==='Terminé').length;
-  document.getElementById('kpiPal').textContent=state.books.filter(b=>b.status==='À lire').length+state.palWishes.length;
-  document.getElementById('kpiHours').textContent=durationHuman(secs);
-  document.getElementById('statSessions').textContent=state.sessions.length;
-  document.getElementById('statHours').textContent=durationHuman(secs);
-  document.getElementById('statPages').textContent=state.sessions.reduce((a,s)=>a+Math.max(0,(s.endPage||0)-(s.startPage||0)),0);
-  document.getElementById('statReReads').textContent=state.reads.filter(r=>r.number>1).length;
-  renderHome();renderShelf();renderPal();renderCurrent();renderFavorites();renderLoans();renderStats();
+// Chargement initial depuis Google Sheets
+async function loadFromSheets() {
+  toast('⏳ Chargement de tes livres depuis Google Sheets...');
+  try {
+    const res = await fetch(WEBHOOK_URL);
+    const data = await res.json();
+    state = {
+      books: data.books.map(b => ({
+        id: b.Livre_ID,
+        title: b.Titre,
+        author: b["Auteur(s)"],
+        format: b.Format,
+        genre: b.Genre,
+        pages: b.Pages,
+        summary: b["Résumé / 4ème de couverture"],
+        status: b.Statut,
+        favorite: b["Coup de cœur"] === "Oui",
+        abandonReason: b["Notes perso"] || ""
+      })),
+      reads: data.reads || [],
+      sessions: data.sessions || [],
+      loans: data.loans || [],
+      palWishes: data.palWishes || []
+    };
+    toast('✅ Bibliothèque synchronisée !');
+    render();
+  } catch(err) {
+    toast('⚠️ Erreur lors du chargement.');
+    console.error(err);
+  }
 }
 
-function renderCoverStyle(b){
-  return b.cover ? `background-image:url('${esc(b.cover)}')` : '';
+function render(){
+  const secs = state.sessions.reduce((a,s)=>a+(Number(s["Durée (min)"])*60||0),0);
+  document.getElementById('kpiBooks').textContent = state.books.length;
+  document.getElementById('kpiRead').textContent = state.books.filter(b=>b.status==='Terminé').length;
+  document.getElementById('kpiPal').textContent = state.books.filter(b=>b.status==='À lire').length;
+  document.getElementById('kpiHours').textContent = durationHuman(secs);
+  renderHome();renderShelf();renderPal();renderCurrent();renderFavorites();renderStats();
 }
 
 function renderHome(){
-  const b=currentBook(),r=currentRead(),el=document.getElementById('homeCurrent');
+  const b = currentBook(), el = document.getElementById('homeCurrent');
   if(!b){el.innerHTML='<h3 class="card-title">📖 Lecture actuelle</h3><p class="muted">Aucune lecture en cours.</p>';return}
-  const ss=state.sessions.filter(s=>s.readId===r?.id),last=ss.at(-1),page=last?.endPage||1,total=b.pages||0,pct=total?Math.min(100,Math.round(page/total*100)):0;
   el.innerHTML=`<h3 class="card-title">📖 Lecture actuelle</h3>
-  <div class="current-book">
-    <div class="book-cover" style="${renderCoverStyle(b)}">
-      ${!b.cover ? `<div style="font-size:30px">🌙</div><div class="cover-title">${esc(b.title)}</div><div class="cover-author">${esc(b.author||'')}</div>` : ''}
-    </div>
-    <div>
-      <div class="muted">${r?.number||1}ème lecture</div>
-      <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
-      <div class="session-time" style="font-size:28px">${pct}%</div>
-      <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
-      <div class="muted">Page ${page} / ${total||'?'}</div><br>
-      <button class="primary" onclick="showPageName('current')">📖 Ouvrir ma lecture</button>
-    </div>
+  <div>
+    <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
+    <p class="muted">${esc(b.author||'')}</p>
+    <button class="primary" onclick="showPageName('current')">📖 Ouvrir ma lecture</button>
   </div>`;
 }
 
-function setLibraryFilter(f){ currentFilter=f; renderShelf(); }
+function setLibraryFilter(f){ currentFilter = f; renderShelf(); }
 function filterLibrary(){ renderShelf(); }
 
 function renderShelf(){
-  const search=document.getElementById('librarySearch')?.value.toLowerCase()||'';
-  let books=currentFilter==='Tous'?state.books:state.books.filter(b=>b.status===currentFilter);
+  const search = document.getElementById('librarySearch')?.value.toLowerCase()||'';
+  let books = currentFilter === 'Tous' ? state.books : state.books.filter(b=>b.status===currentFilter);
   if(search){
-    books=books.filter(b=>b.title.toLowerCase().includes(search)||(b.author&&b.author.toLowerCase().includes(search)));
+    books = books.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
   }
-  let chunks=[];
-  for(let i=0;i<books.length;i+=8)chunks.push(books.slice(i,i+8));
-  if(!chunks.length)chunks=[[]];
-  document.getElementById('shelf').innerHTML=chunks.map(chunk=>`<div class="shelf">${chunk.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]} ${i%5===0?'tall':''}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}<div style="margin-left:auto;font-size:28px">🕯️</div></div>`).join('');
+  let chunks = [];
+  for(let i=0; i<books.length; i+=8) chunks.push(books.slice(i, i+8));
+  if(!chunks.length) chunks = [[]];
+  document.getElementById('shelf').innerHTML = chunks.map(chunk => `<div class="shelf">${chunk.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`).join('');
 }
 
 function renderPal(){
-  const physical=state.books.filter(b=>b.status==='À lire'),wishes=state.palWishes.map(w=>({wish:true,...w})),all=[...physical,...wishes],pile=document.getElementById('palPile');
-  pile.innerHTML=all.length?all.slice(0,8).map((b,i)=>`<div class="pile-book" style="z-index:${20-i}" onclick="${b.wish?`toast('✨ ${esc(b.title)} est une envie.')`:`openBook('${b.id}')`}"><span>${esc(b.title)}</span></div>`).join(''):'<div class="muted">Ta table est vide. Pour le moment. 😏</div>';
-  document.getElementById('palList').innerHTML=all.length?`<h3 class="card-title">📚 Ce qui attend</h3><table><thead><tr><th>Livre</th><th>Origine</th><th>Action</th></tr></thead><tbody>${all.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${b.wish?'🔄 Envie de relecture/découverte':'🏠 Déjà dans ta bibliothèque'}</td><td>${b.wish?'<span class="tag">À programmer</span>':`<button class="primary" onclick="startBook('${b.id}')">📖 Commencer</button>`}</td></tr>`).join('')}</tbody></table>`:'<p class="muted">Aucun livre dans ta PAL.</p>';
+  const physical = state.books.filter(b=>b.status==='À lire');
+  document.getElementById('palPile').innerHTML = physical.length ? physical.slice(0,6).map((b,i)=>`<div class="pile-book" style="z-index:${20-i}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : '<div class="muted">Ta PAL est vide !</div>';
+  document.getElementById('palList').innerHTML = physical.length ? `<table><thead><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr></thead><tbody>${physical.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${esc(b.author||'')}</td><td><button class="primary" onclick="updateStatus('${b.id}','En cours')">📖 Commencer</button></td></tr>`).join('')}</tbody></table>` : '';
 }
 
 function renderCurrent(){
-  const el=document.getElementById('currentPanel'),b=currentBook(),r=currentRead();
-  if(!b){el.innerHTML='<div class="card"><p class="muted">Aucune lecture en cours.</p><button class="primary" onclick="showPageName(&quot;pal&quot;)">📋 Choisir un livre dans ma PAL</button></div>';return}
-  const ss=state.sessions.filter(s=>s.readId===r?.id),last=ss.at(-1),page=last?.endPage||1,total=b.pages||0,pct=total?Math.min(100,Math.round(page/total*100)):0,running=!!activeSession,totalTime=ss.reduce((a,s)=>a+s.duration,0)+(running?Math.floor((Date.now()-activeSession.startedAt)/1000):0);
+  const el = document.getElementById('currentPanel'), b = currentBook();
+  if(!b){el.innerHTML='<div class="card"><p class="muted">Aucune lecture en cours.</p></div>';return}
+  const running = !!activeSession;
   el.innerHTML=`<div class="card">
-    <div class="current-book">
-      <div class="book-cover" style="${renderCoverStyle(b)}">
-        ${!b.cover ? `<div style="font-size:32px">🌙</div><div class="cover-title">${esc(b.title)}</div><div class="cover-author">${esc(b.author||'')}</div>` : ''}
-      </div>
-      <div>
-        <div class="muted">${r?.number||1}ème lecture · commencée ${dateFr(r?.start)}</div>
-        <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
-        <div class="session-time" style="font-size:28px">${pct}%</div>
-        <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
-        <div class="muted">Page ${page} / ${total||'?'}</div>
-        <div class="session-time" id="liveTimer">${running?formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000)):'00:00:00'}</div>
-        <div class="muted">Session en cours</div><br>
-        ${running?`<button class="secondary" onclick="pauseSession()">⏸️ Pause</button> <button class="gold" onclick="openFinish()">✓ Finir la session</button>`:`<button class="primary" onclick="startSession()">▶️ Démarrer la lecture</button>`}
-        <button class="secondary" onclick="openStatus('${b.id}')">⚙️ Statut</button>
-        <button class="secondary" onclick="openEdit('${b.id}')">✏️ Modifier</button><br><br>
-        <div class="muted">Temps total sur cette lecture : <strong>${durationHuman(totalTime)}</strong> · ${ss.length} session(s)</div>
-      </div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:18px"><h3 class="card-title">🕯️ Historique de cette lecture</h3>${renderSessionHistory(r?.id)}</div>`;
-}
-
-function renderSessionHistory(id){
-  const ss=state.sessions.filter(s=>s.readId===id);
-  if(!ss.length)return '<p class="muted">Aucune session enregistrée.</p>';
-  return ss.map((s,i)=>`<div class="session-row"><div><strong>Session ${i+1}</strong><br><span class="muted">${new Date(s.startedAt).toLocaleDateString('fr-FR')}</span></div><div>Page ${s.startPage||'?'} → ${s.endPage||'?'}</div><div>${Math.max(0,(s.endPage||0)-(s.startPage||0))||'—'} pages</div><div>${durationHuman(s.duration)}</div><div>${esc(s.note||'')}</div></div>`).join('');
+    <h2 style="font-family:Cinzel">${esc(b.title)}</h2>
+    <div class="session-time" id="liveTimer">${running ? formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000)) : '00:00:00'}</div>
+    ${running ? `<button class="gold" onclick="openFinish()">✓ Finir la session</button>` : `<button class="primary" onclick="startSession()">▶️ Démarrer la session</button>`}
+    <button class="secondary" onclick="openStatus('${b.id}')">⚙️ Changer le statut</button>
+  </div>`;
 }
 
 function startSession(){
-  if(activeSession)return;
-  const b=currentBook(),r=currentRead();
-  if(!b||!r)return;
-  const ss=state.sessions.filter(s=>s.readId===r.id),last=ss.at(-1);
-  activeSession={id:'s'+Date.now(),readId:r.id,bookId:b.id,startedAt:Date.now(),startPage:last?.endPage||1};
-  toast('📖 Session démarrée');
+  const b = currentBook(); if(!b) return;
+  activeSession = { id: 's'+Date.now(), bookId: b.id, startedAt: Date.now(), startPage: 1 };
   renderCurrent();
-  timer=setInterval(()=>{const e=document.getElementById('liveTimer');if(e)e.textContent=formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000))},1000);
-}
-
-function pauseSession(){
-  if(!activeSession)return;
-  const elapsed=Math.floor((Date.now()-activeSession.startedAt)/1000);
-  state.sessions.push({...activeSession,duration:elapsed,paused:true,endPage:activeSession.startPage});
-  save();activeSession=null;clearInterval(timer);
-  toast(`⏸️ Pause — ${durationHuman(elapsed)}`);
-  render();
+  timer = setInterval(()=>{
+    const e = document.getElementById('liveTimer');
+    if(e) e.textContent = formatTime(Math.floor((Date.now()-activeSession.startedAt)/1000));
+  }, 1000);
 }
 
 function openFinish(){
-  if(!activeSession)return;
-  document.getElementById('sessionStartPage').value=activeSession.startPage||1;
-  document.getElementById('sessionEndPage').value=activeSession.startPage||1;
-  document.getElementById('sessionNote').value='';
+  if(!activeSession) return;
+  document.getElementById('sessionStartPage').value = 1;
+  document.getElementById('sessionEndPage').value = 1;
   document.getElementById('finishModal').classList.add('show');
 }
 
-function saveFinishedSession(){
-  if(!activeSession)return;
-  const end=Number(document.getElementById('sessionEndPage').value)||activeSession.startPage,elapsed=Math.floor((Date.now()-activeSession.startedAt)/1000);
-  state.sessions.push({...activeSession,duration:elapsed,startPage:activeSession.startPage,endPage:end,note:document.getElementById('sessionNote').value.trim(),paused:false});
-  const b=getBook(activeSession.bookId);if(b)b.currentPage=end;
-  save();activeSession=null;clearInterval(timer);
-  closeModal('finishModal');
-  toast(`✓ Session enregistrée — ${durationHuman(elapsed)}`);
-  render();
-}
+async function saveFinishedSession(){
+  if(!activeSession) return;
+  const elapsed = Math.floor((Date.now()-activeSession.startedAt)/1000);
+  const endPage = Number(document.getElementById('sessionEndPage').value) || 1;
+  const startPage = Number(document.getElementById('sessionStartPage').value) || 1;
+  const note = document.getElementById('sessionNote').value.trim();
 
-function startBook(id){
-  const b=getBook(id);if(!b)return;
-  state.books.forEach(x=>{if(x.id!==id&&x.status==='En cours')x.status='À lire'});
-  b.status='En cours';b.totalReads=(b.totalReads||0)+1;
-  const r={id:'r'+Date.now(),bookId:id,number:b.totalReads,start:new Date().toISOString().slice(0,10),end:null,status:'En cours',rating:null};
-  state.reads.push(r);b.currentReadId=r.id;
-  state.palWishes=state.palWishes.filter(w=>w.bookId!==id);
-  save();toast(`📖 ${b.title} — ${r.number}ème lecture`);
-  closeModal('statusModal');showPageName('current');
+  const payload = {
+    action: "ADD_SESSION",
+    id: activeSession.id,
+    readId: activeSession.bookId,
+    startPage: startPage,
+    endPage: endPage,
+    duration: elapsed,
+    note: note
+  };
+
+  activeSession = null; clearInterval(timer); closeModal('finishModal');
+  toast('⏳ Enregistrement de la session dans Google Sheets...');
+  await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+  toast('✅ Session enregistrée !');
+  loadFromSheets();
 }
 
 function openStatus(id){
-  const b=getBook(id);
-  document.getElementById('statusModalBody').innerHTML=`<h3 style="font-family:Cinzel">${esc(b.title)}</h3><p class="muted">Modifier le statut de ce livre :</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="primary" onclick="startBook('${id}')">📖 Commencer la lecture</button><button class="secondary" onclick="changeStatus('${id}','À lire')">📋 Mettre dans la PAL</button><button class="gold" onclick="finishBook('${id}')">✓ Marquer terminé</button><button class="danger" onclick="openLoanFor('${id}')">📬 Prêter</button></div>`;
+  const b = getBook(id);
+  document.getElementById('statusModalBody').innerHTML = `
+    <button class="primary" onclick="updateStatus('${id}','En cours')">📖 En cours</button>
+    <button class="gold" onclick="updateStatus('${id}','Terminé')">✓ Terminé</button>
+    <button class="danger" onclick="openAbandonModal('${id}')">🚫 Abandonner</button>`;
   document.getElementById('statusModal').classList.add('show');
 }
 
-function changeStatus(id,s){
-  const b=getBook(id);b.status=s;if(s!=='En cours')b.currentReadId=null;
-  save();closeModal('statusModal');toast(`Statut : ${s}`);render();
+function openAbandonModal(id){
+  pendingAbandonBookId = id;
+  closeModal('statusModal');
+  document.getElementById('abandonReason').value = '';
+  document.getElementById('abandonModal').classList.add('show');
 }
 
-function finishBook(id){
-  const b=getBook(id);if(b.status!=='En cours')startBook(id);
-  const r=currentRead();if(r&&r.bookId===id){r.status='Terminée';r.end=new Date().toISOString().slice(0,10);b.status='Terminé';b.currentReadId=null}
-  save();closeModal('statusModal');toast('✓ Livre terminé');render();
+async function confirmAbandon(){
+  if(!pendingAbandonBookId) return;
+  const reason = document.getElementById('abandonReason').value.trim();
+  await updateStatus(pendingAbandonBookId, 'Abandonné', reason);
+  closeModal('abandonModal');
+  pendingAbandonBookId = null;
+}
+
+async function updateStatus(id, newStatus, reason = ""){
+  closeModal('statusModal');
+  toast('⏳ Synchronisation du statut...');
+  await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: "UPDATE_STATUS", id: id, status: newStatus, abandonReason: reason })
+  });
+  toast('✅ Statut mis à jour !');
+  loadFromSheets();
 }
 
 function openBook(id){
-  const b=getBook(id),reads=state.reads.filter(r=>r.bookId===id),ss=state.sessions.filter(s=>s.bookId===id),time=ss.reduce((a,s)=>a+s.duration,0);
-  document.getElementById('modalBookTitle').textContent=b.title;
-  document.getElementById('modalBookAuthor').textContent=b.author||'';
-  document.getElementById('modalBookBody').innerHTML=`
-  <div class="grid grid-4">
-   <div class="card stat"><div class="stat-number">${b.totalReads||0}</div><div class="stat-label">Lecture(s)</div></div>
-   <div class="card stat"><div class="stat-number">${durationHuman(time)}</div><div class="stat-label">Temps total</div></div>
-   <div class="card stat"><div class="stat-number">${ss.length}</div><div class="stat-label">Sessions</div></div>
-   <div class="card stat"><div class="stat-number">${b.pages||'—'}</div><div class="stat-label">Pages</div></div>
-  </div>
-  <br>
-  <div class="card">
-   <div class="grid grid-2">
-    <div><strong>Genre / Format</strong><br><span class="muted">${esc(b.genre||'—')} · ${esc(b.format||'Poche')}</span></div>
-    <div><strong>Note</strong><br><span class="muted">${stars(b.rating)}</span></div>
-   </div>
-   <br>
-   <strong>Statut :</strong> <span class="status ${b.status==='Terminé'?'status-read':b.status==='En cours'?'status-current':b.status==='Prêté'?'status-loan':'status-pal'}">${b.status}</span>
-   ${b.favorite?' ❤️ Coup de cœur':''}
-   <br><br>
-   <button class="primary" onclick="openStatus('${id}');closeModal('bookModal')">⚙️ Statut</button>
-   <button class="secondary" onclick="openEdit('${id}');closeModal('bookModal')">✏️ Modifier</button>
-   <button class="danger" onclick="deleteBook('${id}')">🗑️ Supprimer</button>
-  </div>
-  <div class="card" style="margin-top:18px">
-   <h3 class="card-title">📖 Résumé</h3>
-   <p style="line-height:1.8;color:#d7cdd9">${esc(b.summary||'Aucun résumé renseigné.')}</p>
-  </div>
-  <div class="card" style="margin-top:18px">
-   <h3 class="card-title">💭 Mon avis</h3>
-   <p style="line-height:1.8;color:#d7cdd9">${esc(b.review||'Aucun avis rédigé.')}</p>
-  </div>
-  <div class="card" style="margin-top:18px">
-   <h3 class="card-title">📚 Historique des lectures</h3>
-   ${reads.length?reads.map(r=>{
-     const rs=state.sessions.filter(s=>s.readId===r.id),rt=rs.reduce((a,s)=>a+s.duration,0),rp=rs.reduce((a,s)=>a+Math.max(0,(s.endPage||0)-(s.startPage||0)),0);
-     return `<div style="padding:15px 0;border-bottom:1px solid #fff1">
-       <strong>${r.number}ème lecture</strong> · ${dateFr(r.start)} → ${dateFr(r.end)} · ${r.status} · ${stars(r.rating)}
-       <br><span class="muted">${rs.length} session(s) · ${durationHuman(rt)} · ${rp} page(s) suivie(s)</span>
-     </div>`;
-   }).join(''):'<p class="muted">Aucune lecture enregistrée.</p>'}
-  </div>`;
+  const b = getBook(id);
+  document.getElementById('modalBookTitle').textContent = b.title;
+  document.getElementById('modalBookAuthor').textContent = b.author || '';
+  document.getElementById('modalBookBody').innerHTML = `
+    <p><strong>Statut :</strong> ${b.status}</p>
+    <p><strong>Format :</strong> ${b.format || '—'} | <strong>Genre :</strong> ${b.genre || '—'}</p>
+    ${b.status === 'Abandonné' ? `<p style="color:#d99a9a;"><strong>Motif d'abandon :</strong> ${esc(b.abandonReason)}</p>` : ''}
+    <p><strong>Résumé :</strong> ${esc(b.summary || 'Aucun résumé.')}</p>
+    <button class="primary" onclick="openStatus('${id}');closeModal('bookModal')">⚙️ Modifier le statut</button>`;
   document.getElementById('bookModal').classList.add('show');
 }
 
-function openEdit(id){
-  const b=getBook(id);
-  document.getElementById('editModalBody').innerHTML=`
-  <div class="grid grid-2">
-    <div><label>Titre</label><input id="editTitle" value="${esc(b.title)}"></div>
-    <div><label>Auteur</label><input id="editAuthor" value="${esc(b.author||'')}"></div>
-    <div><label>Format</label><input id="editFormat" value="${esc(b.format||'Poche')}"></div>
-    <div><label>Genre</label><input id="editGenre" value="${esc(b.genre||'')}"></div>
-    <div><label>Nombre de pages</label><input id="editPages" type="number" value="${b.pages||''}"></div>
-    <div><label>Note (0 à 5)</label><input id="editRating" type="number" step="0.5" min="0" max="5" value="${b.rating||''}"></div>
-    <div><label>Coup de cœur</label><select id="editFavorite"><option value="no" ${!b.favorite?'selected':''}>Non</option><option value="yes" ${b.favorite?'selected':''}>Oui ❤️</option></select></div>
-    <div style="grid-column:1/-1"><label>URL Couverture</label><input id="editCover" value="${esc(b.cover||'')}"></div>
-    <div style="grid-column:1/-1"><label>Résumé</label><textarea id="editSummary">${esc(b.summary||'')}</textarea></div>
-    <div style="grid-column:1/-1"><label>Mon avis</label><textarea id="editReview">${esc(b.review||'')}</textarea></div>
-  </div><br>
-  <button class="primary" onclick="saveEdit('${id}')">💾 Enregistrer</button>`;
-  document.getElementById('editModal').classList.add('show');
-}
-
-function saveEdit(id){
-  const b=getBook(id);if(!b)return;
-  b.title=document.getElementById('editTitle').value.trim()||b.title;
-  b.author=document.getElementById('editAuthor').value.trim();
-  b.format=document.getElementById('editFormat').value.trim();
-  b.genre=document.getElementById('editGenre').value.trim();
-  b.pages=Number(document.getElementById('editPages').value)||null;
-  b.rating=Number(document.getElementById('editRating').value)||null;
-  b.favorite=document.getElementById('editFavorite').value==='yes';
-  b.cover=document.getElementById('editCover').value.trim();
-  b.summary=document.getElementById('editSummary').value.trim();
-  b.review=document.getElementById('editReview').value.trim();
-  save();closeModal('editModal');toast('💾 Modifications enregistrées');render();
-}
-
-function deleteBook(id){
-  if(!confirm('Es-tu sûr de vouloir supprimer ce livre et tout son historique ?'))return;
-  state.books=state.books.filter(b=>b.id!==id);
-  state.reads=state.reads.filter(r=>r.bookId!==id);
-  state.sessions=state.sessions.filter(s=>s.bookId!==id);
-  state.palWishes=state.palWishes.filter(w=>w.bookId!==id);
-  save();closeModal('bookModal');toast('🗑️ Livre supprimé');render();
-}
-
 function renderFavorites(){
-  const a=state.books.filter(b=>b.favorite);
-  document.getElementById('favoritesGrid').innerHTML=a.length?a.map(b=>`<div class="card"><div style="font-size:35px">📕</div><h3>${esc(b.title)}</h3><div>${stars(b.rating)}</div><p class="muted">${esc(b.author||'')}</p><button class="secondary" onclick="openBook('${b.id}')">Voir la fiche</button></div>`).join(''):'<div class="card"><p class="muted">Tes futurs coups de cœur apparaîtront ici.</p></div>';
+  const a = state.books.filter(b=>b.favorite);
+  document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur pour l\'instant.</p></div>';
+}
+
+function renderStats(){
+  document.getElementById('statsDetail').innerHTML = state.books.map(b => `<div><strong>${esc(b.title)}</strong> — Status: ${b.status}</div>`).join('');
 }
 
 async function addBook() {
   const title = document.getElementById('newTitle').value.trim();
   if(!title){ toast('📕 Il faut un titre.'); return; }
 
-  const read = document.getElementById('newAlreadyRead').value === 'yes';
-  const fav = document.getElementById('newFavorite').value === 'yes';
-
   const newBook = {
+    action: "ADD_BOOK",
     id: 'b' + Date.now(),
     title: title,
     author: document.getElementById('newAuthor').value.trim(),
     format: document.getElementById('newFormat').value,
     genre: document.getElementById('newGenre').value,
     pages: Number(document.getElementById('newPages').value) || null,
-    cover: document.getElementById('newCover').value.trim(),
     summary: document.getElementById('newSummary').value.trim(),
-    status: read ? 'Terminé' : 'À lire',
-    favorite: fav,
-    alreadyRead: read
+    status: document.getElementById('newAlreadyRead').value === 'yes' ? 'Terminé' : 'À lire',
+    favorite: document.getElementById('newFavorite').value === 'yes'
   };
 
-  state.books.push({
-    ...newBook,
-    rating: null,
-    review: '',
-    totalReads: read ? 1 : 0
-  });
-
-  if(read) {
-    state.reads.push({
-      id: 'r' + Date.now(),
-      bookId: newBook.id,
-      number: 1,
-      start: null,
-      end: null,
-      status: 'Historique importé',
-      rating: null
-    });
-  }
-
-  save();
-  render();
-
+  toast('⏳ Ajout dans ton Google Sheet...');
+  await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newBook) });
+  toast('✅ Livre enregistré !');
+  
   document.getElementById('newTitle').value = '';
   document.getElementById('newAuthor').value = '';
   document.getElementById('newSummary').value = '';
-  document.getElementById('newCover').value = '';
-  document.getElementById('newPages').value = '';
-
-  try {
-    toast('⏳ Synchro avec Google Sheets...');
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newBook)
-    });
-    toast('✅ Livre ajouté en local et dans Google Sheets !');
-  } catch(err) {
-    toast('⚠️ Enregistré en local (erreur réseau Sheet).');
-    console.error(err);
-  }
+  loadFromSheets();
 }
 
-function openPalAdd(){
-  document.getElementById('palExisting').innerHTML=state.books.map(b=>`<option value="${b.id}">${esc(b.title)}</option>`).join('');
-  document.getElementById('palAddModal').classList.add('show');
-}
-
-function addExistingToPal(){
-  const id=document.getElementById('palExisting').value,b=getBook(id);
-  if(!b)return;
-  if(b.status==='En cours'){toast('📖 Ce livre est déjà en cours de lecture.');return}
-  if(!state.palWishes.some(w=>w.bookId===id)){state.palWishes.push({id:'w'+Date.now(),bookId:id,title:b.title,reason:'Envie de relecture'})}
-  b.status='À lire';save();closeModal('palAddModal');
-  toast(`📋 ${b.title} rejoint ta PAL.`);render();
-}
-
-function addNewPalBook(){
-  const title=document.getElementById('palNewTitle').value.trim();
-  if(!title){toast('📕 Il faut un titre.');return}
-  state.palWishes.push({id:'w'+Date.now(),title,author:document.getElementById('palNewAuthor').value.trim(),reason:'Envie / achat futur'});
-  save();closeModal('palAddModal');
-  document.getElementById('palNewTitle').value='';document.getElementById('palNewAuthor').value='';
-  toast(`📋 ${title} rejoint ta pile à lire.`);render();
-}
-
-function openLoanModal(bookId){
-  const sel=document.getElementById('loanBook');
-  sel.innerHTML=state.books.filter(b=>b.status!=='Prêté').map(b=>`<option value="${b.id}">${esc(b.title)}</option>`).join('');
-  if(bookId)sel.value=bookId;
-  document.getElementById('loanDate').value=new Date().toISOString().slice(0,10);
-  document.getElementById('loanPerson').value='';
-  document.getElementById('loanDue').value='';
-  document.getElementById('loanModal').classList.add('show');
-}
-
-function openLoanFor(id){closeModal('statusModal');openLoanModal(id)}
-
-function saveLoan(){
-  const id=document.getElementById('loanBook').value,p=document.getElementById('loanPerson').value.trim();
-  if(!id||!p){toast('📬 Choisis un livre et une personne.');return}
-  const b=getBook(id);b.status='Prêté';
-  state.loans.push({id:'l'+Date.now(),bookId:id,person:p,date:document.getElementById('loanDate').value,due:document.getElementById('loanDue').value,returned:null});
-  save();closeModal('loanModal');toast(`📬 ${b.title} prêté à ${p}`);render();
-}
-
-function returnLoan(id){
-  const l=state.loans.find(x=>x.id===id);l.returned=new Date().toISOString().slice(0,10);
-  const b=getBook(l.bookId);if(b)b.status='À lire';
-  save();toast(`↩️ ${b.title} est revenu`);render();
-}
-
-function renderLoans(){
-  const a=state.loans,el=document.getElementById('loanTable');
-  if(!a.length){el.innerHTML='<p class="muted">Aucun prêt enregistré.</p>';return}
-  el.innerHTML=`<table><thead><tr><th>Livre</th><th>À</th><th>Départ</th><th>Retour prévu</th><th>État</th><th></th></tr></thead><tbody>${a.map(l=>{const b=getBook(l.bookId);return`<tr><td><strong>${esc(b?.title||'Livre')}</strong></td><td>${esc(l.person)}</td><td>${dateFr(l.date)}</td><td>${dateFr(l.due)}</td><td>${l.returned?'↩️ Rendu le '+dateFr(l.returned):'<span class="status status-loan">📬 Chez '+esc(l.person)+'</span>'}</td><td>${l.returned?'':`<button class="secondary" onclick="returnLoan('${l.id}')">↩️ Rendu</button>`}</td></tr>`}).join('')}</tbody></table>`;
-}
-
-function renderStats(){
-  document.getElementById('statsDetail').innerHTML=state.books.map(b=>{const ss=state.sessions.filter(s=>s.bookId===b.id),time=ss.reduce((a,s)=>a+s.duration,0),pages=ss.reduce((a,s)=>a+Math.max(0,(s.endPage||0)-(s.startPage||0)),0);return`<div style="padding:14px 0;border-bottom:1px solid #fff1"><strong>${esc(b.title)}</strong> · ${b.totalReads||0} lecture(s) · ${ss.length} session(s) · ${durationHuman(time)} · ${pages} pages suivies</div>`}).join('');
-}
-
-function exportData(){
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", `ma_bibliotheque_${new Date().toISOString().slice(0,10)}.json`);
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-  toast('💾 Sauvegarde téléchargée !');
-}
-
-function importData(event){
-  const reader = new FileReader();
-  reader.onload = function(e){
-    try {
-      const imported = JSON.parse(e.target.result);
-      if(imported && imported.books){
-        state = imported;
-        normalizeBooks();
-        save();
-        render();
-        toast('📂 Données importées avec succès !');
-      } else {
-        toast('⚠️ Fichier JSON invalide.');
-      }
-    } catch(err) {
-      toast('⚠️ Erreur lors de l\'importation.');
-    }
-  };
-  if(event.target.files[0]) reader.readAsText(event.target.files[0]);
-}
-
-function normalizeBooks(){
-  state.books.forEach(b=>{
-    if(b.summary===undefined)b.summary='';
-    if(b.review===undefined)b.review='';
-    if(b.cover===undefined)b.cover='';
-    if(b.format===undefined)b.format='Poche';
-  });
-  if(!state.palWishes)state.palWishes=[];
-}
-
-normalizeBooks();
-render();
+// Premier chargement des données au lancement
+loadFromSheets();
 </script>
 </body>
 </html>
