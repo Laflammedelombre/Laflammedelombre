@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17121d">
-<title>*** La Bibliothèque de Jimmy-Lee ***</title>
+<title>La Bibliothèque de Jimmy-Lee</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
@@ -14,9 +14,11 @@
 .card{background:linear-gradient(145deg,#37283dd9,#1c1520e6);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:24px}.card-title{font:17px Cinzel;color:var(--gold2);margin:0 0 18px}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
 .hero{min-height:250px;border-radius:18px;padding:42px;background:radial-gradient(circle at 80% 40%,#c9a96e1f,transparent 30%),linear-gradient(120deg,#37283df2,#18121df5);border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h2{font:500 36px Cinzel;margin:0 0 8px}.quote{font:italic 17px Georgia,serif;line-height:1.7;color:#e5d7bd;max-width:800px}.stat{text-align:center}.stat-number{font:28px Cinzel;color:var(--gold2)}.stat-label{color:var(--muted);font-size:11px;margin-top:5px}
 
+/* Style de la bibliothèque et des étagères */
 .bookshelf{margin-top:22px;padding:35px 25px 25px;background:linear-gradient(90deg,#251914,#39271c 50%,#241811);border:10px solid #21150f;border-radius:8px;box-shadow:inset 0 0 30px #0008,0 20px 50px #0008;overflow:auto}.shelf{min-height:150px;display:flex;align-items:flex-end;gap:9px;padding:10px 15px 12px;border-bottom:13px solid #60422c;box-shadow:0 7px 10px #0006;margin-bottom:35px;min-width:680px}
+.shelf-title{font:12px Cinzel;color:var(--gold2);text-transform:uppercase;letter-spacing:2px;margin:25px 0 10px;padding:6px 12px;background:#0004;border-left:3px solid var(--gold);display:inline-block;border-radius:0 6px 6px 0}
 .book{width:48px;height:115px;border-radius:3px 6px 4px 2px;border:1px solid #fff2;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset -6px 0 8px #0004,3px 4px 8px #0007;transition:.25s;position:relative}.book:hover{transform:translateY(-12px) rotate(-1deg);box-shadow:0 15px 25px #0009}.book span{font:9px Cinzel;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;max-height:100px}
-.gold{background:linear-gradient(90deg,#735432,#b28a4d,#664925)}.purple{background:linear-gradient(90deg,#47304f,#806093,#3d2944)}.green{background:linear-gradient(90deg,#31473b,#607f6c,#293c32)}.red{background:linear-gradient(90deg,#4e2929,#885252,#432323)}
+.gold{background:linear-gradient(90deg,#735432,#b28a4d,#664925)}.purple{background:linear-gradient(90deg,#47304f,#806093,#3d2944)}.green{background:linear-gradient(90deg,#31473b,#607f6c,#293c32)}.red{background:linear-gradient(90deg,#4e2929,#885252,#432323)}.loaned-book{opacity:0.85;border-style:dashed}
 
 .pal-room{margin-top:22px;min-height:600px;padding:34px;background:linear-gradient(145deg,#3b271b,#21150f);border:12px solid #24170f;border-radius:10px;box-shadow:inset 0 0 45px #0009,0 20px 50px #0008;position:relative;overflow:hidden}.table-edge{position:absolute;left:0;right:0;bottom:0;height:55px;background:linear-gradient(#4b2d1b,#2c180f);border-top:8px solid #69452a}.pile{position:relative;min-height:470px;display:flex;align-items:center;justify-content:center}.pile-book{position:absolute;width:230px;height:54px;border-radius:5px 9px 7px 3px;display:flex;align-items:center;padding:0 18px;box-shadow:0 10px 20px #0008;border:1px solid #fff2;cursor:pointer;transition:.2s}.pile-book:hover{filter:brightness(1.08);box-shadow:0 12px 24px #0009}.pile-book span{font:13px Cinzel;color:#f4e5c4}.pile-book:nth-child(1){transform:rotate(-8deg) translate(-20px,-120px);background:linear-gradient(90deg,#47304f,#806093)}.pile-book:nth-child(2){transform:rotate(6deg) translate(20px,-60px);background:linear-gradient(90deg,#31473b,#607f6c)}.pile-book:nth-child(3){transform:rotate(-3deg) translate(-5px,5px);background:linear-gradient(90deg,#704e31,#b28a4d)}.pile-book:nth-child(4){transform:rotate(8deg) translate(20px,70px);background:linear-gradient(90deg,#4e2929,#885252)}.pile-book:nth-child(5){transform:rotate(-5deg) translate(-25px,135px);background:linear-gradient(90deg,#3e2a49,#6f4b7e)}.pile-book:nth-child(n+6){display:none}
 
@@ -258,13 +260,32 @@ function renderShelf(){
     books = books.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
   }
   
-  let chunks = [];
-  for(let i=0; i<books.length; i+=8) chunks.push(books.slice(i, i+8));
-  if(!chunks.length) chunks = [[]];
-  
-  document.getElementById('shelf').innerHTML = chunks.map(chunk => 
+  // Séparation entre livres physiques (non prêtés) et livres prêtés
+  const ownBooks = books.filter(b => b.status !== 'Prêté');
+  const loanedBooks = books.filter(b => b.status === 'Prêté');
+
+  // Découpage étagères principales
+  let mainChunks = [];
+  for(let i=0; i<ownBooks.length; i+=8) mainChunks.push(ownBooks.slice(i, i+8));
+  if(!mainChunks.length) mainChunks = [[]];
+
+  let html = mainChunks.map(chunk => 
     `<div class="shelf">${chunk.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`
   ).join('');
+
+  // Ajout de la section / étagère dédiée aux livres prêtés
+  if(loanedBooks.length > 0 || currentFilter === 'Tous' || currentFilter === 'Prêté'){
+    html += `<div class="shelf-title">📬 Livres prêtés (${loanedBooks.length})</div>`;
+    let loanChunks = [];
+    for(let i=0; i<loanedBooks.length; i+=8) loanChunks.push(loanedBooks.slice(i, i+8));
+    if(!loanChunks.length) loanChunks = [[]];
+
+    html += loanChunks.map(chunk => 
+      `<div class="shelf">${chunk.length ? chunk.map((b,i)=>`<div class="book loaned-book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : '<div class="muted" style="padding:10px;font-size:12px">Aucun livre actuellement prêté.</div>'}</div>`
+    ).join('');
+  }
+
+  document.getElementById('shelf').innerHTML = html;
 }
 
 function renderPal(){
