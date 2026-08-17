@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17121d">
-<title>Ma Bibliothèque — 100% Google Sheets</title>
+<title>Ma Bibliothèque</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 :root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
@@ -173,7 +173,7 @@ async function loadFromSheets() {
     render();
   } catch(err) {
     toast('⚠️ Erreur lors du chargement.');
-    console.error(err);
+    console.error('Erreur loadFromSheets:', err);
   }
 }
 
@@ -265,10 +265,18 @@ async function saveFinishedSession(){
   };
 
   activeSession = null; clearInterval(timer); closeModal('finishModal');
-  toast('⏳ Enregistrement de la session dans Google Sheets...');
-  await fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-  toast('✅ Session enregistrée !');
-  setTimeout(loadFromSheets, 1500);
+  toast('⏳ Enregistrement de la session...');
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    toast('✅ Session enregistrée !');
+    setTimeout(loadFromSheets, 1500);
+  } catch(err) {
+    console.error('Erreur saveFinishedSession:', err);
+    toast('⚠️ Erreur lors de l\'enregistrement de la session.');
+  }
 }
 
 function openStatus(id){
@@ -298,14 +306,17 @@ async function confirmAbandon(){
 async function updateStatus(id, newStatus, reason = ""){
   closeModal('statusModal');
   toast('⏳ Synchronisation du statut...');
-  await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ action: "UPDATE_STATUS", id: id, status: newStatus, abandonReason: reason })
-  });
-  toast('✅ Statut mis à jour !');
-  setTimeout(loadFromSheets, 1500);
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: "UPDATE_STATUS", id: id, status: newStatus, abandonReason: reason })
+    });
+    toast('✅ Statut mis à jour !');
+    setTimeout(loadFromSheets, 1500);
+  } catch(err) {
+    console.error('Erreur updateStatus:', err);
+    toast('⚠️ Erreur lors de la mise à jour.');
+  }
 }
 
 function openBook(id){
@@ -349,21 +360,25 @@ async function addBook() {
   };
 
   toast('⏳ Ajout dans ton Google Sheet...');
-  await fetch(WEBHOOK_URL, { 
-    method: 'POST', 
-    mode: 'no-cors', 
-    headers: { 'Content-Type': 'application/json' }, 
-    body: JSON.stringify(newBook) 
-  });
   
-  toast('✅ Livre enregistré !');
-  
-  document.getElementById('newTitle').value = '';
-  document.getElementById('newAuthor').value = '';
-  document.getElementById('newSummary').value = '';
-  document.getElementById('newPages').value = '';
-  
-  setTimeout(loadFromSheets, 1500);
+  try {
+    await fetch(WEBHOOK_URL, { 
+      method: 'POST', 
+      body: JSON.stringify(newBook) 
+    });
+    
+    toast('✅ Livre enregistré !');
+    
+    document.getElementById('newTitle').value = '';
+    document.getElementById('newAuthor').value = '';
+    document.getElementById('newSummary').value = '';
+    document.getElementById('newPages').value = '';
+    
+    setTimeout(loadFromSheets, 1500);
+  } catch(err) {
+    console.error('Erreur addBook:', err);
+    toast('⚠️ Erreur réseau lors de l\'enregistrement.');
+  }
 }
 
 loadFromSheets();
