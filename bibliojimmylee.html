@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="esoteric">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
@@ -7,58 +7,95 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Ma Biblio">
-<title>La Bibliothèque de Jimmy-Lee</title>
+<title>Ma Bibliothèque</title>
 
-<!-- Icône PWA / iPhone App -->
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw0NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0iMyIgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU88L3RleHQ+Cjwvc3ZnPg==">
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw0NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0iMyIgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU88L3RleHQ+Cjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw0NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0i3IgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU88L3RleHQ+Cjwvc3ZnPg==">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-:root{--bg:#110e14;--panel:#211927;--panel2:#2b2031;--gold:#c9a96e;--gold2:#ead6a5;--purple:#8d6ba8;--text:#eee8ef;--muted:#aaa0ac;--border:rgba(201,169,110,.22);--shadow:0 15px 50px #0008}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,sans-serif;background:radial-gradient(circle at 20% 10%,#70498922,transparent 35%),radial-gradient(circle at 80% 20%,#c9a96e12,transparent 30%),linear-gradient(135deg,#0e0b11,#19131d 55%,#100c13);background-attachment:fixed}
 
-/* Overlay & Menu Mobile */
+/* VARIABLE DE THÈMES DYNAMIQUES */
+:root {
+  /* Thème par défaut: Ésotérique (Magic) */
+  --bg:#110e14; --panel:#211927; --panel2:#2b2031; --gold:#c9a96e; --gold2:#ead6a5; --purple:#8d6ba8; --text:#eee8ef; --muted:#aaa0ac; --border:rgba(201,169,110,.22); --shadow:0 15px 50px #0008;
+}
+
+html[data-theme="summer"] {
+  --bg:#0f2b26; --panel:#173e36; --panel2:#1f4f46; --gold:#f4a261; --gold2:#e9c46a; --purple:#2a9d8f; --text:#f4f1de; --muted:#a3b18a; --border:rgba(233,196,106,.3);
+}
+
+html[data-theme="summerween"] {
+  --bg:#1c131a; --panel:#2d1b28; --panel2:#3a2034; --gold:#ff8c38; --gold2:#f3c68f; --purple:#9c426e; --text:#f7ebf0; --muted:#ab8b9d; --border:rgba(255,140,56,.3);
+}
+
+html[data-theme="autumn"] {
+  --bg:#1c120c; --panel:#2e1c14; --panel2:#3d2419; --gold:#d4a373; --gold2:#f4a261; --purple:#bc6c25; --text:#fefae0; --muted:#b08968; --border:rgba(212,163,115,.3);
+}
+
+html[data-theme="halloween"] {
+  --bg:#0f0914; --panel:#1e0f2b; --panel2:#2b123d; --gold:#ff6b00; --gold2:#ffa200; --purple:#8000ff; --text:#f3e8ff; --muted:#a082b2; --border:rgba(255,107,0,.3);
+}
+
+html[data-theme="winter"] {
+  --bg:#0a1520; --panel:#132333; --panel2:#1c3144; --gold:#90e0ef; --gold2:#caf0f8; --purple:#0077b6; --text:#edf2f4; --muted:#8d99ae; --border:rgba(144,224,239,.3);
+}
+
+html[data-theme="xmas"] {
+  --bg:#0f1c15; --panel:#182e22; --panel2:#233d2e; --gold:#d4af37; --gold2:#f3e5ab; --purple:#a62626; --text:#f8f9fa; --muted:#8fbe9d; --border:rgba(212,175,55,.3);
+}
+
+html[data-theme="spring"] {
+  --bg:#131c15; --panel:#1d2e23; --panel2:#283f30; --gold:#a3b18a; --gold2:#e9edc9; --purple:#dda15e; --text:#f8f9fa; --muted:#94a896; --border:rgba(163,177,138,.3);
+}
+
+html[data-theme="easter"] {
+  --bg:#1a1520; --panel:#282033; --panel2:#362a45; --gold:#ffb7b2; --gold2:#ffdac1; --purple:#b5ead7; --text:#fef6ff; --muted:#b3a5c4; --border:rgba(255,183,178,.3);
+}
+
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,sans-serif;background:radial-gradient(circle at 20% 10%,var(--purple),transparent 35%),radial-gradient(circle at 80% 20%,var(--border),transparent 30%),linear-gradient(135deg,var(--bg),#100c13);background-attachment:fixed}
+
 .sidebar-overlay{position:fixed;inset:0;background:#0008;backdrop-filter:blur(4px);z-index:19;display:none;opacity:0;transition:.3s}
 .sidebar-overlay.active{display:block;opacity:1}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;padding:28px 18px;background:#160f1bf5;border-right:1px solid var(--border);box-shadow:10px 0 40px #0005;z-index:20;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s ease}.logo{text-align:center;margin-bottom:30px}.logo-symbol{font-size:36px}.logo h1{font:500 18px Cinzel;margin:4px 0;letter-spacing:2px}.logo p{color:#766b78;font-size:10px;letter-spacing:2px}.menu-title{color:#766b78;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin:20px 12px 8px}.nav-btn{width:100%;border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 14px;margin:2px 0;border-radius:9px;cursor:pointer;font-size:13px}.nav-btn:hover{background:#8d6ba81f;color:var(--text)}.nav-btn.active{background:linear-gradient(90deg,#8d6ba838,#8d6ba80d);color:var(--gold2);border-left:2px solid var(--gold)}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;padding:28px 18px;background:var(--panel);border-right:1px solid var(--border);box-shadow:10px 0 40px #0005;z-index:20;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s ease}.logo{text-align:center;margin-bottom:30px}.logo-symbol{font-size:36px}.logo h1{font:500 18px Cinzel;margin:4px 0;letter-spacing:2px}.logo p{color:var(--muted);font-size:10px;letter-spacing:2px}.menu-title{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:2px;margin:20px 12px 8px}.nav-btn{width:100%;border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 14px;margin:2px 0;border-radius:9px;cursor:pointer;font-size:13px}.nav-btn:hover{background:#ffffff0f;color:var(--text)}.nav-btn.active{background:linear-gradient(90deg,var(--border),#0000);color:var(--gold2);border-left:2px solid var(--gold)}
 
 .main{margin-left:250px;padding:35px;max-width:1500px}.page{display:none;animation:fade .25s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.page-header{margin-bottom:26px}.page-header h2{font:500 30px Cinzel;margin:0 0 7px}.page-header p{color:var(--muted);margin:0}
-.card{background:linear-gradient(145deg,#37283dd9,#1c1520e6);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:24px}.card-title{font:17px Cinzel;color:var(--gold2);margin:0 0 18px}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
-.hero{min-height:250px;border-radius:18px;padding:42px;background:radial-gradient(circle at 80% 40%,#c9a96e1f,transparent 30%),linear-gradient(120deg,#37283df2,#18121df5);border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h2{font:500 36px Cinzel;margin:0 0 8px}.quote{font:italic 17px Georgia,serif;line-height:1.7;color:#e5d7bd;max-width:800px}.stat{text-align:center}.stat-number{font:28px Cinzel;color:var(--gold2)}.stat-label{color:var(--muted);font-size:11px;margin-top:5px}
+.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:24px}.card-title{font:17px Cinzel;color:var(--gold2);margin:0 0 18px}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
+.hero{min-height:220px;border-radius:18px;padding:35px;background:radial-gradient(circle at 80% 40%,var(--border),transparent 30%),linear-gradient(120deg,var(--panel),var(--panel2));border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h2{font:500 36px Cinzel;margin:0 0 8px}.quote{font:italic 16px Georgia,serif;line-height:1.7;color:var(--gold2);max-width:800px}.stat{text-align:center}.stat-number{font:28px Cinzel;color:var(--gold2)}.stat-label{color:var(--muted);font-size:11px;margin-top:5px}
 
-.bookshelf{margin-top:22px;padding:35px 25px 25px;background:linear-gradient(90deg,#251914,#39271c 50%,#241811);border:10px solid #21150f;border-radius:8px;box-shadow:inset 0 0 30px #0008,0 20px 50px #0008;overflow:auto}.shelf{min-height:150px;display:flex;align-items:flex-end;gap:9px;padding:10px 15px 12px;border-bottom:13px solid #60422c;box-shadow:0 7px 10px #0006;margin-bottom:35px;min-width:680px}
+/* ÉTAGÈRES SANS SCROLL HORIZONTAL (ADAPTATIVES) */
+.bookshelf{margin-top:22px;padding:30px 20px 20px;background:linear-gradient(90deg,#251914,#39271c 50%,#241811);border:10px solid #21150f;border-radius:8px;box-shadow:inset 0 0 30px #0008,0 20px 50px #0008}
+.shelf{min-height:140px;display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px;padding:10px 15px 12px;border-bottom:13px solid #60422c;box-shadow:0 7px 10px #0006;margin-bottom:30px}
 .shelf-title{font:12px Cinzel;color:var(--gold2);text-transform:uppercase;letter-spacing:2px;margin:25px 0 10px;padding:6px 12px;background:#0004;border-left:3px solid var(--gold);display:inline-block;border-radius:0 6px 6px 0}
-.book{width:48px;height:115px;border-radius:3px 6px 4px 2px;border:1px solid #fff2;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset -6px 0 8px #0004,3px 4px 8px #0007;transition:.25s;position:relative}.book:hover{transform:translateY(-12px) rotate(-1deg);box-shadow:0 15px 25px #0009}.book span{font:9px Cinzel;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;max-height:100px}
+.book{width:46px;height:115px;border-radius:3px 6px 4px 2px;border:1px solid #fff2;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset -6px 0 8px #0004,3px 4px 8px #0007;transition:.25s;position:relative}.book:hover{transform:translateY(-12px) rotate(-1deg);box-shadow:0 15px 25px #0009}.book span{font:9px Cinzel;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;max-height:100px}
 .gold{background:linear-gradient(90deg,#735432,#b28a4d,#664925)}.purple{background:linear-gradient(90deg,#47304f,#806093,#3d2944)}.green{background:linear-gradient(90deg,#31473b,#607f6c,#293c32)}.red{background:linear-gradient(90deg,#4e2929,#885252,#432323)}.loaned-book{opacity:0.85;border-style:dashed}
 
-.pal-room{margin-top:22px;min-height:600px;padding:34px;background:linear-gradient(145deg,#3b271b,#21150f);border:12px solid #24170f;border-radius:10px;box-shadow:inset 0 0 45px #0009,0 20px 50px #0008;position:relative;overflow:hidden}.table-edge{position:absolute;left:0;right:0;bottom:0;height:55px;background:linear-gradient(#4b2d1b,#2c180f);border-top:8px solid #69452a}.pile{position:relative;min-height:470px;display:flex;align-items:center;justify-content:center}.pile-book{position:absolute;width:230px;height:54px;border-radius:5px 9px 7px 3px;display:flex;align-items:center;padding:0 18px;box-shadow:0 10px 20px #0008;border:1px solid #fff2;cursor:pointer;transition:.2s}.pile-book:hover{filter:brightness(1.08);box-shadow:0 12px 24px #0009}.pile-book span{font:13px Cinzel;color:#f4e5c4}.pile-book:nth-child(1){transform:rotate(-8deg) translate(-20px,-120px);background:linear-gradient(90deg,#47304f,#806093)}.pile-book:nth-child(2){transform:rotate(6deg) translate(20px,-60px);background:linear-gradient(90deg,#31473b,#607f6c)}.pile-book:nth-child(3){transform:rotate(-3deg) translate(-5px,5px);background:linear-gradient(90deg,#704e31,#b28a4d)}.pile-book:nth-child(4){transform:rotate(8deg) translate(20px,70px);background:linear-gradient(90deg,#4e2929,#885252)}.pile-book:nth-child(5){transform:rotate(-5deg) translate(-25px,135px);background:linear-gradient(90deg,#3e2a49,#6f4b7e)}.pile-book:nth-child(n+6){display:none}
+.pal-room{margin-top:22px;padding:25px;background:linear-gradient(145deg,#3b271b,#21150f);border:12px solid #24170f;border-radius:10px;box-shadow:inset 0 0 45px #0009;position:relative;overflow:hidden}.table-edge{position:absolute;left:0;right:0;bottom:0;height:55px;background:linear-gradient(#4b2d1b,#2c180f);border-top:8px solid #69452a}.pile{position:relative;min-height:350px;display:flex;align-items:center;justify-content:center}.pile-book{position:absolute;width:220px;height:50px;border-radius:5px 9px 7px 3px;display:flex;align-items:center;padding:0 18px;box-shadow:0 10px 20px #0008;border:1px solid #fff2;cursor:pointer;transition:.2s}.pile-book:hover{filter:brightness(1.08)}.pile-book span{font:12px Cinzel;color:#f4e5c4}.pile-book:nth-child(1){transform:rotate(-8deg) translate(-20px,-90px);background:linear-gradient(90deg,#47304f,#806093)}.pile-book:nth-child(2){transform:rotate(6deg) translate(20px,-45px);background:linear-gradient(90deg,#31473b,#607f6c)}.pile-book:nth-child(3){transform:rotate(-3deg) translate(-5px,0px);background:linear-gradient(90deg,#704e31,#b28a4d)}.pile-book:nth-child(4){transform:rotate(8deg) translate(20px,45px);background:linear-gradient(90deg,#4e2929,#885252)}.pile-book:nth-child(5){transform:rotate(-5deg) translate(-25px,90px);background:linear-gradient(90deg,#3e2a49,#6f4b7e)}.pile-book:nth-child(n+6){display:none}
 
-.timer-display{font:45px Cinzel,monospace;color:var(--gold2);letter-spacing:2px;margin:15px 0;text-shadow:0 0 20px rgba(201,169,110,0.3)}
+.timer-display{font:45px Cinzel,monospace;color:var(--gold2);letter-spacing:2px;margin:15px 0}
 .progress-bar{width:100%;height:10px;border-radius:20px;background:#fff1;overflow:hidden;margin:12px 0}.progress{height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));border-radius:inherit;transition:width .3s}
 
-/* Optimisation des tableaux mobile */
 .table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:10px}
 table{width:100%;border-collapse:collapse;min-width:550px}
 th{text-align:left;color:var(--gold2);font:12px Cinzel;padding:12px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
 td{padding:12px 10px;border-bottom:1px solid #fff1;color:var(--muted);font-size:13px;white-space:nowrap}
 td strong{color:var(--text)}
 
-button{font-family:inherit}.primary,.gold,.secondary,.danger{padding:11px 18px;border-radius:8px;cursor:pointer}.primary{background:linear-gradient(135deg,#806092,#594067);border:1px solid #a586b7;color:white}.gold{background:linear-gradient(135deg,#a98550,#76552f);border:1px solid #c6a86f;color:white}.secondary{background:#fff0;border:1px solid var(--border);color:var(--text)}.danger{background:#9d62621f;border:1px solid #9d626266;color:#d99a9a}.primary:hover,.gold:hover,.secondary:hover,.danger:hover{transform:translateY(-1px)}
-label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,select,textarea{width:100%;background:#0004;border:1px solid #c9a96e2e;color:var(--text);border-radius:8px;padding:12px;font-family:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{min-height:120px;resize:vertical}
-.mobile-header{display:none}.toast{position:fixed;bottom:25px;right:25px;background:#29202f;border:1px solid var(--gold);padding:14px 20px;border-radius:9px;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.3s;z-index:100}.toast.show{transform:none;opacity:1}
-.modal-backdrop{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:80;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(820px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,#37283d,#19131e);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 30px 100px #000c}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.modal h3{font:22px Cinzel;margin:0;color:var(--gold2)}.close{border:0;background:none;color:var(--muted);font-size:25px;cursor:pointer}.muted{color:var(--muted)}
+button{font-family:inherit}.primary,.gold,.secondary,.danger{padding:11px 18px;border-radius:8px;cursor:pointer}.primary{background:linear-gradient(135deg,var(--purple),var(--panel2));border:1px solid var(--border);color:white}.gold{background:linear-gradient(135deg,var(--gold),var(--border));border:1px solid var(--gold2);color:white}.secondary{background:#fff0;border:1px solid var(--border);color:var(--text)}.danger{background:#9d62621f;border:1px solid #9d626266;color:#d99a9a}.primary:hover,.gold:hover,.secondary:hover,.danger:hover{transform:translateY(-1px)}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,select,textarea{width:100%;background:#0004;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:12px;font-family:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{min-height:110px;resize:vertical}
+.mobile-header{display:none}.toast{position:fixed;bottom:25px;right:25px;background:var(--panel);border:1px solid var(--gold);padding:14px 20px;border-radius:9px;box-shadow:var(--shadow);transform:translateY(100px);opacity:0;transition:.3s;z-index:100}.toast.show{transform:none;opacity:1}
+.modal-backdrop{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:80;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(820px,100%);max-height:90vh;overflow:auto;background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 30px 100px #000c}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.modal h3{font:22px Cinzel;margin:0;color:var(--gold2)}.close{border:0;background:none;color:var(--muted);font-size:25px;cursor:pointer}.muted{color:var(--muted)}
 
 .modal-book-layout{display:grid;grid-template-columns:180px 1fr;gap:20px}
 .modal-cover-img{width:100%;border-radius:8px;border:1px solid var(--border);box-shadow:0 10px 25px #0006}
+
+.theme-card{padding:15px;border-radius:10px;border:1px solid var(--border);background:#0003;cursor:pointer;text-align:center;transition:.2s}.theme-card:hover,.theme-card.active{border-color:var(--gold);transform:scale(1.02)}
 
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none}
   .main{margin-left:0;padding:15px;padding-top:75px}
   .card{padding:18px}
-  /* Header Mobile avec Bouton à GAUCHE */
-  .mobile-header{display:flex;position:fixed;top:0;left:0;right:0;height:60px;background:#110e14ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);align-items:center;justify-content:flex-start;gap:15px;padding:0 18px;z-index:18}
+  .mobile-header{display:flex;position:fixed;top:0;left:0;right:0;height:60px;background:var(--panel);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);align-items:center;justify-content:flex-start;gap:15px;padding:0 18px;z-index:18}
   .menu-toggle-btn{background:none;border:0;color:var(--gold2);font-size:26px;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0}
   .grid-4{grid-template-columns:repeat(2,1fr)}
   .grid-3,.grid-2{grid-template-columns:1fr}
@@ -90,6 +127,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <button class="nav-btn" onclick="showPage('add',this)">➕ Ajouter un livre</button>
   <button class="nav-btn" onclick="showPage('loans',this)">📬 Mes prêts</button>
   <button class="nav-btn" onclick="showPage('stats',this)">📊 Statistiques</button>
+  <button class="nav-btn" onclick="showPage('settings',this)">⚙️ Paramètres & Thèmes</button>
 </div>
 <div style="border-top:1px solid var(--border);padding-top:15px;margin-top:15px">
   <button class="secondary" style="width:100%;font-size:11px" onclick="loadFromSheets()">🔄 Actualiser la bibliothèque</button>
@@ -99,7 +137,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <main class="main">
 <section class="page active" id="home">
 <div class="hero">
-2 Bonjour Jimmy ✦</h2>
+<h2>Bonjour Jimmy ✦</h2>
 <div class="quote">« Chaque livre attend le moment précis où quelqu'un aura besoin de son histoire. »</div>
 <div class="quote-credit">— Ta bibliothèque, pour toi aujourd'hui</div>
 </div>
@@ -115,21 +153,29 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <section class="page" id="library">
 <div class="page-header"><h2>📚 Ma bibliothèque</h2><p>Tous tes livres enregistrés.</p></div>
 <div class="card" style="margin-bottom:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-<input type="text" id="librarySearch" placeholder="🔍 Rechercher..." style="max-width:250px" oninput="filterLibrary()">
+<input type="text" id="librarySearch" placeholder="🔍 Rechercher titre / auteur..." style="max-width:230px" oninput="filterLibrary()">
+<select id="libraryGenreFilter" onchange="filterLibrary()" style="max-width:180px">
+  <option value="TOUS">Tous les genres</option>
+</select>
 <button class="secondary" onclick="setLibraryFilter('Tous')">Tous</button>
 <button class="secondary" onclick="setLibraryFilter('À lire')">📋 PAL</button>
 <button class="secondary" onclick="setLibraryFilter('En cours')">📖 En cours</button>
 <button class="secondary" onclick="setLibraryFilter('Terminé')">✓ Lus</button>
+<button class="secondary" onclick="setLibraryFilter('Possédé')">📦 Possédés</button>
 <button class="secondary" onclick="setLibraryFilter('Prêté')">📬 Prêtés</button>
+<button class="secondary" onclick="setLibraryFilter('À acheter (Wishlist)')">🛒 À acheter</button>
 <button class="secondary" onclick="setLibraryFilter('Abandonné')">🚫 Abandonnés</button>
 </div>
 <div class="bookshelf" id="shelf"></div>
 </section>
 
 <section class="page" id="pal">
-<div class="page-header"><h2>📋 Ma PAL</h2><p>Ta pile de livres à lire.</p></div>
+<div class="page-header"><h2>📋 Ma PAL & Envies</h2><p>Ta pile de livres et tes étagères à lire / acheter.</p></div>
+<div class="card" style="margin-bottom:18px">
+  <input type="text" id="palSearch" placeholder="🔍 Rechercher dans ma PAL..." oninput="renderPal()" style="max-width:300px">
+</div>
 <div class="pal-room"><div class="pile" id="palPile"></div><div class="table-edge"></div></div>
-<div class="card" style="margin-top:18px" id="palList"></div>
+<div class="bookshelf" id="palBookshelf" style="margin-top:20px"></div>
 </section>
 
 <section class="page" id="current">
@@ -139,6 +185,9 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 <section class="page" id="favorites">
 <div class="page-header"><h2>❤️ Coups de cœur</h2><p>Tes lectures coups de cœur.</p></div>
+<div class="card" style="margin-bottom:18px">
+  <input type="text" id="favoritesSearch" placeholder="🔍 Rechercher un coup de cœur..." oninput="renderFavorites()" style="max-width:300px">
+</div>
 <div class="grid grid-3" id="favoritesGrid"></div>
 </section>
 
@@ -154,10 +203,17 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div><label>Titre *</label><input name="title" id="newTitle" required placeholder="Ex : Starling House"></div>
 <div><label>Auteur</label><input name="author" id="newAuthor" placeholder="Ex : Alix E. Harrow"></div>
 <div><label>Format</label><select name="format" id="newFormat"><option>Poche</option><option>Broché</option><option>Relié</option><option>Ebook</option><option>Livre Audio</option></select></div>
-<div><label>Genre</label><select name="genre" id="newGenre"><option>Fantasy</option><option>Fantastique</option><option>Thriller</option><option>Romance</option><option>Gothique</option><option>Contemporain</option><option>Autre</option></select></div>
+<div><label>Genre</label><select name="genre" id="newGenre"></select></div>
+<div><label>Statut / Statut de possession</label>
+<select name="status" id="newStatus">
+  <option value="À lire">📋 Dans ma PAL (Possédé)</option>
+  <option value="Possédé (Non PAL)">📦 Possédé uniquement (Pas dans ma PAL)</option>
+  <option value="À acheter (Wishlist)">🛒 À acheter (Pas encore possédé)</option>
+  <option value="En cours">📖 En cours de lecture</option>
+  <option value="Terminé">✓ Déjà lu</option>
+</select></div>
 <div><label>Nombre de pages total</label><input name="pages" id="newPages" type="number" placeholder="Ex : 320"></div>
-<div><label>Page actuelle (si déjà commencé)</label><input name="currentPage" id="newCurrentPage" type="number" value="0"></div>
-<div><label>Je l'ai déjà lu ?</label><select name="alreadyRead" id="newAlreadyRead"><option value="false">Non — il ira dans ma PAL</option><option value="true">Oui — déjà lu</option></select></div>
+<div><label>Page actuelle (si commencé)</label><input name="currentPage" id="newCurrentPage" type="number" value="0"></div>
 <div><label>Coup de cœur ?</label><select name="favorite" id="newFavorite"><option value="false">Non</option><option value="true">Oui ❤️</option></select></div>
 <div style="grid-column:1/-1"><label>URL de la couverture (facultatif)</label><input name="cover" id="newCover" placeholder="https://exemple.com/image.jpg"></div>
 <div style="grid-column:1/-1"><label>Résumé / 4ème de couverture</label><textarea name="summary" id="newSummary" placeholder="Résumé ou extrait..."></textarea></div>
@@ -174,6 +230,9 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 <section class="page" id="stats">
 <div class="page-header"><h2>📊 Mes statistiques</h2><p>Analyse globale et KPI par livre.</p></div>
+<div class="card" style="margin-bottom:18px">
+  <input type="text" id="statsSearch" placeholder="🔍 Rechercher un livre dans les stats..." oninput="renderStats()" style="max-width:300px">
+</div>
 <div class="grid grid-4">
 <div class="card stat"><div class="stat-number" id="statSessions">0</div><div class="stat-label">Sessions de lecture</div></div>
 <div class="card stat"><div class="stat-number" id="statHours">0h</div><div class="stat-label">Temps total lu</div></div>
@@ -185,10 +244,30 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <div id="statsDetail"></div>
 </div>
 </section>
+
+<section class="page" id="settings">
+<div class="page-header"><h2>⚙️ Paramètres & Thèmes</h2><p>Personnalise l'ambiance visuelle de ton grimoire de lecture.</p></div>
+<div class="card">
+  <h3 class="card-title">🎨 Thème de l'application</h3>
+  <p class="muted" style="margin-bottom:20px">Le thème choisi est enregistré dans ton Google Sheet et s'appliquera sur tous tes appareils !</p>
+  <div class="grid grid-4" id="themesGrid">
+    <div class="theme-card" onclick="selectTheme('esoteric')" id="theme-esoteric">🔮 Ésotérique (Magie)</div>
+    <div class="theme-card" onclick="selectTheme('summer')" id="theme-summer">☀️ Été (Océan)</div>
+    <div class="theme-card" onclick="selectTheme('summerween')" id="theme-summerween">🌴 Summerween</div>
+    <div class="theme-card" onclick="selectTheme('autumn')" id="theme-autumn">🍂 Automne</div>
+    <div class="theme-card" onclick="selectTheme('halloween')" id="theme-halloween">🎃 Halloween</div>
+    <div class="theme-card" onclick="selectTheme('winter')" id="theme-winter">❄️ Hiver</div>
+    <div class="theme-card" onclick="selectTheme('xmas')" id="theme-xmas">🎄 Noël</div>
+    <div class="theme-card" onclick="selectTheme('spring')" id="theme-spring">🌸 Printemps</div>
+    <div class="theme-card" onclick="selectTheme('easter')" id="theme-easter">🐣 Pâques</div>
+  </div>
+</div>
+</section>
 </main>
 
 <!-- Modales -->
 <div class="modal-backdrop" id="bookModal"><div class="modal"><div class="modal-head"><div><h3 id="modalBookTitle"></h3><div class="muted" id="modalBookAuthor"></div></div><button class="close" onclick="closeModal('bookModal')">×</button></div><div id="modalBookBody" style="margin-top:20px"></div></div></div>
+<div class="modal-backdrop" id="editBookModal"><div class="modal"><div class="modal-head"><h3>✏️ Corriger les infos du livre</h3><button class="close" onclick="closeModal('editBookModal')">×</button></div><div id="editBookBody" style="margin-top:20px"></div></div></div>
 <div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Modifier le statut</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
 <div class="modal-backdrop" id="loanModal"><div class="modal"><div class="modal-head"><h3>📬 Prêter ce livre</h3><button class="close" onclick="closeModal('loanModal')">×</button></div>
 <div style="margin-top:15px">
@@ -200,7 +279,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 </div></div></div>
 <div class="modal-backdrop" id="deleteModal"><div class="modal"><div class="modal-head"><h3>🗑️ Supprimer le livre</h3><button class="close" onclick="closeModal('deleteModal')">×</button></div><p>Es-tu sûr(e) de vouloir supprimer définitivement ce livre de ta bibliothèque ?</p><div style="display:flex;gap:10px;margin-top:20px"><button class="danger" onclick="confirmDelete()">🗑️ Oui, supprimer</button><button class="secondary" onclick="closeModal('deleteModal')">Annuler</button></div></div></div>
 
-<!-- Modale Fin de Session (Stop Chrono) -->
+<!-- Modale Fin de Session -->
 <div class="modal-backdrop" id="stopSessionModal"><div class="modal"><div class="modal-head"><h3>⏹️ Fin de la session</h3><button class="close" onclick="closeModal('stopSessionModal')">×</button></div>
 <div style="margin-top:15px">
   <div class="grid grid-2">
@@ -223,40 +302,31 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <script>
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwF6cp428LAnPwidrEHKLZSaMwSEOytOqIoB-S47bItQ2Uyyav6BZlZPKR7OndzHb5oAg/exec';
 
+const GENRES_LIST = [
+  "Ésotérisme & Magie", "Fantasy", "Fantastique", "Thriller & Polar", "Gothique", "Dark Academia",
+  "Romance & Romantasy", "Horreur & Épouvante", "Cosy Mystery", "Science-Fiction", "Contemporain",
+  "Développement Personnel", "Mangas & BD", "Non-Fiction & Essai", "Autre"
+];
+
 let submitted = false;
 let currentFilter = 'Tous';
 let pendingDeleteId = null;
 let selectedCurrentBookId = null;
-let state = { books: [], reads: [], sessions: [], loans: [], palWishes: [] };
+let state = { books: [], reads: [], sessions: [], loans: [], config: [] };
 
-// Chronomètre Horodaté (Résistant au verrouillage iPhone)
+// Chronomètre Horodaté
 let chronoTimer = null;
-let chronoState = {
-  active: false,
-  paused: false,
-  bookId: null,
-  startTimeMs: 0,
-  accumulatedSec: 0,
-  startTimeStr: '',
-  startPage: 0
-};
+let chronoState = { active: false, paused: false, bookId: null, startTimeMs: 0, accumulatedSec: 0, startTimeStr: '', startPage: 0 };
 
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 
-/* Menu Mobile à Gauche */
 function toggleMenu(){
   const sb = document.getElementById('sidebar');
   const ov = document.getElementById('sidebarOverlay');
   const btn = document.getElementById('menuToggleBtn');
-  if(sb.classList.contains('open')){
-    closeMenu();
-  } else {
-    sb.classList.add('open');
-    ov.classList.add('active');
-    btn.textContent = '✕';
-  }
+  if(sb.classList.contains('open')){ closeMenu(); } else { sb.classList.add('open'); ov.classList.add('active'); btn.textContent = '✕'; }
 }
 function closeMenu(){
   document.getElementById('sidebar').classList.remove('open');
@@ -292,8 +362,20 @@ function formatTimeHMS(sec){
 function getElapsedSeconds(){
   if(!chronoState.active) return 0;
   if(chronoState.paused) return chronoState.accumulatedSec;
-  const currentDiffSec = Math.floor((Date.now() - chronoState.startTimeMs) / 1000);
-  return chronoState.accumulatedSec + currentDiffSec;
+  return chronoState.accumulatedSec + Math.floor((Date.now() - chronoState.startTimeMs) / 1000);
+}
+
+function initGenresDropdowns(){
+  const selects = ['newGenre', 'libraryGenreFilter'];
+  selects.forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(id === 'libraryGenreFilter'){
+      el.innerHTML = '<option value="TOUS">Tous les genres</option>' + GENRES_LIST.map(g=>`<option value="${g}">${g}</option>`).join('');
+    } else {
+      el.innerHTML = GENRES_LIST.map(g=>`<option value="${g}">${g}</option>`).join('');
+    }
+  });
 }
 
 async function loadFromSheets() {
@@ -336,14 +418,41 @@ async function loadFromSheets() {
         actualReturn: l["Date retour réel"] || l.actualReturn || '',
         status: l.Statut || l.status || 'En cours',
         note: l.Note || l.note || ''
-      }))
+      })),
+      config: data.config || []
     };
+
+    // Application du thème depuis Sheet
+    const themeRow = state.config.find(c => c.Parametre === "theme" || c.parametre === "theme");
+    if(themeRow && themeRow.Valeur) {
+      applyTheme(themeRow.Valeur, false);
+    }
+
     toast('✅ Bibliothèque à jour !');
     render();
   } catch(err) {
     toast('⚠️ Erreur lors du chargement.');
   }
 }
+
+function applyTheme(themeName, saveToSheet = true) {
+  document.documentElement.setAttribute('data-theme', themeName);
+  document.querySelectorAll('.theme-card').forEach(el => el.classList.remove('active'));
+  const activeCard = document.getElementById('theme-' + themeName);
+  if(activeCard) activeCard.classList.add('active');
+
+  if(saveToSheet) {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({ action: "SAVE_THEME", theme: themeName })
+    });
+    toast('🎨 Thème enregistré !');
+  }
+}
+
+function selectTheme(t){ applyTheme(t, true); }
 
 function render(){
   const currentList = currentBooks();
@@ -384,46 +493,60 @@ function filterLibrary(){ renderShelf(); }
 
 function renderShelf(){
   const search = document.getElementById('librarySearch')?.value.toLowerCase()||'';
+  const genreSel = document.getElementById('libraryGenreFilter')?.value||'TOUS';
+
   let books = currentFilter === 'Tous' ? state.books : state.books.filter(b=>b.status===currentFilter);
+  
+  if(genreSel !== 'TOUS') {
+    books = books.filter(b => b.genre === genreSel);
+  }
+
   if(search){
     books = books.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
   }
   
-  const ownBooks = books.filter(b => b.status !== 'Prêté');
+  const ownBooks = books.filter(b => b.status !== 'Prêté' && b.status !== 'À acheter (Wishlist)');
   const loanedBooks = books.filter(b => b.status === 'Prêté');
+  const wishlistBooks = books.filter(b => b.status === 'À acheter (Wishlist)');
 
-  let mainChunks = [];
-  for(let i=0; i<ownBooks.length; i+=8) mainChunks.push(ownBooks.slice(i, i+8));
-  if(!mainChunks.length) mainChunks = [[]];
+  let html = `<div class="shelf">${ownBooks.length ? ownBooks.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : '<div class="muted" style="padding:10px">Aucun livre trouvé.</div>'}</div>`;
 
-  let html = mainChunks.map(chunk => 
-    `<div class="shelf">${chunk.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`
-  ).join('');
-
-  if(loanedBooks.length > 0 || currentFilter === 'Tous' || currentFilter === 'Prêté'){
+  if(loanedBooks.length > 0){
     html += `<div class="shelf-title">📬 Livres prêtés (${loanedBooks.length})</div>`;
-    let loanChunks = [];
-    for(let i=0; i<loanedBooks.length; i+=8) loanChunks.push(loanedBooks.slice(i, i+8));
-    if(!loanChunks.length) loanChunks = [[]];
+    html += `<div class="shelf">${loanedBooks.map((b,i)=>`<div class="book loaned-book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`;
+  }
 
-    html += loanChunks.map(chunk => 
-      `<div class="shelf">${chunk.length ? chunk.map((b,i)=>`<div class="book loaned-book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : '<div class="muted" style="padding:10px;font-size:12px">Aucun livre actuellement prêté.</div>'}</div>`
-    ).join('');
+  if(wishlistBooks.length > 0){
+    html += `<div class="shelf-title">🛒 PAL à acheter / Envie (${wishlistBooks.length})</div>`;
+    html += `<div class="shelf">${wishlistBooks.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" style="border-style:dotted" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`;
   }
 
   document.getElementById('shelf').innerHTML = html;
 }
 
 function renderPal(){
-  const physical = state.books.filter(b=>b.status==='À lire');
-  document.getElementById('palPile').innerHTML = physical.length ? 
-    physical.slice(0,5).map((b,i)=>`<div class="pile-book" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : 
+  const search = document.getElementById('palSearch')?.value.toLowerCase()||'';
+  let palBooks = state.books.filter(b=>b.status==='À lire');
+  let buyBooks = state.books.filter(b=>b.status==='À acheter (Wishlist)');
+
+  if(search){
+    palBooks = palBooks.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
+    buyBooks = buyBooks.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
+  }
+
+  document.getElementById('palPile').innerHTML = palBooks.length ? 
+    palBooks.slice(0,5).map((b,i)=>`<div class="pile-book" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : 
     '<div class="muted">Ta PAL est vide !</div>';
     
-  document.getElementById('palList').innerHTML = physical.length ? `
-    <div class="table-responsive">
-      <table><thead><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr></thead><tbody>${physical.map(b=>`<tr><td><strong>${esc(b.title)}</strong></td><td>${esc(b.author||'')}</td><td><button class="primary" onclick="openStatus('${b.id}')">⚙️ Gérer</button></td></tr>`).join('')}</tbody></table>
-    </div>` : '';
+  let html = `<div class="shelf-title">📋 Tous les livres de ma PAL (${palBooks.length})</div>`;
+  html += `<div class="shelf">${palBooks.length ? palBooks.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('') : '<div class="muted">Aucun livre à lire.</div>'}</div>`;
+
+  if(buyBooks.length > 0) {
+    html += `<div class="shelf-title">🛒 Envie / PAL à acheter (${buyBooks.length})</div>`;
+    html += `<div class="shelf">${buyBooks.map((b,i)=>`<div class="book ${['purple','gold','green','red'][i%4]}" style="border-style:dotted" onclick="openBook('${b.id}')"><span>${esc(b.title)}</span></div>`).join('')}</div>`;
+  }
+
+  document.getElementById('palBookshelf').innerHTML = html;
 }
 
 function renderCurrent(){
@@ -465,8 +588,7 @@ function renderCurrent(){
       <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
     </div>
 
-    <!-- Interface des 3 Boutons Chrono -->
-    <div style="text-align:center;background:linear-gradient(145deg,#23182b,#150f1b);padding:25px;border-radius:12px;border:1px solid var(--border);margin-bottom:25px">
+    <div style="text-align:center;background:linear-gradient(145deg,var(--panel),var(--panel2));padding:25px;border-radius:12px;border:1px solid var(--border);margin-bottom:25px">
       <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Chronomètre de session</div>
       <div class="timer-display" id="mainChronoDisplay">${isCurrentChrono ? formatTimeHMS(getElapsedSeconds()) : '00:00:00'}</div>
       
@@ -622,14 +744,77 @@ async function confirmSaveSession(){
 }
 
 function openStatus(id){
+  const b = getBook(id);
+  const isWishlist = b && b.status === "À acheter (Wishlist)";
+
   document.getElementById('statusModalBody').innerHTML = `
+    ${isWishlist ? `<button class="gold" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','À lire')">🛒 Livre acheté ! (Ajouter à ma PAL)</button>` : ''}
     <button class="primary" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','En cours')">📖 Passer "En cours"</button>
     <button class="gold" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','Terminé')">✓ Passer "Terminé"</button>
-    <button class="secondary" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','À lire')">📋 Remettre dans ma PAL ("À lire")</button>
+    <button class="secondary" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','À lire')">📋 Mettre dans ma PAL ("À lire")</button>
+    <button class="secondary" style="margin-bottom:8px;width:100%" onclick="updateStatus('${id}','Possédé (Non PAL)')">📦 Marquer "Possédé uniquement"</button>
     <button class="secondary" style="margin-bottom:8px;width:100%;border-color:var(--gold)" onclick="openLoanModal('${id}')">📬 Prêter ce livre</button>
     <button class="danger" style="width:100%" onclick="updateStatus('${id}','Abandonné')">🚫 Marquer "Abandonné"</button>
   `;
   document.getElementById('statusModal').classList.add('show');
+}
+
+/* Modale de Correction / Édition d'un livre */
+function openEditBook(id){
+  closeModal('bookModal');
+  const b = getBook(id);
+  if(!b) return;
+
+  document.getElementById('editBookBody').innerHTML = `
+    <div class="grid grid-2">
+      <div><label>Titre</label><input id="editTitle" value="${esc(b.title)}"></div>
+      <div><label>Auteur</label><input id="editAuthor" value="${esc(b.author)}"></div>
+      <div><label>Format</label><select id="editFormat">
+        <option ${b.format==='Poche'?'selected':''}>Poche</option>
+        <option ${b.format==='Broché'?'selected':''}>Broché</option>
+        <option ${b.format==='Relié'?'selected':''}>Relié</option>
+        <option ${b.format==='Ebook'?'selected':''}>Ebook</option>
+        <option ${b.format==='Livre Audio'?'selected':''}>Livre Audio</option>
+      </select></div>
+      <div><label>Genre</label><select id="editGenre">
+        ${GENRES_LIST.map(g=>`<option ${b.genre===g?'selected':''}>${g}</option>`).join('')}
+      </select></div>
+      <div><label>Pages totales</label><input id="editPages" type="number" value="${b.pages}"></div>
+      <div style="grid-column:1/-1"><label>URL de la couverture</label><input id="editCover" value="${esc(b.cover)}"></div>
+      <div style="grid-column:1/-1"><label>Résumé</label><textarea id="editSummary">${esc(b.summary)}</textarea></div>
+    </div><br>
+    <button class="gold" onclick="confirmEditBook('${id}')">💾 Enregistrer les corrections</button>
+  `;
+  document.getElementById('editBookModal').classList.add('show');
+}
+
+async function confirmEditBook(id){
+  const payload = {
+    action: "EDIT_BOOK",
+    id: id,
+    title: document.getElementById('editTitle').value.trim(),
+    author: document.getElementById('editAuthor').value.trim(),
+    format: document.getElementById('editFormat').value,
+    genre: document.getElementById('editGenre').value,
+    pages: Number(document.getElementById('editPages').value) || 0,
+    cover: document.getElementById('editCover').value.trim(),
+    summary: document.getElementById('editSummary').value.trim()
+  };
+
+  closeModal('editBookModal');
+  toast('⏳ Enregistrement des modifications...');
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify(payload)
+    });
+    toast('✅ Livre mis à jour !');
+    setTimeout(loadFromSheets, 1500);
+  } catch(err) {
+    toast('⚠️ Erreur lors de la modification.');
+  }
 }
 
 function openLoanModal(bookId){
@@ -747,7 +932,8 @@ function openBook(id){
   document.getElementById('modalBookAuthor').textContent = b.author || '';
   
   const coverImgHtml = b.cover ? `<img src="${esc(b.cover)}" class="modal-cover-img" alt="Couverture">` : '<div class="muted" style="text-align:center;padding:20px;border:1px dashed #fff4">Pas de couverture</div>';
-  
+  const isWishlist = b.status === "À acheter (Wishlist)";
+
   document.getElementById('modalBookBody').innerHTML = `
     <div class="modal-book-layout">
       <div>${coverImgHtml}</div>
@@ -759,8 +945,10 @@ function openBook(id){
         <p><strong>Résumé :</strong> ${esc(b.summary || 'Aucun résumé.')}</p>
         <br>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
+          ${isWishlist ? `<button class="gold" onclick="updateStatus('${id}','À lire');closeModal('bookModal')">🛒 Livre acheté !</button>` : ''}
           <button class="primary" onclick="openStatus('${id}');closeModal('bookModal')">⚙️ Gérer le statut</button>
-          <button class="danger" onclick="askDeleteBook('${id}')">🗑️ Supprimer de la bibliothèque</button>
+          <button class="secondary" onclick="openEditBook('${id}')">✏️ Corriger les infos</button>
+          <button class="danger" onclick="askDeleteBook('${id}')">🗑️ Supprimer</button>
         </div>
       </div>
     </div>`;
@@ -793,21 +981,31 @@ async function confirmDelete(){
 }
 
 function renderFavorites(){
-  const a = state.books.filter(b=>b.favorite);
-  document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur pour l\'instant.</p></div>';
+  const search = document.getElementById('favoritesSearch')?.value.toLowerCase()||'';
+  let a = state.books.filter(b=>b.favorite);
+  if(search){
+    a = a.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
+  }
+
+  document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card" onclick="openBook('${b.id}')" style="cursor:pointer"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur trouvé.</p></div>';
 }
 
-/* KPI par Livre */
 function renderStats(){
+  const search = document.getElementById('statsSearch')?.value.toLowerCase()||'';
   const totalMin = state.sessions.reduce((a,s)=>a+s.durationMin, 0);
   document.getElementById('statSessions').textContent = state.sessions.length;
   document.getElementById('statHours').textContent = durationHuman(totalMin * 60);
   document.getElementById('statPages').textContent = state.books.reduce((a,b)=>a+(b.currentPage||0),0);
   document.getElementById('statLoans').textContent = state.loans.filter(l=>l.status==='En cours').length;
   
+  let books = state.books;
+  if(search){
+    books = books.filter(b=>b.title.toLowerCase().includes(search) || (b.author && b.author.toLowerCase().includes(search)));
+  }
+
   document.getElementById('statsDetail').innerHTML = `
     <div class="grid grid-3">
-      ${state.books.map(b => {
+      ${books.map(b => {
         const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
         const bMin = bSessions.reduce((a,s)=>a+s.durationMin, 0);
         return `<div class="card" style="cursor:pointer" onclick="openKpiBook('${b.id}')">
@@ -881,6 +1079,7 @@ function onBookSubmitted() {
   setTimeout(loadFromSheets, 2000);
 }
 
+initGenresDropdowns();
 loadFromSheets();
 </script>
 </body>
