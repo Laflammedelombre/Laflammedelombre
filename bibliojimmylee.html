@@ -12,7 +12,7 @@
 <!-- Icône PWA / iPhone App -->
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw4NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0i3IgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU883RleHQ+Cjwvc3ZnPg==">
 
-<!-- Libraries Chart.js + DataLabels pour les pourcentages -->
+<!-- Libraries Chart.js + DataLabels -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
@@ -241,21 +241,28 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <div style="max-height:280px;position:relative"><canvas id="globalLibraryChart"></canvas></div>
 </div>
 
-<!-- FILTRES DE L'ANALYTICS SESSIONS -->
+<!-- FILTRES DE L'ANALYTICS SESSIONS & MODE D'AFFICHAGE VALEURS / % -->
 <div class="card" style="margin-bottom:22px;display:flex;gap:15px;flex-wrap:wrap;align-items:center">
-  <div style="flex:1;min-width:150px">
+  <div style="flex:1;min-width:140px">
+    <label>Affichage des valeurs</label>
+    <select id="analyticsDisplayMode" onchange="renderAnalytics()">
+      <option value="PERCENT">% Pourcentages</option>
+      <option value="VALUE">123 Nombre de livres</option>
+    </select>
+  </div>
+  <div style="flex:1;min-width:140px">
     <label>Année de lecture</label>
     <select id="analyticsYearFilter" onchange="renderAnalytics()">
       <option value="TOUTES">Toutes les années</option>
     </select>
   </div>
-  <div style="flex:1;min-width:150px">
+  <div style="flex:1;min-width:140px">
     <label>Genre</label>
     <select id="analyticsGenreFilter" onchange="renderAnalytics()">
       <option value="TOUS">Tous les genres</option>
     </select>
   </div>
-  <div style="flex:1;min-width:150px">
+  <div style="flex:1;min-width:140px">
     <label>Format</label>
     <select id="analyticsFormatFilter" onchange="renderAnalytics()">
       <option value="TOUS">Tous les formats</option>
@@ -271,7 +278,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <!-- GRAPHIQUES ET PODIUMS -->
 <div class="grid grid-2" style="margin-bottom:22px">
   <div class="card">
-    <h3 class="card-title">🍩 Répartition des lectures filtrées (%)</h3>
+    <h3 class="card-title">🍩 Répartition des lectures filtrées</h3>
     <div style="max-height:280px;position:relative"><canvas id="genreChart"></canvas></div>
   </div>
   <div class="card">
@@ -303,7 +310,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 <!-- ONGLET HISTORIQUE -->
 <section class="page" id="stats">
-<div class="page-header"><h2>📚 Historique des Livres</h2><p>Consulte la fiche détaillée de chacun de tes ouvrages.</p></div>
+<div class="page-header"><h2>📚 Historique</h2><p>Consulte la fiche détaillée de chacun de tes ouvrages.</p></div>
 <div class="card" style="margin-bottom:18px">
   <input type="text" id="statsSearch" placeholder="🔍 Rechercher un livre..." oninput="renderStats()" style="max-width:300px">
 </div>
@@ -411,7 +418,6 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div class="toast" id="toast"></div>
 
 <script>
-// Activer le plugin d'étiquettes de données pour Chart.js
 Chart.register(ChartDataLabels);
 
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwF6cp428LAnPwidrEHKLZSaMwSEOytOqIoB-S47bItQ2Uyyav6BZlZPKR7OndzHb5oAg/exec';
@@ -1376,8 +1382,9 @@ function openKpiBook(id){
   document.getElementById('kpiBookModal').classList.add('show');
 }
 
-/* LE NOUVEL ONGLET ANALYTICS AVEC ÉTIQUETTES % ET GRAPHIQUE GLOBAL */
+/* LE NOUVEL ONGLET ANALYTICS AVEC CHOIX MODE VALEURS OU % ET GRAPHIQUE GLOBAL */
 function renderAnalytics(){
+  const displayMode = document.getElementById('analyticsDisplayMode')?.value || 'PERCENT';
   const yearSel = document.getElementById('analyticsYearFilter')?.value || 'TOUTES';
   const genreSel = document.getElementById('analyticsGenreFilter')?.value || 'TOUS';
   const formatSel = document.getElementById('analyticsFormatFilter')?.value || 'TOUS';
@@ -1416,8 +1423,11 @@ function renderAnalytics(){
             font: { weight: 'bold', size: 11 },
             formatter: (value) => {
               if(!totalGlobalBooks) return '';
-              let percentage = ((value / totalGlobalBooks) * 100).toFixed(1) + "%";
-              return percentage;
+              if (displayMode === 'PERCENT') {
+                return ((value / totalGlobalBooks) * 100).toFixed(1) + "%";
+              } else {
+                return value + " livre(s)";
+              }
             }
           }
         }
@@ -1477,7 +1487,11 @@ function renderAnalytics(){
             font: { weight: 'bold', size: 11 },
             formatter: (value) => {
               if(!totalFilteredBooks) return '';
-              return ((value / totalFilteredBooks) * 100).toFixed(1) + "%";
+              if (displayMode === 'PERCENT') {
+                return ((value / totalFilteredBooks) * 100).toFixed(1) + "%";
+              } else {
+                return value + " livre(s)";
+              }
             }
           }
         }
