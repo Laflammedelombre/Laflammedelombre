@@ -397,7 +397,7 @@ function showPageName(id){
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
 function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
-/* CONVERSION UNIVERSELLE DU TEMPS EN SECONDES (GESTION DU FORMAT hh:mm:ss ET DES MINUTES) */
+/* CONVERSION UNIVERSELLE DU TEMPS EN SECONDES */
 function parseDurationToSeconds(durVal) {
   if (!durVal) return 0;
   if (typeof durVal === 'number') return Math.round(durVal * 60);
@@ -420,7 +420,7 @@ function parseDurationToSeconds(durVal) {
   return isNaN(num) ? 0 : Math.round(num * 60);
 }
 
-/* FORMATAGE DYNAMIQUE ET DÉTAILLÉ DU TEMPS (Sec, Min, Heures, Jours, Mois, Années) */
+/* FORMATAGE DYNAMIQUE DU TEMPS */
 function durationHuman(totalSec){
   totalSec = Math.max(0, Math.floor(totalSec));
   if (totalSec === 0) return '0 sec';
@@ -460,13 +460,15 @@ function durationHuman(totalSec){
   return remMonths > 0 ? `${totalYears} an(s) ${remMonths} mois` : `${totalYears} an(s)`;
 }
 
-/* FORMATAGE DES DATES EN FRANÇAIS LISIBLE */
+/* FORMATAGE LISIBLE DE DATE ET HEURE (NETTOYAGE ISO SHEETS) */
 function formatDateFr(dateStr){
   if(!dateStr) return '—';
-  let d = new Date(dateStr);
+  let str = String(dateStr);
+  if(str.includes('T')) str = str.split('T')[0];
+
+  let d = new Date(str);
   if(isNaN(d.getTime())) {
-    // Essai de correction si la date est au format JJ/MM/AAAA
-    const parts = String(dateStr).split('/');
+    const parts = str.split('/');
     if(parts.length === 3) {
       d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
     }
@@ -477,9 +479,21 @@ function formatDateFr(dateStr){
 
 function formatTimeFr(timeStr){
   if(!timeStr) return '—';
-  const parts = String(timeStr).split(':');
-  if(parts.length < 2) return timeStr;
-  return parts.length >= 3 ? `${parts[0]}h${parts[1]}:${parts[2]}` : `${parts[0]}h${parts[1]}`;
+  const str = String(timeStr);
+
+  if (str.includes('T')) {
+    const timePart = str.split('T')[1];
+    const cleanTime = timePart.split('.')[0];
+    const parts = cleanTime.split(':');
+    return `${parts[0]}h${parts[1]}`;
+  }
+
+  const parts = str.split(':');
+  if(parts.length >= 2) {
+    return `${parts[0]}h${parts[1]}`;
+  }
+
+  return str;
 }
 
 function formatTimeHMS(sec){
@@ -1191,7 +1205,6 @@ function renderFavorites(){
 function renderStats(){
   const search = document.getElementById('statsSearch')?.value.toLowerCase()||'';
   
-  // Somme exacte de toutes les secondes de toutes les sessions
   const totalSecGlobal = state.sessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
   
   document.getElementById('statSessions').textContent = state.sessions.length;
