@@ -12,13 +12,13 @@
 <!-- Icône PWA / iPhone App -->
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw4NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0i3IgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU883RleHQ+Cjwvc3ZnPg==">
 
-<!-- Library Chart.js pour les graphiques -->
+<!-- Libraries Chart.js + DataLabels pour les pourcentages -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-/* VARIABLE DE THÈMES DYNAMIQUES */
 :root {
   --bg:#0d0a12; --panel:#1e1627e6; --panel2:#281b33e6; --gold:#c9a96e; --gold2:#ead6a5; --purple:#8d6ba8; --text:#eee8ef; --muted:#aaa0ac; --border:rgba(201,169,110,.25); --shadow:0 20px 60px #0009;
   --wallpaper: radial-gradient(circle at 50% 50%, rgba(141,107,168,0.15), transparent 70%), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l5 25 25 5-25 5-5 25-5-25L0 30l25-5z' fill='%23c9a96e' fill-opacity='0.03'/%3E%3C/svg%3E");
@@ -157,7 +157,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <button class="nav-btn" onclick="showPage('favorites',this)">❤️ Coups de cœur</button>
   <div class="menu-title">Gestion & Stats</div>
   <button class="nav-btn" onclick="showPage('analytics',this)">📊 Analytics & Graphs</button>
-  <button class="nav-btn" onclick="showPage('stats',this)">📚 Historique & KPI</button>
+  <button class="nav-btn" onclick="showPage('stats',this)">📚 Historique</button>
   <button class="nav-btn" onclick="showPage('add',this)">➕ Ajouter un livre</button>
   <button class="nav-btn" onclick="showPage('loans',this)">📬 Mes prêts</button>
   <button class="nav-btn" onclick="showPage('settings',this)">⚙️ Paramètres & Thèmes</button>
@@ -233,9 +233,15 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 <!-- GRAND ONGLET ANALYTICS & GRAPHIQUES -->
 <section class="page" id="analytics">
-<div class="page-header"><h2>📊 Analytics & Graphiques</h2><p>Analyse complète de tes habitudes de lecture avec filtres.</p></div>
+<div class="page-header"><h2>📊 Analytics & Graphiques</h2><p>Analyse complète de tes habitudes de lecture avec filtres et pourcentages.</p></div>
 
-<!-- FILTRES DE L'ANALYTICS -->
+<!-- HORS FILTRE : ÉTAT GLOBAL DE LA BIBLIOTHÈQUE -->
+<div class="card" style="margin-bottom:22px">
+  <h3 class="card-title">🌐 État de la Bibliothèque Globale par Genre (Hors Filtres)</h3>
+  <div style="max-height:280px;position:relative"><canvas id="globalLibraryChart"></canvas></div>
+</div>
+
+<!-- FILTRES DE L'ANALYTICS SESSIONS -->
 <div class="card" style="margin-bottom:22px;display:flex;gap:15px;flex-wrap:wrap;align-items:center">
   <div style="flex:1;min-width:150px">
     <label>Année de lecture</label>
@@ -265,7 +271,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <!-- GRAPHIQUES ET PODIUMS -->
 <div class="grid grid-2" style="margin-bottom:22px">
   <div class="card">
-    <h3 class="card-title">🍩 Répartition des lectures par Genre</h3>
+    <h3 class="card-title">🍩 Répartition des lectures filtrées (%)</h3>
     <div style="max-height:280px;position:relative"><canvas id="genreChart"></canvas></div>
   </div>
   <div class="card">
@@ -275,7 +281,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 </div>
 
 <div class="card" style="margin-bottom:22px">
-  <h3 class="card-title">📈 Evolution du volume de lecture (Pages lues par mois)</h3>
+  <h3 class="card-title">📈 Évolution du volume de lecture (Pages lues par mois)</h3>
   <div style="max-height:300px;position:relative"><canvas id="monthlyPagesChart"></canvas></div>
 </div>
 
@@ -295,9 +301,9 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 </div>
 </section>
 
-<!-- ANCIEN ONGLET STATS RENOMMÉ EN HISTORIQUE & KPI -->
+<!-- ONGLET HISTORIQUE -->
 <section class="page" id="stats">
-<div class="page-header"><h2>📚 Historique & KPI des Livres</h2><p>Consulte la fiche détaillée de chacun de tes ouvrages.</p></div>
+<div class="page-header"><h2>📚 Historique des Livres</h2><p>Consulte la fiche détaillée de chacun de tes ouvrages.</p></div>
 <div class="card" style="margin-bottom:18px">
   <input type="text" id="statsSearch" placeholder="🔍 Rechercher un livre..." oninput="renderStats()" style="max-width:300px">
 </div>
@@ -308,7 +314,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div class="card stat"><div class="stat-number" id="statLoans">0</div><div class="stat-label">Prêts en cours</div></div>
 </div>
 <div class="card" style="margin-top:18px">
-  <h3 class="card-title">📚 Fiches KPI par livre (Clique sur un livre)</h3>
+  <h3 class="card-title">📚 Fiches détaillées par livre (Clique sur un livre)</h3>
   <div id="statsDetail"></div>
 </div>
 </section>
@@ -405,6 +411,9 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div class="toast" id="toast"></div>
 
 <script>
+// Activer le plugin d'étiquettes de données pour Chart.js
+Chart.register(ChartDataLabels);
+
 const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwF6cp428LAnPwidrEHKLZSaMwSEOytOqIoB-S47bItQ2Uyyav6BZlZPKR7OndzHb5oAg/exec';
 
 const GENRES_LIST = [
@@ -433,7 +442,7 @@ let selectedCurrentBookId = null;
 let state = { books: [], reads: [], sessions: [], loans: [], config: [] };
 
 // Instances de Graphiques
-let chartGenre = null, chartPagesGenre = null, chartMonthly = null;
+let chartGlobalLibrary = null, chartGenre = null, chartPagesGenre = null, chartMonthly = null;
 
 // Chronomètre Horodaté
 let chronoTimer = null;
@@ -657,7 +666,6 @@ async function loadFromSheets() {
       config: data.config || []
     };
 
-    // Remplir le filtre des années
     const years = [...new Set(state.sessions.map(s => {
       const d = new Date(s.date);
       return isNaN(d.getFullYear()) ? null : d.getFullYear();
@@ -1287,7 +1295,7 @@ function renderFavorites(){
   document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card" onclick="openBook('${b.id}')" style="cursor:pointer"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur trouvé.</p></div>';
 }
 
-/* HISTORIQUE ET FICHES LIVRES (ANCIEN ONGLET STATS RENOMMÉ) */
+/* ONGLET HISTORIQUE DES LIVRES */
 function renderStats(){
   const search = document.getElementById('statsSearch')?.value.toLowerCase()||'';
   
@@ -1368,18 +1376,60 @@ function openKpiBook(id){
   document.getElementById('kpiBookModal').classList.add('show');
 }
 
-/* LE NOUVEL ONGLET ANALYTICS & GRAPHIQUES AVEC FILTRES DYNAMIQUES */
+/* LE NOUVEL ONGLET ANALYTICS AVEC ÉTIQUETTES % ET GRAPHIQUE GLOBAL */
 function renderAnalytics(){
   const yearSel = document.getElementById('analyticsYearFilter')?.value || 'TOUTES';
   const genreSel = document.getElementById('analyticsGenreFilter')?.value || 'TOUS';
   const formatSel = document.getElementById('analyticsFormatFilter')?.value || 'TOUS';
 
-  // Filtrer les livres
+  // 1. GRAPHIQUE HORS FILTRES : ÉTAT GLOBAL DE LA BIBLIOTHÈQUE PAR GENRE
+  const globalGenreCounts = {};
+  let totalGlobalBooks = 0;
+  state.books.forEach(b => {
+    const g = b.genre || 'Autre';
+    globalGenreCounts[g] = (globalGenreCounts[g] || 0) + 1;
+    totalGlobalBooks++;
+  });
+
+  const globalLabels = Object.keys(globalGenreCounts);
+  const globalData = Object.values(globalGenreCounts);
+
+  if(chartGlobalLibrary) chartGlobalLibrary.destroy();
+  const ctxGlobal = document.getElementById('globalLibraryChart')?.getContext('2d');
+  if(ctxGlobal){
+    chartGlobalLibrary = new Chart(ctxGlobal, {
+      type: 'doughnut',
+      data: {
+        labels: globalLabels.length ? globalLabels : ['Vide'],
+        datasets: [{
+          data: globalData.length ? globalData : [1],
+          backgroundColor: ['#c9a96e', '#8d6ba8', '#2a9d8f', '#ff8c38', '#bc6c25', '#0077b6', '#a62626', '#a3b18a', '#dda15e', '#ffb7b2']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#eee8ef' } },
+          datalabels: {
+            color: '#fff',
+            font: { weight: 'bold', size: 11 },
+            formatter: (value) => {
+              if(!totalGlobalBooks) return '';
+              let percentage = ((value / totalGlobalBooks) * 100).toFixed(1) + "%";
+              return percentage;
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // FILTRAGE DES LIVRES ET SESSIONS
   let filteredBooks = state.books;
   if(genreSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.genre === genreSel);
   if(formatSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.format === formatSel);
 
-  // Filtrer les sessions par année et par livres filtrés
   let filteredSessions = state.sessions.filter(s => {
     const book = getBook(s.bookId);
     if(!book) return false;
@@ -1393,10 +1443,13 @@ function renderAnalytics(){
     return true;
   });
 
-  // 1. Chart Genre (Répartition par genre des livres lus)
+  // 2. Chart Genre Filtré
   const genreCounts = {};
+  let totalFilteredBooks = 0;
   filteredBooks.filter(b => b.status === 'Terminé' || b.status === 'En cours').forEach(b => {
-    genreCounts[b.genre || 'Autre'] = (genreCounts[b.genre || 'Autre'] || 0) + 1;
+    const g = b.genre || 'Autre';
+    genreCounts[g] = (genreCounts[g] || 0) + 1;
+    totalFilteredBooks++;
   });
 
   const genreLabels = Object.keys(genreCounts);
@@ -1414,11 +1467,25 @@ function renderAnalytics(){
           backgroundColor: ['#c9a96e', '#8d6ba8', '#2a9d8f', '#ff8c38', '#bc6c25', '#0077b6', '#a62626', '#a3b18a']
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#eee8ef' } },
+          datalabels: {
+            color: '#fff',
+            font: { weight: 'bold', size: 11 },
+            formatter: (value) => {
+              if(!totalFilteredBooks) return '';
+              return ((value / totalFilteredBooks) * 100).toFixed(1) + "%";
+            }
+          }
+        }
+      }
     });
   }
 
-  // 2. Chart Pages / Genre
+  // 3. Chart Pages / Genre
   const pagesPerGenre = {};
   const countPerGenre = {};
   filteredBooks.forEach(b => {
@@ -1444,11 +1511,19 @@ function renderAnalytics(){
           backgroundColor: '#8d6ba8'
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } }, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } },
+        plugins: {
+          legend: { labels: { color: '#eee8ef' } },
+          datalabels: { color: '#ead6a5', anchor: 'end', align: 'top', font: { weight: 'bold', size: 10 } }
+        }
+      }
     });
   }
 
-  // 3. Chart Evolution Mensuelle
+  // 4. Chart Evolution Mensuelle
   const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
   const monthlyPages = new Array(12).fill(0);
 
@@ -1476,11 +1551,19 @@ function renderAnalytics(){
           tension: 0.3
         }]
       },
-      options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } }, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } },
+        plugins: {
+          legend: { labels: { color: '#eee8ef' } },
+          datalabels: { display: false }
+        }
+      }
     });
   }
 
-  // 4. Podiums (Top 3)
+  // 5. Podiums (Top 3)
   const speedStats = filteredBooks.map(b => {
     const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
     const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
