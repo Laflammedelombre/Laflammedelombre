@@ -12,6 +12,9 @@
 <!-- Icône PWA / iPhone App -->
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw4NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0i3IgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU883RleHQ+Cjwvc3ZnPg==">
 
+<!-- Library Chart.js pour les graphiques -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -114,6 +117,9 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 .theme-card{padding:15px;border-radius:10px;border:1px solid var(--border);background:#0003;cursor:pointer;text-align:center;transition:.2s}.theme-card:hover,.theme-card.active{border-color:var(--gold);transform:scale(1.02)}
 
+.podium-card{background:linear-gradient(145deg,rgba(0,0,0,0.3),rgba(0,0,0,0.1));border:1px solid var(--border);border-radius:12px;padding:15px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.podium-rank{font:bold 22px Cinzel;color:var(--gold2);width:35px}
+
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none}
@@ -149,10 +155,11 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <button class="nav-btn" onclick="showPage('wishlist',this)">🛒 Ma Wishlist</button>
   <button class="nav-btn" onclick="showPage('current',this)">📖 Lectures en cours</button>
   <button class="nav-btn" onclick="showPage('favorites',this)">❤️ Coups de cœur</button>
-  <div class="menu-title">Gestion</div>
+  <div class="menu-title">Gestion & Stats</div>
+  <button class="nav-btn" onclick="showPage('analytics',this)">📊 Analytics & Graphs</button>
+  <button class="nav-btn" onclick="showPage('stats',this)">📚 Historique & KPI</button>
   <button class="nav-btn" onclick="showPage('add',this)">➕ Ajouter un livre</button>
   <button class="nav-btn" onclick="showPage('loans',this)">📬 Mes prêts</button>
-  <button class="nav-btn" onclick="showPage('stats',this)">📊 Statistiques</button>
   <button class="nav-btn" onclick="showPage('settings',this)">⚙️ Paramètres & Thèmes</button>
 </div>
 <div style="border-top:1px solid var(--border);padding-top:15px;margin-top:15px">
@@ -224,6 +231,88 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div class="grid grid-3" id="favoritesGrid"></div>
 </section>
 
+<!-- GRAND ONGLET ANALYTICS & GRAPHIQUES -->
+<section class="page" id="analytics">
+<div class="page-header"><h2>📊 Analytics & Graphiques</h2><p>Analyse complète de tes habitudes de lecture avec filtres.</p></div>
+
+<!-- FILTRES DE L'ANALYTICS -->
+<div class="card" style="margin-bottom:22px;display:flex;gap:15px;flex-wrap:wrap;align-items:center">
+  <div style="flex:1;min-width:150px">
+    <label>Année de lecture</label>
+    <select id="analyticsYearFilter" onchange="renderAnalytics()">
+      <option value="TOUTES">Toutes les années</option>
+    </select>
+  </div>
+  <div style="flex:1;min-width:150px">
+    <label>Genre</label>
+    <select id="analyticsGenreFilter" onchange="renderAnalytics()">
+      <option value="TOUS">Tous les genres</option>
+    </select>
+  </div>
+  <div style="flex:1;min-width:150px">
+    <label>Format</label>
+    <select id="analyticsFormatFilter" onchange="renderAnalytics()">
+      <option value="TOUS">Tous les formats</option>
+      <option value="Poche">Poche</option>
+      <option value="Broché">Broché</option>
+      <option value="Relié">Relié</option>
+      <option value="Ebook">Ebook</option>
+      <option value="Livre Audio">Livre Audio</option>
+    </select>
+  </div>
+</div>
+
+<!-- GRAPHIQUES ET PODIUMS -->
+<div class="grid grid-2" style="margin-bottom:22px">
+  <div class="card">
+    <h3 class="card-title">🍩 Répartition des lectures par Genre</h3>
+    <div style="max-height:280px;position:relative"><canvas id="genreChart"></canvas></div>
+  </div>
+  <div class="card">
+    <h3 class="card-title">📖 Nombre moyen de pages par Genre</h3>
+    <div style="max-height:280px;position:relative"><canvas id="pagesPerGenreChart"></canvas></div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:22px">
+  <h3 class="card-title">📈 Evolution du volume de lecture (Pages lues par mois)</h3>
+  <div style="max-height:300px;position:relative"><canvas id="monthlyPagesChart"></canvas></div>
+</div>
+
+<div class="grid grid-3">
+  <div class="card">
+    <h3 class="card-title">⚡ Top 3 Vitesse (Pages/Heure)</h3>
+    <div id="topSpeedPodium"></div>
+  </div>
+  <div class="card">
+    <h3 class="card-title">⏱️ Top 3 Plus de Temps Passé</h3>
+    <div id="topTimePodium"></div>
+  </div>
+  <div class="card">
+    <h3 class="card-title">📚 Top 3 Gros Pavés (Pages)</h3>
+    <div id="topPagesPodium"></div>
+  </div>
+</div>
+</section>
+
+<!-- ANCIEN ONGLET STATS RENOMMÉ EN HISTORIQUE & KPI -->
+<section class="page" id="stats">
+<div class="page-header"><h2>📚 Historique & KPI des Livres</h2><p>Consulte la fiche détaillée de chacun de tes ouvrages.</p></div>
+<div class="card" style="margin-bottom:18px">
+  <input type="text" id="statsSearch" placeholder="🔍 Rechercher un livre..." oninput="renderStats()" style="max-width:300px">
+</div>
+<div class="grid grid-4">
+<div class="card stat"><div class="stat-number" id="statSessions">0</div><div class="stat-label">Sessions de lecture</div></div>
+<div class="card stat"><div class="stat-number" id="statHours">0 sec</div><div class="stat-label">Temps total lu</div></div>
+<div class="card stat"><div class="stat-number" id="statPages">0</div><div class="stat-label">Pages lues</div></div>
+<div class="card stat"><div class="stat-number" id="statLoans">0</div><div class="stat-label">Prêts en cours</div></div>
+</div>
+<div class="card" style="margin-top:18px">
+  <h3 class="card-title">📚 Fiches KPI par livre (Clique sur un livre)</h3>
+  <div id="statsDetail"></div>
+</div>
+</section>
+
 <section class="page" id="add">
 <div class="page-header"><h2>➕ Ajouter un livre</h2><p>Remplis les infos pour l'ajouter à ta bibliothèque.</p></div>
 <div class="card">
@@ -259,23 +348,6 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <section class="page" id="loans">
 <div class="page-header"><h2>📬 Mes prêts</h2><p>Historique et suivi des livres prêtés à tes proches.</p></div>
 <div class="card"><div id="loanTable"></div></div>
-</section>
-
-<section class="page" id="stats">
-<div class="page-header"><h2>📊 Mes statistiques</h2><p>Analyse globale et KPI par livre.</p></div>
-<div class="card" style="margin-bottom:18px">
-  <input type="text" id="statsSearch" placeholder="🔍 Rechercher un livre dans les stats..." oninput="renderStats()" style="max-width:300px">
-</div>
-<div class="grid grid-4">
-<div class="card stat"><div class="stat-number" id="statSessions">0</div><div class="stat-label">Sessions de lecture</div></div>
-<div class="card stat"><div class="stat-number" id="statHours">0 sec</div><div class="stat-label">Temps total lu</div></div>
-<div class="card stat"><div class="stat-number" id="statPages">0</div><div class="stat-label">Pages lues</div></div>
-<div class="card stat"><div class="stat-number" id="statLoans">0</div><div class="stat-label">Prêts en cours</div></div>
-</div>
-<div class="card" style="margin-top:18px">
-  <h3 class="card-title">📚 Statistiques détaillées par livre (Clique sur un livre)</h3>
-  <div id="statsDetail"></div>
-</div>
 </section>
 
 <section class="page" id="settings">
@@ -360,6 +432,9 @@ let pendingDeleteId = null;
 let selectedCurrentBookId = null;
 let state = { books: [], reads: [], sessions: [], loans: [], config: [] };
 
+// Instances de Graphiques
+let chartGenre = null, chartPagesGenre = null, chartMonthly = null;
+
 // Chronomètre Horodaté
 let chronoTimer = null;
 let chronoState = { active: false, paused: false, bookId: null, startTimeMs: 0, accumulatedSec: 0, startTimeStr: '', startPage: 0 };
@@ -397,7 +472,6 @@ function showPageName(id){
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
 function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
-/* CONVERSION UNIVERSELLE DU TEMPS EN SECONDES */
 function parseDurationToSeconds(durVal) {
   if (!durVal) return 0;
   if (typeof durVal === 'number') return Math.round(durVal * 60);
@@ -420,7 +494,6 @@ function parseDurationToSeconds(durVal) {
   return isNaN(num) ? 0 : Math.round(num * 60);
 }
 
-/* FORMATAGE DYNAMIQUE DU TEMPS */
 function durationHuman(totalSec){
   totalSec = Math.max(0, Math.floor(totalSec));
   if (totalSec === 0) return '0 sec';
@@ -460,7 +533,6 @@ function durationHuman(totalSec){
   return remMonths > 0 ? `${totalYears} an(s) ${remMonths} mois` : `${totalYears} an(s)`;
 }
 
-/* FORMATAGE LISIBLE DE DATE ET HEURE (NETTOYAGE ISO SHEETS) */
 function formatDateFr(dateStr){
   if(!dateStr) return '—';
   let str = String(dateStr);
@@ -511,11 +583,11 @@ function getElapsedSeconds(){
 }
 
 function initGenresDropdowns(){
-  const selects = ['newGenre', 'libraryGenreFilter'];
+  const selects = ['newGenre', 'libraryGenreFilter', 'analyticsGenreFilter'];
   selects.forEach(id => {
     const el = document.getElementById(id);
     if(!el) return;
-    if(id === 'libraryGenreFilter'){
+    if(id.includes('Filter')){
       el.innerHTML = '<option value="TOUS">Tous les genres</option>' + GENRES_LIST.map(g=>`<option value="${g}">${g}</option>`).join('');
     } else {
       el.innerHTML = GENRES_LIST.map(g=>`<option value="${g}">${g}</option>`).join('');
@@ -585,6 +657,17 @@ async function loadFromSheets() {
       config: data.config || []
     };
 
+    // Remplir le filtre des années
+    const years = [...new Set(state.sessions.map(s => {
+      const d = new Date(s.date);
+      return isNaN(d.getFullYear()) ? null : d.getFullYear();
+    }).filter(y => y))].sort((a,b) => b - a);
+
+    const yearSelect = document.getElementById('analyticsYearFilter');
+    if(yearSelect) {
+      yearSelect.innerHTML = '<option value="TOUTES">Toutes les années</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+    }
+
     const themeRow = state.config.find(c => c.Parametre === "theme" || c.parametre === "theme");
     if(themeRow && themeRow.Valeur) {
       applyTheme(themeRow.Valeur, false);
@@ -636,6 +719,9 @@ function render(){
   renderFavorites();
   renderLoans();
   renderStats();
+  if(document.getElementById('analytics').classList.contains('active')){
+    renderAnalytics();
+  }
 }
 
 function renderHome(){
@@ -1201,7 +1287,7 @@ function renderFavorites(){
   document.getElementById('favoritesGrid').innerHTML = a.length ? a.map(b=>`<div class="card" onclick="openBook('${b.id}')" style="cursor:pointer"><h3>${esc(b.title)}</h3><p class="muted">${esc(b.author||'')}</p></div>`).join('') : '<div class="card"><p class="muted">Aucun coup de cœur trouvé.</p></div>';
 }
 
-/* STATISTIQUES GLOBALES & KPI AVEC CALCUL DE TEMPS PRÉCIS À LA SECONDE */
+/* HISTORIQUE ET FICHES LIVRES (ANCIEN ONGLET STATS RENOMMÉ) */
 function renderStats(){
   const search = document.getElementById('statsSearch')?.value.toLowerCase()||'';
   
@@ -1280,6 +1366,165 @@ function openKpiBook(id){
       </div>
     ` : '<p class="muted">Aucune session enregistrée pour ce livre.</p>'}`;
   document.getElementById('kpiBookModal').classList.add('show');
+}
+
+/* LE NOUVEL ONGLET ANALYTICS & GRAPHIQUES AVEC FILTRES DYNAMIQUES */
+function renderAnalytics(){
+  const yearSel = document.getElementById('analyticsYearFilter')?.value || 'TOUTES';
+  const genreSel = document.getElementById('analyticsGenreFilter')?.value || 'TOUS';
+  const formatSel = document.getElementById('analyticsFormatFilter')?.value || 'TOUS';
+
+  // Filtrer les livres
+  let filteredBooks = state.books;
+  if(genreSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.genre === genreSel);
+  if(formatSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.format === formatSel);
+
+  // Filtrer les sessions par année et par livres filtrés
+  let filteredSessions = state.sessions.filter(s => {
+    const book = getBook(s.bookId);
+    if(!book) return false;
+    if(genreSel !== 'TOUS' && book.genre !== genreSel) return false;
+    if(formatSel !== 'TOUS' && book.format !== formatSel) return false;
+    
+    if(yearSel !== 'TOUTES') {
+      const d = new Date(s.date);
+      if(isNaN(d.getFullYear()) || String(d.getFullYear()) !== String(yearSel)) return false;
+    }
+    return true;
+  });
+
+  // 1. Chart Genre (Répartition par genre des livres lus)
+  const genreCounts = {};
+  filteredBooks.filter(b => b.status === 'Terminé' || b.status === 'En cours').forEach(b => {
+    genreCounts[b.genre || 'Autre'] = (genreCounts[b.genre || 'Autre'] || 0) + 1;
+  });
+
+  const genreLabels = Object.keys(genreCounts);
+  const genreData = Object.values(genreCounts);
+
+  if(chartGenre) chartGenre.destroy();
+  const ctxGenre = document.getElementById('genreChart')?.getContext('2d');
+  if(ctxGenre){
+    chartGenre = new Chart(ctxGenre, {
+      type: 'doughnut',
+      data: {
+        labels: genreLabels.length ? genreLabels : ['Aucun'],
+        datasets: [{
+          data: genreData.length ? genreData : [1],
+          backgroundColor: ['#c9a96e', '#8d6ba8', '#2a9d8f', '#ff8c38', '#bc6c25', '#0077b6', '#a62626', '#a3b18a']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+    });
+  }
+
+  // 2. Chart Pages / Genre
+  const pagesPerGenre = {};
+  const countPerGenre = {};
+  filteredBooks.forEach(b => {
+    if(b.pages > 0){
+      pagesPerGenre[b.genre || 'Autre'] = (pagesPerGenre[b.genre || 'Autre'] || 0) + b.pages;
+      countPerGenre[b.genre || 'Autre'] = (countPerGenre[b.genre || 'Autre'] || 0) + 1;
+    }
+  });
+
+  const avgGenreLabels = Object.keys(pagesPerGenre);
+  const avgGenreData = avgGenreLabels.map(g => Math.round(pagesPerGenre[g] / countPerGenre[g]));
+
+  if(chartPagesGenre) chartPagesGenre.destroy();
+  const ctxPagesGenre = document.getElementById('pagesPerGenreChart')?.getContext('2d');
+  if(ctxPagesGenre){
+    chartPagesGenre = new Chart(ctxPagesGenre, {
+      type: 'bar',
+      data: {
+        labels: avgGenreLabels.length ? avgGenreLabels : ['Aucun'],
+        datasets: [{
+          label: 'Pages moyennes',
+          data: avgGenreData.length ? avgGenreData : [0],
+          backgroundColor: '#8d6ba8'
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } }, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+    });
+  }
+
+  // 3. Chart Evolution Mensuelle
+  const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
+  const monthlyPages = new Array(12).fill(0);
+
+  filteredSessions.forEach(s => {
+    const d = new Date(s.date);
+    if(!isNaN(d.getMonth())){
+      const p = Math.max(0, (s.endPage || 0) - (s.startPage || 0));
+      monthlyPages[d.getMonth()] += p;
+    }
+  });
+
+  if(chartMonthly) chartMonthly.destroy();
+  const ctxMonthly = document.getElementById('monthlyPagesChart')?.getContext('2d');
+  if(ctxMonthly){
+    chartMonthly = new Chart(ctxMonthly, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Pages lues dans le mois',
+          data: monthlyPages,
+          borderColor: '#c9a96e',
+          backgroundColor: 'rgba(201, 169, 110, 0.15)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#aaa0ac' } }, y: { ticks: { color: '#aaa0ac' } } }, plugins: { legend: { labels: { color: '#eee8ef' } } } }
+    });
+  }
+
+  // 4. Podiums (Top 3)
+  const speedStats = filteredBooks.map(b => {
+    const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
+    const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
+    const speed = bSec > 0 ? (b.currentPage / (bSec / 3600)).toFixed(1) : 0;
+    return { book: b, speed: Number(speed), sec: bSec };
+  }).filter(x => x.speed > 0).sort((a,b) => b.speed - a.speed).slice(0,3);
+
+  document.getElementById('topSpeedPodium').innerHTML = speedStats.length ? speedStats.map((x,i) => `
+    <div class="podium-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="podium-rank">#${i+1}</div>
+        <div><strong>${esc(x.book.title)}</strong><br><small class="muted">${esc(x.book.author)}</small></div>
+      </div>
+      <div style="color:var(--gold2);font-weight:bold">${x.speed} p/h</div>
+    </div>
+  `).join('') : '<p class="muted">Aucune donnée de vitesse.</p>';
+
+  const timeStats = filteredBooks.map(b => {
+    const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
+    const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
+    return { book: b, sec: bSec };
+  }).filter(x => x.sec > 0).sort((a,b) => b.sec - a.sec).slice(0,3);
+
+  document.getElementById('topTimePodium').innerHTML = timeStats.length ? timeStats.map((x,i) => `
+    <div class="podium-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="podium-rank">#${i+1}</div>
+        <div><strong>${esc(x.book.title)}</strong><br><small class="muted">${esc(x.book.author)}</small></div>
+      </div>
+      <div style="color:var(--gold2);font-weight:bold">${durationHuman(x.sec)}</div>
+    </div>
+  `).join('') : '<p class="muted">Aucune donnée de temps.</p>';
+
+  const pagesStats = [...filteredBooks].filter(b => b.pages > 0).sort((a,b) => b.pages - a.pages).slice(0,3);
+
+  document.getElementById('topPagesPodium').innerHTML = pagesStats.length ? pagesStats.map((b,i) => `
+    <div class="podium-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="podium-rank">#${i+1}</div>
+        <div><strong>${esc(b.title)}</strong><br><small class="muted">${esc(b.author)}</small></div>
+      </div>
+      <div style="color:var(--gold2);font-weight:bold">${b.pages} pages</div>
+    </div>
+  `).join('') : '<p class="muted">Aucun livre avec nombre de pages.</p>';
 }
 
 document.getElementById('bookForm').addEventListener('submit', function() {
