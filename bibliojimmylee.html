@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Ma Biblio">
-<title>La Bibliothèque de Jimmy-Lee</title>
+<title>Ma Bibliothèque</title>
 
 <!-- Icône PWA / iPhone App -->
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9IiMxNzEyMWQiLz4KICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWQiIGN4PSI1MCUiIGN5PSIzMCUiIHI9IjcwJSI+CiAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ2YmE4IiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTcxMjFkIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2dyYWQpIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjMyIiB3aWR0aD0iNDQ4IiBoZWlnaHQ9IjQ0OCIgcng9Ijk2IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPgogIAogIDwhLS0gTWFnaWMgQm9vayBJY29uIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1NiwgMjQwKSBzY2FsZSgxLjQpIj4KICAgIDwhLS0gQm9vayBMZWF2ZXMgLS0+CiAgICA8cGF0aCBkPSJNLTgwLC0yMCBDLTQwLC00MCAtMTAsLTIwIDAsLTEwIEMxMCwtMjAgNDAsLTQwIDgwLC0yMCBMODAsNTAgQzQwLDMw IDEwLDQ1IDAsNTUgQy0xMCw4NSAtNDAsMw0gLTgwLDUwIFoiIGZpbGw9IiMyYjIwMzEiIHN0cm9rZT0iI2M5YTk2ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cGF0aCBkPSJN0sCDEwIExDLDU1IiBzdHJva2U9IiNjOWE5NmUiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgCiAgICA8IS0tIEdsb3cgLyBTcGFya2xlcyAtLT4KICAgIDxwYXRoIGQ9Ik0wLC01MCBMNiwtMzAgTDI2LC0yNCBMNiwtMTggTDAsMiBMLTYsLTE4IEwtMjYsLTI0IEwtNiwtMzAgWiIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTUwIiBjeT0iLTQwIiByPSI0IiBmaWxsPSIjYzlhOTZlIi8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9Ii00MCIgcj0iNSIgZmlsbD0iI2VhZDZhNSIvPgogICAgPGNpcmNsZSBjeD0iLTM0IiBjeT0iLTYwIiByPSIzIiBmaWxsPSIjOGQ2YmE4Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNSIgY3k9Ii02NSIgcj0i3IgZmlsbD0iI2M5YTk2ZSIvPgogIDwvZz4KICA8dGV4dCB4PSIyNTYiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidDaW56ZWwnLCBzZXJpZiwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlYWQ2YTUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSI0Ij5CSUJMSU883RleHQ+Cjwvc3ZnPg==">
@@ -448,7 +448,7 @@ let selectedCurrentBookId = null;
 let state = { books: [], reads: [], sessions: [], loans: [], config: [] };
 
 // Instances de Graphiques
-let chartGlobalLibrary = null, chartGenre = null, chartPagesGenre = null, chartMonthly = null;
+let chartGlobalLibrary = null, chartGenre = null, chartPagesGenre = null, chartMonthly = null, chartKpiSpeed = null;
 
 // Chronomètre Horodaté
 let chronoTimer = null;
@@ -932,17 +932,21 @@ function renderCurrent(){
               <th>Horaires</th>
               <th>Pages</th>
               <th>Durée</th>
+              <th>Vitesse</th>
               <th>Note</th>
             </tr>
           </thead>
           <tbody>
             ${bookSessions.map(s => {
               const sec = parseDurationToSeconds(s.durationMin);
+              const pCount = Math.max(0, (s.endPage || 0) - (s.startPage || 0));
+              const speed = sec > 0 ? (pCount / (sec / 3600)).toFixed(1) : '0.0';
               return `<tr>
                 <td>${formatDateFr(s.date)}</td>
                 <td>${formatTimeFr(s.startTime)} ➔ ${formatTimeFr(s.endTime)}</td>
-                <td>Page ${s.startPage} à ${s.endPage} (+${Math.max(0, s.endPage - s.startPage)} p.)</td>
+                <td>Page ${s.startPage} à ${s.endPage} (+${pCount} p.)</td>
                 <td><strong>${durationHuman(sec)}</strong></td>
+                <td><span style="color:var(--gold2);font-weight:bold">${speed} p/h</span></td>
                 <td>${esc(s.note || '—')}</td>
               </tr>`;
             }).join('')}
@@ -1336,21 +1340,29 @@ function renderStats(){
     </div>`;
 }
 
+/* MODALE KPI DE LIVRE AVEC GRAPHIQUE COMBINÉ (RÉGULARITÉ & VITESSE) ET TABLEAU COMPLET */
 function openKpiBook(id){
   const b = getBook(id);
   const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
   const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
   const pagesRead = b.currentPage || 0;
-  const speed = bSec > 0 ? (pagesRead / (bSec / 3600)).toFixed(1) : 0;
+  const avgSpeed = bSec > 0 ? (pagesRead / (bSec / 3600)).toFixed(1) : 0;
 
-  document.getElementById('kpiModalTitle').textContent = `📊 KPI : ${b.title}`;
+  document.getElementById('kpiModalTitle').textContent = `📊 KPI & Graphique : ${b.title}`;
   document.getElementById('kpiModalBody').innerHTML = `
     <div class="grid grid-3" style="margin-bottom:20px">
       <div class="card stat"><div class="stat-number">${bSessions.length}</div><div class="stat-label">Sessions de lecture</div></div>
       <div class="card stat"><div class="stat-number">${durationHuman(bSec)}</div><div class="stat-label">Temps total passé</div></div>
-      <div class="card stat"><div class="stat-number">${speed}</div><div class="stat-label">Pages / heure (vitesse)</div></div>
+      <div class="card stat"><div class="stat-number">${avgSpeed}</div><div class="stat-label">Pages / heure (vitesse moyenne)</div></div>
     </div>
     
+    ${bSessions.length > 0 ? `
+      <div class="card" style="margin-bottom:20px;padding:15px">
+        <h3 class="card-title">📈 Graphique de Régularité & Vitesse par Date</h3>
+        <div style="max-height:260px;position:relative"><canvas id="bookKpiSpeedChart"></canvas></div>
+      </div>
+    ` : ''}
+
     <h3 class="card-title">⏱️ Historique détaillé des sessions</h3>
     ${bSessions.length ? `
       <div class="table-responsive">
@@ -1361,17 +1373,21 @@ function openKpiBook(id){
               <th>Heure</th>
               <th>Pages</th>
               <th>Durée</th>
+              <th>Vitesse</th>
               <th>Note</th>
             </tr>
           </thead>
           <tbody>
             ${bSessions.map(s => {
               const sSec = parseDurationToSeconds(s.durationMin);
+              const pCount = Math.max(0, (s.endPage || 0) - (s.startPage || 0));
+              const speed = sSec > 0 ? (pCount / (sSec / 3600)).toFixed(1) : '0.0';
               return `<tr>
                 <td>${formatDateFr(s.date)}</td>
                 <td>${formatTimeFr(s.startTime)} ➔ ${formatTimeFr(s.endTime)}</td>
-                <td>Page ${s.startPage} à ${s.endPage}</td>
+                <td>Page ${s.startPage} à ${s.endPage} (+${pCount} p.)</td>
                 <td><strong>${durationHuman(sSec)}</strong></td>
+                <td><span style="color:var(--gold2);font-weight:bold">${speed} p/h</span></td>
                 <td>${esc(s.note || '—')}</td>
               </tr>`;
             }).join('')}
@@ -1379,17 +1395,74 @@ function openKpiBook(id){
         </table>
       </div>
     ` : '<p class="muted">Aucune session enregistrée pour ce livre.</p>'}`;
+
   document.getElementById('kpiBookModal').classList.add('show');
+
+  // Génération du graphique combiné
+  if (bSessions.length > 0) {
+    const datesLabels = bSessions.map(s => formatDateFr(s.date));
+    const pagesData = bSessions.map(s => Math.max(0, (s.endPage || 0) - (s.startPage || 0)));
+    const speedsData = bSessions.map(s => {
+      const sSec = parseDurationToSeconds(s.durationMin);
+      const pCount = Math.max(0, (s.endPage || 0) - (s.startPage || 0));
+      return sSec > 0 ? Number((pCount / (sSec / 3600)).toFixed(1)) : 0;
+    });
+
+    setTimeout(() => {
+      if(chartKpiSpeed) chartKpiSpeed.destroy();
+      const ctxBookKpi = document.getElementById('bookKpiSpeedChart')?.getContext('2d');
+      if (ctxBookKpi) {
+        chartKpiSpeed = new Chart(ctxBookKpi, {
+          type: 'line',
+          data: {
+            labels: datesLabels,
+            datasets: [
+              {
+                label: 'Pages lues',
+                data: pagesData,
+                borderColor: '#8d6ba8',
+                backgroundColor: 'rgba(141, 107, 168, 0.25)',
+                yAxisID: 'yPages',
+                fill: true,
+                tension: 0.3
+              },
+              {
+                label: 'Vitesse (Pages / h)',
+                data: speedsData,
+                borderColor: '#c9a96e',
+                backgroundColor: 'rgba(201, 169, 110, 0.2)',
+                yAxisID: 'ySpeed',
+                fill: false,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { ticks: { color: '#aaa0ac' } },
+              yPages: { type: 'linear', position: 'left', title: { display: true, text: 'Pages lues', color: '#8d6ba8' }, ticks: { color: '#8d6ba8' } },
+              ySpeed: { type: 'linear', position: 'right', title: { display: true, text: 'Vitesse (p/h)', color: '#c9a96e' }, ticks: { color: '#c9a96e' }, grid: { drawOnChartArea: false } }
+            },
+            plugins: {
+              legend: { labels: { color: '#eee8ef' } },
+              datalabels: { display: false }
+            }
+          }
+        });
+      }
+    }, 150);
+  }
 }
 
-/* LE NOUVEL ONGLET ANALYTICS AVEC CHOIX MODE VALEURS OU % ET GRAPHIQUE GLOBAL */
+/* ONGLET ANALYTICS GLOBAL */
 function renderAnalytics(){
   const displayMode = document.getElementById('analyticsDisplayMode')?.value || 'PERCENT';
   const yearSel = document.getElementById('analyticsYearFilter')?.value || 'TOUTES';
   const genreSel = document.getElementById('analyticsGenreFilter')?.value || 'TOUS';
   const formatSel = document.getElementById('analyticsFormatFilter')?.value || 'TOUS';
 
-  // 1. GRAPHIQUE HORS FILTRES : ÉTAT GLOBAL DE LA BIBLIOTHÈQUE PAR GENRE
   const globalGenreCounts = {};
   let totalGlobalBooks = 0;
   state.books.forEach(b => {
@@ -1423,11 +1496,7 @@ function renderAnalytics(){
             font: { weight: 'bold', size: 11 },
             formatter: (value) => {
               if(!totalGlobalBooks) return '';
-              if (displayMode === 'PERCENT') {
-                return ((value / totalGlobalBooks) * 100).toFixed(1) + "%";
-              } else {
-                return value + " livre(s)";
-              }
+              return displayMode === 'PERCENT' ? ((value / totalGlobalBooks) * 100).toFixed(1) + "%" : value + " livre(s)";
             }
           }
         }
@@ -1435,7 +1504,6 @@ function renderAnalytics(){
     });
   }
 
-  // FILTRAGE DES LIVRES ET SESSIONS
   let filteredBooks = state.books;
   if(genreSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.genre === genreSel);
   if(formatSel !== 'TOUS') filteredBooks = filteredBooks.filter(b => b.format === formatSel);
@@ -1453,7 +1521,6 @@ function renderAnalytics(){
     return true;
   });
 
-  // 2. Chart Genre Filtré
   const genreCounts = {};
   let totalFilteredBooks = 0;
   filteredBooks.filter(b => b.status === 'Terminé' || b.status === 'En cours').forEach(b => {
@@ -1487,11 +1554,7 @@ function renderAnalytics(){
             font: { weight: 'bold', size: 11 },
             formatter: (value) => {
               if(!totalFilteredBooks) return '';
-              if (displayMode === 'PERCENT') {
-                return ((value / totalFilteredBooks) * 100).toFixed(1) + "%";
-              } else {
-                return value + " livre(s)";
-              }
+              return displayMode === 'PERCENT' ? ((value / totalFilteredBooks) * 100).toFixed(1) + "%" : value + " livre(s)";
             }
           }
         }
@@ -1499,7 +1562,6 @@ function renderAnalytics(){
     });
   }
 
-  // 3. Chart Pages / Genre
   const pagesPerGenre = {};
   const countPerGenre = {};
   filteredBooks.forEach(b => {
@@ -1537,7 +1599,6 @@ function renderAnalytics(){
     });
   }
 
-  // 4. Chart Evolution Mensuelle
   const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
   const monthlyPages = new Array(12).fill(0);
 
@@ -1577,7 +1638,6 @@ function renderAnalytics(){
     });
   }
 
-  // 5. Podiums (Top 3)
   const speedStats = filteredBooks.map(b => {
     const bSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
     const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
