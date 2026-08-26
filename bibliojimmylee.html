@@ -122,7 +122,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 .analytics-section-title{font:600 18px Cinzel;color:var(--gold2);margin:25px 0 15px;padding-bottom:6px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:8px}
 
-.projection-box{margin-top:12px;background:rgba(201,169,110,0.08);border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-size:13px;color:var(--gold2);display:flex;align-items:center;gap:10px}
+.projection-box{margin-top:12px;background:rgba(201,169,110,0.08);border:1px solid var(--border);border-radius:9px;padding:12px 16px;font-size:13px;color:var(--gold2);display:flex;align-items:center;gap:10px}
 
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
@@ -570,7 +570,6 @@ function showPageName(id){
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
 function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
-/* CALCUL DYNAMIQUE DE LA DATE DE FIN PROJETÉE */
 function getProjectedCompletionDate(book) {
   if (!book || !book.pages || book.pages <= 0) return null;
   const remainingPages = book.pages - (book.currentPage || 0);
@@ -580,13 +579,11 @@ function getProjectedCompletionDate(book) {
   let avgPagesPerDay = 0;
 
   if (bSessions.length > 0) {
-    // Calcul de la moyenne de pages lues par jour
     const uniqueDates = [...new Set(bSessions.map(s => s.date))];
     const totalPagesRead = bSessions.reduce((acc, s) => acc + Math.max(0, (s.endPage || 0) - (s.startPage || 0)), 0);
     avgPagesPerDay = totalPagesRead / Math.max(1, uniqueDates.length);
   }
 
-  // Si pas assez de données pour ce livre, prendre la moyenne globale par jour
   if (avgPagesPerDay <= 0 && state.sessions.length > 0) {
     const uniqueDatesGlobal = [...new Set(state.sessions.map(s => s.date))];
     const totalGlobalPages = state.sessions.reduce((acc, s) => acc + Math.max(0, (s.endPage || 0) - (s.startPage || 0)), 0);
@@ -1483,13 +1480,34 @@ function openKpiBook(id){
   const bSec = bSessions.reduce((a, s) => a + parseDurationToSeconds(s.durationMin), 0);
   const pagesRead = b.currentPage || 0;
   const avgSpeed = bSec > 0 ? (pagesRead / (bSec / 3600)).toFixed(1) : 0;
+  const pct = b.pages ? Math.min(100, Math.round((pagesRead / b.pages) * 100)) : 0;
+  const projectedFinishDate = getProjectedCompletionDate(b);
 
   document.getElementById('kpiModalTitle').textContent = `📊 KPI & Graphique : ${b.title}`;
   document.getElementById('kpiModalBody').innerHTML = `
-    <div class="grid grid-3" style="margin-bottom:20px">
+    <!-- KPI CHIFFRÉS -->
+    <div class="grid grid-3" style="margin-bottom:15px">
       <div class="card stat"><div class="stat-number">${bSessions.length}</div><div class="stat-label">Sessions de lecture</div></div>
       <div class="card stat"><div class="stat-number">${durationHuman(bSec)}</div><div class="stat-label">Temps total passé</div></div>
       <div class="card stat"><div class="stat-number">${avgSpeed}</div><div class="stat-label">Pages / heure (vitesse moyenne)</div></div>
+    </div>
+
+    <!-- PROGRESSION & ESTIMATION DE FIN -->
+    <div style="background:#0003;padding:16px 18px;border-radius:10px;border:1px solid var(--border);margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <strong style="font-size:13px">Progression : Page ${pagesRead} / ${b.pages || '?'}</strong>
+        <span style="color:var(--gold2);font-family:Cinzel;font-weight:bold;font-size:14px">${pct}%</span>
+      </div>
+      <div class="progress-bar" style="margin:6px 0 10px"><div class="progress" style="width:${pct}%"></div></div>
+      
+      ${b.status !== 'Terminé' && projectedFinishDate ? `
+        <div class="projection-box" style="margin-top:8px">
+          <span>⏳</span>
+          <div>À ce rythme-là, tu auras terminé ce livre le <strong>${projectedFinishDate}</strong> !</div>
+        </div>
+      ` : (b.status === 'Terminé' ? `
+        <div style="font-size:12px;color:var(--gold2);margin-top:6px">🎉 Livre terminé !</div>
+      ` : '')}
     </div>
     
     ${bSessions.length > 0 ? `
