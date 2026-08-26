@@ -124,6 +124,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 .projection-box{margin-top:12px;background:rgba(201,169,110,0.08);border:1px solid var(--border);border-radius:9px;padding:12px 16px;font-size:13px;color:var(--gold2);display:flex;align-items:center;gap:10px}
 
+/* OPTIMISATION COMPACTE DU POPUP KPI SUR MOBILE */
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none}
@@ -136,6 +137,21 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   .hero{padding:25px}.hero h2{font-size:26px}
   .modal-book-layout{grid-template-columns:1fr}
   .timer-display{font-size:36px}
+
+  /* Resserrement modale KPI pour capture d'écran unique */
+  #kpiBookModal { padding: 8px !important; }
+  #kpiBookModal .modal { padding: 14px 12px !important; border-radius: 12px !important; }
+  #kpiBookModal .modal-head h3 { font-size: 15px !important; line-height: 1.2; }
+  #kpiBookModal .kpi-summary-grid { gap: 6px !important; margin-bottom: 8px !important; }
+  #kpiBookModal .kpi-summary-grid .card.stat { padding: 8px 4px !important; }
+  #kpiBookModal .kpi-summary-grid .stat-number { font-size: 17px !important; }
+  #kpiBookModal .kpi-summary-grid .stat-label { font-size: 9px !important; margin-top: 2px; }
+  #kpiBookModal .kpi-prog-box { padding: 8px 10px !important; margin-bottom: 8px !important; }
+  #kpiBookModal .kpi-prog-box .progress-bar { margin: 4px 0 6px !important; height: 7px !important; }
+  #kpiBookModal .kpi-prog-box .projection-box { padding: 6px 8px !important; font-size: 11px !important; margin-top: 4px !important; gap: 6px !important; }
+  #kpiBookModal .kpi-chart-card { padding: 8px 10px !important; margin-bottom: 10px !important; }
+  #kpiBookModal .kpi-chart-card .card-title { font-size: 13px !important; margin-bottom: 4px !important; }
+  #kpiBookModal .kpi-chart-wrapper { max-height: 160px !important; height: 160px !important; }
 }
 </style>
 </head>
@@ -452,8 +468,8 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
   <button class="gold" onclick="confirmSaveSession()">💾 Valider et enregistrer</button>
 </div></div></div>
 
-<!-- Modale KPI Livre -->
-<div class="modal-backdrop" id="kpiBookModal"><div class="modal"><div class="modal-head"><h3 id="kpiModalTitle"></h3><button class="close" onclick="closeModal('kpiBookModal')">×</button></div><div id="kpiModalBody" style="margin-top:20px"></div></div></div>
+<!-- Modale KPI Livre (Structure Mobile Compacte) -->
+<div class="modal-backdrop" id="kpiBookModal"><div class="modal"><div class="modal-head"><h3 id="kpiModalTitle"></h3><button class="close" onclick="closeModal('kpiBookModal')">×</button></div><div id="kpiModalBody" style="margin-top:10px"></div></div></div>
 
 <div class="toast" id="toast"></div>
 
@@ -1483,41 +1499,51 @@ function openKpiBook(id){
   const pct = b.pages ? Math.min(100, Math.round((pagesRead / b.pages) * 100)) : 0;
   const projectedFinishDate = getProjectedCompletionDate(b);
 
-  document.getElementById('kpiModalTitle').textContent = `📊 KPI & Graphique : ${b.title}`;
+  document.getElementById('kpiModalTitle').textContent = `📊 KPI : ${b.title}`;
   document.getElementById('kpiModalBody').innerHTML = `
-    <!-- KPI CHIFFRÉS -->
-    <div class="grid grid-3" style="margin-bottom:15px">
-      <div class="card stat"><div class="stat-number">${bSessions.length}</div><div class="stat-label">Sessions de lecture</div></div>
-      <div class="card stat"><div class="stat-number">${durationHuman(bSec)}</div><div class="stat-label">Temps total passé</div></div>
-      <div class="card stat"><div class="stat-number">${avgSpeed}</div><div class="stat-label">Pages / heure (vitesse moyenne)</div></div>
+    <!-- KPI CHIFFRÉS (Affichage côte à côte optimisé mobile) -->
+    <div class="kpi-summary-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+      <div class="card stat" style="padding:10px 6px">
+        <div class="stat-number" style="font-size:20px">${bSessions.length}</div>
+        <div class="stat-label" style="font-size:10px">Sessions</div>
+      </div>
+      <div class="card stat" style="padding:10px 6px">
+        <div class="stat-number" style="font-size:20px">${durationHuman(bSec)}</div>
+        <div class="stat-label" style="font-size:10px">Temps total</div>
+      </div>
+      <div class="card stat" style="padding:10px 6px">
+        <div class="stat-number" style="font-size:20px">${avgSpeed}</div>
+        <div class="stat-label" style="font-size:10px">Pages / h</div>
+      </div>
     </div>
 
-    <!-- PROGRESSION & ESTIMATION DE FIN -->
-    <div style="background:#0003;padding:16px 18px;border-radius:10px;border:1px solid var(--border);margin-bottom:20px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <strong style="font-size:13px">Progression : Page ${pagesRead} / ${b.pages || '?'}</strong>
-        <span style="color:var(--gold2);font-family:Cinzel;font-weight:bold;font-size:14px">${pct}%</span>
+    <!-- PROGRESSION & ESTIMATION DE FIN COMPACTE -->
+    <div class="kpi-prog-box" style="background:#0003;padding:10px 14px;border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <strong style="font-size:12px">Progression : Page ${pagesRead} / ${b.pages || '?'}</strong>
+        <span style="color:var(--gold2);font-family:Cinzel;font-weight:bold;font-size:13px">${pct}%</span>
       </div>
-      <div class="progress-bar" style="margin:6px 0 10px"><div class="progress" style="width:${pct}%"></div></div>
+      <div class="progress-bar" style="margin:4px 0 8px;height:8px"><div class="progress" style="width:${pct}%"></div></div>
       
       ${b.status !== 'Terminé' && projectedFinishDate ? `
-        <div class="projection-box" style="margin-top:8px">
+        <div class="projection-box" style="margin-top:6px;padding:8px 10px;font-size:12px">
           <span>⏳</span>
-          <div>À ce rythme-là, tu auras terminé ce livre le <strong>${projectedFinishDate}</strong> !</div>
+          <div>À ce rythme-là, fin estimée le <strong>${projectedFinishDate}</strong> !</div>
         </div>
       ` : (b.status === 'Terminé' ? `
-        <div style="font-size:12px;color:var(--gold2);margin-top:6px">🎉 Livre terminé !</div>
+        <div style="font-size:12px;color:var(--gold2);margin-top:4px">🎉 Livre terminé !</div>
       ` : '')}
     </div>
     
+    <!-- GRAPHIQUE COMPACT DIRECTEMENT VISIBLE -->
     ${bSessions.length > 0 ? `
-      <div class="card" style="margin-bottom:20px;padding:15px">
-        <h3 class="card-title">📈 Graphique de Régularité & Vitesse par Date</h3>
-        <div style="max-height:260px;position:relative"><canvas id="bookKpiSpeedChart"></canvas></div>
+      <div class="card kpi-chart-card" style="margin-bottom:14px;padding:12px 14px">
+        <h3 class="card-title" style="font-size:14px;margin:0 0 8px">📈 Régularité & Vitesse par Date</h3>
+        <div class="kpi-chart-wrapper" style="max-height:170px;height:170px;position:relative"><canvas id="bookKpiSpeedChart"></canvas></div>
       </div>
     ` : ''}
 
-    <h3 class="card-title">⏱️ Historique détaillé des sessions</h3>
+    <h3 class="card-title" style="font-size:15px;margin:12px 0 8px">⏱️ Historique détaillé des sessions</h3>
     ${bSessions.length ? `
       <div class="table-responsive">
         <table>
@@ -1594,12 +1620,12 @@ function openKpiBook(id){
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-              x: { ticks: { color: '#aaa0ac' } },
-              yPages: { type: 'linear', position: 'left', title: { display: true, text: 'Pages lues', color: '#8d6ba8' }, ticks: { color: '#8d6ba8' } },
-              ySpeed: { type: 'linear', position: 'right', title: { display: true, text: 'Vitesse (p/h)', color: '#c9a96e' }, ticks: { color: '#c9a96e' }, grid: { drawOnChartArea: false } }
+              x: { ticks: { color: '#aaa0ac', font: { size: 10 } } },
+              yPages: { type: 'linear', position: 'left', title: { display: false }, ticks: { color: '#8d6ba8', font: { size: 10 } } },
+              ySpeed: { type: 'linear', position: 'right', title: { display: false }, ticks: { color: '#c9a96e', font: { size: 10 } }, grid: { drawOnChartArea: false } }
             },
             plugins: {
-              legend: { labels: { color: '#eee8ef' } },
+              legend: { labels: { color: '#eee8ef', boxWidth: 12, font: { size: 11 } } },
               datalabels: { display: false }
             }
           }
