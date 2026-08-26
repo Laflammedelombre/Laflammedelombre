@@ -122,6 +122,8 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 
 .analytics-section-title{font:600 18px Cinzel;color:var(--gold2);margin:25px 0 15px;padding-bottom:6px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:8px}
 
+.projection-box{margin-top:12px;background:rgba(201,169,110,0.08);border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-size:13px;color:var(--gold2);display:flex;align-items:center;gap:10px}
+
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:none}
@@ -568,6 +570,38 @@ function showPageName(id){
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
 function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
+/* CALCUL DYNAMIQUE DE LA DATE DE FIN PROJETÉE */
+function getProjectedCompletionDate(book) {
+  if (!book || !book.pages || book.pages <= 0) return null;
+  const remainingPages = book.pages - (book.currentPage || 0);
+  if (remainingPages <= 0) return 'Livre terminé !';
+
+  const bSessions = state.sessions.filter(s => String(s.bookId) === String(book.id));
+  let avgPagesPerDay = 0;
+
+  if (bSessions.length > 0) {
+    // Calcul de la moyenne de pages lues par jour
+    const uniqueDates = [...new Set(bSessions.map(s => s.date))];
+    const totalPagesRead = bSessions.reduce((acc, s) => acc + Math.max(0, (s.endPage || 0) - (s.startPage || 0)), 0);
+    avgPagesPerDay = totalPagesRead / Math.max(1, uniqueDates.length);
+  }
+
+  // Si pas assez de données pour ce livre, prendre la moyenne globale par jour
+  if (avgPagesPerDay <= 0 && state.sessions.length > 0) {
+    const uniqueDatesGlobal = [...new Set(state.sessions.map(s => s.date))];
+    const totalGlobalPages = state.sessions.reduce((acc, s) => acc + Math.max(0, (s.endPage || 0) - (s.startPage || 0)), 0);
+    avgPagesPerDay = totalGlobalPages / Math.max(1, uniqueDatesGlobal.length);
+  }
+
+  if (avgPagesPerDay <= 0) return null;
+
+  const daysNeeded = Math.ceil(remainingPages / avgPagesPerDay);
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + daysNeeded);
+
+  return targetDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
 function parseDurationToSeconds(durVal) {
   if (!durVal) return 0;
   if (typeof durVal === 'number') return Math.round(durVal * 60);
@@ -825,11 +859,16 @@ function renderHome(){
   <div style="display:flex;gap:15px;flex-wrap:wrap">
     ${list.map(b => {
       const pct = b.pages ? Math.min(100, Math.round((b.currentPage / b.pages) * 100)) : 0;
-      return `<div style="background:#0003;padding:15px;border-radius:10px;border:1px solid var(--border);flex:1;min-width:200px">
+      const proj = getProjectedCompletionDate(b);
+      return `<div style="background:#0003;padding:15px;border-radius:10px;border:1px solid var(--border);flex:1;min-width:240px">
         <strong style="font-family:Cinzel;color:var(--gold2)">${esc(b.title)}</strong>
         <p class="muted" style="margin:4px 0">${esc(b.author||'')}</p>
         <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
-        <small class="muted">Page ${b.currentPage} / ${b.pages || '?'}</small>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted)">
+          <span>Page ${b.currentPage} / ${b.pages || '?'}</span>
+          <span>${pct}%</span>
+        </div>
+        ${proj ? `<div style="font-size:11px;color:var(--gold);margin-top:8px">⏳ Fin estimée : <strong>${proj}</strong></div>` : ''}
       </div>`;
     }).join('')}
   </div>
@@ -951,8 +990,8 @@ function renderCurrent(){
   const b = getBook(selectedCurrentBookId);
   const pct = b.pages ? Math.min(100, Math.round((b.currentPage / b.pages) * 100)) : 0;
   const bookSessions = state.sessions.filter(s => String(s.bookId) === String(b.id));
-
   const isCurrentChrono = chronoState.active && chronoState.bookId === b.id;
+  const projectedFinishDate = getProjectedCompletionDate(b);
 
   el.innerHTML=`
   <div class="card">
@@ -980,6 +1019,13 @@ function renderCurrent(){
         <span style="color:var(--gold2);font-family:Cinzel;font-weight:bold">${pct}%</span>
       </div>
       <div class="progress-bar"><div class="progress" style="width:${pct}%"></div></div>
+      
+      ${projectedFinishDate ? `
+        <div class="projection-box">
+          <span>⏳</span>
+          <div>À ce rythme-là, tu auras terminé ce livre le <strong>${projectedFinishDate}</strong> !</div>
+        </div>
+      ` : ''}
     </div>
 
     <div style="text-align:center;background:linear-gradient(145deg,var(--panel),var(--panel2));padding:25px;border-radius:12px;border:1px solid var(--border);margin-bottom:25px">
