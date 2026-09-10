@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -15,38 +16,41 @@
         nav ul li a { color: #aaa; text-decoration: none; font-weight: bold; transition: color 0.3s; }
         nav ul li a:hover { color: white; text-decoration: underline; }
 
-        .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
-        form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); box-sizing: border-box; }
-        h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
+```
+    .container { max-width: 750px; margin: 0 auto 60px; padding: 0 20px; }
+    form { background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid #222; box-shadow: 0 15px 40px rgba(0,0,0,0.7); box-sizing: border-box; }
+    h2 { margin-top: 0; font-size: 1.8em; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 30px; }
 
-        .form-group { margin-bottom: 20px; }
-        .flex-row { display: flex; gap: 15px; align-items: flex-end; }
-        .flex-row div:first-child { flex: 3; }
-        .flex-row div:last-child { flex: 1; }
+    .form-group { margin-bottom: 20px; }
+    .flex-row { display: flex; gap: 15px; align-items: flex-end; }
+    .flex-row div:first-child { flex: 3; }
+    .flex-row div:last-child { flex: 1; }
 
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
-        input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; }
-        input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 0.9em; }
+    input, textarea, select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; box-sizing: border-box; font-size: 16px; }
+    input[readonly] { background: #000; color: #8B0000; border: 1px solid #222; font-weight: bold; text-align: center; }
 
-        .info-box { 
-          font-size: 0.85em; 
-          padding: 12px; 
-          border-radius: 8px; 
-          display: none; 
-          margin-top: 10px; 
-          line-height: 1.4; 
-          border: 1px solid #333; 
-          background: #0a0a0a; 
-          color: #aaa; 
-        }
+    .info-box { 
+      font-size: 0.85em; 
+      padding: 12px; 
+      border-radius: 8px; 
+      display: none; 
+      margin-top: 10px; 
+      line-height: 1.4; 
+      border: 1px solid #333; 
+      background: #0a0a0a; 
+      color: #aaa; 
+    }
 
-        button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
-        button[type="submit"]:hover { background: #A52A2A; }
+    button[type="submit"] { margin-top: 35px; padding: 18px; border: none; border-radius: 12px; background: var(--primary-color); color: white; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2em; text-transform: uppercase; transition: 0.3s; }
+    button[type="submit"]:hover { background: #A52A2A; }
 
-        #status { margin-top: 25px; }
-        .success-box { background: #0c1a0c; border: 2px solid #28a745; padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    </style>
+    #status { margin-top: 25px; }
+    .success-box { background: #0c1a0c; border: 2px solid #28a745; padding: 25px; border-radius: 15px; text-align: center; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+</style>
+```
+
 </head>
 <body>
 
@@ -67,88 +71,97 @@
 <div class="container">
     <form id="questionForm">
         <h2>Posez votre question</h2>
+
+```
+    <div class="form-group">
+        <label>Votre Prénom</label>
+        <input type="text" name="Prénom" required>
+    </div>
+
+    <div class="flex-row form-group">
+        <div>
+            <label>Votre Date de naissance</label>
+            <input type="date" name="Date_Naissance" id="date_client" required onchange="calculerAge('date_client', 'age_client')">
+        </div>
+        <div>
+            <label>Âge</label>
+            <input type="text" name="Age" id="age_client" readonly>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Votre Email</label>
+        <input type="email" name="Email" required>
+    </div>
+
+    <div class="form-group">
+        <label>Prénom personne tierce (facultatif)</label>
+        <input type="text" name="Prénom_Partenaire">
+    </div>
+
+    <div class="flex-row form-group">
+        <div>
+            <label>Date de naissance tierce (facultatif)</label>
+            <input type="date" name="Date_Naissance_Partenaire" id="date_tierce" onchange="calculerAge('date_tierce', 'age_tierce')">
+        </div>
+        <div>
+            <label>Âge</label>
+            <input type="text" name="Age_Partenaire" id="age_tierce" readonly>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Votre Question</label>
+        <textarea name="Question" required style="height: 120px;"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Temporalité souhaitée</label>
+        <select name="Temporalité" required>
+            <option value="" disabled selected>-- Choisissez --</option>
+            <option value="3 mois">3 mois</option>
+            <option value="6 mois">6 mois</option>
+            <option value="1 an">1 an</option>
+            <option value="Dans l'année en cours">Dans l'année en cours</option>
+            <option value="2 ans">2 ans</option>
+            <option value="3 ans">3 ans</option>
+            <option value="Non applicable">Non applicable</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Méthode de réception de la réponse</label>
+        <select name="methode_reception" id="methode_reception" required onchange="updateView()">
+            <option value="" disabled selected>-- Choisissez --</option>
+            <option value="email">Directement par réponse email</option>
+            <option value="site">Via le site avec code et ID</option>
+        </select>
         
-        <div class="form-group">
-            <label>Votre Prénom</label>
-            <input type="text" name="Prénom" required>
+        <div id="descMail" class="info-box">
+          Vous allez recevoir un e-mail de confirmation indiquant que votre demande est bien enregistrée. Votre tirage vous sera ensuite envoyé directement par e-mail dès qu'il sera traité.
         </div>
-
-        <div class="flex-row form-group">
-            <div>
-                <label>Votre Date de naissance</label>
-                <input type="date" name="Date_Naissance" id="date_client" required onchange="calculerAge('date_client', 'age_client')">
-            </div>
-            <div>
-                <label>Âge</label>
-                <input type="text" name="Age" id="age_client" readonly>
-            </div>
+        <div id="descSite" class="info-box">
+          Vous allez recevoir par e-mail vos codes d'accès (ID et Code secret). Un second e-mail vous sera envoyé automatiquement dès que votre tirage sera disponible pour consultation sur notre espace de suivi.
         </div>
-        
-        <div class="form-group">
-            <label>Votre Email</label>
-            <input type="email" name="Email" required>
-        </div>
+    </div>
 
-        <div class="form-group">
-            <label>Prénom personne tierce (facultatif)</label>
-            <input type="text" name="Prénom_Partenaire">
-        </div>
+    <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
 
-        <div class="flex-row form-group">
-            <div>
-                <label>Date de naissance tierce (facultatif)</label>
-                <input type="date" name="Date_Naissance_Partenaire" id="date_tierce" onchange="calculerAge('date_tierce', 'age_tierce')">
-            </div>
-            <div>
-                <label>Âge</label>
-                <input type="text" name="Age_Partenaire" id="age_tierce" readonly>
-            </div>
-        </div>
+    <!-- Honeypot anti-bot : invisible pour les visiteurs -->
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
 
-        <div class="form-group">
-            <label>Votre Question</label>
-            <textarea name="Question" required style="height: 120px;"></textarea>
-        </div>
+    <button type="submit" id="submitBtn">Transmettre ma demande</button>
+</form>
+<div id="status"></div>
+```
 
-        <div class="form-group">
-            <label>Temporalité souhaitée</label>
-            <select name="Temporalité" required>
-                <option value="" disabled selected>-- Choisissez --</option>
-                <option value="3 mois">3 mois</option>
-                <option value="6 mois">6 mois</option>
-                <option value="1 an">1 an</option>
-                <option value="Dans l'année en cours">Dans l'année en cours</option>
-                <option value="2 ans">2 ans</option>
-                <option value="3 ans">3 ans</option>
-                <option value="Non applicable">Non applicable</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Méthode de réception de la réponse</label>
-            <select name="methode_reception" id="methode_reception" required onchange="updateView()">
-                <option value="" disabled selected>-- Choisissez --</option>
-                <option value="email">Directement par réponse email</option>
-                <option value="site">Via le site avec code et ID</option>
-            </select>
-            
-            <div id="descMail" class="info-box">
-              Vous allez recevoir un e-mail de confirmation indiquant que votre demande est bien enregistrée. Votre tirage vous sera ensuite envoyé directement par e-mail dès qu'il sera traité.
-            </div>
-            <div id="descSite" class="info-box">
-              Vous allez recevoir par e-mail vos codes d'accès (ID et Code secret). Un second e-mail vous sera envoyé automatiquement dès que votre tirage sera disponible pour consultation sur notre espace de suivi.
-            </div>
-        </div>
-
-        <input type="hidden" name="copie_mail" id="copie_mail_hidden" value="off">
-
-        <button type="submit" id="submitBtn">Transmettre ma demande</button>
-    </form>
-    <div id="status"></div>
 </div>
 
 <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZWo6QHG4g3HrI5aFqabLlupVp0TZuEhB9w9oZTQfZ75bDuAfAsl-TdltFQDd2Bkwj0Q/exec'; 
+
+    // Protection anti-bot : heure de chargement de la page
+    const pageLoadTime = Date.now();
 
     function updateView() {
         const choix = document.getElementById('methode_reception').value;
@@ -185,6 +198,18 @@
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        // Protection anti-bot : honeypot
+        const honeypot = form.querySelector('input[name="website"]');
+        if (honeypot && honeypot.value.trim() !== '') {
+            return;
+        }
+
+        // Protection anti-bot : délai minimum de 4 secondes
+        if (Date.now() - pageLoadTime < 4000) {
+            return;
+        }
+
         submitBtn.disabled = true;
         submitBtn.innerText = "Envoi en cours...";
         
@@ -237,5 +262,6 @@
         });
     });
 </script>
+
 </body>
 </html>
