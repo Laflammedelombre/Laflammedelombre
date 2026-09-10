@@ -442,7 +442,7 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}input,se
 <div class="modal-backdrop" id="editBookModal"><div class="modal"><div class="modal-head"><h3>✏️ Corriger les infos du livre</h3><button class="close" onclick="closeModal('editBookModal')">×</button></div><div id="editBookBody" style="margin-top:20px"></div></div></div>
 <div class="modal-backdrop" id="statusModal"><div class="modal"><div class="modal-head"><h3>⚙️ Modifier le statut</h3><button class="close" onclick="closeModal('statusModal')">×</button></div><div id="statusModalBody" style="margin-top:20px"></div></div></div>
 
-<div class="modal-backdrop" id="loanModal"><div class="modal"><div class="modal-head"><h3>📬 Prêter ce livre</h3><button class="close" onclick="closeModal('loanModal')">×</button></div>
+<div class="modal-backdrop" id="loanModal"><div class="modal"><div class="modal-head"><h3>📬 Prêter ce livre</h3><button class="close" onclick="closeModal('loanModal')">📬</button></div>
 <div style="margin-top:15px">
 <input type="hidden" id="loanBookId">
 <div><label>À qui prêtes-tu ce livre ? *</label><input id="loanPerson" placeholder="Ex : Marie, Thomas..."></div><br>
@@ -586,6 +586,7 @@ function showPageName(id){
 function getBook(id){return state.books.find(b=>String(b.id)===String(id))}
 function currentBooks(){return state.books.filter(b=>b.status==='En cours')}
 
+/* CALCUL DE LA DATE DE FIN PROJETÉE */
 function getProjectedCompletionDate(book) {
   if (!book || !book.pages || book.pages <= 0) return null;
   const remainingPages = book.pages - (book.currentPage || 0);
