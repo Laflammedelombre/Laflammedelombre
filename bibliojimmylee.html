@@ -696,6 +696,7 @@ function formatTimeFr(timeStr){
   if(!timeStr) return '—';
   const str = String(timeStr).trim();
 
+  // Si c'est un format ISO Google Sheets complet
   if (str.includes('T')) {
     const timePart = str.split('T')[1].replace('Z', '').split('.')[0];
     const parts = timePart.split(':');
@@ -1656,11 +1657,12 @@ function renderAnalytics(){
 
     if (s.startTime) {
       let h = -1;
-      if (s.startTime.includes('T')) {
-        const d = new Date(s.startTime);
-        if (!isNaN(d.getTime())) h = d.getHours();
+      const str = String(s.startTime).trim();
+      if (str.includes('T')) {
+        const timePart = str.split('T')[1].replace('Z', '');
+        h = parseInt(timePart.split(':')[0], 10);
       } else {
-        h = parseInt(s.startTime.split(':')[0], 10);
+        h = parseInt(str.split(':')[0], 10);
       }
       if (!isNaN(h) && h >= 0 && h < 24) hourBuckets[h] += p;
     }
@@ -1669,11 +1671,19 @@ function renderAnalytics(){
       const d = new Date(s.date);
       if (!isNaN(d.getTime())) {
         dayBuckets[d.getDay()] += 1;
-        const m = d.getMonth();
-        if (m === 11 || m === 0 || m === 1) seasonsBuckets['Hiver ❄️'] += p;
-        else if (m >= 2 && m <= 4) seasonsBuckets['Printemps 🌸'] += p;
-        else if (m >= 5 && m <= 7) seasonsBuckets['Été ☀️'] += p;
-        else seasonsBuckets['Automne 🍂'] += p;
+        const m = d.getMonth() + 1; // 1-12
+        const day = d.getDate();    // 1-31
+
+        // Calcul astronomique exact au jour près
+        if ((m === 3 && day >= 21) || m === 4 || m === 5 || (m === 6 && day <= 20)) {
+          seasonsBuckets['Printemps 🌸'] += p;
+        } else if ((m === 6 && day >= 21) || m === 7 || m === 8 || (m === 9 && day <= 20)) {
+          seasonsBuckets['Été ☀️'] += p;
+        } else if ((m === 9 && day >= 21) || m === 10 || m === 11 || (m === 12 && day <= 20)) {
+          seasonsBuckets['Automne 🍂'] += p;
+        } else {
+          seasonsBuckets['Hiver ❄️'] += p;
+        }
       }
     }
   });
